@@ -1,0 +1,183 @@
+                                                                                             
+!       _|      _|        _|                _|_|                      _|    _|                
+!         _|  _|      _|_|_|    _|_|      _|        _|_|_|  _|    _|  _|  _|_|_|_|    _|_|_|  
+!           _|      _|    _|  _|_|_|_|  _|_|_|_|  _|    _|  _|    _|  _|    _|      _|_|      
+!         _|  _|    _|    _|  _|          _|      _|    _|  _|    _|  _|    _|          _|_|  
+!       _|      _|    _|_|_|    _|_|_|    _|        _|_|_|    _|_|_|  _|      _|_|  _|_|_|    
+
+
+
+!                                   __   ___                      
+!                                   \ \ / / |                     
+!                                    \ V /| |_ ___ _ __ _ __ ___  
+!                                    /   \| __/ _ \ '__| '_ ` _ \ 
+!                                   / /^\ \ ||  __/ |  | | | | | |
+!                                   \/   \/\__\___|_|  |_| |_| |_|
+                                                                 
+XTerm*faceName: Monospace
+XTerm*faceSize: 17
+XTerm*saveLines: 16384
+XTerm*geometry: 100x25-500+400
+XTerm*VT100*translations: #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
+XTerm*VT100*translations: #override Shift <Btn1Up>: exec-formatted("chromium '%t'", PRIMARY)
+XTerm*boldMode: false
+XTerm*allowBoldFonts: false
+XTerm*background: #181818
+XTerm*foreground: #ffffff
+
+!                                     _   _                  _   
+!                                    | | | |                | |  
+!                                    | | | |_ ____  ____   _| |_ 
+!                                    | | | |  __\ \/ /\ \ / / __|
+!                                    | |_| | |   >  <  \ V /| |_ 
+!                                     \___/|_|  /_/\_\  \_/  \__|
+
+URxvt.letterSpace: -2
+URxvt.buffered: true 
+URxvt.cursorColor: #ffffff
+URxvt.cursorUnderline: true
+URxvt.cursorBlink: true 
+URxvt*urgentOnBell: true
+URxvt.lineSpace: 0
+! URxvt*scrollBar_right: false
+URxvt*scrollBar: false
+URxvt*saveLines: 12000
+! URxvt*font:  -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
+URxvt*font: xft:Monospace:pixelsize=17
+! URxvt*font: -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
+URxvt.boldFont:
+URxvt*skipBuiltinGlyphs: true
+URxvt*borderLess: false
+!Urxvt*background: #1F1F1F
+!Urxvt*foreground: #bea492
+URxvt*cursorColor: #FFFFFF
+URxvt*cursorColor2: #FFFFFF
+URxvt*pointerBlank: true
+URxvt*pointerBlankDelay: 4
+URxvt*pointerColor: #FFFFFF 
+URxvt*pointerColor2: #FFFFFF
+URxvt.depth: 24
+! --  Extensions -- !
+URxvt.perl-ext-common:     matcher,keyboard-select,url-select,clipboard
+URxvt.keysym.C-Escape:     perl:keyboard-select:activate
+URxvt.keysym.M-u:          perl:url-select:select_next
+URxvt.keysym.M-s:          perl:keyboard-select:search
+URxvt.keysym.M-c:          perl:clipboard:copy_escaped  
+!URxvt.keysym.C-b:          perl:clipboard:paste_escaped
+URxvt.keysym.C-b:        perl:clipboard:paste
+URxvt.matcher.rend.0:      -Uline fg16
+URxvt.matcher.button:      1
+URxvt.keysym.M-2:	perl:font-size:increase
+URxvt.keysym.M-3:   perl:font-size:decrease
+URxvt.url-launcher: /usr/bin/chromium
+URxvt.matcher.button: 1
+
+
+URxvt.clipboard.copycmd: xsel -psb
+URxvt.clipboard.pastecmd: xsel -ob
+URxvt.clipboard.autocopy: true
+
+URxvt.urlLauncher: chromium
+URxvt.intensityStyles: false
+
+!                                 _____                           _ 
+!                                |  __ \                         | |
+!                                | |  \/ ___ _ __   ___ _ __ __ _| |
+!                                | | __ / _ \ '_ \ / _ \ '__/ _` | |
+!                                | |_\ \  __/ | | |  __/ | | (_| | |
+!                                 \____/\___|_| |_|\___|_|  \__,_|_|
+!
+
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting:  true
+Xft.hintstyle:  hintfull
+Xft.rgba: none 
+Xft:unifont:medium
+
+!*.background: #181818
+!*foreground: #EDE9E2
+!
+!!black
+!*color0:#4A3637
+!*color8:#4A3637
+!
+!!
+!!red
+!*color1:#853A3E
+!*color9:#853A3E
+!
+!!*color1:#AE4544
+!!*color9:#AE4544
+!
+!!*color1:#d17b49
+!!*color9:#d17b49
+!
+!!green
+!*color2:#7b8748
+!*color10:#7b8748
+!
+!!yellow
+!*color3:#af865a
+!*color11:#af865a
+!
+!!blue
+!*color4:#535C5C
+!*color12:#535C5C
+!
+!!magenta
+!*color5:#775759
+!*color13:#775759
+!
+!!cyan
+!*color6:#6d715e
+!*color14:#6d715e
+!
+!!white
+!*color7:#c0b18b
+!*color15:#c0b18b
+!
+!
+!
+!
+!
+!
+! Erosion theme by earsplit
+! special
+*.foreground:   #bea492
+*.background:   #181512
+*.cursorColor:  #bea492
+
+! black
+*.color0:       #332d29
+*.color8:       #817267
+
+! red
+*.color1:       #8c644c
+*.color9:       #9f7155
+
+! green
+*.color2:       #746c48
+*.color10:      #857b52
+
+! yellow
+*.color3:       #908a66
+*.color11:      #9c956e
+
+! blue
+*.color4:       #646a6d
+*.color12:      #71777a
+
+! magenta
+*.color5:       #605655
+*.color13:      #656565
+
+! cyan
+*.color6:       #4b5c5e
+*.color14:      #556d70
+
+! white
+*.color7:       #504339
+*.color15:      #9a875f
+
+!#include "/home/x/.colors/erosionbright"

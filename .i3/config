@@ -1,0 +1,230 @@
+
+#              _|  _|_|_|                                          _|_|  _|            
+#                        _|        _|_|_|    _|_|    _|_|_|      _|            _|_|_|  
+#              _|    _|_|        _|        _|    _|  _|    _|  _|_|_|_|  _|  _|    _|  
+#              _|        _|      _|        _|    _|  _|    _|    _|      _|  _|    _|  
+#              _|  _|_|_|          _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|  
+#                                                                                  _|  
+#                                                                              _|_|    
+
+exec --no-startup-id bash -c "sleep 20 && mv /home/x/Downloads/* /home/x/Downloads/old"
+exec --no-startup-id bash -c "sleep 15 && conky -c /home/x/.conky/dict"
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && conky -c /home/x/.conky/irc'
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && conky -c /home/x/.conky/mail'
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && conky -c /home/x/.conky/news'
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && conky -c /home/x/.conky/log'
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && conky -c /home/x/.conky/wiki'
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && conky -c /home/x/.conky/conkyrc_grey'
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && sh ~/.i3/status.sh'
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && sh ~/scripts/git_autopull.sh'
+exec --no-startup-id bash -c "sleep 20 && xset -dpms; xset s off"
+exec --no-startup-id bash -c "nvidia-settings --assign [gpu:0]/GPUFanControlState=1 && nvidia-settings -a [fan:0]/GPUCurrentFanSpeed=35"
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 &&                                                       notify-send --urgency=critical "$(python /home/x/scripts/archnews -d 3 )"'
+
+exec --no-startup-id pulseaudio --start 
+exec --no-startup-id xrdb ~/.Xdefaults
+exec --no-startup-id xrdb ~/.Xresources
+exec --no-startup-id setxkbmap de 
+exec --no-startup-id dropboxd 
+exec --no-startup-id compton -b
+exec --no-startup-id i3-msg 'workspace 2: www; exec chromium'
+exec --no-startup-id i3-msg 'workspace 4: media;exec urxvt -e ranger;split h;exec vlc;'       
+exec --no-startup-id xinput --set-prop 9 'Device Accel Constant Deceleration' 3
+exec --no-startup-id xset mouse 3 6
+exec --no-startup-id i3-msg 'workspace 1: desk; exec urxvt -name weechat -e weechat; workspace 2: www'
+#exec --no-startup-id 'workspace 9: vim; exec urxvt -e vim --servername VIM' 
+
+for_window [class="(?i)gcolor2"] floating enable
+for_window [class="(?i)deja"] floating enable, border none
+for_window [class="(?i)xsane"] floating enable
+for_window [class="(?i)guake"] floating enable
+for_window [class="(?i)truecrypt"] floating enable
+for_window [class="(?i)keepass"] floating enable
+for_window [class="(?i)skype"] floating enable
+for_window [class="(?i)pavucontrol"] floating enable
+for_window [class="(?i)gadmin-proftp"] floating enable
+for_window [class="(?i)chromium"] border none 
+for_window [class="(?i)thunar"] floating enable
+for_window [instance="^weechat$"] floating enable
+for_window [instance="^weechat$"] move absolute position 750 600
+for_window [instance="^weechat$"] resize shrink width 50 px or 50 ppt
+for_window [instance="^weechat$"] resize shrink height 50 px or 50 ppt
+for_window [instance="^weechat$"] border none
+for_window [class="(?i)thunderbird"] move container to workspace 5: mail
+for_window [class="URxvt" instance="ranger"] border normal, floating enable
+
+# Correct handling of dialogs
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="about"] floating enable
+for_window [title="Preferences$"] floating enable
+
+# Assignemts
+assign [class="(?i)chromium"] → 2: www
+assign [class="(?i)vlc"] → 4: media
+assign [class="(?i)thunderbird"] → 5: mail
+assign [class="(?i)mutt"] → 5: mail
+assign [class="(?i)skype"] → 7: chat
+
+bindsym $mod+w exec chromium
+bindsym $mod+e exec thunar
+bindsym F3 exec urxvt -e vim /home/datadisk/Dropbox/Dropbox/chess
+bindsym F7 exec InstantPlayer /home/x/Git/VirtualReality/Exercise02/HumanModel01/human.x3d
+bindsym F8 exec mpc toggle
+bindsym F9 exec guake 
+bindsym F12 exec /usr/bin/pulseaudio-ctl up
+bindsym F11 exec /usr/bin/pulseaudio-ctl down
+bindsym F10 exec /usr/bin/pulseaudio-ctl mute
+bindsym Shift+XF86Tools exec zscreen
+bindsym $mod+m [class="Chromium"] focus
+#bindsym $mod+F2 exec python2 ~/scripts/winmenu.py
+bindsym $mod+F2 exec j4-dmenu-desktop   
+bindsym F2 exec j4-dmenu-desktop   
+bindsym $mod+b exec python ~/scripts/nextmatch.py vim
+bindsym XF86Eject exec urxvt -e ncmpcpp
+#bindsym $mod+n exec bash -c "python /home/x/scripts/focus-last.py --switch"
+bindsym $mod+n workspace back_and_forth
+bindsym $mod+p border 1pixel
+bindsym $mod+u [urgent=latest] focus
+# Specific terminal rules
+
+client.background #342826 
+new_window normal
+new_float normal
+workspace_layout tabbed
+
+set $mod Mod4
+
+font -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec urxvt #xterm #i3-sensible-terminal
+
+# kill focused window
+bindsym Control+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d workspace next
+bindsym $mod+a workspace prev
+
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus left
+bindsym $mod+colon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left workspace prev
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right workspace next
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+Shift+w layout tabbed
+bindsym $mod+Shift+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space focus mode_toggle
+bindsym $mod+space floating toggle
+
+
+# change focus between tiling / floating windows
+#bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+#bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# switch to workspace
+bindsym $mod+1 workspace 1: desk
+bindsym $mod+2 workspace 2: www
+bindsym $mod+3 workspace 3: term
+bindsym $mod+4 workspace 4: media
+bindsym $mod+5 workspace 5: mail
+bindsym $mod+6 workspace 6: dev
+bindsym $mod+7 workspace 7: chat
+bindsym $mod+8 workspace 8: net 
+bindsym $mod+9 workspace 9: vim
+bindsym $mod+0 workspace 10: ten
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1: desk
+bindsym $mod+Shift+2 move container to workspace 2: www
+bindsym $mod+Shift+3 move container to workspace 3: term
+bindsym $mod+Shift+4 move container to workspace 4: media
+bindsym $mod+Shift+5 move container to workspace 5: mail
+bindsym $mod+Shift+6 move container to workspace 6: dev
+bindsym $mod+Shift+7 move container to workspace 7: chat
+bindsym $mod+Shift+8 move container to workspace 8: net
+bindsym $mod+Shift+9 move container to workspace 9: vim
+bindsym $mod+Shift+0 move container to workspace 10: ten
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+  bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
+
+# same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+# back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    status_command i3status -c ~/.i3/i3status.conf
+    colors {
+        statusline  #CCCCCC
+        background  #181512
+    }
+    position top
+    font -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
+    # font -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
+}

@@ -1,0 +1,4 @@
+Xcursor.theme: DMZ-White
+URxvt.scrollBar: false
+*TkTheme: clearlooks
+URxvt.intensityStyles: false

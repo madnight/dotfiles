@@ -10,8 +10,13 @@ filetype indent plugin on
 syntax on
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'Chiel92/vim-autoformat'
+Bundle 'croaky/vim-colors-github'
 call vundle#end()            
 filetype plugin indent on    
+
+let g:formatprg_js = "js-beautify"
+let g:formatprg_args_js = "-i %@"
 
 set hidden
 set wildmenu
@@ -19,6 +24,8 @@ set showcmd
 set hlsearch
 set ignorecase
 set smartcase
+set smartindent
+set autoindent
 set backspace=indent,eol,start
 set si
 set nostartofline
@@ -32,6 +39,7 @@ set cmdheight=2
 set notimeout ttimeout ttimeoutlen=200
 set pastetoggle=<F11>
 set shiftwidth=2
+set tw=4
 set softtabstop=2
 set expandtab
 set formatoptions=l
@@ -128,12 +136,14 @@ highlight LineNr ctermfg=236
 " Nice window title
 
 if has("gui_running")
-  "" set guifont=Monaco\ 13
-  set guifont=Ubuntu\ Mono\ 15
-  ""  set guifont=Consolas\ 15
+""  set guifont=Monaco\ 13
+"J"  set guifont=Inconsolata-g\ 15
+  ""  set guifont=Ubuntu\ Mono\ 15
+   set guifont=Consolas\ 15
   ""set guifont=Monospace\ 13
-  ""  colorscheme molokai
-  colorscheme twilight
+  ""    colorscheme molokai
+  ""colorscheme twilight
+  colorscheme github
   set guioptions-=T
   set guicursor=a:blinkon0 
   set guioptions-=m

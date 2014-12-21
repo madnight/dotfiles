@@ -27,53 +27,13 @@ if [ "$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed '
   echo -e -n "\x1b[\x36 q" # changes to steady bar
 fi
 
+# File not found hook: https://wiki.archlinux.org/index.php/Pkgfile
+source /usr/share/doc/pkgfile/command-not-found.zsh
 # Syntax Highlighting (Green/Yellow/Red) Colors for Bash Commands
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/git/completion/git-prompt.sh
 source ~/.zshrc_priv
-
-
-#if [ "$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')" = xterm ]; then 
-#  color00="d0/d0/d0" # Base 00 - Black
-#  color01="ac/41/42" # Base 08 - Red
-#  color02="90/a9/59" # Base 0B - Green
-#  color03="f4/bf/75" # Base 0A - Yellow
-#  color04="6a/9f/b5" # Base 0D - Blue
-#  color05="aa/75/9f" # Base 0E - Magenta
-#  color06="75/b5/aa" # Base 0C - Cyan
-#  color07="d0/d0/d0" # Base 05 - White
-#  color08="50/50/50" # Base 03 - Bright Black
-#  color09=$color01   # Base 08 - Bright Red
-#  color10=$color02   # Base 0B - Bright Green
-#  color11=$color03   # Base 0A - Bright Yellow
-#  color12=$color04   # Base 0D - Bright Blue
-#  color13=$color05   # Base 0E - Bright Magenta
-#  color14=$color06   # Base 0C - Bright Cyan
-#  color15="f5/f5/f5" # Base 07 - Bright White
-#  color16="d2/84/45" # Base 09
-#  color17="8f/55/36" # Base 0F
-#  color18="20/20/20" # Base 01
-#  color19="30/30/30" # Base 02
-#  color20="b0/b0/b0" # Base 04
-#  color21="e0/e0/e0" # Base 06
-
-# 16 color space
-#  printf "\e]4;0;rgb:$color00\e\\"
-#  printf "\e]4;1;rgb:$color01\e\\"
-#  printf "\e]4;2;rgb:$color02\e\\"
-#  printf "\e]4;3;rgb:$color03\e\\"
-#  printf "\e]4;4;rgb:$color04\e\\"
-#  printf "\e]4;5;rgb:$color05\e\\"
-#  printf "\e]4;6;rgb:$color06\e\\"
-#  printf "\e]4;7;rgb:$color07\e\\"
-#  printf "\e]4;8;rgb:$color08\e\\"
-#  printf "\e]4;9;rgb:$color09\e\\"
-#  printf "\e]4;10;rgb:$color10\e\\"
-#  printf "\e]4;11;rgb:$color11\e\\"
-#  printf "\e]4;12;rgb:$color12\e\\"
-#  printf "\e]4;13;rgb:$color13\e\\"
-#  printf "\e]4;14;rgb:$color14\e\\"
-#  printf "\e]4;15;rgb:$color15\e\\"
-#fi
+#PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
 
 alias ll='ls -alF'
 alias la='ls -A'
@@ -101,13 +61,10 @@ alias history='history 1'
 alias x='xrandr --display :0 --output DVI-I-3 --auto'
 alias archey='archey3'
 alias cdd='cd /home/datadisk/Download'
-alias ge='geany'
 alias parallel='parallel --no-notice'
 alias stresstest='parallel ::: "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999"'
 alias shutdown='s shutdown -h now'
 alias vlcp='vlc *.mkv'
-alias cp='cp -avr'
-#alias cp='echo use pv instead!!! example: "pv source.jpg > /folder/target.jpg"'
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -121,7 +78,6 @@ alias eb="vim /home/x/.zshrc"
 alias e="extract"
 alias listp="pacman -Qit | grep 'Name\|Description\|Required By\|Depends On\|Build Date\|Install Date\|Install Reason\|^$'"
 alias listpall="pacman -Qi | grep 'Name\|Description\|Required By\|Depends On\|Build Date\|Install Date\|Install Reason\|^$'"
-alias copy='clip'
 alias hc='herbstclient'
 alias k='killall -9'
 alias bbc1='nvlc ~/Radio/bbc1.pls'
@@ -130,7 +86,7 @@ alias cpu-z="inxi -F"
 alias cpuz="inxi -F"
 alias xchat="LANGUAGE=en_US.UTF-8:en:de_DE.UTF-8:de xchat"
 alias crc="conky -c /home/x/.conky/conkyrc_grey &"
-alias chess="parallel ::: 'geany /home/datadisk/Dropbox/Dropbox/chess' 'sleep 0.8 && wmctrl -r chess -e 0,200,150,1520,800'"
+alias chess="parallel ::: 'vim /home/datadisk/Dropbox/Dropbox/chess' 'sleep 0.8 && wmctrl -r chess -e 0,200,150,1520,800'"
 alias run="dmenu_run"
 alias cp='cp -i'
 alias mv='mv -i'
@@ -182,8 +138,17 @@ alias rmspaces="rename ' ' '_' * && rename ' ' '_' * rename ' ' '_' * && rename 
 alias web='cd /home/x/Git/Cornamix/http/'
 alias image='ristretto'
 alias img='ristretto'
-#alias vim='vim --remote-tab'
+alias copy='rsync -avh -progress'
+alias cp='acp -g'
+alias mv='amv -g'
+alias moveup='mv * .[^.]* ..'
+alias fonts='xlsfonts'
+alias fc-list='xlsfonts'
 alias grep="/usr/bin/grep $GREP_OPTIONS"
+alias md5='md5sum'
+alias hash='md5sum'
+#alias vim='vim --remote-tab'
+
 unset GREP_OPTIONS
 
 export ARCHFLAGS="-arch x86_64"
@@ -192,6 +157,7 @@ export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndF
 export JAVA_FONTS=/usr/share/fonts/TTF
 export LANGUAGE=en_US.UTF-8:en
 export EDITOR="vim"
+export BROWSER="chromium"
 export SHELL=/usr/bin/zsh
 export TCLLIBPATH=~/.local/share/tktheme
 
@@ -208,6 +174,7 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
   exec startx
 fi
 
+# systemd shortcuts
 start() { sudo systemctl start $1.service; sudo systemctl status $1.service; }
 stop() { sudo systemctl stop $1.service; sudo systemctl status $1.service; }
 restart() { sudo systemctl restart $1.service; sudo systemctl status $1.service; }
@@ -215,124 +182,64 @@ status() { sudo systemctl status $1.service; }
 enabled() { sudo systemctl enable $1.service;  }
 disabled() { sudo systemctl disable $1.service;  }
 
-grepp() 
-{ 
-  [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2";
-}
+# one-liners
+grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2"; }
 
-statusdd () 
-{ 
-  watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; 
-}
+statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
 
-cl() 
-{ 
-  cd $1 && pwd && ls; 
-}
+cl() { cd $1 && pwd && ls; }
 
-google() 
-{ 
-  chromium "http://www.google.com/search?q= $1"; 
-}
+google() { chromium "http://www.google.com/search?q= $1"; }
 
-t() 
-{ 
-  dict -d fd-eng-deu $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; 
-}
+t() { dict -d fd-eng-deu $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; } 
 
-rt() 
-{ 
-  dict -d fd-deu-eng $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; 
-}
+rt() { dict -d fd-deu-eng $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; }
+
+cd() { builtin cd $1 && ls }
+
+facd() { cd $(fa $1 | head -n 1) }
+
+fan() { nano $(fa $1 | head -n 1) }
+
+sfan() { sudo vim $(fa $1 | head -n 1) }
+
+maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
+
+makezip() { zip -r "${1%%/}.zip" "$1" ; }
+
+pkgfiler() { pacman -Ql $1 | grep bin }
+
+f() { find $(pwd) | grep $1 }
+
+h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi }
+
+clip() { echo "$@" | xclip }
+
+256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
 
 pagrep() {
   [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
   find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
-
 }
 
-256color() {
-  for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done
+function cpstat() {
+local pid="${1:-$(pgrep -xn cp)}" src dst
+[[ "$pid" ]] || return
+while [[ -f "/proc/$pid/fd/3" ]]; do
+  read src dst < <(stat -L --printf '%s ' "/proc/$pid/fd/"{3,4})
+  (( src )) || break
+  printf 'cp %d%%\r' $((dst*100/src))
+  sleep 1
+done
+echo
 }
 
-x() {
-  if [[ -f "$1" ]]; then
-    case "$1" in
-      *.tar.lrz)
-        b=$(basename "$1" .tar.lrz)
-        lrztar -d "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.lrz)
-        b=$(basename "$1" .lrz)
-        lrunzip "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.tar.bz2)
-        b=$(basename "$1" .tar.bz2)
-        tar xjf "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.bz2)
-        b=$(basename "$1" .bz2)
-        bunzip2 "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.tar.gz)
-        b=$(basename "$1" .tar.gz)
-        tar xzf "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.gz)
-        b=$(basename "$1" .gz)
-        gunzip "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.tar.xz)
-        b=$(basename "$1" .tar.xz)
-        tar Jxf "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.xz)
-        b=$(basename "$1" .gz)
-        xz -d "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.rar)
-        b=$(basename "$1" .rar)
-        unrar e "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.tar)
-        b=$(basename "$1" .tar)
-        tar xf "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.tbz2)
-        b=$(basename "$1" .tbz2)
-        tar xjf "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.tgz)
-        b=$(basename "$1" .tgz)
-        tar xzf "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.zip)
-        b=$(basename "$1" .zip)
-        unzip "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.Z)
-        b=$(basename "$1" .Z)
-        uncompress "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *.7z)
-        b=$(basename "$1" .7z)
-        7z x "$1" && [[ -d "$b" ]] && cd "$b" ;;
-      *) echo "don't know how to extract '$1'..." && return 1;;
-    esac
-    return 0
-  else
-    echo "'$1' is not a valid file!"
-    return 1
-  fi
-}
-
-analyse() 
-{
+analyse() {
   xdotool search --desktop 0 "Xboard" key ctrl+shift+c && /home/x/Chess/stocktest "$(xclip -o)" | grep ponder | head -1 | awk '{print $ 2}' | xclip && xdotool search --desktop 0 "Xboard" key $(xclip -o | cut -c1-1) && sleep 0.2 && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c2-2) && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c3-3) && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c4-4) && xdotool search --desktop 0 "Type a" key Return
 }
 
-f() 
-{
-  find $(pwd) | grep $1
-}
 
-h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi; }
-
-
-clip() 
-{
-  echo "$@" | xclip
-}
-
-
-lastdir()
-{
+lastdir() {
   last_dir="$(ls -Frt | grep '/$' | tail -n1)"
   if [ -d "$last_dir" ]; then
     cd "$last_dir"
@@ -348,16 +255,14 @@ csource() {
   return 0;
 }
 
-cycle()
-{
+cycle() {
   last_dir="$(ls -Frt | grep '/$' | tail -n1)"
   if [ -d "$last_dir" ]; then
     cd "$last_dir"
   fi
 }
 
-extract () 
-{
+extract () {
   if [ -f $1 ] ; then
     case $1 in
       *.tar.bz2)   tar xvjf $1    ;;
@@ -379,9 +284,21 @@ extract ()
   fi
 }
 
+format () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.js)     js-beautify $1 > beauty$1   ;;
+      *.html)   tidy $1 > beauty$1   ;;
+      *)           echo "don't know how to extract '$1'..." ;;
+    esac
+    rm $1;
+    mv beauty$1 $1;
+  else
+    echo "'$1' is not a valid file!"
+  fi
+}
 
-colortest()
-{
+colortest() {
   T='gYw'   # The test text
 
   echo -e "\n                 40m     41m     42m     43m\
@@ -400,8 +317,7 @@ done
 echo
 }
 
-conf() 
-{
+conf() {
   case $1 in
     dict)          	vim ~/.conky/dict ;;
     weather)       	vim ~/.conky/conky_weather/weather_5days ;;
@@ -423,13 +339,13 @@ conf()
     mutt)               vim ~/.mutt/muttrc;;
     x)                  vim ~/.xinitrc;;
     mpd)                sudo vim /etc/mpd.conf;;
+    termite)            vim ~/.config/termite/config;;
     *)                  echo "Unknown application: $1" ;;
   esac
 }
 
 
-conk() 
-{
+conk() {
   case $1 in
     dict)          	conky -c ~/.conky/dict &;;
     mail)          	conky -c ~/.conky/mail &;;
@@ -444,8 +360,7 @@ conk()
 }
 
 
-orphans() 
-{
+orphans() {
   if [[ ! -n $(pacman -Qdt) ]]; then
     echo "No orphans to remove."
   else
@@ -454,67 +369,30 @@ orphans()
 }
 
 
-function repeat()     
-{
-  local i max
-  max=$1; shift;
-  for ((i=1; i <= max ; i++)); do  # --> C-like syntax
-    eval "$@";
-  done
+function repeat() {
+local i max
+max=$1; shift;
+for ((i=1; i <= max ; i++)); do  # --> C-like syntax
+  eval "$@";
+done
 }
 
-function tex()
-{
-  pdf=$(echo $1 | sed 's/tex/pdf/g')
-  log=$(echo $1 | sed 's/tex/log/g')
-  out=$(echo $1 | sed 's/tex/out/g')
-  aux=$(echo $1 | sed 's/tex/aux/g')
-  pdflatex $1 && rm $log; rm $out; rm $aux; mupdf $pdf
+function tex() {
+pdf=$(echo $1 | sed 's/tex/pdf/g')
+log=$(echo $1 | sed 's/tex/log/g')
+out=$(echo $1 | sed 's/tex/out/g')
+aux=$(echo $1 | sed 's/tex/aux/g')
+pdflatex $1 && rm $log; rm $out; rm $aux; mupdf $pdf
 }
 
 
-function cd()
-{
-  builtin cd $1 && ls
+function showdesk() {
+current_mode="$(wmctrl -m | grep 'showing the desktop')";
+if [[ "${current_mode##* }" == ON ]]; then
+  wmctrl -k off
+else
+  wmctrl -k on
+fi
 }
 
-function facd()
-{
-  cd $(fa $1 | head -n 1)
-}
-
-function fan()
-{
-  nano $(fa $1 | head -n 1)
-}
-
-function sfan()
-{
-  sudo nano $(fa $1 | head -n 1)
-}
-
-function showdesk()
-{
-  current_mode="$(wmctrl -m | grep 'showing the desktop')";
-  if [[ "${current_mode##* }" == ON ]]; then
-    wmctrl -k off
-  else
-    wmctrl -k on
-  fi
-}
-
-function maketar() 
-{ 
-  tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; 
-}
-
-function makezip() 
-{
-  zip -r "${1%%/}.zip" "$1" ; 
-}
-
-function pkgfiler() 
-{
-  pacman -Ql $1 | grep bin
-}
 

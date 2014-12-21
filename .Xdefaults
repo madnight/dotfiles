@@ -5,7 +5,7 @@
 !         _|  _|    _|    _|  _|          _|      _|    _|  _|    _|  _|    _|          _|_|  
 !       _|      _|    _|_|_|    _|_|_|    _|        _|_|_|    _|_|_|  _|      _|_|  _|_|_|    
 
-
+#include "/home/x/.colors/erosionbright"
 
 !                                   __   ___                      
 !                                   \ \ / / |                     
@@ -14,12 +14,12 @@
 !                                   / /^\ \ ||  __/ |  | | | | | |
 !                                   \/   \/\__\___|_|  |_| |_| |_|
                                                                  
-XTerm*faceName: Monospace
-XTerm*faceSize: 17
+XTerm*faceName: Consolas
+XTerm*faceSize: 18
 XTerm*saveLines: 16384
 XTerm*geometry: 100x25-500+400
 XTerm*VT100*translations: #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
-XTerm*VT100*translations: #override Shift <Btn1Up>: exec-formatted("chromium '%t'", PRIMARY)
+!XTerm*VT100*translations: #override Shift <Btn1Up>: exec-formatted("chromium '%t'", PRIMARY)
 XTerm*boldMode: false
 XTerm*allowBoldFonts: false
 XTerm*background: #181818
@@ -32,7 +32,7 @@ XTerm*foreground: #ffffff
 !                                    | |_| | |   >  <  \ V /| |_ 
 !                                     \___/|_|  /_/\_\  \_/  \__|
 
-URxvt.letterSpace: -2
+URxvt.letterSpace: -1
 URxvt.buffered: true 
 URxvt.cursorColor: #ffffff
 URxvt.cursorUnderline: true
@@ -43,9 +43,33 @@ URxvt.lineSpace: 0
 URxvt*scrollBar: false
 URxvt*saveLines: 12000
 ! URxvt*font:  -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
-URxvt*font: xft:Monospace:pixelsize=17
-! URxvt*font: -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
-URxvt.boldFont:
+! URxvt*font: xft:Monospace:pixelsize=17
+! URxvt.font: xft:Anonymous\ Pro-15
+! URxvt*font: xft:Monaco:pixelsize=16
+! URxvt*font: xft:Inconsolata:pixelsize=18:antialias=true
+! URxvt*font: xft:Inconsolata -g:style=g:pixelsize=18
+! Set some nice fonts.
+URxvt.depth:    32
+!URxvt.font: xft:Inconsolata-g:pixelsize=18
+URxvt.font: xft:Consolas:pixelsize=18
+!urxvt.font: \
+!    xft:Inconsolata-g:style=g:pixelsize=18:autohint=true, \
+!    xft:Inconsolata-g:style=g:pixelsize=18:autohint=true
+!urxvt.boldFont: \
+!    xft:Inconsolata-g:style=Bold:pixelsize=18:autohint=true, \
+!    xft:Inconsolata-g:style=Bold:pixelsize=18:autohint=true
+!urxvt.italicFont:
+!    xft:Inconsolata-g:style=Italic:pixelsize=18:autohint=true, \
+!    xft:Inconsolata-g:style=Italic:pixelsize=18:autohint=true
+!urxvt.boldItalicFont: \
+!    xft:Inconsolata-g:style=Bold:style=Italic:pixelsize=18:autohint=true, \
+!    xft:Inconsolata-g:style=Bold:style=Italic:pixelsize=18:autohint=true
+!! URxvt*font: xft:Inconsolata g Sans Mono:pixelsize=10
+! URxvt*font: xft:Ubuntu Mono:pixelsize=18
+! URxvt*font: xft:Consolas:pixelsize=18
+! URxvt*font: -misc-tamsyn-medium-r-normal--20-145-100-100-c-100-iso8859-1
+! URxvt*boldFont: -misc-tamsyn-bold-r-normal--20-145-100-100-c-100-iso8859-1 
+URxvt.boldFont: 
 URxvt*skipBuiltinGlyphs: true
 URxvt*borderLess: false
 !Urxvt*background: #1F1F1F
@@ -54,9 +78,9 @@ URxvt*cursorColor: #FFFFFF
 URxvt*cursorColor2: #FFFFFF
 URxvt*pointerBlank: true
 URxvt*pointerBlankDelay: 4
-URxvt*pointerColor: #FFFFFF 
+URxvt*pointerColor: #FFFFFF
 URxvt*pointerColor2: #FFFFFF
-URxvt.depth: 24
+! URxvt.depth: 24
 ! --  Extensions -- !
 URxvt.perl-ext-common:     matcher,keyboard-select,url-select,clipboard
 URxvt.keysym.C-Escape:     perl:keyboard-select:activate
@@ -70,7 +94,7 @@ URxvt.matcher.button:      1
 URxvt.keysym.M-2:	perl:font-size:increase
 URxvt.keysym.M-3:   perl:font-size:decrease
 URxvt.url-launcher: /usr/bin/chromium
-URxvt.matcher.button: 1
+! URxvt.matcher.button: 1
 
 
 URxvt.clipboard.copycmd: xsel -psb
@@ -180,4 +204,44 @@ Xft:unifont:medium
 *.color7:       #504339
 *.color15:      #9a875f
 
-!#include "/home/x/.colors/erosionbright"
+!
+
+! Erosion theme by earsplit
+! special
+XTerm*.foreground:   #bea492
+XTerm*.background:   #181512
+XTerm*.cursorColor:  #bea492
+
+! black
+XTerm*.color0:       #332d29
+XTerm*.color8:       #817267
+
+! red
+XTerm*.color1:       #8c644c
+XTerm*.color9:       #9f7155
+
+! green
+XTerm*.color2:       #746c48
+XTerm*.color10:      #857b52
+
+! yellow
+XTerm*.color3:       #908a66
+XTerm*.color11:      #9c956e
+
+! blue
+XTerm*.color4:       #646a6d
+XTerm*.color12:      #71777a
+
+! magenta
+XTerm*.color5:       #605655
+XTerm*.color13:      #656565
+
+! cyan
+XTerm*.color6:       #4b5c5e
+XTerm*.color14:      #556d70
+
+! white
+XTerm*.color7:       #504339
+XTerm*.color15:      #9a875f
+
+

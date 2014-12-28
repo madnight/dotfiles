@@ -47,11 +47,9 @@ for_window [class="(?i)chromium"] border none
 for_window [class="(?i)thunar"] floating enable
 for_window [class="(?i)SpeedCrunch"] floating enable
 for_window [class="(?i)MultiSystem"] floating enable
-for_window [instance="^weechat$"] floating enable
-for_window [instance="^weechat$"] move absolute position 750 600
-for_window [instance="^weechat$"] resize shrink width 50 px or 50 ppt
-for_window [instance="^weechat$"] resize shrink height 50 px or 50 ppt
-for_window [instance="^weechat$"] border none
+for_window [class="(?i)gtkdialog"] floating enable
+for_window [instance="^weechat$"] floating enable, move absolute position 750 600, resize shrink width 100 px or 100 ppt, resize shrink height 100 px or 100 ppt
+#for_window [instance="^weechat$"] border none
 for_window [class="(?i)thunderbird"] move container to workspace 5: mail
 for_window [class="URxvt" instance="ranger"] border normal, floating enable
 
@@ -59,6 +57,7 @@ for_window [class="URxvt" instance="ranger"] border normal, floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="about"] floating enable
+for_window [window_role="gtkdialog"] floating enable
 for_window [title="Preferences$"] floating enable
 
 # Assignemts

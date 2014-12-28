@@ -34,6 +34,7 @@ source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/git/completion/git-prompt.sh
 source ~/.zshrc_priv
 #PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
+xrdb .Xdefaults                                                                                                                                                                        
 
 alias ll='ls -alF'
 alias la='ls -A'
@@ -147,6 +148,8 @@ alias fc-list='xlsfonts'
 alias grep="/usr/bin/grep $GREP_OPTIONS"
 alias md5='md5sum'
 alias hash='md5sum'
+alias iomonitor='watch -n 0.1 iostat'
+alias iowatch='iomonitor'
 #alias vim='vim --remote-tab'
 
 unset GREP_OPTIONS
@@ -222,18 +225,9 @@ pagrep() {
   find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
 }
 
-function cpstat() {
-local pid="${1:-$(pgrep -xn cp)}" src dst
-[[ "$pid" ]] || return
-while [[ -f "/proc/$pid/fd/3" ]]; do
-  read src dst < <(stat -L --printf '%s ' "/proc/$pid/fd/"{3,4})
-  (( src )) || break
-  printf 'cp %d%%\r' $((dst*100/src))
-  sleep 1
-done
-echo
+cpstat () {
+  tar cf - "$1" | pv | (cd "$2";tar xf -)
 }
-
 analyse() {
   xdotool search --desktop 0 "Xboard" key ctrl+shift+c && /home/x/Chess/stocktest "$(xclip -o)" | grep ponder | head -1 | awk '{print $ 2}' | xclip && xdotool search --desktop 0 "Xboard" key $(xclip -o | cut -c1-1) && sleep 0.2 && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c2-2) && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c3-3) && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c4-4) && xdotool search --desktop 0 "Type a" key Return
 }

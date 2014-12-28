@@ -1,0 +1,9 @@
+startup_screen = "browser"
+fetch_lyrics_for_current_song_in_background = yes
+visualizer_fifo_path = "/tmp/mpd.fifo"
+mouse_support = "yes"
+progressbar_look = "─━ "
+#visualizer_type = "spectrum"
+#follow_now_playing_lyrics = yes
+#display_screens_numbers_on_start = yes
+#startup_screen = "2"

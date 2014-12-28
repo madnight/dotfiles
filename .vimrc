@@ -5,7 +5,6 @@
 "         _|      _|  _|    _|    _|        _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|  
 "                                                                                           _|  
 "                                                                                       _|_|    
-
 filetype indent plugin on
 syntax on
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -17,7 +16,6 @@ filetype plugin indent on
 
 let g:formatprg_js = "js-beautify"
 let g:formatprg_args_js = "-i %@"
-
 set hidden
 set wildmenu
 set showcmd
@@ -25,7 +23,7 @@ set hlsearch
 set ignorecase
 set smartcase
 set smartindent
-set autoindent
+""set autoindent
 set backspace=indent,eol,start
 set si
 set nostartofline
@@ -39,7 +37,7 @@ set cmdheight=2
 set notimeout ttimeout ttimeoutlen=200
 set pastetoggle=<F11>
 set shiftwidth=2
-set tw=4
+set tw=79
 set softtabstop=2
 set expandtab
 set formatoptions=l

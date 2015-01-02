@@ -104,7 +104,10 @@ while :; do
     if [ -z "$MPDPLAYING" ]; then
         MPDPLAYING="BBC RADIO 1"
     fi 
-    echo -n "^fg($COLOR_ICON)^i($ICONPATH/note.xbm)^fg() ${MPDPLAYING} "
+    if [[ $MPDPLAYING == *"n/a"* ]]; then
+        MPDPLAYING="Radio offline"
+    fi 
+     echo -n "^fg($COLOR_ICON)^i($ICONPATH/note.xbm)^fg() ${MPDPLAYING} "
     return
   }
 

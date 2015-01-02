@@ -150,6 +150,7 @@ alias md5='md5sum'
 alias hash='md5sum'
 alias iomonitor='watch -n 0.1 iostat'
 alias iowatch='iomonitor'
+alias watchdir='watch -n 1 ls -lh'
 #alias vim='vim --remote-tab'
 
 unset GREP_OPTIONS
@@ -220,6 +221,8 @@ clip() { echo "$@" | xclip }
 
 256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
 
+yolo-commit() { git commit -a -m '$(fortune)' }
+
 pagrep() {
   [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
   find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
@@ -228,10 +231,27 @@ pagrep() {
 cpstat () {
   tar cf - "$1" | pv | (cd "$2";tar xf -)
 }
+
+installfont() {
+  sudo cp $1 /usr/share/fonts/misc/
+  sudo mkfontdir /usr/share/fonts/misc
+  xset +fp /usr/share/fonts/misc
+  xlsfonts | grep $1
+}
+
 analyse() {
   xdotool search --desktop 0 "Xboard" key ctrl+shift+c && /home/x/Chess/stocktest "$(xclip -o)" | grep ponder | head -1 | awk '{print $ 2}' | xclip && xdotool search --desktop 0 "Xboard" key $(xclip -o | cut -c1-1) && sleep 0.2 && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c2-2) && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c3-3) && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c4-4) && xdotool search --desktop 0 "Type a" key Return
 }
 
+
+fontcache() {
+  sudo echo -n "Updating font cache... "
+  xset +fp ~/.fonts
+  sudo fc-cache >/dev/null -f
+  sudo mkfontscale /usr/share/fonts/TTF
+  sudo mkfontdir   /usr/share/fonts/TTF
+  echo done
+}
 
 lastdir() {
   last_dir="$(ls -Frt | grep '/$' | tail -n1)"

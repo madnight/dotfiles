@@ -7,6 +7,16 @@
 #                                                                                  _|  
 #                                                                              _|_|    
 
+# Airblade Gaps Patch
+# https://github.com/Airblader/i3
+
+set $default_gaps_inner 5
+set $default_gaps_outer 8
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
+smart_borders on
+
+
 exec --no-startup-id bash -c "sleep 20 && mv /home/x/Downloads/* /home/x/Downloads/old"
 exec --no-startup-id bash -c "sleep 15 && conky -c /home/x/.conky/dict"
 exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && conky -c /home/x/.conky/irc'
@@ -27,6 +37,7 @@ exec --no-startup-id xrdb ~/.Xresources
 exec --no-startup-id setxkbmap de 
 exec --no-startup-id dropboxd 
 exec --no-startup-id compton -b
+#exec --no-startup-id compton -cCGfF -o 0.38 -O 200 -I 200 -t 0 -l 0 -r 3 -D2 -m 0.88
 exec --no-startup-id i3-msg 'workspace 2: www; exec chromium'
 exec --no-startup-id i3-msg 'workspace 4: media;exec urxvt -e ranger;split h;exec vlc;'       
 exec --no-startup-id xinput --set-prop 9 'Device Accel Constant Deceleration' 3

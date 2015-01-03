@@ -33,6 +33,7 @@ VUP="amixer -c0 -q set Master 4dB+"
 VDOWN="amixer -c0 -q set Master 4dB-"
 EVENT="button3=exit;button4=exec:$VUP;button5=exec:$VDOWN"
 #DZEN="dzen2 -x $X -y $Y -w $WIDTH -h $HEIGHT -fn $FONT -ta 'c' -bg $DZEN_BG -fg $DZEN_FG -e "button3=exit;button4=exec:$VUP;button5=exec:$VDOWN""
+#DZEN==`perl i3-wsbar -c "dzen2 -x %x -ta r -y 1066 -h 16 -w 1920 -fn $FONT -fg #CCCCCC -bg #181512  -ta c -dock"`
 DZEN="dzen2 -ta r -y 1066 -x 0 -h 16 -w 1920 -fn $FONT -fg #CCCCCC -bg #181512  -ta c -dock"
 #DZEN="bar"
 

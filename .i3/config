@@ -127,7 +127,7 @@ bindsym $mod+a workspace prev
 
 # change focus
 bindsym $mod+j focus left
-bindsym $mod+k focus down
+bindsym $mod+k focus right
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus left
 bindsym $mod+colon focus right
@@ -232,13 +232,16 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-  status_command i3status -c ~/.i3/i3status.conf
+  #status_command i3status -c ~/.i3/i3status.conf
+  status_command i3blocks -c ~/.i3/i3blocks.conf
     colors {
       statusline  #CCCCCC
         background  #181512
     }
   position top
 # font -misc-tamsyn-medium-r-normal--20-145-100-100-c-100-iso8859-1
-    font -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
+#font pango: Fixed, Icon 14
+    font pango: Terminus, Icon 13
+#    font -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
 # font -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
 }

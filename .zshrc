@@ -151,6 +151,7 @@ alias hash='md5sum'
 alias iomonitor='watch -n 0.1 iostat'
 alias iowatch='iomonitor'
 alias watchdir='watch -n 1 ls -lh'
+alias aurpk='yaourt -G'
 #alias vim='vim --remote-tab'
 
 unset GREP_OPTIONS

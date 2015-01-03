@@ -140,8 +140,8 @@ if has("gui_running")
    set guifont=Consolas\ 15
   ""set guifont=Monospace\ 13
   ""    colorscheme molokai
-  ""colorscheme twilight
-  colorscheme github
+colorscheme twilight
+""  colorscheme github
   set guioptions-=T
   set guicursor=a:blinkon0 
   set guioptions-=m

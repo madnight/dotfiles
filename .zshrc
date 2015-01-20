@@ -64,7 +64,7 @@ alias archey='archey3'
 alias cdd='cd /home/datadisk/Download'
 alias parallel='parallel --no-notice'
 alias stresstest='parallel ::: "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999"'
-alias shutdown='s shutdown -h now'
+alias shutdown='s /usr/bin/systemctl poweroff'
 alias vlcp='vlc *.mkv'
 alias ..="cd .."
 alias ...="cd ../.."
@@ -153,6 +153,11 @@ alias iowatch='iomonitor'
 alias watchdir='watch -n 1 ls -lh'
 alias aurpk='yaourt -G'
 #alias vim='vim --remote-tab'
+alias vim='gvim'
+alias iecurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)\""
+alias ffcurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.0 (.NET CLR 3.5.30729)\""
+alias gitm="git commit -m"
+
 
 unset GREP_OPTIONS
 
@@ -186,6 +191,7 @@ restart() { sudo systemctl restart $1.service; sudo systemctl status $1.service;
 status() { sudo systemctl status $1.service; }
 enabled() { sudo systemctl enable $1.service;  }
 disabled() { sudo systemctl disable $1.service;  }
+alias failed='systemctl --failed'
 
 # one-liners
 grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2"; }
@@ -222,7 +228,12 @@ clip() { echo "$@" | xclip }
 
 256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
 
-yolo-commit() { git commit -a -m '$(fortune)' }
+#yodagit() { git commit -a -m '$(fortune)' && git push }
+#yodacommit() { git commit -a -m '$(fortune)' && git push }
+alias yodagit='yoda'
+alias yodacommit='yoda'
+yoda(){git commit && git push }
+#-a --allow-empty-message -m ''  
 
 pagrep() {
   [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
@@ -231,6 +242,11 @@ pagrep() {
 
 cpstat () {
   tar cf - "$1" | pv | (cd "$2";tar xf -)
+}
+
+dls () {
+ # directory LS
+ echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`
 }
 
 installfont() {

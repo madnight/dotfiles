@@ -27,6 +27,7 @@ exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; 
 exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && conky -c /home/x/.conky/conkyrc_grey'
 exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && sh ~/.i3/status.sh'
 exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && sh ~/scripts/git_autopull.sh'
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && sh ~/.i3/bar.sh'
 exec --no-startup-id bash -c "sleep 20 && xset -dpms; xset s off"
 exec --no-startup-id bash -c "nvidia-settings --assign [gpu:0]/GPUFanControlState=1 && nvidia-settings -a [fan:0]/GPUCurrentFanSpeed=35"
 exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 &&                                                       notify-send --urgency=critical "$(python /home/x/scripts/archnews -d 3 )"'
@@ -80,13 +81,13 @@ assign [class="(?i)skype"] → 7: chat
 
 bindsym $mod+w exec chromium
 bindsym $mod+e exec thunar
-bindsym F3 exec urxvt -e vim /home/datadisk/Dropbox/Dropbox/chess
-bindsym F7 exec InstantPlayer /home/x/Git/VirtualReality/Exercise02/HumanModel01/human.x3d
+bindsym F3 exec xterm -e vim /home/datadisk/Dropbox/chess
+#bindsym F7 exec InstantPlayer /home/x/Git/VirtualReality/Exercise02/HumanModel01/human.x3d
 bindsym F8 exec mpc toggle
 bindsym F9 exec guake 
-bindsym F12 exec /usr/bin/pulseaudio-ctl up
-bindsym F11 exec /usr/bin/pulseaudio-ctl down
-bindsym F10 exec /usr/bin/pulseaudio-ctl mute
+bindsym F12 exec /usr/bin/pulseaudio-ctl up && pkill -RTMIN+1 i3blocks
+bindsym F11 exec /usr/bin/pulseaudio-ctl down && pkill -RTMIN+1 i3blocks
+bindsym F10 exec /usr/bin/pulseaudio-ctl mute && pkill -RTMIN+1 i3blocks
 bindsym Shift+XF86Tools exec zscreen
 bindsym $mod+m [class="Chromium"] focus
 #bindsym $mod+F2 exec python2 ~/scripts/winmenu.py
@@ -113,7 +114,7 @@ font -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt 
+bindsym $mod+Return exec xterm
 #bindsym $mod+Return exec urxvt -fn "xft:Inconsolata\-g:style=g:pixelsize=16"
 
 # kill focused window
@@ -229,19 +230,30 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-  #status_command i3status -c ~/.i3/i3status.conf
-  status_command i3blocks -c ~/.i3/i3blocks.conf
-    colors {
-      statusline  #CCCCCC
-        background  #181512
-    }
-  position top
-# font -misc-tamsyn-medium-r-normal--20-145-100-100-c-100-iso8859-1
-#font pango: Fixed, Icon 14
-    font pango: Terminus, Icon 13
-#    font -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
-# font -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
-}
+## finds out, if available)
+#bar {
+##status_command i3status -c ~/.i3/i3status.conf
+#  tray_output none
+#    status_command i3blocks -c ~/.i3/i3blocks.conf
+#    colors {
+#      statusline  #CCCCCC
+#        background  #181512
+#    }
+#  position top
+##    font -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
+#    font pango: Fixed, Awesome 14
+##    font pango: Terminus, Awesome 13
+## font -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
+#}
+#
+#bar {
+#  tray_output none
+#    workspace_buttons no
+#    status_command i3blocks -c ~/.i3/i3blocks_bottom.conf
+#    colors {
+#      statusline  #CCCCCC
+#        background  #181512
+#    }
+#  position bottom
+#    font pango: Fixed, Awesome 14
+#}

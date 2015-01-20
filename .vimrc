@@ -14,8 +14,6 @@ Bundle 'croaky/vim-colors-github'
 call vundle#end()            
 filetype plugin indent on    
 
-let g:formatprg_js = "js-beautify"
-let g:formatprg_args_js = "-i %@"
 set hidden
 set wildmenu
 set showcmd
@@ -23,7 +21,6 @@ set hlsearch
 set ignorecase
 set smartcase
 set smartindent
-""set autoindent
 set backspace=indent,eol,start
 set si
 set nostartofline
@@ -56,14 +53,21 @@ set nocompatible
 
 let g:livepreview_previewer = 'zathura'
 let g:auto_save = 1 
+let g:updatetime = 200
 let g:molokai_original = 1
 let g:rehash256 = 1
 let mapleader="-"
-","let g:EasyMotion_leader_key = 'z'
-
+let g:formatprg_js = "js-beautify"
+let g:formatprg_args_js = "-i %@"
+let php_sql_query=1                                                                                        
+let php_htmlInStrings=1
+let Tlist_Use_Right_Window   = 1
+let s:green = '#a2a96f'
+let s:lightgreen = '#c2c98f'
+let colors_name = "default"
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 """""""basic keymaps""""""""""""""""
-
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
@@ -74,45 +78,42 @@ nmap <C-l> :LLPStartPreview<CR>
 nmap ^ $
 nmap <C-a> <C-u>
 nmap zz ZZ
+"nmap <C-l> :set invnumber<CR>
 nnoremap <leader>cd :lcd %:p:h<CR>
 nnoremap <SPACE> :
 nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <C-L> :nohl<CR><C-L>
 imap <C-s> <ESC>:w<CR>a
 imap <C-l> :LLPStartPreview<CR>
 imap ii <Esc>
-imap jj <Esc>
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+imap jj <Esc>:w<CR>
 vmap ^ $
 map <D-/> <C-_><C-_>
 map Y y$
 map <xCSI>[62~ <MouseDown>:
+map <F5> :setlocal spell! spelllang=en_us,de_de<CR>
+nmap <F4> :NERDTreeToggle<CR>:TagbarToggle<CR> 
+map <C-p> <S-p>
 inoremap jk <ESC>
+autocmd TextChanged <buffer> w
 filetype on
-
-"nmap <C-l> :set invnumber<CR>
-
 """"""plugin settings"""""""""""""""""""""
 
-
 call pathogen#infect() 
+"
 ""colorscheme molokai
 ""colorscheme genericdc
 colorscheme default
 ""colorscheme twilight 
 ""colorscheme wombat256mod
 ""colorscheme atom-dark-256
-au BufNewFile,BufRead,BufEnter   *.tex     setlocal spell    spelllang=de_de
-au BufNewFile,BufRead,BufEnter   *.txt     setlocal spell    spelllang=de_de
+
+au BufNewFile,BufRead,BufEnter   *.tex     setlocal spell    spelllang=en_us,de_de
+au BufNewFile,BufRead,BufEnter   *.txt     setlocal spell    spelllang=en_us,de_de
 au BufNewFile,BufRead,BufEnter   *.pl    set filetype=prolog
 au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
-"au BufNewFile,BufRead,BufEnter   *.tex    set filetype=plaintex
 au FileType php set omnifunc=phpcomplete#CompletePHP
-""au FileType php :TlistToggle
-let Tlist_Use_Right_Window   = 1
 
-
-autocmd FileType mail setlocal spell spelllang=de_de
+autocmd FileType mail setlocal spell spelllang=en_us,de_de
 
 "autocmd VimEnter * NERDTree
 "autocmd VimEnter * wincmd p
@@ -124,24 +125,20 @@ python from powerline.vim import setup as powerline_setup
 python powerline_setup()
 python del powerline_setup
 
-highlight LineNr ctermfg=59
-
-highlight LineNr ctermfg=236
 ""set textwidth=72
 ""set wrapmargin=72
 ""set tw=72
-""set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
-" Nice window title
 
 if has("gui_running")
-""  set guifont=Monaco\ 13
-"J"  set guifont=Inconsolata-g\ 15
-  ""  set guifont=Ubuntu\ Mono\ 15
+"" set guifont=Monaco\ 13
+"" set guifont=Inconsolata-g\ 15
+"" set guifont=Ubuntu\ Mono\ 15
    set guifont=Consolas\ 15
-  ""set guifont=Monospace\ 13
-  ""    colorscheme molokai
-colorscheme twilight
-""  colorscheme github
+"" set guifont=Monospace\ 13
+"" colorscheme molokai
+   colorscheme twilight
+""   colorscheme vydark
+"" colorscheme github
   set guioptions-=T
   set guicursor=a:blinkon0 
   set guioptions-=m
@@ -154,8 +151,6 @@ colorscheme twilight
   set guioptions+=a
 endif
 
-
-
 hi Comment      ctermfg=7
 hi VertSplit	ctermfg=0 ctermbg=none
 hi StatusLine	ctermfg=0 ctermbg=none
@@ -165,9 +160,9 @@ hi Pmenu ctermfg=7 ctermbg=0
 hi PmenuSel ctermfg=0 ctermbg=15
 hi LineNr ctermfg=0 ctermbg=none
 hi CursorLine ctermfg=none ctermbg=none cterm=none
-""hi CursorLineNr ctermfg=none ctermbg=0
+highlight LineNr ctermfg=59
+highlight LineNr ctermfg=236
 hi CursorColumn ctermfg=none ctermbg=0
-" Syntax checker colors
 highlight SignColumn ctermbg=none
 hi SyntasticErrorSign ctermfg=1 ctermbg=none
 hi SyntasticWarningSign ctermfg=3 ctermbg=none
@@ -177,22 +172,12 @@ hi SyntasticErrorLine ctermfg=none ctermbg=none
 hi SyntasticWarningLine ctermfg=none ctermbg=none
 hi SyntasticStyleErrorLine ctermfg=none ctermbg=none
 hi SyntasticStyleWarningLine ctermfg=none ctermbg=none
-""hi SpellBad ctermfg=0 ctermbg=3
-""hi SpellCap ctermfg=0 ctermbg=1
 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-" You might also find this useful
-" PHP Generated Code Highlights (HTML & SQL)                                              
-
-let php_sql_query=1                                                                                        
-let php_htmlInStrings=1
-
-" Default Color Modifications
-""hi LineNr ctermfg=59  ctermbg=NONE
-hi CursorLine cterm=bold term=bold
-hi Statement ctermfg=1
-hi Identifier ctermfg=59
-let s:green = '#a2a96f'
-let s:lightgreen = '#c2c98f'
-let colors_name = "default"
-"
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0

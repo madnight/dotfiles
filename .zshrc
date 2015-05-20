@@ -16,6 +16,10 @@ autoload -Uz compinit promptinit colors
 compinit
 promptinit
 colors
+# ZSH=$HOME/.oh-my-zsh/oh-my-zsh.sh
+#plugins=(git bundler osx rake ruby)
+
+
 bindkey -v
 
 bindkey '^P' up-history
@@ -29,12 +33,12 @@ fi
 
 # File not found hook: https://wiki.archlinux.org/index.php/Pkgfile
 source /usr/share/doc/pkgfile/command-not-found.zsh
-# Syntax Highlighting (Green/Yellow/Red) Colors for Bash Commands
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/git/completion/git-prompt.sh
 source ~/.zshrc_priv
 #PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
-xrdb .Xdefaults                                                                                                                                                                        
+
+xrdb ~/.Xdefaults
 
 alias ll='ls -alF'
 alias la='ls -A'
@@ -48,7 +52,7 @@ alias u='sudo pacman -Syu'
 alias apps='thunar /usr/share/applications/'
 alias r='sudo pacman -R'
 alias rr='s apt-get -y autoremove'
-alias fa='echo "maybe updatedb?" && locate -i'
+alias fa='echo "maybe updatedb?" && locate -i '
 alias findall='locate -i'
 alias translate='t'
 alias calc='speedcrunch'
@@ -91,7 +95,7 @@ alias chess="parallel ::: 'vim /home/datadisk/Dropbox/Dropbox/chess' 'sleep 0.8 
 alias run="dmenu_run"
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm='rm -I'                    # 'rm -i' prompts for every file
+alias rm='rm -i'                    # 'rm -i' prompts for every file
 alias rm=' timeout 3 rm -Iv --one-file-system'
 alias ln='ln -i'
 alias chown='chown --preserve-root'
@@ -105,6 +109,7 @@ alias cd..='cd ..'
 alias nano='vim'
 alias lastp='yaourt -Q --date'
 alias log='cat /var/log/pacman.log'
+alias syslog='cat /var/log/everything.log'
 alias -g G='| egrep'
 alias lyrics='sh ~/scripts/lyrics'
 alias kernellog='dmesg'
@@ -120,7 +125,6 @@ alias vimt='vim -c "NERDTree" $1'
 alias svim='sudo vim'
 alias android-connect="mtpfs -o allow_other /media/YOURMOUNTPOINT"
 alias android-disconnect="fusermount -u /media/YOURMOUNTPOINT"
-alias colors='colortest'
 alias inet='ping 8.8.8.8'
 alias pkill='pkill -f'
 alias radio='urxvt -name ncmpcpp -e ncmpcpp'
@@ -152,14 +156,19 @@ alias iomonitor='watch -n 0.1 iostat'
 alias iowatch='iomonitor'
 alias watchdir='watch -n 1 ls -lh'
 alias aurpk='yaourt -G'
+alias error='journalctl -p 0..3 -xn'
 #alias vim='vim --remote-tab'
 alias vim='gvim'
 alias iecurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)\""
 alias ffcurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.0 (.NET CLR 3.5.30729)\""
 alias gitm="git commit -m"
-
-
+alias tab='xterm -e "java -jar /home/x/scripts/RemoteDroidServer/RemoteDroidServer.jar"'
+alias vlc='cpulimit -l 30 vlc'
+alias catkin_make='catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so'
+alias catkin_make_isolated='catkin_make_isolated -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so'
 unset GREP_OPTIONS
+alias diff='git diff HEAD~1'
+
 
 export ARCHFLAGS="-arch x86_64"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
@@ -173,12 +182,15 @@ export TCLLIBPATH=~/.local/share/tktheme
 
 #Whats this? ^^
 stty -ixon
-
+prompt minimal
 PROMPT="
 %{$fg[red]%} »  %{$reset_color%}"
 #PROMPT="
 #%{$fg[red]%} >  %{$reset_color%}"
+#RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
+#RPROMPT="hallo"
 RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
+#RPROMPT="$fg[black] %~"
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
   exec startx
@@ -192,6 +204,7 @@ status() { sudo systemctl status $1.service; }
 enabled() { sudo systemctl enable $1.service;  }
 disabled() { sudo systemctl disable $1.service;  }
 alias failed='systemctl --failed'
+alias killall='killall -s SIGKILL'
 
 # one-liners
 grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2"; }
@@ -206,11 +219,24 @@ t() { dict -d fd-eng-deu $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print
 
 rt() { dict -d fd-deu-eng $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; }
 
+leo()
+{
+onetwo='.{1,2}'
+re="$1"
+re="${re//[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/.}"
+re="${re//ue/$onetwo}"
+re="${re//ae/$onetwo}"
+re="${re//oe/$onetwo}"
+re="${re//ss/$onetwo}"
+lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
+}
+
+
 cd() { builtin cd $1 && ls }
 
-facd() { cd $(fa $1 | head -n 1) }
+facd() { cd $(locate -i $1 | head -n 1) }
 
-fan() { nano $(fa $1 | head -n 1) }
+fan() { nano $(locate -i $1 | head -n 1) }
 
 sfan() { sudo vim $(fa $1 | head -n 1) }
 
@@ -226,7 +252,7 @@ h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi }
 
 clip() { echo "$@" | xclip }
 
-256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
+#256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
 
 #yodagit() { git commit -a -m '$(fortune)' && git push }
 #yodacommit() { git commit -a -m '$(fortune)' && git push }
@@ -313,6 +339,13 @@ extract () {
   else
     echo "'$1' is not a valid file!"
   fi
+}
+
+sound () {
+  pulseaudio --kill;
+  pulseaudio --start;
+  pacmd list-sinks;
+  pacmd set-default-sink alsa_output.pci-0000_00_14.2.analog-stereoi;
 }
 
 format () {
@@ -426,4 +459,4 @@ else
 fi
 }
 
-
+precmd () { print -Pn "\e]2; \a" } # title bar prompt

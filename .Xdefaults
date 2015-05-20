@@ -15,7 +15,8 @@
 !                                   \/   \/\__\___|_|  |_| |_| |_|
                                                                  
 XTerm*faceName: Consolas
-XTerm*faceSize: 18
+XTerm*faceSize: 14
+Xterm*font: Consolas:pixelsize=14
 XTerm*saveLines: 16384
 XTerm*geometry: 100x25-500+400
 XTerm*VT100*translations: #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
@@ -24,6 +25,10 @@ XTerm*boldMode: false
 XTerm*allowBoldFonts: false
 XTerm*background: #181818
 XTerm*foreground: #ffffff
+xterm*locale: true
+xterm*utf8: 1
+xterm*termName: xterm-256color
+
 
 !                                     _   _                  _   
 !                                    | | | |                | |  
@@ -42,7 +47,7 @@ URxvt.lineSpace: 0
 ! URxvt*scrollBar_right: false
 URxvt*scrollBar: false
 URxvt*saveLines: 12000
-! URxvt*font:  -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
+!URxvt*font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
 ! URxvt*font: xft:Monospace:pixelsize=17
 ! URxvt.font: xft:Anonymous\ Pro-15
 ! URxvt*font: xft:Monaco:pixelsize=16

@@ -103,6 +103,7 @@ call pathogen#infect()
 ""colorscheme molokai
 ""colorscheme genericdc
 colorscheme default
+"colorscheme Tommorow Night
 ""colorscheme twilight 
 ""colorscheme wombat256mod
 ""colorscheme atom-dark-256
@@ -134,6 +135,7 @@ if has("gui_running")
 "" set guifont=Inconsolata-g\ 15
 "" set guifont=Ubuntu\ Mono\ 15
    set guifont=Consolas\ 15
+"   set guifont=Monaco\ 14
 "" set guifont=Monospace\ 13
 "" colorscheme molokai
    colorscheme twilight

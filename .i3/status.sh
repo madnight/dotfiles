@@ -46,6 +46,14 @@ while :; do
   # ---------
   # Functions
   # ---------
+
+  Rss ()
+  {
+    RSS=$(rsstail -u http://mix.chimpfeedr.com/6356e-abcd -1 | head -n 1 | cut -c8-)
+    echo -n "^fg($COLOR_ICON)^i($ICONPATH/info01.xbm)^fg(#FFFFFF) ${RSS}"
+    return
+  }
+
   Vol ()
   {
     ONF=$(amixer get Master | awk '/Front\ Left:/ {print $7}' | tr -d '[]')
@@ -153,6 +161,8 @@ while :; do
     MPD
     Between
     Temp
+ #   Between
+#    Rss
     #        Between
     #        mem
     #        Between

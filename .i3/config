@@ -27,6 +27,7 @@ exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; 
 exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && conky -c /home/x/.conky/conkyrc_grey'
 exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && sh ~/.i3/status.sh'
 exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && sh ~/scripts/git_autopull.sh'
+exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && sh ~/scripts/aurupdate.sh'
 exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && sleep 1 && sh ~/.i3/bar.sh'
 exec --no-startup-id bash -c "sleep 20 && xset -dpms; xset s off"
 exec --no-startup-id bash -c "nvidia-settings --assign [gpu:0]/GPUFanControlState=1 && nvidia-settings -a [fan:0]/GPUCurrentFanSpeed=35"
@@ -35,6 +36,7 @@ exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; 
 exec --no-startup-id pulseaudio --start 
 exec --no-startup-id xrdb ~/.Xdefaults
 exec --no-startup-id xrdb ~/.Xresources
+exec --no-startup-id xmodmap ~/.Xmodmap # ^^ >< fixes 
 exec --no-startup-id setxkbmap de 
 exec --no-startup-id dropboxd 
 exec --no-startup-id compton -b
@@ -43,7 +45,7 @@ exec --no-startup-id i3-msg 'workspace 2: www; exec chromium'
 exec --no-startup-id i3-msg 'workspace 4: media;exec urxvt -e ranger;split h;exec vlc;'       
 exec --no-startup-id xinput --set-prop 9 'Device Accel Constant Deceleration' 3
 exec --no-startup-id xset mouse 3 6
-exec --no-startup-id i3-msg 'workspace 1: desk; exec urxvt -name weechat -e weechat; workspace 2: www'
+exec --no-startup-id i3-msg 'workspace 1: desk;exec sleep 20;exec urxvt -name weechat -e weechat; workspace 2: www'
 #exec --no-startup-id 'workspace 9: vim; exec urxvt -e vim --servername VIM' 
 
 for_window [class="(?i)gcolor2"] floating enable
@@ -82,9 +84,9 @@ assign [class="(?i)skype"] → 7: chat
 bindsym $mod+w exec chromium
 bindsym $mod+e exec thunar
 bindsym F3 exec xterm -e vim /home/datadisk/Dropbox/chess
-#bindsym F7 exec InstantPlayer /home/x/Git/VirtualReality/Exercise02/HumanModel01/human.x3d
+bindsym F7 exec mpc play 1
 bindsym F8 exec mpc toggle
-bindsym F9 exec guake 
+bindsym F9 exec mpc play 2
 bindsym F12 exec /usr/bin/pulseaudio-ctl up && pkill -RTMIN+1 i3blocks
 bindsym F11 exec /usr/bin/pulseaudio-ctl down && pkill -RTMIN+1 i3blocks
 bindsym F10 exec /usr/bin/pulseaudio-ctl mute && pkill -RTMIN+1 i3blocks

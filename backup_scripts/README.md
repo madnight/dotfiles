@@ -3,6 +3,16 @@ How to restore the arch sys
 
 Packages
 --------
+
+/etc/pacman.conf  
+[archlinuxfr]  
+ SigLevel = Never  
+ Server = http://repo.archlinux.fr/$arch  
+
+[infinality-bundle]  
+ SigLevel = Never  
+ Server = http://bohoomil.com/repo/$arch  
+
 In such a case, you may still want to install all available packages from that list:  
 pacman -S --needed $(comm -12 <(pacman -Slq|sort) <(sort badpkdlist) )  
 

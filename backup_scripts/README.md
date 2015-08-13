@@ -33,3 +33,12 @@ systemctl enable NetworkManager.service
 
 On Console:  
 dhcpcd
+
+Auto Login
+----------
+
+sudo systemctl edit getty@tty1 and pasting its content:  
+
+[Service]  
+ExecStart=  
+ExecStart=-/usr/bin/agetty --autologin username --noclear %I 38400 linux  

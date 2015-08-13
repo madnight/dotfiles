@@ -3,12 +3,7 @@
 	"caret_style": "solid",
 	"color_scheme": "Packages/User/SublimeLinter/Ocean-Dark-Soda (SL).tmTheme",
 	"dictionary": "Packages/Dictionaries/German_de_DE.dic",
-	//"font_face": "Consolas",
 	"font_face": "Monaco",
-	"scroll_speed": 0.0,
-	"word_wrap": true,
-	"translate_tabs_to_spaces": true,
-	"bold_folder_labels": true,
 	"font_options":
 	[
 		"subpixel_antialias"
@@ -17,15 +12,27 @@
 	"highlight_line": true,
 	"ignored_packages":
 	[
-		"Theme - SoDaReloaded",
+		"1337 Color Scheme",
+		"AutoFileName",
+		"DictionaryAutoComplete",
+		"FTPSync",
+		"Function Name Display",
+		"LaTeXing",
+		"Numix Theme",
+		"Phpcs",
+		"QMakeProject",
 		"SFTP",
-		"SideBarEnhancements"
+		"Theme - Sodarized",
+		"Visual Studio Dark"
 	],
 	"preview_on_click": false,
+	"scroll_speed": 0.0,
 	"soda_classic_tabs": true,
 	"soda_folder_icons": true,
 	"tabs_small": true,
 	"theme": "predawn.sublime-theme",
+	"translate_tabs_to_spaces": true,
 	"vintage_ctrl_keys": false,
-	"vintage_start_in_command_mode": true
+	"vintage_start_in_command_mode": true,
+	"word_wrap": true
 }

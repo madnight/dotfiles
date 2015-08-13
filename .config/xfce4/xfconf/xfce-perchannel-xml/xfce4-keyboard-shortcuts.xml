@@ -71,12 +71,12 @@
       <property name="F12" type="string" value="pulseaudio-ctl up"/>
       <property name="&lt;Super&gt;t" type="string" value="exo-open --launch MailReader"/>
       <property name="F3" type="string" value="subl3 /home/datadisk/Dropbox/chess"/>
-      <property name="&lt;Super&gt;F2" type="string" value="j4-dmenu-desktop"/>
       <property name="&lt;Primary&gt;udiaeresis" type="string" value="xdotool getactivewindow windowkill"/>
       <property name="XF86Tools" type="string" value="xfce4-screenshooter"/>
       <property name="&lt;Primary&gt;&lt;Shift&gt;l" type="string" value="xterm -e &quot;cd /home/x/Git/Masterarbeit/expose/;sh /home/x/Git/Masterarbeit/expose/make.sh&quot;"/>
       <property name="&lt;Primary&gt;&lt;Super&gt;Return" type="string" value="xterm"/>
       <property name="&lt;Super&gt;Return" type="string" value="bash /home/x/scripts/jumpapp xterm "/>
+      <property name="&lt;Super&gt;F2" type="string" value="j4-dmenu-desktop --dmenu=&quot;dmenu -i -fn \&quot;-*-gohufont-medium-r-*-*-14-*\&quot;&quot; --display-binar"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

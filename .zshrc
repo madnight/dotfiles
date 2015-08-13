@@ -18,8 +18,12 @@ promptinit
 colors
 # ZSH=$HOME/.oh-my-zsh/oh-my-zsh.sh
 #plugins=(git bundler osx rake ruby)
-
-
+#
+#
+# BG Color Fix
+echo -ne "\033]11;#181512\007"
+# FG Color Fix
+echo -ne "\033]10;#bea492\007" 
 bindkey -v
 
 bindkey '^P' up-history
@@ -31,6 +35,11 @@ if [ "$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed '
   echo -e -n "\x1b[\x36 q" # changes to steady bar
 fi
 
+# use ssh agent for keymanagement
+#if [ -z "$SSH_AUTH_SOCK" ] ; then
+#  eval `ssh-agent -s`
+#  ssh-add
+#fi
 # File not found hook: https://wiki.archlinux.org/index.php/Pkgfile
 source /usr/share/doc/pkgfile/command-not-found.zsh
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -38,7 +47,7 @@ source /usr/share/git/completion/git-prompt.sh
 source ~/.zshrc_priv
 #PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
 
-xrdb ~/.Xdefaults
+xrdb /home/x/.Xdefaults
 
 alias ll='ls -alF'
 alias la='ls -A'
@@ -168,13 +177,21 @@ alias catkin_make='catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INC
 alias catkin_make_isolated='catkin_make_isolated -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so'
 unset GREP_OPTIONS
 alias diff='git diff HEAD~1'
-
+alias lsof='lsof -Pni'
+alias ports='lsof -Pni'
+alias mount='sudo mount -o umask=0,uid=nobody,gid=nobody'
+alias ped='cd /home/x/Git/MA_FabianBeuke/src/pedsim'
+alias fastwget='aria2c -x 16' 
+#alias copylast='fc -ln -1 | awk '{$1=$1}1' | pbcopy '
+alias copylast='fc -ln -1 | awk '\''{$1=$1}1'\'' | pbcopy'
+alias cplast='fc -ln -1 | awk '\''{$1=$1}1'\'' | pbcopy'
 
 export ARCHFLAGS="-arch x86_64"
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
-export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel' 
-export JAVA_FONTS=/usr/share/fonts/TTF
-export LANGUAGE=en_US.UTF-8:en
+#export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
+#export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel' 
+#export JAVA_FONTS=/usr/share/fonts/TTF
+#export LANG=en_US.UTF-8
+export LC_ALL="de_DE"
 export EDITOR="vim"
 export BROWSER="chromium"
 export SHELL=/usr/bin/zsh
@@ -231,6 +248,9 @@ re="${re//ss/$onetwo}"
 lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
 }
 
+killport() {
+lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill 
+}
 
 cd() { builtin cd $1 && ls }
 
@@ -251,6 +271,8 @@ f() { find $(pwd) | grep $1 }
 h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi }
 
 clip() { echo "$@" | xclip }
+
+mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
 
 #256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
 
@@ -378,7 +400,7 @@ do FG=${FGs// /}
   done
   echo;
 done
-echo
+echo;
 }
 
 conf() {
@@ -446,7 +468,10 @@ pdf=$(echo $1 | sed 's/tex/pdf/g')
 log=$(echo $1 | sed 's/tex/log/g')
 out=$(echo $1 | sed 's/tex/out/g')
 aux=$(echo $1 | sed 's/tex/aux/g')
-pdflatex $1 && rm $log; rm $out; rm $aux; mupdf $pdf
+toc=$(echo $1 | sed 's/tex/toc/g')
+lof=$(echo $1 | sed 's/tex/lof/g')
+lot=$(echo $1 | sed 's/tex/lot/g')
+pdflatex $1 && rm $log; rm $out; rm $aux; rm $toc; rm $lof; rm $lot; mupdf $pdf
 }
 
 
@@ -459,4 +484,42 @@ else
 fi
 }
 
-precmd () { print -Pn "\e]2; \a" } # title bar prompt
+precmd () { print -Pn "\e]2; \a" } # title bar promptinit
+
+colors()
+{
+( x=`tput op` y=`printf %$((${COLUMNS}-6))s`;
+for i in {0..256};
+do
+o=00$i;
+echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;
+done )
+}
+
+
+
+   ix() {
+            local opts
+            local OPTIND
+            [ -f "$HOME/.netrc" ] && opts='-n'
+            while getopts ":hd:i:n:" x; do
+                case $x in
+                    h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
+                    d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
+                    i) opts="$opts -X PUT"; local id="$OPTARG";;
+                    n) opts="$opts -F read:1=$OPTARG";;
+                esac
+            done
+            shift $(($OPTIND - 1))
+            [ -t 0 ] && {
+                local filename="$1"
+                shift
+                [ "$filename" ] && {
+                    curl $opts -F f:1=@"$filename" $* ix.io/$id
+                    return
+                }
+                echo "^C to cancel, ^D to send."
+            }
+            curl $opts -F f:1='<-' $* ix.io/$id
+        }
+

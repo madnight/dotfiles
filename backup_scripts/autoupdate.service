@@ -1,12 +1,8 @@
 [Unit]
 Description=Pacman Autoupdate
-ConditionPathExists=/home/x/scripts/
 
 [Service]
-Type=forking
-ExecStart=/home/x/scripts/autoupdate.sh
-RemainAfterExit=yes
-SysVStartPriority=99
+ExecStart=/bin/sh /home/x/scripts/autoupdate.sh
 
 [Install]
 WantedBy=multi-user.target

@@ -8,19 +8,31 @@
 #                                                                                      _|_|    
 
 HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=10000
 bindkey -e
 zstyle :compinstall filename '/home/x/.zshrc'
 autoload -Uz compinit promptinit colors
-compinit
-promptinit
-colors
+#compinit
+#promptinit
+#
+
+setopt AUTO_CD
+setopt CORRECT
+setopt completealiases
+setopt append_history
+setopt share_history
+setopt hist_verify
+setopt hist_ignore_all_dups
+zstyle ':completion:*' menu select
+zstyle ':completion:*' rehash true
+setopt completealiases
+
 # ZSH=$HOME/.oh-my-zsh/oh-my-zsh.sh
 #plugins=(git bundler osx rake ruby)
 #
 #
-# BG Color Fix
+# BG olor Fix
 echo -ne "\033]11;#181512\007"
 # FG Color Fix
 echo -ne "\033]10;#bea492\007" 
@@ -42,9 +54,13 @@ fi
 #fi
 # File not found hook: https://wiki.archlinux.org/index.php/Pkgfile
 source /usr/share/doc/pkgfile/command-not-found.zsh
+
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/git/completion/git-prompt.sh
+
+#source /usr/share/git/completion/git-prompt.sh
+#
 source ~/.zshrc_priv
+
 #PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
 
 xrdb /home/x/.Xdefaults
@@ -76,7 +92,7 @@ alias x='xrandr --display :0 --output DVI-I-3 --auto'
 alias archey='archey3'
 alias cdd='cd /home/datadisk/Download'
 alias parallel='parallel --no-notice'
-alias stresstest='parallel ::: "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999"'
+alias stresstest='parallel ::: "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999"' 
 alias shutdown='s /usr/bin/systemctl poweroff'
 alias vlcp='vlc *.mkv'
 alias ..="cd .."
@@ -100,17 +116,16 @@ alias cpu-z="inxi -F"
 alias cpuz="inxi -F"
 alias xchat="LANGUAGE=en_US.UTF-8:en:de_DE.UTF-8:de xchat"
 alias crc="conky -c /home/x/.conky/conkyrc_grey &"
-alias chess="parallel ::: 'vim /home/datadisk/Dropbox/Dropbox/chess' 'sleep 0.8 && wmctrl -r chess -e 0,200,150,1520,800'"
 alias run="dmenu_run"
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm='rm -i'                    # 'rm -i' prompts for every file
+alias rm='rm -i'    
 alias rm=' timeout 3 rm -Iv --one-file-system'
 alias ln='ln -i'
 alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
-alias cls=' echo -ne "\033c"'       # clear screen for real (it does not work in Terminology)
+alias cls=' echo -ne "\033c"'     
 alias :q=' exit'
 alias :Q=' exit'
 alias :x=' exit'
@@ -120,6 +135,7 @@ alias lastp='yaourt -Q --date'
 alias log='cat /var/log/pacman.log'
 alias syslog='cat /var/log/everything.log'
 alias -g G='| egrep'
+alias -g C='| wc -l'
 alias lyrics='sh ~/scripts/lyrics'
 alias kernellog='dmesg'
 alias lasti='yaourt -Q --date'
@@ -131,6 +147,7 @@ alias pacbackup='cd /var/cache/pacman/pkg && ls'
 alias lastinstalled='yaourt -Q --date'
 alias swi-prolog='swipl'
 alias vimt='vim -c "NERDTree" $1'
+alias vim='gvim'
 alias svim='sudo vim'
 alias android-connect="mtpfs -o allow_other /media/YOURMOUNTPOINT"
 alias android-disconnect="fusermount -u /media/YOURMOUNTPOINT"
@@ -148,7 +165,7 @@ alias mail='mutt'
 alias soundcontrol='pavucontrol'
 alias trainer='cd /home/x/Git/Cornamix/http/trainer/wordpress/wp-content/plugins/trainerportal/classes'
 alias listdate='yaourt -Q --date'
-alias rmspaces="rename ' ' '_' * && rename ' ' '_' * rename ' ' '_' * && rename ' ' '_' *" # repeat for each space
+alias rmspaces="rename ' ' '_' * && rename ' ' '_' * rename ' ' '_' * && rename ' ' '_' *" 
 alias web='cd /home/x/Git/Cornamix/http/'
 alias image='ristretto'
 alias img='ristretto'
@@ -166,8 +183,6 @@ alias iowatch='iomonitor'
 alias watchdir='watch -n 1 ls -lh'
 alias aurpk='yaourt -G'
 alias error='journalctl -p 0..3 -xn'
-#alias vim='vim --remote-tab'
-alias vim='gvim'
 alias iecurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)\""
 alias ffcurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.0 (.NET CLR 3.5.30729)\""
 alias gitm="git commit -m"
@@ -185,30 +200,56 @@ alias fastwget='aria2c -x 16'
 #alias copylast='fc -ln -1 | awk '{$1=$1}1' | pbcopy '
 alias copylast='fc -ln -1 | awk '\''{$1=$1}1'\'' | pbcopy'
 alias cplast='fc -ln -1 | awk '\''{$1=$1}1'\'' | pbcopy'
+alias count='ls -la | wc -l'
+alias smallfiles='sudo find / -xdev -type d -size +100k'
+alias settime='timedatectl'
+alias setdate='timedatectl'
+alias ft='parallel -k rspec -c ::: spec/controllers/agreements_controller_spec.rb spec/controllers/project_spec.rb spec/controllers/work_package_controller_spec.rb spec/controllers/employee_spec.rb spec/controllers/team_controller_spec.rb spec/controllers/organizations_controller_spec.rb spec/controllers/user_spec.rb'
+
+
+alias sshx='ssh -XC -c blowfish-cbc,arcfour'
+alias awe='cd /home/x/Git/awe15-04'
+alias t='rspec -f d -c'
+alias tests='rspec -f d -c'
+
+# Git Aliases
+
+alias gaa='git add .'
+#alias yoda='git add . && git commit && git push'
+alias gc='git commit'
+alias gco='git checkout'
+alias gp='git pull'
+alias gb='git remote update origin --prune && git branch -a'
+alias gs='git status'
+alias gr='git reset'
+alias glb='git branch -a'
+alias gba='git branch -a'
+
+# rake aliases
+alias rdr='rake db:migrate:reset && rake db:seed'
+alias rds='time rake db:seed'
+
+# git delete origin branch
+alias gdob='git push origin --delete'
+
+alias gpsu='git push --set-upstream'
+alias gpsuo='git push --set-upstream origin'
+
+alias cat="pygmentize -g"
 
 export ARCHFLAGS="-arch x86_64"
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 #export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel' 
 #export JAVA_FONTS=/usr/share/fonts/TTF
 #export LANG=en_US.UTF-8
-export LC_ALL="de_DE"
+export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export BROWSER="chromium"
 export SHELL=/usr/bin/zsh
 export TCLLIBPATH=~/.local/share/tktheme
 
 #Whats this? ^^
-stty -ixon
-prompt minimal
-PROMPT="
-%{$fg[red]%} »  %{$reset_color%}"
-#PROMPT="
-#%{$fg[red]%} >  %{$reset_color%}"
-#RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
-#RPROMPT="hallo"
-RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
-#RPROMPT="$fg[black] %~"
-
+#
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
   exec startx
 fi
@@ -218,7 +259,7 @@ start() { sudo systemctl start $1.service; sudo systemctl status $1.service; }
 stop() { sudo systemctl stop $1.service; sudo systemctl status $1.service; }
 restart() { sudo systemctl restart $1.service; sudo systemctl status $1.service; }
 status() { sudo systemctl status $1.service; }
-enabled() { sudo systemctl enable $1.service;  }
+enabled() { cd /usr/lib/systemd/system; sudo systemctl enable $1.service;  }
 disabled() { sudo systemctl disable $1.service;  }
 alias failed='systemctl --failed'
 alias killall='killall -s SIGKILL'
@@ -232,24 +273,30 @@ cl() { cd $1 && pwd && ls; }
 
 google() { chromium "http://www.google.com/search?q= $1"; }
 
-t() { dict -d fd-eng-deu $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; } 
+#t() { dict -d fd-eng-deu $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; } 
 
-rt() { dict -d fd-deu-eng $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; }
+#rt() { dict -d fd-deu-eng $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; }
+
+packages () 
+{
+  pacman -Qqe  >| /home/datadisk/Dropbox/ArchBackup/pkglist_$(date +%F).txt 
+  pacman -Qqe  
+}
 
 leo()
 {
-onetwo='.{1,2}'
-re="$1"
-re="${re//[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/.}"
-re="${re//ue/$onetwo}"
-re="${re//ae/$onetwo}"
-re="${re//oe/$onetwo}"
-re="${re//ss/$onetwo}"
-lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
+  onetwo='.{1,2}'
+  re="$1"
+  re="${re//[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/.}"
+  re="${re//ue/$onetwo}"
+  re="${re//ae/$onetwo}"
+  re="${re//oe/$onetwo}"
+  re="${re//ss/$onetwo}"
+  lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
 }
 
 killport() {
-lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill 
+  lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill 
 }
 
 cd() { builtin cd $1 && ls }
@@ -274,14 +321,11 @@ clip() { echo "$@" | xclip }
 
 mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
 
-#256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
+256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
 
 #yodagit() { git commit -a -m '$(fortune)' && git push }
 #yodacommit() { git commit -a -m '$(fortune)' && git push }
-alias yodagit='yoda'
-alias yodacommit='yoda'
-yoda(){git commit && git push }
-#-a --allow-empty-message -m ''  
+yoda(){ git add . && git commit && git push }
 
 pagrep() {
   [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
@@ -293,7 +337,6 @@ cpstat () {
 }
 
 dls () {
- # directory LS
  echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`
 }
 
@@ -303,11 +346,6 @@ installfont() {
   xset +fp /usr/share/fonts/misc
   xlsfonts | grep $1
 }
-
-analyse() {
-  xdotool search --desktop 0 "Xboard" key ctrl+shift+c && /home/x/Chess/stocktest "$(xclip -o)" | grep ponder | head -1 | awk '{print $ 2}' | xclip && xdotool search --desktop 0 "Xboard" key $(xclip -o | cut -c1-1) && sleep 0.2 && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c2-2) && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c3-3) && xdotool search --desktop 0 "Type a" key $(xclip -o | cut -c4-4) && xdotool search --desktop 0 "Type a" key Return
-}
-
 
 fontcache() {
   sudo echo -n "Updating font cache... "
@@ -339,6 +377,12 @@ cycle() {
   if [ -d "$last_dir" ]; then
     cd "$last_dir"
   fi
+}
+
+md5copy() {
+  echo "usage: md5copy Star_Trek.mkv /run/media/x/Stick/"
+  rsync -c -h --stats --info=progress2 $1 $2
+  parallel md5sum ::: $1 $2$1
 }
 
 extract () {
@@ -486,40 +530,82 @@ fi
 
 precmd () { print -Pn "\e]2; \a" } # title bar promptinit
 
+backup ()
+{
+  sudo rsync -aAXh --stats --info=progress2 --delete --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/home/datadisk/*","/home/x/.gvfs","/home/x/Downloads/*","/var/cache/pacman/*","/home/x/.config/VirtualBox/*","/home/x/.wine/*","/home/x/.atom/*","/home/x/.winex64/*","/home/x/.thumbnails/*","/home/x/.cache/mozilla/*","/home/x/.codeintel/db/*"} /* /home/datadisk/fullarchbackup
+}
+
 colors()
 {
-( x=`tput op` y=`printf %$((${COLUMNS}-6))s`;
-for i in {0..256};
-do
-o=00$i;
-echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;
-done )
+  ( x=`tput op` y=`printf %$((${COLUMNS}-6))s`;
+  for i in {0..15};
+  do
+    o=00$i;
+    echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;
+  done )
+}
+
+ix() {
+  local opts
+  local OPTIND
+  [ -f "$HOME/.netrc" ] && opts='-n'
+  while getopts ":hd:i:n:" x; do
+    case $x in
+      h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
+      d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
+      i) opts="$opts -X PUT"; local id="$OPTARG";;
+      n) opts="$opts -F read:1=$OPTARG";;
+    esac
+  done
+  shift $(($OPTIND - 1))
+  [ -t 0 ] && {
+  local filename="$1"
+  shift
+  [ "$filename" ] && {
+  curl $opts -F f:1=@"$filename" $* ix.io/$id
+  return
+}
+echo "^C to cancel, ^D to send."
+  }
+  curl $opts -F f:1='<-' $* ix.io/$id
 }
 
 
+#DIRSTACKFILE="$HOME/.cache/zsh/dirs"
+#if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+#set +o noclobber
+  #dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+  #[[ -d $dirstack[1] ]] && cd $dirstack[1]
+#set -o noclobber
+#fi
+#chpwd() {
+#set +o noclobber
+  #print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
+#set -o noclobber
+#}
 
-   ix() {
-            local opts
-            local OPTIND
-            [ -f "$HOME/.netrc" ] && opts='-n'
-            while getopts ":hd:i:n:" x; do
-                case $x in
-                    h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
-                    d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
-                    i) opts="$opts -X PUT"; local id="$OPTARG";;
-                    n) opts="$opts -F read:1=$OPTARG";;
-                esac
-            done
-            shift $(($OPTIND - 1))
-            [ -t 0 ] && {
-                local filename="$1"
-                shift
-                [ "$filename" ] && {
-                    curl $opts -F f:1=@"$filename" $* ix.io/$id
-                    return
-                }
-                echo "^C to cancel, ^D to send."
-            }
-            curl $opts -F f:1='<-' $* ix.io/$id
-        }
+#DIRSTACKSIZE=20
+
+#setopt autopushd pushdsilent pushdtohome
+
+### Remove duplicate entries
+#setopt pushdignoredups
+
+### This reverts the +/- operators.
+#setopt pushdminus
+
+
+stty -ixon # prevent ctrl s form freezing the term
+
+
+prompt minimal
+#RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
+#RPROMPT="hallo"
+#RPROMPT="$fg[black] %~"
+PROMPT="
+%{$fg[red]%} $(echo "\u00BB")  %{$reset_color%}"
+
+#prompt minimal
+
+RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
 

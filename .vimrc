@@ -5,24 +5,25 @@
 "         _|      _|  _|    _|    _|        _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|  
 "                                                                                           _|  
 "                                                                                       _|_|    
+"
 filetype indent plugin on
 syntax on
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'Chiel92/vim-autoformat'
-Bundle 'croaky/vim-colors-github'
-call vundle#end()            
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+"Plugin 'Chiel92/vim-autoformat'
+"Bundle 'croaky/vim-colors-github'
+"call vundle#end()            
 filetype plugin indent on    
 
 set hidden
 set wildmenu
 set showcmd
-set hlsearch
+"set hlsearch
 set ignorecase
 set smartcase
 set smartindent
 set backspace=indent,eol,start
-set si
+"set si
 set nostartofline
 set ruler
 set clipboard=unnamedplus
@@ -56,7 +57,7 @@ let g:auto_save = 1
 let g:updatetime = 200
 let g:molokai_original = 1
 let g:rehash256 = 1
-let mapleader="-"
+let mapleader=","
 let g:formatprg_js = "js-beautify"
 let g:formatprg_args_js = "-i %@"
 let php_sql_query=1                                                                                        
@@ -112,7 +113,7 @@ au BufNewFile,BufRead,BufEnter   *.tex     setlocal spell    spelllang=en_us,de_
 au BufNewFile,BufRead,BufEnter   *.txt     setlocal spell    spelllang=en_us,de_de
 au BufNewFile,BufRead,BufEnter   *.pl    set filetype=prolog
 au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
-au FileType php set omnifunc=phpcomplete#CompletePHP
+"au FileType php set omnifunc=phpcomplete#CompletePHP
 
 autocmd FileType mail setlocal spell spelllang=en_us,de_de
 
@@ -122,9 +123,9 @@ autocmd FileType mail setlocal spell spelllang=en_us,de_de
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
 
 ""set textwidth=72
 ""set wrapmargin=72
@@ -166,20 +167,20 @@ highlight LineNr ctermfg=59
 highlight LineNr ctermfg=236
 hi CursorColumn ctermfg=none ctermbg=0
 highlight SignColumn ctermbg=none
-hi SyntasticErrorSign ctermfg=1 ctermbg=none
-hi SyntasticWarningSign ctermfg=3 ctermbg=none
-hi SyntasticStyleErrorSign ctermfg=1 ctermbg=none
-hi SyntasticStyleWarningSign ctermfg=3 ctermbg=none
-hi SyntasticErrorLine ctermfg=none ctermbg=none
-hi SyntasticWarningLine ctermfg=none ctermbg=none
-hi SyntasticStyleErrorLine ctermfg=none ctermbg=none
-hi SyntasticStyleWarningLine ctermfg=none ctermbg=none
+"hi SyntasticErrorSign ctermfg=1 ctermbg=none
+"hi SyntasticWarningSign ctermfg=3 ctermbg=none
+"hi SyntasticStyleErrorSign ctermfg=1 ctermbg=none
+"hi SyntasticStyleWarningSign ctermfg=3 ctermbg=none
+"hi SyntasticErrorLine ctermfg=none ctermbg=none
+"hi SyntasticWarningLine ctermfg=none ctermbg=none
+"hi SyntasticStyleErrorLine ctermfg=none ctermbg=none
+"hi SyntasticStyleWarningLine ctermfg=none ctermbg=none
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+"let g:syntastic_always_populate_loc_list = 0
+"let g:syntastic_auto_loc_list = 0
+"let g:syntastic_check_on_open = 0
+""let g:syntastic_check_on_wq = 0

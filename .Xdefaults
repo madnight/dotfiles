@@ -1,4 +1,4 @@
-                                                                                             
+
 !       _|      _|        _|                _|_|                      _|    _|                
 !         _|  _|      _|_|_|    _|_|      _|        _|_|_|  _|    _|  _|  _|_|_|_|    _|_|_|  
 !           _|      _|    _|  _|_|_|_|  _|_|_|_|  _|    _|  _|    _|  _|    _|      _|_|      
@@ -14,22 +14,27 @@
 !                                   / /^\ \ ||  __/ |  | | | | | |
 !                                   \/   \/\__\___|_|  |_| |_| |_|
                                                                  
-XTerm*faceName: Consolas
+!XTerm*faceName: monaco_linux
+XTerm*faceName: Inconsolata\ for\ Powerline\ 17
+!XTerm*faceSize: 14
 XTerm*faceSize: 14
-Xterm*font: Consolas:pixelsize=14
+!Xterm*font: Consolas:pixelsize=14
 XTerm*saveLines: 16384
-XTerm*geometry: 100x25-500+400
+XTerm*geometry: 80x25-500+400
 XTerm*VT100*translations: #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
 !XTerm*VT100*translations: #override Shift <Btn1Up>: exec-formatted("chromium '%t'", PRIMARY)
 XTerm*boldMode: false
 XTerm*allowBoldFonts: false
 XTerm*background: #181818
 XTerm*foreground: #ffffff
-xterm*locale: true
-xterm*utf8: 1
+!xterm*locale: true
+xterm*utf8: 2
 xterm*termName: xterm-256color
-
-
+Xft.lcdfilter:  lcddefault
+*VT100*utf8:            1
+*VT100*eightBitInput:   false
+*VT100*eightBitControl: false
+*VT100*eightBitOutput:  true
 !                                     _   _                  _   
 !                                    | | | |                | |  
 !                                    | | | |_ ____  ____   _| |_ 
@@ -120,7 +125,7 @@ URxvt.intensityStyles: false
 Xft.dpi: 96
 Xft.antialias: true
 Xft.hinting:  true
-Xft.hintstyle:  hintfull
+Xft.hintstyle:  hintslight
 Xft.rgba: none 
 Xft:unifont:medium
 
@@ -177,76 +182,77 @@ Xft:unifont:medium
 *.background:   #181512
 *.cursorColor:  #bea492
 
-! black
+!! black
 *.color0:       #332d29
 *.color8:       #817267
 
-! red
+!! red
 *.color1:       #8c644c
 *.color9:       #9f7155
 
-! green
+!! green
 *.color2:       #746c48
 *.color10:      #857b52
 
-! yellow
+!! yellow
 *.color3:       #908a66
 *.color11:      #9c956e
 
-! blue
+!! blue
 *.color4:       #646a6d
 *.color12:      #71777a
 
-! magenta
+!! magenta
 *.color5:       #605655
 *.color13:      #656565
 
-! cyan
+!! cyan
 *.color6:       #4b5c5e
 *.color14:      #556d70
 
-! white
+!! white
 *.color7:       #504339
-*.color15:      #9a875f
+*.color15:      #000000
 
-!
-
-! Erosion theme by earsplit
-! special
+!! Erosion theme by earsplit
+!! special
 XTerm*.foreground:   #bea492
 XTerm*.background:   #181512
 XTerm*.cursorColor:  #bea492
 
-! black
+!! black
 XTerm*.color0:       #332d29
 XTerm*.color8:       #817267
 
-! red
+!! red
 XTerm*.color1:       #8c644c
 XTerm*.color9:       #9f7155
 
-! green
+!! green
 XTerm*.color2:       #746c48
 XTerm*.color10:      #857b52
 
-! yellow
+!! yellow
 XTerm*.color3:       #908a66
 XTerm*.color11:      #9c956e
 
-! blue
+!! blue
 XTerm*.color4:       #646a6d
 XTerm*.color12:      #71777a
 
-! magenta
+!! magenta
 XTerm*.color5:       #605655
 XTerm*.color13:      #656565
 
-! cyan
+!! cyan
 XTerm*.color6:       #4b5c5e
 XTerm*.color14:      #556d70
 
-! white
+!! white
 XTerm*.color7:       #504339
 XTerm*.color15:      #9a875f
+
+!XTerm*.color15:      #A1B56C
+
 
 

@@ -2,7 +2,7 @@
 	"bold_folder_labels": true,
 	"caret_style": "solid",
 	"color_scheme": "Packages/User/SublimeLinter/Ocean-Dark-Soda (SL).tmTheme",
-	"dictionary": "Packages/Dictionaries/German_de_DE.dic",
+	"dictionary": "Packages/User/German_de_DE.dic",
 	"font_face": "Monaco",
 	"font_options":
 	[
@@ -12,17 +12,17 @@
 	"highlight_line": true,
 	"ignored_packages":
 	[
+		"Numix Theme",
+		"DictionaryAutoComplete",
+		"Theme - Sodarized",
+		"Phpcs",
 		"1337 Color Scheme",
 		"AutoFileName",
-		"DictionaryAutoComplete",
+		"LaTeXing",
 		"FTPSync",
 		"Function Name Display",
-		"LaTeXing",
-		"Numix Theme",
-		"Phpcs",
 		"QMakeProject",
 		"SFTP",
-		"Theme - Sodarized",
 		"Visual Studio Dark"
 	],
 	"preview_on_click": false,

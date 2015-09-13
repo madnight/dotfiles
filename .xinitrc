@@ -14,6 +14,7 @@ xset s off
 xset +fp ~/.fonts
 xset +fp /usr/share/fonts/local
 xset fp rehash
+xset -b # disable terminal bell
 xsetroot -cursor_name left_ptr &
 xrdb -merge ~/.Xresources 
 xrdb -merge ~/.Xdefaults

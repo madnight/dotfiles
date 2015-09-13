@@ -51,7 +51,7 @@ Packages: $alignr ${execi 60 pacman -Q | wc -l} (${execi 60 yaourt --stats | gre
 Updates: $alignr ${execpi 60 checkupdates | wc -l} | ${execi 60 yaourt -Qua | wc -l} 
 $stippled_hr
 SYSTEM
-${voffset 170}
+${voffset 180}
 #Core1: ${cpubar cpu1 3,215}${alignr}${cpu cpu1}%
 #Core2: ${cpubar cpu2 3,215}${alignr}${cpu cpu2}%
 #Core3: ${cpubar cpu3 3,215}${alignr}${cpu cpu3}%
@@ -74,9 +74,8 @@ CPU USAGE $alignr PID     CPU%   MEM%
 ${color #ddaa00}${lua_parse pad ${top name 1}} $alignr ${top pid 1} ${top cpu 1} ${top mem 1}$color
 ${lua_parse pad ${top name 2}} $alignr ${top pid 2} ${top cpu 2} ${top mem 2}
 ${lua_parse pad ${top name 3}} $alignr ${top pid 3} ${top cpu 3} ${top mem 3}
-#${execi 3 ps -eo comm,pid,pcpu,pmem | sort -rk 3,3 | head -n 4} 
-# ${top name 4} $alignr ${top pid 4} ${top cpu 4} ${top mem 4}
-# ${top name 5} $alignr ${top pid 5} ${top cpu 5} ${top mem 5}
+${lua_parse pad ${top name 4}} $alignr ${top pid 4} ${top cpu 4} ${top mem 4}
+${lua_parse pad ${top name 5}} $alignr ${top pid 5} ${top cpu 5} ${top mem 5}
 
 Mem usage$color
 ${color #ddaa00}${lua_parse pad ${top_mem name 1}} $alignr ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}$color

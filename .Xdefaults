@@ -15,12 +15,17 @@
 !                                   \/   \/\__\___|_|  |_| |_| |_|
                                                                  
 !XTerm*faceName: monaco_linux
-XTerm*faceName: Inconsolata\ for\ Powerline\ 17
+XTerm*faceName: Inconsolata for Powerline
+XTerm*font: Inconsolata for Powerline
+UXTerm*faceName: Inconsolata for Powerline
+UXTerm*faceSize: 17
+XTerm*scaleHeight: 1.01 
+!XTerm*faceName: Monaco\ for\ Powerline\ 17
 !XTerm*faceSize: 14
-XTerm*faceSize: 14
+XTerm*faceSize: 17
 !Xterm*font: Consolas:pixelsize=14
 XTerm*saveLines: 16384
-XTerm*geometry: 80x25-500+400
+XTerm*geometry: 80x24-500+400
 XTerm*VT100*translations: #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
 !XTerm*VT100*translations: #override Shift <Btn1Up>: exec-formatted("chromium '%t'", PRIMARY)
 XTerm*boldMode: false
@@ -28,13 +33,16 @@ XTerm*allowBoldFonts: false
 XTerm*background: #181818
 XTerm*foreground: #ffffff
 !xterm*locale: true
-xterm*utf8: 2
-xterm*termName: xterm-256color
+Xterm*utf8: true
+Xterm*termName: xterm-256color
 Xft.lcdfilter:  lcddefault
-*VT100*utf8:            1
-*VT100*eightBitInput:   false
-*VT100*eightBitControl: false
-*VT100*eightBitOutput:  true
+Xterm*VT100*utf8: 1
+Xterm*VT100*font: Inconsolata for Powerline
+!Xterm*VT100*widefont: Inconsolata for Powerline
+!Xterm*VT100*boldfont: Inconsolata for Powerline
+!*VT100*eightBitInput:   false
+!*VT100*eightBitControl: false
+!*VT100*eightBitOutput:  true
 !                                     _   _                  _   
 !                                    | | | |                | |  
 !                                    | | | |_ ____  ____   _| |_ 

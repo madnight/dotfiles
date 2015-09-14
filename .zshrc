@@ -13,10 +13,28 @@ SAVEHIST=10000
 bindkey -e
 zstyle :compinstall filename '/home/x/.zshrc'
 autoload -Uz compinit promptinit colors
-#compinit
-#promptinit
-#
 
+# Path to your oh-my-zsh installation.
+ZSH=/usr/share/oh-my-zsh/
+DEFAULT_USER="x"
+#ZSH_THEME="robbyrussell"
+#ZSH_THEME="random"
+ZSH_THEME="agnoster"
+# Uncomment the following line to disable bi-weekly auto-update checks.
+DISABLE_AUTO_UPDATE="true"
+plugins=(git)
+# User configuration
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
+  mkdir $ZSH_CACHE_DIR
+fi
+# source $ZSH/oh-my-zsh.sh
+source /usr/share/oh-my-zsh/oh-my-zsh.sh 
+
+source ~/.oh-my-zsh/themes/agnoster.zsh-theme
+#zstyle ':completion:*' list-colors ''
 setopt AUTO_CD
 setopt CORRECT
 setopt completealiases
@@ -28,8 +46,8 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 setopt completealiases
 
-# ZSH=$HOME/.oh-my-zsh/oh-my-zsh.sh
-#plugins=(git bundler osx rake ruby)
+
+plugins=(git)
 #
 #
 # BG olor Fix
@@ -205,7 +223,7 @@ alias smallfiles='sudo find / -xdev -type d -size +100k'
 alias settime='timedatectl'
 alias setdate='timedatectl'
 alias ft='parallel -k rspec -c ::: spec/controllers/agreements_controller_spec.rb spec/controllers/project_spec.rb spec/controllers/work_package_controller_spec.rb spec/controllers/employee_spec.rb spec/controllers/team_controller_spec.rb spec/controllers/organizations_controller_spec.rb spec/controllers/user_spec.rb'
-
+alias stack='howdoi -c -n 3'
 
 alias sshx='ssh -XC -c blowfish-cbc,arcfour'
 alias awe='cd /home/x/Git/awe15-04'
@@ -261,6 +279,19 @@ restart() { sudo systemctl restart $1.service; sudo systemctl status $1.service;
 status() { sudo systemctl status $1.service; }
 enabled() { cd /usr/lib/systemd/system; sudo systemctl enable $1.service;  }
 disabled() { sudo systemctl disable $1.service;  }
+user_commands=(
+  list-units is-active status show help list-unit-files
+  is-enabled list-jobs show-environment cat)
+
+sudo_commands=(
+  start stop reload restart try-restart isolate kill
+  reset-failed enable disable reenable preset mask unmask
+  link load cancel set-environment unset-environment
+  edit)
+
+for c in $user_commands; do; alias sc-$c="systemctl $c"; done
+for c in $sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
+
 alias failed='systemctl --failed'
 alias killall='killall -s SIGKILL'
 
@@ -271,8 +302,8 @@ statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
 
 cl() { cd $1 && pwd && ls; }
 
-google() { chromium "http://www.google.com/search?q= $1"; }
-
+google() { chromium "http://www.google.com/search?q=$1"; }
+github() { chromium "https://github.com/search?q=$1"; }
 #t() { dict -d fd-eng-deu $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; } 
 
 #rt() { dict -d fd-deu-eng $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; }
@@ -384,6 +415,7 @@ md5copy() {
   rsync -c -h --stats --info=progress2 $1 $2
   parallel md5sum ::: $1 $2$1
 }
+# web_search from terminal
 
 extract () {
   if [ -f $1 ] ; then
@@ -598,14 +630,14 @@ echo "^C to cancel, ^D to send."
 stty -ixon # prevent ctrl s form freezing the term
 
 
-prompt minimal
+#prompt minimal
 #RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
 #RPROMPT="hallo"
 #RPROMPT="$fg[black] %~"
-PROMPT="
-%{$fg[red]%} $(echo "\u00BB")  %{$reset_color%}"
+#PROMPT="
+#%{$fg[red]%} $(echo "\u00BB")  %{$reset_color%}"
 
 #prompt minimal
 
-RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
+#RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
 

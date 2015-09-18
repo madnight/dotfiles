@@ -173,8 +173,8 @@ set t_vb=
 set mouse=a
 set notimeout ttimeout ttimeoutlen=200
 set pastetoggle=<F11>
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set formatoptions=l
 set lbr
@@ -196,6 +196,13 @@ let mapleader=","
 "let g:livepreview_previewer = 'zathura'
 "let g:auto_save = 1 
 
+
+nnoremap <C-j> <C-w>j
+nnoremap <leader>cd :lcd %:p:h<CR>
+nnoremap <SPACE> :
+nnoremap <leader>n :NERDTreeToggle<CR>
+inoremap jk <ESC>
+nnoremap <C-L> :nohl<CR><C-L>
 " keymaps
 " control h, j, k, l tab navigation
 " nmap <S-h> <C-w>h			
@@ -208,23 +215,17 @@ nmap <S-w> :bd<CR>
 nmap <C-j> 4j
 nmap <C-k> 4k
 " Jump to definition (ctags -R)
-nmap <C-b> g]1<CR>
+nmap <C-b> g]1<CR>w
 nmap o o<ESC>
 nmap <C-k> 4k
+nmap <C-a> :A<CR>
 nmap <C-o> O<Esc>
 nmap <C-l> :LLPStartPreview<CR>
 nmap ^ $
-nmap <C-a> <C-u>
 nmap zz ZZ
 nmap <C-g> <Plug>IMAP_JumpForward
 " redef C-j to C-g latex packages
-nnoremap <C-j> <C-w>j
-nnoremap <leader>cd :lcd %:p:h<CR>
-nnoremap <SPACE> :
-nnoremap <leader>n :NERDTreeToggle<CR>
-inoremap jk <ESC>
-nnoremap <C-L> :nohl<CR><C-L>
-imap <C-l> :LLPStartPreview<CR>
+map <C-l> :LLPStartPreview<CR>
 imap ii <Esc>
 imap jj <Esc>
 imap <C-g> <Plug>IMAP_JumpForward
@@ -325,7 +326,7 @@ hi Statement ctermfg=3
 hi String ctermfg=15
 "hi String ctermfg=15
 "hi Identifier ctermfg=59
-
+let g:NERDTreeWinPos = "left"
 let php_sql_query=1                                                                                        
 let Tlist_Use_Right_Window   = 1
 let php_htmlInStrings=1

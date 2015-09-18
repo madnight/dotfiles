@@ -13,10 +13,12 @@ SAVEHIST=10000
 bindkey -e
 zstyle :compinstall filename '/home/x/.zshrc'
 autoload -Uz compinit promptinit colors
-
+setopt PROMPT_SUBST
 # Path to your oh-my-zsh installation.
+#
 ZSH=/usr/share/oh-my-zsh/
 DEFAULT_USER="x"
+
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="random"
 ZSH_THEME="agnoster"
@@ -30,11 +32,13 @@ ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
-# source $ZSH/oh-my-zsh.sh
+
+#source $ZSH/oh-my-zsh.sh
 source /usr/share/oh-my-zsh/oh-my-zsh.sh 
 
-source ~/.oh-my-zsh/themes/agnoster.zsh-theme
+
 #zstyle ':completion:*' list-colors ''
+
 setopt AUTO_CD
 setopt CORRECT
 setopt completealiases
@@ -47,7 +51,7 @@ zstyle ':completion:*' rehash true
 setopt completealiases
 
 
-plugins=(git)
+#plugins=(git)
 #
 #
 # BG olor Fix
@@ -70,18 +74,52 @@ fi
 #  eval `ssh-agent -s`
 #  ssh-add
 #fi
+
+
 # File not found hook: https://wiki.archlinux.org/index.php/Pkgfile
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-#source /usr/share/git/completion/git-prompt.sh
-#
 source ~/.zshrc_priv
 
-#PS1='[%n@%m %c$(__git_ps1 " (%s)")]\$ '
+prompt minimal
+
+source ~/.oh-my-zsh/themes/agnoster.zsh-theme
+
+ZSH_COMMAND_START=0
+typeset -gF SECONDS
+
+function preexec {
+ZSH_COMMAND_START=${ZSH_COMMAND_START:-$SECONDS}
+}
+
+function precmd {
+if [[ -n "$ZSH_COMMAND_START" ]]; then
+    ((ZSH_COMMAND_TIME = SECONDS - ZSH_COMMAND_START))
+    unset ZSH_COMMAND_START
+else
+    ZSH_COMMAND_TIME=0
+fi
+}
+
+local timing='$(
+printf "%%{$fg[black]%%}%.2f%%f" "$ZSH_COMMAND_TIME"
+)'
 
 xrdb /home/x/.Xdefaults
+
+#RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
+
+local left right
+left=("$prefix" "$mode" "$username" "$hostname" "$cwd" "$finale")
+right=("$git" "$timing")
+
+RPS1="\$(echo \"${(pj::)right}\")"
+
+RPROMPT="%B%{$fg[black]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
+#RPROMPT="asda"
+
 
 alias ll='ls -alF'
 alias la='ls -A'
@@ -165,7 +203,7 @@ alias pacbackup='cd /var/cache/pacman/pkg && ls'
 alias lastinstalled='yaourt -Q --date'
 alias swi-prolog='swipl'
 alias vimt='vim -c "NERDTree" $1'
-alias vim='gvim'
+alias vim='gvim --remote'
 alias svim='sudo vim'
 alias android-connect="mtpfs -o allow_other /media/YOURMOUNTPOINT"
 alias android-disconnect="fusermount -u /media/YOURMOUNTPOINT"
@@ -266,10 +304,8 @@ export BROWSER="chromium"
 export SHELL=/usr/bin/zsh
 export TCLLIBPATH=~/.local/share/tktheme
 
-#Whats this? ^^
-#
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-  exec startx
+    exec startx
 fi
 
 # systemd shortcuts
@@ -280,14 +316,13 @@ status() { sudo systemctl status $1.service; }
 enabled() { cd /usr/lib/systemd/system; sudo systemctl enable $1.service;  }
 disabled() { sudo systemctl disable $1.service;  }
 user_commands=(
-  list-units is-active status show help list-unit-files
-  is-enabled list-jobs show-environment cat)
+list-units is-active status show help list-unit-files
+is-enabled list-jobs show-environment cat)
 
-sudo_commands=(
-  start stop reload restart try-restart isolate kill
-  reset-failed enable disable reenable preset mask unmask
-  link load cancel set-environment unset-environment
-  edit)
+sudo_commands=(start stop reload restart try-restart isolate kill
+reset-failed enable disable reenable preset mask unmask
+link load cancel set-environment unset-environment
+edit)
 
 for c in $user_commands; do; alias sc-$c="systemctl $c"; done
 for c in $sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
@@ -310,24 +345,24 @@ github() { chromium "https://github.com/search?q=$1"; }
 
 packages () 
 {
-  pacman -Qqe  >| /home/datadisk/Dropbox/ArchBackup/pkglist_$(date +%F).txt 
-  pacman -Qqe  
+    pacman -Qqe  >| /home/datadisk/Dropbox/ArchBackup/pkglist_$(date +%F).txt 
+    pacman -Qqe  
 }
 
 leo()
 {
-  onetwo='.{1,2}'
-  re="$1"
-  re="${re//[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/.}"
-  re="${re//ue/$onetwo}"
-  re="${re//ae/$onetwo}"
-  re="${re//oe/$onetwo}"
-  re="${re//ss/$onetwo}"
-  lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
+    onetwo='.{1,2}'
+    re="$1"
+    re="${re//[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/.}"
+    re="${re//ue/$onetwo}"
+    re="${re//ae/$onetwo}"
+    re="${re//oe/$onetwo}"
+    re="${re//ss/$onetwo}"
+    lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
 }
 
 killport() {
-  lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill 
+    lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill 
 }
 
 cd() { builtin cd $1 && ls }
@@ -359,175 +394,175 @@ mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
 yoda(){ git add . && git commit && git push }
 
 pagrep() {
-  [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
-  find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
+    [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
+    find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
 }
 
 cpstat () {
-  tar cf - "$1" | pv | (cd "$2";tar xf -)
+    tar cf - "$1" | pv | (cd "$2";tar xf -)
 }
 
 dls () {
- echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`
+    echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`
 }
 
 installfont() {
-  sudo cp $1 /usr/share/fonts/misc/
-  sudo mkfontdir /usr/share/fonts/misc
-  xset +fp /usr/share/fonts/misc
-  xlsfonts | grep $1
+    sudo cp $1 /usr/share/fonts/misc/
+    sudo mkfontdir /usr/share/fonts/misc
+    xset +fp /usr/share/fonts/misc
+    xlsfonts | grep $1
 }
 
 fontcache() {
-  sudo echo -n "Updating font cache... "
-  xset +fp ~/.fonts
-  sudo fc-cache >/dev/null -f
-  sudo mkfontscale /usr/share/fonts/TTF
-  sudo mkfontdir   /usr/share/fonts/TTF
-  echo done
+    sudo echo -n "Updating font cache... "
+    xset +fp ~/.fonts
+    sudo fc-cache >/dev/null -f
+    sudo mkfontscale /usr/share/fonts/TTF
+    sudo mkfontdir   /usr/share/fonts/TTF
+    echo done
 }
 
 lastdir() {
-  last_dir="$(ls -Frt | grep '/$' | tail -n1)"
-  if [ -d "$last_dir" ]; then
-    cd "$last_dir"
-  fi
+    last_dir="$(ls -Frt | grep '/$' | tail -n1)"
+    if [ -d "$last_dir" ]; then
+        cd "$last_dir"
+    fi
 }
 
 csource() {
-  [[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
-  [[ -r $1 ]] || { printf "File %s does not exist or is not readable\n" "$1" >&2; return 1; }
-  local output_path=${TMPDIR:-/tmp}/${1##*/};
-  gcc "$1" -o "$output_path" && "$output_path";
-  rm "$output_path";
-  return 0;
+    [[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
+    [[ -r $1 ]] || { printf "File %s does not exist or is not readable\n" "$1" >&2; return 1; }
+    local output_path=${TMPDIR:-/tmp}/${1##*/};
+    gcc "$1" -o "$output_path" && "$output_path";
+    rm "$output_path";
+    return 0;
 }
 
 cycle() {
-  last_dir="$(ls -Frt | grep '/$' | tail -n1)"
-  if [ -d "$last_dir" ]; then
-    cd "$last_dir"
-  fi
+    last_dir="$(ls -Frt | grep '/$' | tail -n1)"
+    if [ -d "$last_dir" ]; then
+        cd "$last_dir"
+    fi
 }
 
 md5copy() {
-  echo "usage: md5copy Star_Trek.mkv /run/media/x/Stick/"
-  rsync -c -h --stats --info=progress2 $1 $2
-  parallel md5sum ::: $1 $2$1
+    echo "usage: md5copy Star_Trek.mkv /run/media/x/Stick/"
+    rsync -c -h --stats --info=progress2 $1 $2
+    parallel md5sum ::: $1 $2$1
 }
 # web_search from terminal
 
 extract () {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xvjf $1    ;;
-      *.tar.gz)    tar xvzf $1    ;;
-      *.tar.xz)    tax xf $1 	   ;;
-      *.bz2)       bunzip2 $1     ;;
-      *.rar)       unrar x $1       ;;
-      *.gz)        gunzip $1      ;;
-      *.tar)       tar xvf $1     ;;
-      *.tbz2)      tar xvjf $1    ;;
-      *.tgz)       tar xvzf $1    ;;
-      *.zip)       unzip $1       ;;
-      *.Z)         uncompress $1  ;;
-      *.7z)        7z x $1        ;;
-      *)           echo "don't know how to extract '$1'..." ;;
-    esac
-  else
-    echo "'$1' is not a valid file!"
-  fi
+    if [ -f $1 ] ; then
+        case $1 in
+            *.tar.bz2)   tar xvjf $1    ;;
+            *.tar.gz)    tar xvzf $1    ;;
+            *.tar.xz)    tax xf $1 	   ;;
+            *.bz2)       bunzip2 $1     ;;
+            *.rar)       unrar x $1       ;;
+            *.gz)        gunzip $1      ;;
+            *.tar)       tar xvf $1     ;;
+            *.tbz2)      tar xvjf $1    ;;
+            *.tgz)       tar xvzf $1    ;;
+            *.zip)       unzip $1       ;;
+            *.Z)         uncompress $1  ;;
+            *.7z)        7z x $1        ;;
+            *)           echo "don't know how to extract '$1'..." ;;
+        esac
+    else
+        echo "'$1' is not a valid file!"
+    fi
 }
 
 sound () {
-  pulseaudio --kill;
-  pulseaudio --start;
-  pacmd list-sinks;
-  pacmd set-default-sink alsa_output.pci-0000_00_14.2.analog-stereoi;
+    pulseaudio --kill;
+    pulseaudio --start;
+    pacmd list-sinks;
+    pacmd set-default-sink alsa_output.pci-0000_00_14.2.analog-stereoi;
 }
 
 format () {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.js)     js-beautify $1 > beauty$1   ;;
-      *.html)   tidy $1 > beauty$1   ;;
-      *)           echo "don't know how to extract '$1'..." ;;
-    esac
-    rm $1;
-    mv beauty$1 $1;
-  else
-    echo "'$1' is not a valid file!"
-  fi
+    if [ -f $1 ] ; then
+        case $1 in
+            *.js)     js-beautify $1 > beauty$1   ;;
+            *.html)   tidy $1 > beauty$1   ;;
+            *)           echo "don't know how to extract '$1'..." ;;
+        esac
+        rm $1;
+        mv beauty$1 $1;
+    else
+        echo "'$1' is not a valid file!"
+    fi
 }
 
 colortest() {
-  T='gYw'   # The test text
+    T='gYw'   # The test text
 
-  echo -e "\n                 40m     41m     42m     43m\
-    44m     45m     46m     47m";
+    echo -e "\n                 40m     41m     42m     43m\
+        44m     45m     46m     47m";
 
-  for FGs in '    m' '   1m' '  30m' '1;30m' '  31m' '1;31m' '  32m' \
-    '1;32m' '  33m' '1;33m' '  34m' '1;34m' '  35m' '1;35m' \
-    '  36m' '1;36m' '  37m' '1;37m';
+    for FGs in '    m' '   1m' '  30m' '1;30m' '  31m' '1;31m' '  32m' \
+        '1;32m' '  33m' '1;33m' '  34m' '1;34m' '  35m' '1;35m' \
+        '  36m' '1;36m' '  37m' '1;37m';
 do FG=${FGs// /}
-  echo -en " $FGs \033[$FG  $T  "
-  for BG in 40m 41m 42m 43m 44m 45m 46m 47m;
-  do echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m";
-  done
-  echo;
+    echo -en " $FGs \033[$FG  $T  "
+    for BG in 40m 41m 42m 43m 44m 45m 46m 47m;
+    do echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m";
+    done
+    echo;
 done
 echo;
 }
 
 conf() {
-  case $1 in
-    dict)          	vim ~/.conky/dict ;;
-    weather)       	vim ~/.conky/conky_weather/weather_5days ;;
-    wiki)		vim ~/.conky/wiki ;;
-    irc)		vim ~/.conky/irc ;;
-    grey)   	  	vim ~/.conky/conkyrc_grey ;;
-    mail)   	  	vim ~/.conky/mail ;;
-    hc)			vim ~/.config/herbstluftwm/autostart ;;
-    compton)   	  	vim ~/.config/compton.conf ;;
-    autostart)          vim ~/.config/herbstluftwm/autostart ;;
-    log)   	        vim ~/.conky/log ;;
-    news)   	  	vim ~/.conky/news ;;
-    i3)                 vim ~/.i3/config;;    
-    status)             vim ~/.i3status.conf;;    
-    vim)                vim ~/.vimrc;;
-    res)                vim ~/.Xresources && xrdb ~/.Xresources;;
-    def)                vim ~/.Xdefaults && xrdb ~/.Xdefaults;;
-    ncm)                vim ~/.ncmpcpp/config;;
-    mutt)               vim ~/.mutt/muttrc;;
-    x)                  vim ~/.xinitrc;;
-    mpd)                sudo vim /etc/mpd.conf;;
-    termite)            vim ~/.config/termite/config;;
-    *)                  echo "Unknown application: $1" ;;
-  esac
+    case $1 in
+        dict)          	vim ~/.conky/dict ;;
+        weather)       	vim ~/.conky/conky_weather/weather_5days ;;
+        wiki)		vim ~/.conky/wiki ;;
+        irc)		vim ~/.conky/irc ;;
+        grey)   	  	vim ~/.conky/conkyrc_grey ;;
+        mail)   	  	vim ~/.conky/mail ;;
+        hc)			vim ~/.config/herbstluftwm/autostart ;;
+        compton)   	  	vim ~/.config/compton.conf ;;
+        autostart)          vim ~/.config/herbstluftwm/autostart ;;
+        log)   	        vim ~/.conky/log ;;
+        news)   	  	vim ~/.conky/news ;;
+        i3)                 vim ~/.i3/config;;    
+        status)             vim ~/.i3status.conf;;    
+        vim)                vim ~/.vimrc;;
+        res)                vim ~/.Xresources && xrdb ~/.Xresources;;
+        def)                vim ~/.Xdefaults && xrdb ~/.Xdefaults;;
+        ncm)                vim ~/.ncmpcpp/config;;
+        mutt)               vim ~/.mutt/muttrc;;
+        x)                  vim ~/.xinitrc;;
+        mpd)                sudo vim /etc/mpd.conf;;
+        termite)            vim ~/.config/termite/config;;
+        *)                  echo "Unknown application: $1" ;;
+    esac
 }
 
 
 conk() {
-  case $1 in
-    dict)          	conky -c ~/.conky/dict &;;
-    mail)          	conky -c ~/.conky/mail &;;
-    weather)       	conky -c ~/.conky/conky_weather/weather_5days &;;
-    wiki)		conky -c ~/.conky/wiki &;;
-    grey)   	  	conky -c ~/.conky/conkyrc_grey &;;
-    irc)   	  	conky -c ~/.conky/irc &;;
-    log)   	  	conky -c ~/.conky/log &;;
-    news)   	  	conky -c ~/.conky/news &;;
-    *)                  echo "Unknown application: $1" ;;
-  esac
+    case $1 in
+        dict)          	conky -c ~/.conky/dict &;;
+        mail)          	conky -c ~/.conky/mail &;;
+        weather)       	conky -c ~/.conky/conky_weather/weather_5days &;;
+        wiki)		conky -c ~/.conky/wiki &;;
+        grey)   	  	conky -c ~/.conky/conkyrc_grey &;;
+        irc)   	  	conky -c ~/.conky/irc &;;
+        log)   	  	conky -c ~/.conky/log &;;
+        news)   	  	conky -c ~/.conky/news &;;
+        *)                  echo "Unknown application: $1" ;;
+    esac
 }
 
 
 orphans() {
-  if [[ ! -n $(pacman -Qdt) ]]; then
-    echo "No orphans to remove."
-  else
-    sudo pacman -Rns $(pacman -Qdtq)
-  fi
+    if [[ ! -n $(pacman -Qdt) ]]; then
+        echo "No orphans to remove."
+    else
+        sudo pacman -Rns $(pacman -Qdtq)
+    fi
 }
 
 
@@ -535,7 +570,7 @@ function repeat() {
 local i max
 max=$1; shift;
 for ((i=1; i <= max ; i++)); do  # --> C-like syntax
-  eval "$@";
+    eval "$@";
 done
 }
 
@@ -554,48 +589,48 @@ pdflatex $1 && rm $log; rm $out; rm $aux; rm $toc; rm $lof; rm $lot; mupdf $pdf
 function showdesk() {
 current_mode="$(wmctrl -m | grep 'showing the desktop')";
 if [[ "${current_mode##* }" == ON ]]; then
-  wmctrl -k off
+    wmctrl -k off
 else
-  wmctrl -k on
+    wmctrl -k on
 fi
 }
 
-precmd () { print -Pn "\e]2; \a" } # title bar promptinit
+#precmd () { print -Pn "\e]2; \a" } # title bar promptinit
 
 backup ()
 {
-  sudo rsync -aAXh --stats --info=progress2 --delete --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/home/datadisk/*","/home/x/.gvfs","/home/x/Downloads/*","/var/cache/pacman/*","/home/x/.config/VirtualBox/*","/home/x/.wine/*","/home/x/.atom/*","/home/x/.winex64/*","/home/x/.thumbnails/*","/home/x/.cache/mozilla/*","/home/x/.codeintel/db/*"} /* /home/datadisk/fullarchbackup
+    sudo rsync -aAXh --stats --info=progress2 --delete --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/home/datadisk/*","/home/x/.gvfs","/home/x/Downloads/*","/var/cache/pacman/*","/home/x/.config/VirtualBox/*","/home/x/.wine/*","/home/x/.atom/*","/home/x/.winex64/*","/home/x/.thumbnails/*","/home/x/.cache/mozilla/*","/home/x/.codeintel/db/*"} /* /home/datadisk/fullarchbackup
 }
 
 colors()
 {
-  ( x=`tput op` y=`printf %$((${COLUMNS}-6))s`;
-  for i in {0..15};
-  do
-    o=00$i;
-    echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;
-  done )
+    ( x=`tput op` y=`printf %$((${COLUMNS}-6))s`;
+    for i in {0..15};
+    do
+        o=00$i;
+        echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;
+    done )
 }
 
 ix() {
-  local opts
-  local OPTIND
-  [ -f "$HOME/.netrc" ] && opts='-n'
-  while getopts ":hd:i:n:" x; do
-    case $x in
-      h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
-      d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
-      i) opts="$opts -X PUT"; local id="$OPTARG";;
-      n) opts="$opts -F read:1=$OPTARG";;
-    esac
-  done
-  shift $(($OPTIND - 1))
-  [ -t 0 ] && {
-  local filename="$1"
-  shift
-  [ "$filename" ] && {
-  curl $opts -F f:1=@"$filename" $* ix.io/$id
-  return
+    local opts
+    local OPTIND
+    [ -f "$HOME/.netrc" ] && opts='-n'
+    while getopts ":hd:i:n:" x; do
+        case $x in
+            h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
+            d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
+            i) opts="$opts -X PUT"; local id="$OPTARG";;
+            n) opts="$opts -F read:1=$OPTARG";;
+        esac
+    done
+    shift $(($OPTIND - 1))
+    [ -t 0 ] && {
+    local filename="$1"
+    shift
+    [ "$filename" ] && {
+    curl $opts -F f:1=@"$filename" $* ix.io/$id
+    return
 }
 echo "^C to cancel, ^D to send."
   }
@@ -606,13 +641,13 @@ echo "^C to cancel, ^D to send."
 #DIRSTACKFILE="$HOME/.cache/zsh/dirs"
 #if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
 #set +o noclobber
-  #dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-  #[[ -d $dirstack[1] ]] && cd $dirstack[1]
+#dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+#[[ -d $dirstack[1] ]] && cd $dirstack[1]
 #set -o noclobber
 #fi
 #chpwd() {
 #set +o noclobber
-  #print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
+#print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
 #set -o noclobber
 #}
 
@@ -630,7 +665,6 @@ echo "^C to cancel, ^D to send."
 stty -ixon # prevent ctrl s form freezing the term
 
 
-#prompt minimal
 #RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
 #RPROMPT="hallo"
 #RPROMPT="$fg[black] %~"
@@ -640,4 +674,5 @@ stty -ixon # prevent ctrl s form freezing the term
 #prompt minimal
 
 #RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
+
 

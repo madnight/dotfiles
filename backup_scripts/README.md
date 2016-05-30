@@ -42,3 +42,10 @@ sudo systemctl edit getty@tty1 and pasting its content:
 [Service]  
 ExecStart=  
 ExecStart=-/usr/bin/agetty --autologin username --noclear %I 38400 linux  
+
+Bootable USB
+----------
+
+Run the following command, replacing /dev/sdx with your drive, e.g. /dev/sdb. (do not append a partition number, so do not use something like /dev/sdb1):
+
+sudo umount /dev/sdx && dd bs=4M if=/path/to/archlinux.iso of=/dev/sdx status=progress && sync

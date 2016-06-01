@@ -10,7 +10,7 @@
 !                                   __   ___                      
 !                                   \ \ / / |                     
 !                                    \ V /| |_ ___ _ __ _ __ ___  
-!                                    /   \| __/ _ \ '__| '_ ` _ \ 
+!                                    /   \| __/ _ \ '__| '_ ` _  \
 !                                   / /^\ \ ||  __/ |  | | | | | |
 !                                   \/   \/\__\___|_|  |_| |_| |_|
                                                                  
@@ -18,11 +18,11 @@
 XTerm*faceName: Inconsolata for Powerline
 XTerm*font: Inconsolata for Powerline
 UXTerm*faceName: Inconsolata for Powerline
-UXTerm*faceSize: 17
+UXTerm*faceSize: 16
 XTerm*scaleHeight: 1.01 
 !XTerm*faceName: Monaco\ for\ Powerline\ 17
 !XTerm*faceSize: 14
-XTerm*faceSize: 17
+XTerm*faceSize: 16
 !Xterm*font: Consolas:pixelsize=14
 XTerm*saveLines: 16384
 XTerm*geometry: 80x24-500+400
@@ -38,6 +38,7 @@ Xterm*termName: xterm-256color
 Xft.lcdfilter:  lcddefault
 Xterm*VT100*utf8: 1
 Xterm*VT100*font: Inconsolata for Powerline
+xterm*iconPixmap: /usr/share/icons/Faenza/apps/32/xterm.xbm
 !Xterm*VT100*widefont: Inconsolata for Powerline
 !Xterm*VT100*boldfont: Inconsolata for Powerline
 !*VT100*eightBitInput:   false
@@ -138,19 +139,19 @@ Xft.rgba: none
 Xft:unifont:medium
 
 !*.background: #181818
-!*foreground: #EDE9E2
+!*foreground: #ede9e2
 !
 !!black
-!*color0:#4A3637
-!*color8:#4A3637
+!*color0:#4a3637
+!*color8:#4a3637
 !
 !!
 !!red
-!*color1:#853A3E
-!*color9:#853A3E
+!*color1:#853a3e
+!*color9:#853a3e
 !
-!!*color1:#AE4544
-!!*color9:#AE4544
+!!*color1:#ae4544
+!!*color9:#ae4544
 !
 !!*color1:#d17b49
 !!*color9:#d17b49
@@ -164,8 +165,8 @@ Xft:unifont:medium
 !*color11:#af865a
 !
 !!blue
-!*color4:#535C5C
-!*color12:#535C5C
+!*color4:#535c5c
+!*color12:#535c5c
 !
 !!magenta
 !*color5:#775759
@@ -184,11 +185,11 @@ Xft:unifont:medium
 !
 !
 !
-! Erosion theme by earsplit
+! erosion theme by earsplit
 ! special
 *.foreground:   #bea492
-*.background:   #181512
-*.cursorColor:  #bea492
+*.background:   #222222
+*.cursorcolor:  #bea492
 
 !! black
 *.color0:       #332d29
@@ -222,45 +223,43 @@ Xft:unifont:medium
 *.color7:       #504339
 *.color15:      #000000
 
-!! Erosion theme by earsplit
+!! erosion theme by earsplit
 !! special
-XTerm*.foreground:   #bea492
-XTerm*.background:   #181512
-XTerm*.cursorColor:  #bea492
+xterm*.foreground:   #bea492
+xterm*.background:   #222222
+xterm*.cursorcolor:  #bea492
 
 !! black
-XTerm*.color0:       #332d29
-XTerm*.color8:       #817267
+xterm*.color0:       #332d29
+xterm*.color8:       #817267
 
 !! red
-XTerm*.color1:       #8c644c
-XTerm*.color9:       #9f7155
+xterm*.color1:       #8c644c
+xterm*.color9:       #9f7155
 
 !! green
-XTerm*.color2:       #746c48
-XTerm*.color10:      #857b52
+xterm*.color2:       #746c48
+xterm*.color10:      #857b52
 
 !! yellow
-XTerm*.color3:       #908a66
-XTerm*.color11:      #9c956e
+xterm*.color3:       #908a66
+xterm*.color11:      #9c956e
 
 !! blue
-XTerm*.color4:       #646a6d
-XTerm*.color12:      #71777a
+xterm*.color4:       #646a6d
+xterm*.color12:      #71777a
 
 !! magenta
-XTerm*.color5:       #605655
-XTerm*.color13:      #656565
+xterm*.color5:       #605655
+xterm*.color13:      #656565
 
 !! cyan
-XTerm*.color6:       #4b5c5e
-XTerm*.color14:      #556d70
+xterm*.color6:       #4b5c5e
+xterm*.color14:      #556d70
 
 !! white
-XTerm*.color7:       #504339
-XTerm*.color15:      #9a875f
+xterm*.color7:       #504339
+xterm*.color15:      #9a875f
 
-!XTerm*.color15:      #A1B56C
-
-
+!xterm*.color15:      #a1b56c
 

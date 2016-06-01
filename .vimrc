@@ -20,8 +20,10 @@ Plugin 'ajh17/Spacegray.vim'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'Bling/vim-airline'
 Plugin 'szw/vim-tags'
+Plugin 'suan/vim-instant-markdown'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
+Plugin 'DamienCassou/textlint'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'blackgate/tropikos-vim-theme'
 Plugin 'flazz/vim-colorschemes'
@@ -62,9 +64,21 @@ let g:syntastic_warning_symbol = "▲"
 let g:syntastic_cpp_config_file = '~/.syntastic_includes'
 
 let g:syntastic_cpp_check_header = 1
-let g:syntastic_enable_signs=1
+let g:syntastic__signs=1
 "let g:syntastic_quiet_warnings=1
 
+let g:livepreview_previewer = 'evince'
+let g:LatexBox_latexmk_options = "-pvc -pdfps"
+let g:LatexBox_latexmk_preview_continuously=1
+let g:LatexBox_latexmk_async=1
+let g:Tex_CompileRule_pdf = 'latexmk -pdf'
+
+silent! iunmap (
+silent! iunmap )
+silent! iunmap {
+silent! iunmap }
+
+"autocmd BufNewFile,BufWritePost,BufRead *.tex set makeprg=pdflatex\ %\ &&\ xdg-open\ %:r.pdf
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
@@ -207,8 +221,8 @@ nnoremap <C-L> :nohl<CR><C-L>
 " control h, j, k, l tab navigation
 " nmap <S-h> <C-w>h			
 " nmap <S-j> <C-w>wh<CR>
-nmap <C-PageUp> <C-w>wh<CR>
-nmap <C-PageDown> <C-w>wl<CR>
+map <C-PageUp> <C-w>wh<CR>
+map <C-PageDown> <C-w>wl<CR>
 nmap <S-k> <C-w>wl<CR>
 nmap <S-w> :bd<CR>
 " Jump faster
@@ -252,14 +266,16 @@ colorscheme default
 "colorscheme wombat256mod
 "colorscheme atom-dark-256
 "
-au BufNewFile,BufRead,BufEnter   *.tex     setlocal spell    spelllang=de_de
-au BufNewFile,BufRead,BufEnter   *.txt     setlocal spell    spelllang=de_de
-au BufNewFile,BufRead,BufEnter   *.pl    set filetype=prolog
+
+map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
+au BufNewFile,BufRead,BufEnter *.tex setlocal spell spelllang=de_de,en_gb
+au BufNewFile,BufRead,BufEnter *.txt setlocal spell spelllang=de_de,en_gb
+au BufNewFile,BufRead,BufEnter *.pl set filetype=prolog
 au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
 au FileType php set omnifunc=phpcomplete#CompletePHP
 "au BufNewFile,BufRead,BufEnter   *.tex    set filetype=plaintex
 
-autocmd FileType mail setlocal spell spelllang=de_de
+autocmd FileType mail setlocal spell spelllang=de_de,en_gb
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
@@ -271,6 +287,18 @@ hi SpellBad cterm=underline ctermfg=red
 
 " highlight LineNr ctermfg=59
 highlight LineNr ctermfg=236
+
+cnoremap <silent> q<cr>  call QuitPrompt()<cr>
+cnoremap <silent> wq<cr> call QuitPrompt()<cr>
+cnoremap <silent> x<cr> call QuitPrompt()<cr>
+nnoremap ZZ :call QuitPrompt()<cr>
+
+fun! QuitPrompt()
+   "if has("gui_running") && tabpagenr("$") == 1 && winnr("$") == 1
+      let choice = confirm("Close?", "&yes\n&no", 1)
+      if choice == 1 | wq | endif
+   "else | wq | endif
+endfun
 
 if has("gui_running")
   set guifont=Inconsolata\ for\ Powerline\ 17
@@ -284,7 +312,8 @@ if has("gui_running")
   colorscheme twilight
   " colorscheme molokai
   " colorscheme github
-  "
+
+ 
   set guioptions-=T
   set guicursor=a:blinkon0 
   set guioptions-=m

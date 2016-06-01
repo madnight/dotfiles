@@ -54,6 +54,18 @@ while :; do
     return
   }
 
+  Windows ()
+  {
+IFS=$'\n'
+     for window in $(wmctrl -l | grep " [0-9]* " | sed "s|\(.*\)  [0-9] $(hostname) \([a-zA-Z /0-9\-]*\)|\1////\2|")
+    do
+        id=$(echo $window | sed "s|\(.*\)////.*|\1|")
+        name=$(echo $window | sed "s|.*////\(.*\)|\1|" | awk '{print $1}')
+        echo -n "^ca(1,wmctrl -i -a ${id})${name}^ca()  | "
+    done
+    return
+  }
+
   Vol ()
   {
     ONF=$(amixer get Master | awk '/Front\ Left:/ {print $7}' | tr -d '[]')
@@ -158,7 +170,8 @@ while :; do
     #        Between
     Mail
     Between
-    MPD
+    #MPD
+    Windows
     Between
     Temp
  #   Between

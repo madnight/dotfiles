@@ -16,6 +16,7 @@ autoload -Uz compinit promptinit colors
 setopt PROMPT_SUBST
 # Path to your oh-my-zsh installation.
 #
+xset s off -dpms
 ZSH=/usr/share/oh-my-zsh/
 DEFAULT_USER="x"
 
@@ -55,7 +56,8 @@ setopt completealiases
 #
 #
 # BG olor Fix
-echo -ne "\033]11;#181512\007"
+echo -ne "\033]11;#181715\007"
+#echo -ne "\033]11;#181512\007"
 # FG Color Fix
 echo -ne "\033]10;#bea492\007" 
 bindkey -v
@@ -74,6 +76,15 @@ fi
 #  eval `ssh-agent -s`
 #  ssh-add
 #fi
+#
+#if pgrep "pulseaudio" 
+    #then
+       ##echo "Running"
+    #else
+       #export AE_SINK=ALSA
+       ##echo "Stopped"
+#fi
+
 
 
 # File not found hook: https://wiki.archlinux.org/index.php/Pkgfile
@@ -203,7 +214,7 @@ alias pacbackup='cd /var/cache/pacman/pkg && ls'
 alias lastinstalled='yaourt -Q --date'
 alias swi-prolog='swipl'
 alias vimt='vim -c "NERDTree" $1'
-alias vim='gvim --remote'
+alias vim='vim'
 alias svim='sudo vim'
 alias android-connect="mtpfs -o allow_other /media/YOURMOUNTPOINT"
 alias android-disconnect="fusermount -u /media/YOURMOUNTPOINT"
@@ -227,6 +238,7 @@ alias image='ristretto'
 alias img='ristretto'
 alias copy='rsync -avh -progress'
 alias cp='acp -g'
+alias dnet='sudo killall dhcpcd; sudo dhcpcd; ping 8.8.8.8'
 alias mv='amv -g'
 alias moveup='mv * .[^.]* ..'
 alias fonts='xlsfonts'
@@ -243,13 +255,14 @@ alias iecurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; MSIE 6.0; Windows N
 alias ffcurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.0 (.NET CLR 3.5.30729)\""
 alias gitm="git commit -m"
 alias tab='xterm -e "java -jar /home/x/scripts/RemoteDroidServer/RemoteDroidServer.jar"'
-alias vlc='cpulimit -l 30 vlc'
+alias vlc='vlc'
 alias catkin_make='catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so'
 alias catkin_make_isolated='catkin_make_isolated -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so'
 unset GREP_OPTIONS
 alias diff='git diff HEAD~1'
 alias lsof='lsof -Pni'
-alias ports='lsof -Pni'
+alias ports='sudo lsof -Pni'
+alias lit='cd /home/x/Git/MA_FabianBeuke/literature'
 alias mount='sudo mount -o umask=0,uid=nobody,gid=nobody'
 alias ped='cd /home/x/Git/MA_FabianBeuke/src/pedsim'
 alias fastwget='aria2c -x 16' 
@@ -262,11 +275,15 @@ alias settime='timedatectl'
 alias setdate='timedatectl'
 alias ft='parallel -k rspec -c ::: spec/controllers/agreements_controller_spec.rb spec/controllers/project_spec.rb spec/controllers/work_package_controller_spec.rb spec/controllers/employee_spec.rb spec/controllers/team_controller_spec.rb spec/controllers/organizations_controller_spec.rb spec/controllers/user_spec.rb'
 alias stack='howdoi -c -n 3'
-
+alias pdf='evince'
+alias trash="cd ~/.local/share/Trash/files/"
 alias sshx='ssh -XC -c blowfish-cbc,arcfour'
 alias awe='cd /home/x/Git/awe15-04'
 alias t='rspec -f d -c'
 alias tests='rspec -f d -c'
+
+alias ma='cd /home/x/Git/MA_FabianBeuke/thesis/src/'
+alias pres='cd /home/x/Git/MA_FabianBeuke/presentation'
 
 # Git Aliases
 
@@ -337,8 +354,18 @@ statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
 
 cl() { cd $1 && pwd && ls; }
 
+# dig() { command dig $1 +nostats +nocomments +nocmd }
+
 google() { chromium "http://www.google.com/search?q=$1"; }
 github() { chromium "https://github.com/search?q=$1"; }
+
+asm () 
+{
+nasm -f elf $1
+ld -o $1 $1.o -melf_i386
+rm $1.o
+echo "Done building, the file 'echo' is your executable"
+}
 #t() { dict -d fd-eng-deu $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; } 
 
 #rt() { dict -d fd-deu-eng $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; }
@@ -495,6 +522,12 @@ format () {
     fi
 }
 
+findbin() {
+      for ARG in $(pacman -Qql $1); do
+              [ ! -d $ARG ] && [ -x $ARG ] && echo $ARG;
+                done
+}
+
 colortest() {
     T='gYw'   # The test text
 
@@ -574,6 +607,19 @@ for ((i=1; i <= max ; i++)); do  # --> C-like syntax
 done
 }
 
+function syn() {
+BROWSER="/usr/bin/lynx -source" 
+WEBSITE="http://thesaurus.reference.com/search?q=$1" 
+HTML2TEXT="/usr/bin/html2text -style compact" 
+#lynx -dump -nolist 
+if test $1; then 
+lynx -source 'http://www.thesaurus.com/browse/'"$1"'?s=' | html2text
+else 
+    echo "Usage: $0 word" 
+    exit 1 
+fi
+}
+
 function tex() {
 pdf=$(echo $1 | sed 's/tex/pdf/g')
 log=$(echo $1 | sed 's/tex/log/g')
@@ -582,7 +628,21 @@ aux=$(echo $1 | sed 's/tex/aux/g')
 toc=$(echo $1 | sed 's/tex/toc/g')
 lof=$(echo $1 | sed 's/tex/lof/g')
 lot=$(echo $1 | sed 's/tex/lot/g')
-pdflatex $1 && rm $log; rm $out; rm $aux; rm $toc; rm $lof; rm $lot; mupdf $pdf
+bbl=$(echo $1 | sed 's/tex/bbl/g')
+blg=$(echo $1 | sed 's/tex/blg/g')
+dvi=$(echo $1 | sed 's/tex/dvi/g')
+fbd=$(echo $1 | sed 's/tex/fdb\_latexmk/g')
+fls=$(echo $1 | sed 's/tex/fls/g')
+ps=$(echo $1 | sed 's/tex/ps/g')
+tdo=$(echo $1 | sed 's/tex/tdo/g')
+rm $log; rm $out; rm $aux; rm $toc; rm $lof; rm $lot;
+rm $bbl; rm $blg; rm $dvi; rm $fdb; rm $fls; rm $ps; rm $tdo;
+pdflatex $1;
+}
+
+alias tex='texnonstop'
+function texnonstop() {
+latexmk -pvc -pdf -latex=pdflatex -interaction=nonstopmode $1
 }
 
 
@@ -599,7 +659,7 @@ fi
 
 backup ()
 {
-    sudo rsync -aAXh --stats --info=progress2 --delete --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/home/datadisk/*","/home/x/.gvfs","/home/x/Downloads/*","/var/cache/pacman/*","/home/x/.config/VirtualBox/*","/home/x/.wine/*","/home/x/.atom/*","/home/x/.winex64/*","/home/x/.thumbnails/*","/home/x/.cache/mozilla/*","/home/x/.codeintel/db/*"} /* /home/datadisk/fullarchbackup
+    sudo rsync -aAXh --stats --info=progress2 --delete --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/home/datadisk/*","/home/datadisk2/*","/home/x/.gvfs","/home/x/Downloads/*","/var/cache/pacman/*","/home/x/.config/VirtualBox/*","/home/x/.wine/*","/home/x/.atom/*","/home/x/.winex64/*","/home/x/.thumbnails/*","/home/x/.cache/mozilla/*","/home/x/.codeintel/db/*"} /* /home/datadisk/fullarchbackup
 }
 
 colors()

@@ -85,7 +85,7 @@ ${lua_parse pad ${top_mem name 3}} $alignr ${top_mem pid 3} ${top_mem cpu 3} ${t
 
 CPU: ${color #ddaa00}${alignr}${execi 9 sensors | grep CPUTIN | cut -c18-19}C$color
 GPU: ${color #ddaa00}$alignr ${execi 8 nvidia-settings -q [gpu:0]/GPUCoreTemp | grep '):' | awk '{print $4}' | sed 's/\.//'}C$color
-AIR: ${execi 60 curl -s "http://weather.yahooapis.com/forecastrss?w=90551931&u=c" -o ~/.cache/weather.xml}${color #ddaa00}$alignr ${execi 60 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}C
+#AIR: ${execi 60 curl -s "http://weather.yahooapis.com/forecastrss?w=90551931&u=c" -o ~/.cache/weather.xml}${color #ddaa00}$alignr ${execi 60 grep "yweather:condition" ~/.cache/weather.xml | grep -o "temp=\"[^\"]*\"" | grep -o "\"[^\"]*\"" | grep -o "[^\"]*"}C
 #FAN:  ${alignr}${execi 6 cat /sys/devices/platform/nct6775.656/hwmon/hwmon0/pwm2}  
 $color
 $stippled_hr
@@ -94,6 +94,9 @@ $stippled_hr
 IP: $alignr${addr enp5s0}
 DNS: $alignr${execi 6 cat /etc/resolv.conf | grep nameserver | awk '{print $2}'}
 Ping: ${color #ddaa00}${alignr}${execi 10 ping -c 2 8.8.8.8 | sed -n '2,2p' |cut -c47-50}ms$color
+Conn: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 count}${alignr}/${tcp_portmon 1 65535 count}
+#${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
+#${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1#}
 
 Total: ${totalup enp5s0} ${alignr} Total: ${totaldown enp5s0} 
 ${upspeedgraph enp5s0 25,145 000000 000000 1200KiB} ${alignr} ${downspeedgraph enp5s0 25,145 000000 000000 1200KiB} 

@@ -1,11 +1,12 @@
----
-  language: haskell
-  sudo: false
-  notifications:
-    email: true
-  ghc:
-    - 7.10
-  install:
-    - cabal install shellcheck
-  script:
-    - ./test.sh
+sudo: required
+dist: trusty
+
+before_script: chmod 0777 ./test.sh
+
+before_install:
+ - echo "deb http://archive.ubuntu.com/ubuntu/ wily universe" | sudo tee -a /etc/apt/sources.list
+ - sudo apt-get update -q
+ - sudo apt-get install shellcheck -y
+
+script:
+- ./test.sh

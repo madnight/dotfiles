@@ -1,4 +1,6 @@
-My Arch Linux setup
+[![Build Status](https://travis-ci.org/madnight/dotfiles.svg?branch=master)](https://travis-ci.org/madnight/dotfiles)
+
+My Arch Linux setup 
 
 Programms i use:
 +  xterm - as terminal

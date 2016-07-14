@@ -25,7 +25,7 @@ DEFAULT_USER="x"
 ZSH_THEME="agnoster"
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
-plugins=(git)
+plugins=(git history-substring-search)
 # User configuration
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -65,6 +65,8 @@ bindkey -v
 bindkey '^P' up-history
 bindkey '^N' down-history
 bindkey '^R' history-substring-search-up
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
 
 #xrdb ~/.Xdefaults
 if [ "$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')" = xterm ]; then 
@@ -315,6 +317,7 @@ export ARCHFLAGS="-arch x86_64"
 #export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel' 
 #export JAVA_FONTS=/usr/share/fonts/TTF
 #export LANG=en_US.UTF-8
+
 export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export BROWSER="chromium"
@@ -655,8 +658,9 @@ else
 fi
 }
 
-#precmd () { print -Pn "\e]2; \a" } # title bar promptinit
+# precmd () { print -Pn "\e]2; \a" } # title bar promptinit
 
+# backup everything from ssd to hdd
 backup ()
 {
     sudo rsync -aAXh --stats --info=progress2 --delete --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/home/datadisk/*","/home/datadisk2/*","/home/x/.gvfs","/home/x/Downloads/*","/var/cache/pacman/*","/home/x/.config/VirtualBox/*","/home/x/.wine/*","/home/x/.atom/*","/home/x/.winex64/*","/home/x/.thumbnails/*","/home/x/.cache/mozilla/*","/home/x/.codeintel/db/*"} /* /home/datadisk/fullarchbackup
@@ -697,42 +701,23 @@ echo "^C to cancel, ^D to send."
   curl $opts -F f:1='<-' $* ix.io/$id
 }
 
+# improved zsh history search (ctrl+r)
+# depends on: percol
+# https://github.com/mooz/percol#zsh-history-search
+function exists { which $1 &> /dev/null }
 
-#DIRSTACKFILE="$HOME/.cache/zsh/dirs"
-#if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
-#set +o noclobber
-#dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-#[[ -d $dirstack[1] ]] && cd $dirstack[1]
-#set -o noclobber
-#fi
-#chpwd() {
-#set +o noclobber
-#print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
-#set -o noclobber
-#}
+if exists percol; then
+    function percol_select_history() {
+        local tac
+        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+        CURSOR=$#BUFFER         # move cursor
+        zle -R -c               # refresh
+    }
 
-#DIRSTACKSIZE=20
+    zle -N percol_select_history
+    bindkey '^R' percol_select_history
+fi
 
-#setopt autopushd pushdsilent pushdtohome
-
-### Remove duplicate entries
-#setopt pushdignoredups
-
-### This reverts the +/- operators.
-#setopt pushdminus
-
-
-stty -ixon # prevent ctrl s form freezing the term
-
-
-#RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
-#RPROMPT="hallo"
-#RPROMPT="$fg[black] %~"
-#PROMPT="
-#%{$fg[red]%} $(echo "\u00BB")  %{$reset_color%}"
-
-#prompt minimal
-
-#RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
-
-
+# prevent ctrl s form freezing the term
+stty -ixon 

@@ -14,8 +14,7 @@ bindkey -e
 zstyle :compinstall filename '/home/x/.zshrc'
 autoload -Uz compinit promptinit colors
 setopt PROMPT_SUBST
-# Path to your oh-my-zsh installation.
-#
+
 xset s off -dpms
 ZSH=/usr/share/oh-my-zsh/
 DEFAULT_USER="x"
@@ -23,9 +22,12 @@ DEFAULT_USER="x"
 #ZSH_THEME="robbyrussell"
 #ZSH_THEME="random"
 ZSH_THEME="agnoster"
+
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
+
 plugins=(git history-substring-search)
+
 # User configuration
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -36,9 +38,6 @@ fi
 
 #source $ZSH/oh-my-zsh.sh
 source /usr/share/oh-my-zsh/oh-my-zsh.sh 
-
-
-#zstyle ':completion:*' list-colors ''
 
 setopt AUTO_CD
 setopt CORRECT
@@ -52,42 +51,23 @@ zstyle ':completion:*' rehash true
 setopt completealiases
 
 
-#plugins=(git)
-#
-#
-# BG olor Fix
+# set bg color
 echo -ne "\033]11;#181715\007"
-#echo -ne "\033]11;#181512\007"
-# FG Color Fix
-echo -ne "\033]10;#bea492\007" 
-bindkey -v
 
+# set fg color
+echo -ne "\033]10;#bea492\007" 
+
+bindkey -v
 bindkey '^P' up-history
 bindkey '^N' down-history
 bindkey '^R' history-substring-search-up
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
-#xrdb ~/.Xdefaults
+# change cursor to steady bar
 if [ "$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')" = xterm ]; then 
-  echo -e -n "\x1b[\x36 q" # changes to steady bar
+  echo -e -n "\x1b[\x36 q" 
 fi
-
-# use ssh agent for keymanagement
-#if [ -z "$SSH_AUTH_SOCK" ] ; then
-#  eval `ssh-agent -s`
-#  ssh-add
-#fi
-#
-#if pgrep "pulseaudio" 
-    #then
-       ##echo "Running"
-    #else
-       #export AE_SINK=ALSA
-       ##echo "Stopped"
-#fi
-
-
 
 # File not found hook: https://wiki.archlinux.org/index.php/Pkgfile
 source /usr/share/doc/pkgfile/command-not-found.zsh
@@ -100,6 +80,8 @@ prompt minimal
 
 source ~/.oh-my-zsh/themes/agnoster.zsh-theme
 
+
+# show shell execution time needed on right prompt
 ZSH_COMMAND_START=0
 typeset -gF SECONDS
 
@@ -122,18 +104,16 @@ printf "%%{$fg[black]%%}%.2f%%f" "$ZSH_COMMAND_TIME"
 
 xrdb /home/x/.Xdefaults
 
-#RPROMPT="%B%{$fg[black]%}%~%{$reset_color%}"
-
 local left right
+
 left=("$prefix" "$mode" "$username" "$hostname" "$cwd" "$finale")
 right=("$git" "$timing")
 
 RPS1="\$(echo \"${(pj::)right}\")"
 
 RPROMPT="%B%{$fg[black]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
-#RPROMPT="asda"
 
-
+# aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -200,6 +180,7 @@ alias :Q=' exit'
 alias :x=' exit'
 alias cd..='cd ..'
 alias nano='vim'
+alias tex='texnonstop'
 alias lastp='yaourt -Q --date'
 alias log='cat /var/log/pacman.log'
 alias syslog='cat /var/log/everything.log'
@@ -268,7 +249,6 @@ alias lit='cd /home/x/Git/MA_FabianBeuke/literature'
 alias mount='sudo mount -o umask=0,uid=nobody,gid=nobody'
 alias ped='cd /home/x/Git/MA_FabianBeuke/src/pedsim'
 alias fastwget='aria2c -x 16' 
-#alias copylast='fc -ln -1 | awk '{$1=$1}1' | pbcopy '
 alias copylast='fc -ln -1 | awk '\''{$1=$1}1'\'' | pbcopy'
 alias cplast='fc -ln -1 | awk '\''{$1=$1}1'\'' | pbcopy'
 alias count='ls -la | wc -l'
@@ -283,14 +263,13 @@ alias sshx='ssh -XC -c blowfish-cbc,arcfour'
 alias awe='cd /home/x/Git/awe15-04'
 alias t='rspec -f d -c'
 alias tests='rspec -f d -c'
-
 alias ma='cd /home/x/Git/MA_FabianBeuke/thesis/src/'
 alias pres='cd /home/x/Git/MA_FabianBeuke/presentation'
+alias cat="pygmentize -g"
 
-# Git Aliases
-
+# git Aliases
 alias gaa='git add .'
-#alias yoda='git add . && git commit && git push'
+# alias yoda='git add . && git commit && git push'
 alias gc='git commit'
 alias gco='git checkout'
 alias gp='git pull'
@@ -299,31 +278,28 @@ alias gs='git status'
 alias gr='git reset'
 alias glb='git branch -a'
 alias gba='git branch -a'
+alias gdob='git push origin --delete'
+alias gpsu='git push --set-upstream'
+alias gpsuo='git push --set-upstream origin'
 
 # rake aliases
 alias rdr='rake db:migrate:reset && rake db:seed'
 alias rds='time rake db:seed'
 
-# git delete origin branch
-alias gdob='git push origin --delete'
 
-alias gpsu='git push --set-upstream'
-alias gpsuo='git push --set-upstream origin'
-
-alias cat="pygmentize -g"
-
+# ENV vars
 export ARCHFLAGS="-arch x86_64"
 #export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 #export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel' 
 #export JAVA_FONTS=/usr/share/fonts/TTF
 #export LANG=en_US.UTF-8
-
 export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export BROWSER="chromium"
 export SHELL=/usr/bin/zsh
 export TCLLIBPATH=~/.local/share/tktheme
 
+# auto startx if display is not set
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec startx
 fi
@@ -357,9 +333,8 @@ statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
 
 cl() { cd $1 && pwd && ls; }
 
-# dig() { command dig $1 +nostats +nocomments +nocmd }
-
 google() { chromium "http://www.google.com/search?q=$1"; }
+
 github() { chromium "https://github.com/search?q=$1"; }
 
 asm () 
@@ -369,16 +344,16 @@ ld -o $1 $1.o -melf_i386
 rm $1.o
 echo "Done building, the file 'echo' is your executable"
 }
-#t() { dict -d fd-eng-deu $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; } 
 
-#rt() { dict -d fd-deu-eng $1 | awk '{ if ( NR != 2 && NR != 3 && NR != 4) { print } }'; }
-
+# backup and list packages
 packages () 
 {
     pacman -Qqe  >| /home/datadisk/Dropbox/ArchBackup/pkglist_$(date +%F).txt 
     pacman -Qqe  
 }
 
+# tranlate given string with online leo dictonary
+# depends on: lynx, perl
 leo()
 {
     onetwo='.{1,2}'
@@ -391,9 +366,7 @@ leo()
     lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
 }
 
-killport() {
-    lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill 
-}
+killport() { lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill }
 
 cd() { builtin cd $1 && ls }
 
@@ -419,22 +392,20 @@ mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
 
 256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
 
-#yodagit() { git commit -a -m '$(fortune)' && git push }
-#yodacommit() { git commit -a -m '$(fortune)' && git push }
-yoda(){ git add . && git commit && git push }
+# some funny git stuff
+# yodagit() { git commit -a -m '$(fortune)' && git push }
+# yodacommit() { git commit -a -m '$(fortune)' && git push }
+yoda() { git add . && git commit && git push }
 
-pagrep() {
+pagrep() 
+{
     [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
     find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
 }
 
-cpstat () {
-    tar cf - "$1" | pv | (cd "$2";tar xf -)
-}
+cpstat () { tar cf - "$1" | pv | (cd "$2";tar xf -) }
 
-dls () {
-    echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`
-}
+dls () { echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"` }
 
 installfont() {
     sudo cp $1 /usr/share/fonts/misc/
@@ -475,12 +446,12 @@ cycle() {
     fi
 }
 
+# copy with md check
 md5copy() {
-    echo "usage: md5copy Star_Trek.mkv /run/media/x/Stick/"
+    echo "usage: md5copy Star_Trek.mkv /run/media/x/stick/"
     rsync -c -h --stats --info=progress2 $1 $2
     parallel md5sum ::: $1 $2$1
 }
-# web_search from terminal
 
 extract () {
     if [ -f $1 ] ; then
@@ -504,7 +475,7 @@ extract () {
     fi
 }
 
-sound () {
+restartsound () {
     pulseaudio --kill;
     pulseaudio --start;
     pacmd list-sinks;
@@ -532,8 +503,7 @@ findbin() {
 }
 
 colortest() {
-    T='gYw'   # The test text
-
+    T='gYw'   
     echo -e "\n                 40m     41m     42m     43m\
         44m     45m     46m     47m";
 
@@ -550,6 +520,7 @@ done
 echo;
 }
 
+# config shortucts
 conf() {
     case $1 in
         dict)          	vim ~/.conky/dict ;;
@@ -578,6 +549,7 @@ conf() {
 }
 
 
+# conky shortcuts
 conk() {
     case $1 in
         dict)          	conky -c ~/.conky/dict &;;
@@ -610,11 +582,11 @@ for ((i=1; i <= max ; i++)); do  # --> C-like syntax
 done
 }
 
+# synonyme search
 function syn() {
 BROWSER="/usr/bin/lynx -source" 
 WEBSITE="http://thesaurus.reference.com/search?q=$1" 
 HTML2TEXT="/usr/bin/html2text -style compact" 
-#lynx -dump -nolist 
 if test $1; then 
 lynx -source 'http://www.thesaurus.com/browse/'"$1"'?s=' | html2text
 else 
@@ -623,6 +595,7 @@ else
 fi
 }
 
+# tex compile and clean up command
 function tex() {
 pdf=$(echo $1 | sed 's/tex/pdf/g')
 log=$(echo $1 | sed 's/tex/log/g')
@@ -643,7 +616,6 @@ rm $bbl; rm $blg; rm $dvi; rm $fdb; rm $fls; rm $ps; rm $tdo;
 pdflatex $1;
 }
 
-alias tex='texnonstop'
 function texnonstop() {
 latexmk -pvc -pdf -latex=pdflatex -interaction=nonstopmode $1
 }

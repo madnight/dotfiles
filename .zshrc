@@ -33,7 +33,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
-  mkdir $ZSH_CACHE_DIR
+    mkdir $ZSH_CACHE_DIR
 fi
 
 #source $ZSH/oh-my-zsh.sh
@@ -66,7 +66,7 @@ bindkey "^[[B" history-beginning-search-forward
 
 # change cursor to steady bar
 if [ "$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')" = xterm ]; then 
-  echo -e -n "\x1b[\x36 q" 
+    echo -e -n "\x1b[\x36 q" 
 fi
 
 # File not found hook: https://wiki.archlinux.org/index.php/Pkgfile
@@ -86,16 +86,16 @@ ZSH_COMMAND_START=0
 typeset -gF SECONDS
 
 function preexec {
-ZSH_COMMAND_START=${ZSH_COMMAND_START:-$SECONDS}
+    ZSH_COMMAND_START=${ZSH_COMMAND_START:-$SECONDS}
 }
 
 function precmd {
-if [[ -n "$ZSH_COMMAND_START" ]]; then
-    ((ZSH_COMMAND_TIME = SECONDS - ZSH_COMMAND_START))
-    unset ZSH_COMMAND_START
-else
-    ZSH_COMMAND_TIME=0
-fi
+    if [[ -n "$ZSH_COMMAND_START" ]]; then
+        ((ZSH_COMMAND_TIME = SECONDS - ZSH_COMMAND_START))
+        unset ZSH_COMMAND_START
+    else
+        ZSH_COMMAND_TIME=0
+    fi
 }
 
 local timing='$(
@@ -339,10 +339,10 @@ github() { chromium "https://github.com/search?q=$1"; }
 
 asm () 
 {
-nasm -f elf $1
-ld -o $1 $1.o -melf_i386
-rm $1.o
-echo "Done building, the file 'echo' is your executable"
+    nasm -f elf $1
+    ld -o $1 $1.o -melf_i386
+    rm $1.o
+    echo "Done building, the file 'echo' is your executable"
 }
 
 # backup and list packages
@@ -497,9 +497,9 @@ format () {
 }
 
 findbin() {
-      for ARG in $(pacman -Qql $1); do
-              [ ! -d $ARG ] && [ -x $ARG ] && echo $ARG;
-                done
+    for ARG in $(pacman -Qql $1); do
+        [ ! -d $ARG ] && [ -x $ARG ] && echo $ARG;
+    done
 }
 
 colortest() {
@@ -575,59 +575,59 @@ orphans() {
 
 
 function repeat() {
-local i max
-max=$1; shift;
-for ((i=1; i <= max ; i++)); do  # --> C-like syntax
-    eval "$@";
-done
+    local i max
+    max=$1; shift;
+    for ((i=1; i <= max ; i++)); do  # --> C-like syntax
+        eval "$@";
+    done
 }
 
 # synonyme search
 function syn() {
-BROWSER="/usr/bin/lynx -source" 
-WEBSITE="http://thesaurus.reference.com/search?q=$1" 
-HTML2TEXT="/usr/bin/html2text -style compact" 
-if test $1; then 
-lynx -source 'http://www.thesaurus.com/browse/'"$1"'?s=' | html2text
-else 
-    echo "Usage: $0 word" 
-    exit 1 
-fi
+    BROWSER="/usr/bin/lynx -source" 
+    WEBSITE="http://thesaurus.reference.com/search?q=$1" 
+    HTML2TEXT="/usr/bin/html2text -style compact" 
+    if test $1; then 
+        lynx -source 'http://www.thesaurus.com/browse/'"$1"'?s=' | html2text
+    else 
+        echo "Usage: $0 word" 
+        exit 1 
+    fi
 }
 
 # tex compile and clean up command
 function tex() {
-pdf=$(echo $1 | sed 's/tex/pdf/g')
-log=$(echo $1 | sed 's/tex/log/g')
-out=$(echo $1 | sed 's/tex/out/g')
-aux=$(echo $1 | sed 's/tex/aux/g')
-toc=$(echo $1 | sed 's/tex/toc/g')
-lof=$(echo $1 | sed 's/tex/lof/g')
-lot=$(echo $1 | sed 's/tex/lot/g')
-bbl=$(echo $1 | sed 's/tex/bbl/g')
-blg=$(echo $1 | sed 's/tex/blg/g')
-dvi=$(echo $1 | sed 's/tex/dvi/g')
-fbd=$(echo $1 | sed 's/tex/fdb\_latexmk/g')
-fls=$(echo $1 | sed 's/tex/fls/g')
-ps=$(echo $1 | sed 's/tex/ps/g')
-tdo=$(echo $1 | sed 's/tex/tdo/g')
-rm $log; rm $out; rm $aux; rm $toc; rm $lof; rm $lot;
-rm $bbl; rm $blg; rm $dvi; rm $fdb; rm $fls; rm $ps; rm $tdo;
-pdflatex $1;
+    pdf=$(echo $1 | sed 's/tex/pdf/g')
+    log=$(echo $1 | sed 's/tex/log/g')
+    out=$(echo $1 | sed 's/tex/out/g')
+    aux=$(echo $1 | sed 's/tex/aux/g')
+    toc=$(echo $1 | sed 's/tex/toc/g')
+    lof=$(echo $1 | sed 's/tex/lof/g')
+    lot=$(echo $1 | sed 's/tex/lot/g')
+    bbl=$(echo $1 | sed 's/tex/bbl/g')
+    blg=$(echo $1 | sed 's/tex/blg/g')
+    dvi=$(echo $1 | sed 's/tex/dvi/g')
+    fbd=$(echo $1 | sed 's/tex/fdb\_latexmk/g')
+    fls=$(echo $1 | sed 's/tex/fls/g')
+    ps=$(echo $1 | sed 's/tex/ps/g')
+    tdo=$(echo $1 | sed 's/tex/tdo/g')
+    rm $log; rm $out; rm $aux; rm $toc; rm $lof; rm $lot;
+    rm $bbl; rm $blg; rm $dvi; rm $fdb; rm $fls; rm $ps; rm $tdo;
+    pdflatex $1;
 }
 
 function texnonstop() {
-latexmk -pvc -pdf -latex=pdflatex -interaction=nonstopmode $1
+    latexmk -pvc -pdf -latex=pdflatex -interaction=nonstopmode $1
 }
 
 
 function showdesk() {
-current_mode="$(wmctrl -m | grep 'showing the desktop')";
-if [[ "${current_mode##* }" == ON ]]; then
-    wmctrl -k off
-else
-    wmctrl -k on
-fi
+    current_mode="$(wmctrl -m | grep 'showing the desktop')";
+    if [[ "${current_mode##* }" == ON ]]; then
+        wmctrl -k off
+    else
+        wmctrl -k on
+    fi
 }
 
 # precmd () { print -Pn "\e]2; \a" } # title bar promptinit

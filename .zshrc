@@ -287,8 +287,8 @@ reset-failed enable disable reenable preset mask unmask
 link load cancel set-environment unset-environment
 edit)
 
-for c in $user_commands; do; alias sc-$c="systemctl $c"; done
-for c in $sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
+for c in $user_commands; do alias sc-$c="systemctl $c"; done
+for c in $sudo_commands; do alias sc-$c="sudo systemctl $c"; done
 
 alias failed='systemctl --failed'
 alias killall='killall -s SIGKILL'
@@ -333,27 +333,27 @@ leo()
     lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
 }
 
-killport() { lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill }
+killport() { lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill; }
 
-cd() { builtin cd $1 && ls }
+cd() { builtin cd $1 && ls; }
 
-facd() { cd $(locate -i $1 | head -n 1) }
+facd() { cd $(locate -i $1 | head -n 1); }
 
-fan() { nano $(locate -i $1 | head -n 1) }
+fan() { nano $(locate -i $1 | head -n 1); }
 
-sfan() { sudo vim $(fa $1 | head -n 1) }
+sfan() { sudo vim $(fa $1 | head -n 1); }
 
 maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
 
 makezip() { zip -r "${1%%/}.zip" "$1" ; }
 
-pkgfiler() { pacman -Ql $1 | grep bin }
+pkgfiler() { pacman -Ql $1 | grep bin; }
 
-f() { find $(pwd) | grep $1 }
+f() { find $(pwd) | grep $1; }
 
 h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi }
 
-clip() { echo "$@" | xclip }
+clip() { echo "$@" | xclip; }
 
 mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
 
@@ -362,7 +362,7 @@ mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
 # some funny git stuff
 # yodagit() { git commit -a -m '$(fortune)' && git push }
 # yodacommit() { git commit -a -m '$(fortune)' && git push }
-yoda() { git add . && git commit && git push }
+yoda() { git add . && git commit && git push; }
 
 pagrep() 
 {
@@ -372,7 +372,7 @@ pagrep()
 
 cpstat () { tar cf - "$1" | pv | (cd "$2";tar xf -) }
 
-dls () { echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"` }
+dls () { echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`; }
 
 installfont() {
     sudo cp $1 /usr/share/fonts/misc/
@@ -387,7 +387,7 @@ fontcache() {
     sudo fc-cache >/dev/null -f
     sudo mkfontscale /usr/share/fonts/TTF
     sudo mkfontdir   /usr/share/fonts/TTF
-    echo done
+    echo "done";
 }
 
 lastdir() {
@@ -643,7 +643,7 @@ echo "^C to cancel, ^D to send."
 # improved zsh history search (ctrl+r)
 # depends on: percol
 # https://github.com/mooz/percol#zsh-history-search
-function exists { which $1 &> /dev/null }
+function exists { which $1 &> /dev/null; }
 
 if exists percol; then
     function percol_select_history() {

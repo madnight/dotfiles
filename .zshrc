@@ -50,7 +50,6 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 setopt completealiases
 
-
 # set bg color
 echo -ne "\033]11;#181715\007"
 
@@ -79,7 +78,6 @@ source ~/.zshrc_priv
 prompt minimal
 
 source ~/.oh-my-zsh/themes/agnoster.zsh-theme
-
 
 # show shell execution time needed on right prompt
 ZSH_COMMAND_START=0
@@ -113,20 +111,16 @@ RPS1="\$(echo \"${(pj::)right}\")"
 
 RPROMPT="%B%{$fg[black]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
 
+unset GREP_OPTIONS
+
 # aliases
 alias android-connect="mtpfs -o allow_other /media/YOURMOUNTPOINT"
 alias android-disconnect="fusermount -u /media/YOURMOUNTPOINT"
 alias apps='thunar /usr/share/applications/'
 alias archey='archey3'
-alias ar='s add-apt-repository --remove'
-alias a='s add-apt-repository'
 alias aurpk='yaourt -G'
 alias aur="yaourt --noconfirm"
-alias awe='cd /home/x/Git/awe15-04'
-alias bbc1='nvlc ~/Radio/bbc1.pls'
 alias calc='speedcrunch'
-alias catkin_make='catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so'
-alias catkin_make_isolated='catkin_make_isolated -DPYTHON_EXECUTABLE=/usr/bin/python2 -DPYTHON_INCLUDE_DIR=/usr/include/python2.7 -DPYTHON_LIBRARY=/usr/lib/libpython2.7.so'
 alias cat="pygmentize -g"
 alias c='clear'
 alias ..="cd .."
@@ -145,10 +139,7 @@ alias count='ls -la | wc -l'
 alias cp='acp -g'
 alias cp='cp -i'
 alias cplast='fc -ln -1 | awk '\''{$1=$1}1'\'' | pbcopy'
-alias cpu-z="inxi -F"
 alias cpuz="inxi -F"
-alias crc="conky -c /home/x/.conky/conkyrc_grey &"
-alias df="pydf"
 alias diff='git diff HEAD~1'
 alias dnet='sudo killall dhcpcd; sudo dhcpcd; ping 8.8.8.8'
 alias eb="vim /home/x/.zshrc"
@@ -160,7 +151,6 @@ alias fc-list='xlsfonts'
 alias ffcurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.8) Gecko/2009032609 Firefox/3.0.0 (.NET CLR 3.5.30729)\""
 alias findall='locate -i'
 alias fonts='xlsfonts'
-alias ft='parallel -k rspec -c ::: spec/controllers/agreements_controller_spec.rb spec/controllers/project_spec.rb spec/controllers/work_package_controller_spec.rb spec/controllers/employee_spec.rb spec/controllers/team_controller_spec.rb spec/controllers/organizations_controller_spec.rb spec/controllers/user_spec.rb'
 alias -g C='| wc -l'
 alias -g G='| egrep'
 alias gaa='git add .'
@@ -174,18 +164,15 @@ alias glb='git branch -a'
 alias gp='git pull'
 alias gpsu='git push --set-upstream'
 alias gpsuo='git push --set-upstream origin'
-unset GREP_OPTIONS
 alias grep="/usr/bin/grep $GREP_OPTIONS"
 alias gr='git reset'
 alias gs='git status'
 alias hash='md5sum'
-alias hc='herbstclient'
 alias history='history 1'
-alias iecurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)\""
+alias agentcurl="curl -H \"User-Agent: Mozilla/5.0 (Windows; U; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727)\""
 alias ifind='pagrep'
 alias ii='s apt-get install -f'
-alias image='ristretto'
-alias img='ristretto'
+alias pic='ristretto'
 alias inet='ping 8.8.8.8'
 alias infilefind='pagrep'
 alias infile='pagrep'
@@ -200,7 +187,6 @@ alias kernellog='dmesg'
 alias k='killall -9'
 alias la='ls -A'
 alias lastinstalled='yaourt -Q --date'
-alias lastinstalled='yaourt -Q --date'
 alias lasti='yaourt -Q --date'
 alias lastp='yaourt -Q --date'
 alias listdate='yaourt -Q --date'
@@ -213,31 +199,23 @@ alias ln='ln -i'
 alias log='cat /var/log/pacman.log'
 alias lsof='lsof -Pni'
 alias lyrics='sh ~/scripts/lyrics'
-alias ma='cd /home/x/Git/MA_FabianBeuke/thesis/src/'
 alias mail='mutt'
 alias md5='md5sum'
 alias m="mousepad"
 alias mocp='mocp -T red_theme'
 alias mount='sudo mount -o umask=0,uid=nobody,gid=nobody'
 alias moveup='mv * .[^.]* ..'
-alias music='urxvt -name ncmpcpp -e ncmpcpp'
 alias mv='amv -g'
 alias mv='mv -i'
 alias nano='vim'
-alias ncmpcpp='urxvt -name ncmpcpp -e ncmpcpp'
-alias nemo='nemo $(pwd) '
-alias n='nano'
 alias pacbackup='cd /var/cache/pacman/pkg && ls'
 alias parallel='parallel --no-notice'
 alias pdf='evince'
 alias p='echo "USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND" && ps aux | grep --color=auto'
-alias ped='cd /home/x/Git/MA_FabianBeuke/src/pedsim'
 alias pkill='pkill -f'
 alias ports='sudo lsof -Pni'
-alias pres='cd /home/x/Git/MA_FabianBeuke/presentation'
 alias :q=' exit'
 alias :Q=' exit'
-alias radio='urxvt -name ncmpcpp -e ncmpcpp'
 alias rdr='rake db:migrate:reset && rake db:seed'
 alias rds='time rake db:seed'
 alias removeorphans='sudo pacman -Rns $(pkg-list_true_orphans)'
@@ -251,19 +229,16 @@ alias setdate='timedatectl'
 alias settime='timedatectl'
 alias shutdown='s /usr/bin/systemctl poweroff'
 alias smallfiles='sudo find / -xdev -type d -size +100k'
-alias snemo='sudo nemo $(pwd) '
 alias soundcontrol='pavucontrol'
 alias sshx='ssh -XC -c blowfish-cbc,arcfour'
-alias stack='howdoi -c -n 3'
+alias stackoverflow='howdoi -c -n 3'
 alias stresstest='parallel ::: "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999" "pi 999999999"' 
 alias svim='sudo vim'
 alias swi-prolog='swipl'
 alias sysinfo="inxi -F"
 alias syslog='cat /var/log/everything.log'
-alias tab='xterm -e "java -jar /home/x/scripts/RemoteDroidServer/RemoteDroidServer.jar"'
 alias tests='rspec -f d -c'
 alias tex='texnonstop'
-alias trainer='cd /home/x/Git/Cornamix/http/trainer/wordpress/wp-content/plugins/trainerportal/classes'
 alias translate='t'
 alias trash="cd ~/.local/share/Trash/files/"
 alias t='rspec -f d -c'
@@ -274,13 +249,10 @@ alias vlcp='vlc *.mkv'
 alias vlc='vlc'
 alias v='vim --remote'
 alias watchdir='watch -n 1 ls -lh'
-alias web='cd /home/x/Git/Cornamix/http/'
 alias :x=' exit'
-alias xchat="LANGUAGE=en_US.UTF-8:en:de_DE.UTF-8:de xchat"
 alias xclip="xclip -selection c"
 alias x='xrandr --display :0 --output DVI-I-3 --auto'
 alias ya="yaourt --noconfirm"
-
 
 # ENV vars
 export ARCHFLAGS="-arch x86_64"

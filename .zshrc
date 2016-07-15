@@ -105,9 +105,10 @@ xrdb /home/x/.Xdefaults
 local left right
 
 left=("$prefix" "$mode" "$username" "$hostname" "$cwd" "$finale")
-right=("$git" "$timing")
+error="%{$fg[black]%}%(?..%? )"
+right=("$git" "$error" "$timing")
 
-RPS1="\$(echo \"${(pj::)right}\")"
+# RPS1="\$(echo \"${(pj::)right}\")"
 
 RPROMPT="%B%{$fg[black]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
 

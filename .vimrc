@@ -301,18 +301,17 @@ fun! QuitPrompt()
 endfun
 
 if has("gui_running")
-  set guifont=Inconsolata\ for\ Powerline\ 17
+  "set guifont=Inconsolata\ for\ Powerline\ dz\ 17
   " set guifont=Monaco\ 13
   " set guifont=Inconsolata-g\ 15
   " set guifont=Ubuntu\ Mono\ 15
-  " set guifont=Consolas\ 17
+   set guifont=Consolas\ 15
   " set guifont=17
   " set guifont=Monospace\ 13
   
   colorscheme twilight
   " colorscheme molokai
-  " colorscheme github
-
+   "colorscheme github
  
   set guioptions-=T
   set guicursor=a:blinkon0 
@@ -323,7 +322,6 @@ if has("gui_running")
   set guioptions-=R
   set guioptions-=r
   set guioptions-=b    
-  set guioptions+=a
 endif
 
 
@@ -412,3 +410,4 @@ let g:neocomplcache_force_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+

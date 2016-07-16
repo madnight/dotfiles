@@ -7,6 +7,9 @@
 #                                                                                          _|  
 #                                                                                      _|_|    
 
+# set your speed!
+xset r rate 150 50
+
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=10000

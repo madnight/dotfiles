@@ -5,7 +5,6 @@
 !         _|  _|    _|    _|  _|          _|      _|    _|  _|    _|  _|    _|          _|_|  
 !       _|      _|    _|_|_|    _|_|_|    _|        _|_|_|    _|_|_|  _|      _|_|  _|_|_|    
 
-! #include "/home/x/.colors/erosionbright"
 
 !                                   __   ___                      
 !                                   \ \ / / |                     
@@ -14,36 +13,18 @@
 !                                   / /^\ \ ||  __/ |  | | | | | |
 !                                   \/   \/\__\___|_|  |_| |_| |_|
                                                                  
-!XTerm*faceName: monaco_linux
-XTerm*faceName: Inconsolata for Powerline
-XTerm*font: Inconsolata for Powerline
-UXTerm*faceName: Inconsolata for Powerline
-UXTerm*faceSize: 16
-XTerm*scaleHeight: 1.01 
-!XTerm*faceName: Monaco\ for\ Powerline\ 17
-!XTerm*faceSize: 14
-XTerm*faceSize: 16
-!Xterm*font: Consolas:pixelsize=14
-XTerm*saveLines: 16384
-XTerm*geometry: 80x24-500+400
-XTerm*VT100*translations: #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
-!XTerm*VT100*translations: #override Shift <Btn1Up>: exec-formatted("chromium '%t'", PRIMARY)
-XTerm*boldMode: false
-XTerm*allowBoldFonts: false
-XTerm*background: #181818
-XTerm*foreground: #ffffff
-!xterm*locale: true
-Xterm*utf8: true
-Xterm*termName: xterm-256color
-Xft.lcdfilter:  lcddefault
-Xterm*VT100*utf8: 1
-Xterm*VT100*font: Inconsolata for Powerline
-xterm*iconPixmap: /usr/share/icons/Faenza/apps/32/xterm.xbm
-!Xterm*VT100*widefont: Inconsolata for Powerline
-!Xterm*VT100*boldfont: Inconsolata for Powerline
-!*VT100*eightBitInput:   false
-!*VT100*eightBitControl: false
-!*VT100*eightBitOutput:  true
+xterm.faceName:             Inconsolata for Powerline
+xterm.scaleHeight:          1.01 
+xterm.faceSize:             16
+xterm.saveLines:            16384
+xterm.geometry:             80x24-500+400
+xterm.VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
+xterm.boldMode:             false
+xterm.allowBoldFonts:       false
+xterm.utf8:                 true
+xterm.termName:             xterm-256color
+xterm.VT100*utf8:           1
+
 !                                     _   _                  _   
 !                                    | | | |                | |  
 !                                    | | | |_ ____  ____   _| |_ 
@@ -51,77 +32,47 @@ xterm*iconPixmap: /usr/share/icons/Faenza/apps/32/xterm.xbm
 !                                    | |_| | |   >  <  \ V /| |_ 
 !                                     \___/|_|  /_/\_\  \_/  \__|
 
-URxvt.letterSpace: -1
-URxvt.buffered: true 
-URxvt.cursorColor: #ffffff
-URxvt.cursorUnderline: true
-URxvt.cursorBlink: true 
-URxvt*urgentOnBell: true
-URxvt.lineSpace: 0
-! URxvt*scrollBar_right: false
-URxvt*scrollBar: false
-URxvt*saveLines: 12000
-!URxvt*font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
-! URxvt*font: xft:Monospace:pixelsize=17
-! URxvt.font: xft:Anonymous\ Pro-15
-! URxvt*font: xft:Monaco:pixelsize=16
-! URxvt*font: xft:Inconsolata:pixelsize=18:antialias=true
+urxvt.letterSpace:          -1.5
+urxvt.buffered:             true 
+urxvt.cursorUnderline:      true
+urxvt.cursorBlink:          true
+urxvt.urgentOnBell:         true
+urxvt.inheritPixmap:        false
+urxvt.geometry:             80x24-500+400
+urxvt.scrollBar:            false
+urxvt.saveLines:            12000
+urxvt.depth:                32
+urxvt.imLocale:             en_US.UTF-8
+urxvt.borderLess:           false
+urxvt.pointerBlank:         true
+urxvt.pointerBlankDelay:    4
+
+urxvt.font:                 xft:Inconsolata\ for\ Powerline:style=dz:pixelsize=21:autohint=true
+urxvt.boldFont:             xft:Inconsolata\ for\ Powerline:style=dz:style=Bold:pixelsize=21:autohint=true
+urxvt.italicFont:           xft:Inconsolata\ for\ Powerline:style=Italic:pixelsize=21:autohint=true
+urxvt.boldItalicFont:       xft:Inconsolata\ for\ Powerline:style=Bold:style=Italic:pixelsize=18:autohint=true
+
+! URxvt*font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
 ! URxvt*font: xft:Inconsolata -g:style=g:pixelsize=18
-! Set some nice fonts.
-URxvt.depth:    32
-!URxvt.font: xft:Inconsolata-g:pixelsize=18
-URxvt.font: xft:Consolas:pixelsize=18
-!urxvt.font: \
-!    xft:Inconsolata-g:style=g:pixelsize=18:autohint=true, \
-!    xft:Inconsolata-g:style=g:pixelsize=18:autohint=true
-!urxvt.boldFont: \
-!    xft:Inconsolata-g:style=Bold:pixelsize=18:autohint=true, \
-!    xft:Inconsolata-g:style=Bold:pixelsize=18:autohint=true
-!urxvt.italicFont:
-!    xft:Inconsolata-g:style=Italic:pixelsize=18:autohint=true, \
-!    xft:Inconsolata-g:style=Italic:pixelsize=18:autohint=true
-!urxvt.boldItalicFont: \
-!    xft:Inconsolata-g:style=Bold:style=Italic:pixelsize=18:autohint=true, \
-!    xft:Inconsolata-g:style=Bold:style=Italic:pixelsize=18:autohint=true
-!! URxvt*font: xft:Inconsolata g Sans Mono:pixelsize=10
-! URxvt*font: xft:Ubuntu Mono:pixelsize=18
-! URxvt*font: xft:Consolas:pixelsize=18
-! URxvt*font: -misc-tamsyn-medium-r-normal--20-145-100-100-c-100-iso8859-1
-! URxvt*boldFont: -misc-tamsyn-bold-r-normal--20-145-100-100-c-100-iso8859-1 
-URxvt.boldFont: 
-URxvt*skipBuiltinGlyphs: true
-URxvt*borderLess: false
-!Urxvt*background: #1F1F1F
-!Urxvt*foreground: #bea492
-URxvt*cursorColor: #FFFFFF
-URxvt*cursorColor2: #FFFFFF
-URxvt*pointerBlank: true
-URxvt*pointerBlankDelay: 4
-URxvt*pointerColor: #FFFFFF
-URxvt*pointerColor2: #FFFFFF
-! URxvt.depth: 24
+
 ! --  Extensions -- !
-URxvt.perl-ext-common:     matcher,keyboard-select,url-select,clipboard
-URxvt.keysym.C-Escape:     perl:keyboard-select:activate
-URxvt.keysym.M-u:          perl:url-select:select_next
-URxvt.keysym.M-s:          perl:keyboard-select:search
-URxvt.keysym.M-c:          perl:clipboard:copy_escaped  
-!URxvt.keysym.C-b:          perl:clipboard:paste_escaped
-URxvt.keysym.C-b:        perl:clipboard:paste
-URxvt.matcher.rend.0:      -Uline fg16
-URxvt.matcher.button:      1
-URxvt.keysym.M-2:	perl:font-size:increase
-URxvt.keysym.M-3:   perl:font-size:decrease
-URxvt.url-launcher: /usr/bin/chromium
-! URxvt.matcher.button: 1
+! requires urxvt-perl package
 
-
-URxvt.clipboard.copycmd: xsel -psb
-URxvt.clipboard.pastecmd: xsel -ob
-URxvt.clipboard.autocopy: true
-
-URxvt.urlLauncher: chromium
-URxvt.intensityStyles: false
+urxvt.perl-ext-common:      matcher,keyboard-select,url-select,clipboard
+urxvt.keysym.C-Escape:      perl:keyboard-select:activate
+urxvt.keysym.M-u:           perl:url-select:select_next
+urxvt.keysym.C-b:           perl:clipboard:paste_escaped
+urxvt.keysym.C-1:	    perl:font-size:increase
+urxvt.keysym.M-3:           perl:font-size:decrease
+urxvt.matcher.button:       1
+urxvt.matcher.rend.0:       -Uline fg16
+urxvt.urlLauncher:          chromium
+urxvt.clipboard.autocopy:   true
+urxvt.clipboard.copycmd:    xsel --input  --clipboard
+urxvt.clipboard.pastecmd:   xsel --output --clipboard
+urxvt.keysym.C-M-c:         perl:clipboard:copy
+urxvt.keysym.C-V:           perl:clipboard:paste
+urxvt.intensityStyles:      false
 
 !                                 _____                           _ 
 !                                |  __ \                         | |
@@ -131,135 +82,47 @@ URxvt.intensityStyles: false
 !                                 \____/\___|_| |_|\___|_|  \__,_|_|
 !
 
-Xft.dpi: 96
-Xft.antialias: true
-Xft.hinting:  true
-Xft.hintstyle:  hintslight
-Xft.rgba: none 
-Xft:unifont:medium
+xft.dpi:        96
+xft.antialias:  true
+xft.hinting:    true
+xft.hintstyle:  hintslight
+xft.rgba:       none 
+xft:            unifont:medium
 
-!*.background: #181818
-!*foreground: #ede9e2
-!
-!!black
-!*color0:#4a3637
-!*color8:#4a3637
-!
-!!
-!!red
-!*color1:#853a3e
-!*color9:#853a3e
-!
-!!*color1:#ae4544
-!!*color9:#ae4544
-!
-!!*color1:#d17b49
-!!*color9:#d17b49
-!
-!!green
-!*color2:#7b8748
-!*color10:#7b8748
-!
-!!yellow
-!*color3:#af865a
-!*color11:#af865a
-!
-!!blue
-!*color4:#535c5c
-!*color12:#535c5c
-!
-!!magenta
-!*color5:#775759
-!*color13:#775759
-!
-!!cyan
-!*color6:#6d715e
-!*color14:#6d715e
-!
-!!white
-!*color7:#c0b18b
-!*color15:#c0b18b
-!
-!
-!
-!
-!
-!
 ! erosion theme by earsplit
-! special
+
 *.foreground:   #bea492
 *.background:   #222222
 *.cursorcolor:  #bea492
 
-!! black
+! black
 *.color0:       #332d29
 *.color8:       #817267
 
-!! red
+! red
 *.color1:       #8c644c
 *.color9:       #9f7155
 
-!! green
+! green
 *.color2:       #746c48
 *.color10:      #857b52
 
-!! yellow
+! yellow
 *.color3:       #908a66
 *.color11:      #9c956e
 
-!! blue
+! blue
 *.color4:       #646a6d
 *.color12:      #71777a
 
-!! magenta
+! magenta
 *.color5:       #605655
 *.color13:      #656565
 
-!! cyan
+! cyan
 *.color6:       #4b5c5e
 *.color14:      #556d70
 
-!! white
+! white
 *.color7:       #504339
-*.color15:      #000000
-
-!! erosion theme by earsplit
-!! special
-xterm*.foreground:   #bea492
-xterm*.background:   #222222
-xterm*.cursorcolor:  #bea492
-
-!! black
-xterm*.color0:       #332d29
-xterm*.color8:       #817267
-
-!! red
-xterm*.color1:       #8c644c
-xterm*.color9:       #9f7155
-
-!! green
-xterm*.color2:       #746c48
-xterm*.color10:      #857b52
-
-!! yellow
-xterm*.color3:       #908a66
-xterm*.color11:      #9c956e
-
-!! blue
-xterm*.color4:       #646a6d
-xterm*.color12:      #71777a
-
-!! magenta
-xterm*.color5:       #605655
-xterm*.color13:      #656565
-
-!! cyan
-xterm*.color6:       #4b5c5e
-xterm*.color14:      #556d70
-
-!! white
-xterm*.color7:       #504339
-xterm*.color15:      #9a875f
-
-!xterm*.color15:      #a1b56c
-
+*.color15:      #9a875f

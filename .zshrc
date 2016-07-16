@@ -68,8 +68,8 @@ if [ "$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed '
     echo -e -n "\x1b[\x36 q" 
 fi
 
-# File not found hook: https://wiki.archlinux.org/index.php/Pkgfile
-source /usr/share/doc/pkgfile/command-not-found.zsh
+# command not found hook: https://wiki.archlinux.org/index.php/Pkgfile
+[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
 
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -426,9 +426,9 @@ extract () {
         case $1 in
             *.tar.bz2)   tar xvjf $1    ;;
             *.tar.gz)    tar xvzf $1    ;;
-            *.tar.xz)    tax xf $1 	   ;;
+            *.tar.xz)    tax xf $1 	;;
             *.bz2)       bunzip2 $1     ;;
-            *.rar)       unrar x $1       ;;
+            *.rar)       unrar x $1     ;;
             *.gz)        gunzip $1      ;;
             *.tar)       tar xvf $1     ;;
             *.tbz2)      tar xvjf $1    ;;
@@ -491,28 +491,27 @@ echo;
 # config shortucts
 conf() {
     case $1 in
-        dict)          	vim ~/.conky/dict ;;
-        weather)       	vim ~/.conky/conky_weather/weather_5days ;;
-        wiki)		vim ~/.conky/wiki ;;
-        irc)		vim ~/.conky/irc ;;
-        grey)   	  	vim ~/.conky/conkyrc_grey ;;
-        mail)   	  	vim ~/.conky/mail ;;
-        hc)			vim ~/.config/herbstluftwm/autostart ;;
-        compton)   	  	vim ~/.config/compton.conf ;;
-        autostart)          vim ~/.config/herbstluftwm/autostart ;;
-        log)   	        vim ~/.conky/log ;;
-        news)   	  	vim ~/.conky/news ;;
-        i3)                 vim ~/.i3/config;;    
-        status)             vim ~/.i3status.conf;;    
-        vim)                vim ~/.vimrc;;
-        res)                vim ~/.Xresources && xrdb ~/.Xresources;;
-        def)                vim ~/.Xdefaults && xrdb ~/.Xdefaults;;
-        ncm)                vim ~/.ncmpcpp/config;;
-        mutt)               vim ~/.mutt/muttrc;;
-        x)                  vim ~/.xinitrc;;
-        mpd)                sudo vim /etc/mpd.conf;;
-        termite)            vim ~/.config/termite/config;;
-        *)                  echo "Unknown application: $1" ;;
+        dict)          	vim ~/.conky/dict;;
+        weather)       	vim ~/.conky/conky_weather/weather_5days;;
+        wiki)		vim ~/.conky/wiki;;
+        irc)		vim ~/.conky/irc;;
+        grey)   	vim ~/.conky/conkyrc_grey;;
+        mail)   	vim ~/.conky/mail;;
+        hc)	    	vim ~/.config/herbstluftwm/autostart;;
+        compton)   	vim ~/.config/compton.conf;;
+        autostart)      vim ~/.config/herbstluftwm/autostart;;
+        log)   	        vim ~/.conky/log;;
+        news)   	vim ~/.conky/news;;
+        i3)             vim ~/.i3/config;;    
+        status)         vim ~/.i3status.conf;;    
+        vim)            vim ~/.vimrc;;
+        res)            vim ~/.Xresources && xrdb ~/.Xresources;;
+        def)            vim ~/.Xdefaults && xrdb ~/.Xdefaults;;
+        ncm)            vim ~/.ncmpcpp/config;;
+        mutt)           vim ~/.mutt/muttrc;;
+        x)              vim ~/.xinitrc;;
+        termite)        vim ~/.config/termite/config;;
+        *)              echo "Unknown application: $1";;
     esac
 }
 
@@ -524,11 +523,11 @@ conk() {
         mail)          	conky -c ~/.conky/mail &;;
         weather)       	conky -c ~/.conky/conky_weather/weather_5days &;;
         wiki)		conky -c ~/.conky/wiki &;;
-        grey)   	  	conky -c ~/.conky/conkyrc_grey &;;
+        grey)   	conky -c ~/.conky/conkyrc_grey &;;
         irc)   	  	conky -c ~/.conky/irc &;;
         log)   	  	conky -c ~/.conky/log &;;
-        news)   	  	conky -c ~/.conky/news &;;
-        *)                  echo "Unknown application: $1" ;;
+        news)   	conky -c ~/.conky/news &;;
+        *)              echo "Unknown application: $1";;
     esac
 }
 

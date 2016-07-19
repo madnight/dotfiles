@@ -10,24 +10,20 @@
 # set your speed!
 xset r rate 150 50
 
+xset s off -dpms
+
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=10000
-bindkey -e
-zstyle :compinstall filename '/home/x/.zshrc'
-autoload -Uz compinit promptinit colors
-setopt PROMPT_SUBST
-
-xset s off -dpms
-ZSH=/usr/share/oh-my-zsh/
 DEFAULT_USER="x"
-
-ZSH_THEME="agnoster"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
+ZSH=/usr/share/oh-my-zsh/
 DISABLE_AUTO_UPDATE="true"
 
 plugins=(git history-substring-search)
+
+bindkey -e
+zstyle :compinstall filename '/home/x/.zshrc'
+autoload -Uz compinit promptinit colors
 
 # User configuration
 export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -37,8 +33,8 @@ if [[ ! -d $ZSH_CACHE_DIR ]]; then
     mkdir $ZSH_CACHE_DIR
 fi
 
-#source $ZSH/oh-my-zsh.sh
-source /usr/share/oh-my-zsh/oh-my-zsh.sh 
+source $ZSH/oh-my-zsh.sh
+#source /usr/share/oh-my-zsh/oh-my-zsh.sh 
 
 setopt AUTO_CD
 setopt CORRECT
@@ -47,7 +43,8 @@ setopt append_history
 setopt share_history
 setopt hist_verify
 setopt hist_ignore_all_dups
-setopt completealiases
+setopt PROMPT_SUBST
+
 zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 

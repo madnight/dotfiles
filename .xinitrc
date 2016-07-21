@@ -9,8 +9,12 @@
 hsetroot -solid '#1c1c1c'
 #hsetroot -tile ~/Pictures/tile1.jpg 
 
+# set your speed!
+xset r rate 150 50
+# no screensaver
 xset -dpms 
 xset s off 
+xset s off -dpms
 xset +fp ~/.fonts
 xset +fp /usr/share/fonts/local
 xset fp rehash

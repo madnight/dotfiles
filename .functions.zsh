@@ -9,6 +9,32 @@ user_commands=(
 list-units is-active status show help list-unit-files
 is-enabled list-jobs show-environment cat)
 
+ncmpcppShow() { BUFFER="ranger"; zle accept-line; }
+zle -N ncmpcppShow
+bindkey '^[+' ncmpcppShow
+
+
+cdUndoKey() {
+  popd      > /dev/null
+  zle       reset-prompt
+  echo
+  ls
+  echo
+}
+
+cdParentKey() {
+  pushd .. > /dev/null
+  zle      reset-prompt
+  echo
+  ls
+  echo
+}
+
+zle -N                 cdParentKey
+zle -N                 cdUndoKey
+bindkey '^[.'      cdParentKey
+bindkey '^[,'      cdUndoKey
+
 sudo_commands=(start stop reload restart try-restart isolate kill
 reset-failed enable disable reenable preset mask unmask
 link load cancel set-environment unset-environment

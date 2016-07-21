@@ -1,7 +1,29 @@
+# combine minimal and agnoster theme
 prompt minimal
 source ~/.oh-my-zsh/themes/agnoster.zsh-theme
 
-# show shell execution time needed on right prompt
+# agnoster modifications by overwrite
+PROMPT='
+%{%f%b%k%}$(build_prompt) '
+build_prompt() {
+# only show the agnoster git prompt in git dir
+if [ -d .git ]; then
+  RETVAL=$?
+  prompt_status
+  prompt_virtualenv
+  prompt_context
+  # prompt dir is already on Rprompt
+  # prompt_dir
+  prompt_git
+  prompt_hg
+  prompt_end
+else 
+# otherwise use minimal theme
+ echo -ne "%{$fg[red]%} » %{$reset_color%}"
+fi
+}
+
+#show shell execution time needed on right prompt
 ZSH_COMMAND_START=0
 typeset -gF SECONDS
 

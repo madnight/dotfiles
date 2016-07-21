@@ -7,12 +7,6 @@
 #                                                                                          _|  
 #                                                                                      _|_|    
 
-# set your speed!
-xset r rate 150 50
-
-# no screensaver
-xset s off -dpms
-
 # reload xdefaults
 xrdb ~/.Xdefaults
 
@@ -23,10 +17,9 @@ DEFAULT_USER="x"
 ZSH=/usr/share/oh-my-zsh/
 DISABLE_AUTO_UPDATE="true"
 
-plugins=(git history-substring-search)
+plugins=(git git-prompt docker common-aliases history-substring-search)
 
 bindkey -e
-zstyle :compinstall filename '/home/x/.zshrc'
 autoload -Uz compinit promptinit colors
 
 # User configuration
@@ -74,7 +67,6 @@ fi
 [[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
 
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 
 # ENVIORNMENT variables
 export ARCHFLAGS="-arch x86_64"

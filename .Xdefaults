@@ -47,6 +47,10 @@ urxvt.borderLess:           false
 urxvt.pointerBlank:         true
 urxvt.pointerBlankDelay:    4
 
+! no ISO 14755 mode (fix for C-M-v)
+urxvt.iso14755:             false
+urxvt.iso14755_52:          false
+
 urxvt.font:                 xft:Inconsolata\ for\ Powerline:style=dz:pixelsize=21:autohint=true
 urxvt.boldFont:             xft:Inconsolata\ for\ Powerline:style=dz:style=Bold:pixelsize=21:autohint=true
 urxvt.italicFont:           xft:Inconsolata\ for\ Powerline:style=Italic:pixelsize=21:autohint=true

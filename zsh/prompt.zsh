@@ -1,6 +1,5 @@
-# combine minimal and agnoster theme
-# prompt minimal
-source ~/.oh-my-zsh/themes/agnoster.zsh-theme
+# modified agnoster theme
+source ~/zsh/agnoster.zsh-theme
 
 # agnoster modifications by overwrite
 PROMPT='

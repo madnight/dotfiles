@@ -8,7 +8,8 @@
 #                                                                                      _|_|    
 
 # reload xdefaults
-xrdb ~/.Xdefaults
+[[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
+
 
 # activate color-completion
 zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
@@ -46,7 +47,7 @@ zstyle ':completion:*' rehash true
 echo -ne "\033]11;#181715\007"
 
 # set fg color
-echo -ne "\033]10;#bea492\007" 
+echo -ne "\033]10;#BEA492\007" 
 
 bindkey -v
 bindkey '^P' up-history
@@ -66,9 +67,11 @@ if [ "$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed '
 fi
 
 # command not found hook: https://wiki.archlinux.org/index.php/Pkgfile
-[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && source /usr/share/doc/pkgfile/command-not-found.zsh
+[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && 
+source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # colorize command if valid e.g. ls (green) asd123 (red)
+[[ -e ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && 
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # ENVIORNMENT variables
@@ -86,7 +89,7 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec startx
 fi
 
-# fany history search via C-r
+# fancy history search via C-r
 function exists { which $1 &> /dev/null; }
 if exists percol; then
     function percol_select_history() {
@@ -100,14 +103,14 @@ if exists percol; then
     bindkey '^R' percol_select_history
 fi
 
-# prevent ctrl s form freezing the term
+# prevent C-s form freezing the term
 stty -ixon 
 
 # private aliases and functions suchs as backup
-source ~/.zshrc_priv
+[[ -e ~/zsh/zshrc_priv ]] && source ~/zsh/zshrc_priv
 
 # import prompt, aliases and functions
-source ~/.prompt.zsh
-source ~/.aliases.zsh
-source ~/.functions.zsh
+[[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
+[[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
+[[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
 

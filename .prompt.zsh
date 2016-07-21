@@ -1,5 +1,5 @@
 # combine minimal and agnoster theme
-prompt minimal
+# prompt minimal
 source ~/.oh-my-zsh/themes/agnoster.zsh-theme
 
 # agnoster modifications by overwrite
@@ -12,7 +12,7 @@ if [ -d .git ]; then
   prompt_status
   prompt_virtualenv
   prompt_context
-  # prompt dir is already on Rprompt
+  # prompt dir is already on rprompt
   # prompt_dir
   prompt_git
   prompt_hg

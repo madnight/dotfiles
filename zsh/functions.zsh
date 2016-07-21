@@ -1,18 +1,6 @@
-# systemd shortcuts
-start() { sudo systemctl start $1.service; sudo systemctl status $1.service; }
-stop() { sudo systemctl stop $1.service; sudo systemctl status $1.service; }
-restart() { sudo systemctl restart $1.service; sudo systemctl status $1.service; }
-status() { sudo systemctl status $1.service; }
-enabled() { cd /usr/lib/systemd/system; sudo systemctl enable $1.service;  }
-disabled() { sudo systemctl disable $1.service;  }
-user_commands=(
-list-units is-active status show help list-unit-files
-is-enabled list-jobs show-environment cat)
-
-ncmpcppShow() { BUFFER="ranger"; zle accept-line; }
-zle -N ncmpcppShow
-bindkey '^[+' ncmpcppShow
-
+rangerShow() { BUFFER="ranger"; zle accept-line; }
+zle -N rangerShow
+bindkey '^F' rangerShow
 
 cdUndoKey() {
   popd      > /dev/null
@@ -35,14 +23,6 @@ zle -N                 cdUndoKey
 bindkey '^[.'      cdParentKey
 bindkey '^[,'      cdUndoKey
 
-sudo_commands=(start stop reload restart try-restart isolate kill
-reset-failed enable disable reenable preset mask unmask
-link load cancel set-environment unset-environment
-edit)
-
-for c in $user_commands; do alias sc-$c="systemctl $c"; done
-for c in $sudo_commands; do alias sc-$c="sudo systemctl $c"; done
-
 # one-liners
 grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2"; }
 
@@ -53,6 +33,59 @@ cl() { cd $1 && pwd && ls; }
 google() { chromium "http://www.google.com/search?q=$1"; }
 
 github() { chromium "https://github.com/search?q=$1"; }
+
+killport() { lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill; }
+
+cd() { builtin cd $1 && ls; }
+
+facd() { cd $(locate -i $1 | head -n 1); }
+
+fan() { nano $(locate -i $1 | head -n 1); }
+
+sfan() { sudo vim $(fa $1 | head -n 1); }
+
+maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
+
+makezip() { zip -r "${1%%/}.zip" "$1" ; }
+
+pkgfiler() { pacman -Ql $1 | grep bin; }
+
+f() { find $(pwd) | grep $1; }
+
+h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi }
+
+clip() { echo "$@" | xclip; }
+
+mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
+
+256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
+
+cpstat () { tar cf - "$1" | pv | (cd "$2";tar xf -) }
+
+dls () { echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`; }
+
+# some funny git stuff
+yodacommit() { git add -u && git commit -m "$(fortune)" }
+yoda() { git add -u && git commit && git push; }
+
+# systemd shortcuts
+start() { sudo systemctl start $1.service; sudo systemctl status $1.service; }
+stop() { sudo systemctl stop $1.service; sudo systemctl status $1.service; }
+restart() { sudo systemctl restart $1.service; sudo systemctl status $1.service; }
+status() { sudo systemctl status $1.service; }
+enabled() { cd /usr/lib/systemd/system; sudo systemctl enable $1.service;  }
+disabled() { sudo systemctl disable $1.service;  }
+user_commands=(
+list-units is-active status show help list-unit-files
+is-enabled list-jobs show-environment cat)
+
+sudo_commands=(start stop reload restart try-restart isolate kill
+reset-failed enable disable reenable preset mask unmask
+link load cancel set-environment unset-environment
+edit)
+
+for c in $user_commands; do alias sc-$c="systemctl $c"; done
+for c in $sudo_commands; do alias sc-$c="sudo systemctl $c"; done
 
 asm () 
 {
@@ -83,46 +116,12 @@ leo()
     lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
 }
 
-killport() { lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill; }
-
-cd() { builtin cd $1 && ls; }
-
-facd() { cd $(locate -i $1 | head -n 1); }
-
-fan() { nano $(locate -i $1 | head -n 1); }
-
-sfan() { sudo vim $(fa $1 | head -n 1); }
-
-maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
-
-makezip() { zip -r "${1%%/}.zip" "$1" ; }
-
-pkgfiler() { pacman -Ql $1 | grep bin; }
-
-f() { find $(pwd) | grep $1; }
-
-h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi }
-
-clip() { echo "$@" | xclip; }
-
-mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
-
-256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
-
-# some funny git stuff
-# yodagit() { git commit -a -m '$(fortune)' && git push }
-# yodacommit() { git commit -a -m '$(fortune)' && git push }
-yoda() { git add . && git commit && git push; }
 
 pagrep() 
 {
     [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
     find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
 }
-
-cpstat () { tar cf - "$1" | pv | (cd "$2";tar xf -) }
-
-dls () { echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`; }
 
 installfont() {
     sudo cp $1 /usr/share/fonts/misc/
@@ -388,6 +387,7 @@ function countdown(){
      sleep 0.1
    done
 }
+
 function timer(){
   date1=`date +%s`; 
    while true; do 

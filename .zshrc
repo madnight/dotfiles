@@ -43,11 +43,20 @@ zstyle ':completion:*' menu select
 # find new installed binarys and offer completion
 zstyle ':completion:*' rehash true
 
-# set bg color
-echo -ne "\033]11;#181715\007"
+term="$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')"
 
-# set fg color
-echo -ne "\033]10;#BEA492\007" 
+if [ $term = urxvt ] || [ $term = xterm ]; then 
+    # set bg color
+    echo -ne "\033]11;#181715\007"
+    # set fg color
+    echo -ne "\033]10;#BEA492\007" 
+fi
+
+# change xterm cursor to steady bar
+if [ $term = xterm ]; then 
+    echo -e -n "\x1b[\x36 q" 
+fi
+
 
 bindkey -v
 bindkey '^P' up-history
@@ -60,11 +69,6 @@ bindkey "^[[B" history-beginning-search-forward
 bindkey "\e[8~" end-of-line
 bindkey "\e[7~" beginning-of-line
 bindkey "\e[3~" delete-char
-
-# change xterm cursor to steady bar
-if [ "$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')" = xterm ]; then 
-    echo -e -n "\x1b[\x36 q" 
-fi
 
 # command not found hook: https://wiki.archlinux.org/index.php/Pkgfile
 [[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && 

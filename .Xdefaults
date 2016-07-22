@@ -77,6 +77,9 @@ urxvt.clipboard.pastecmd:   xsel --output --clipboard
 urxvt.keysym.C-M-c:         perl:clipboard:copy
 urxvt.keysym.C-V:           perl:clipboard:paste
 urxvt.intensityStyles:      false
+urxvt*iconFile:             /usr/share/icons/FlatWoken/scalable/apps/xterm.svg 
+ 
+
 
 !                                 _____                           _ 
 !                                |  __ \                         | |

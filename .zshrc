@@ -57,7 +57,7 @@ if [ $term = xterm ]; then
     echo -e -n "\x1b[\x36 q" 
 fi
 
-
+# vi mode keybinding (-e for emacs)
 bindkey -v
 bindkey '^P' up-history
 bindkey '^N' down-history
@@ -69,6 +69,29 @@ bindkey "^[[B" history-beginning-search-forward
 bindkey "\e[8~" end-of-line
 bindkey "\e[7~" beginning-of-line
 bindkey "\e[3~" delete-char
+
+# by default, there is a 0.4 second delay after you hit the <ESC> key
+# let's reduce this delay to 0.1 seconds.
+export KEYTIMEOUT=1
+
+
+# modal cursor color for vi's insert/normal modes.
+zle-keymap-select () {
+  if [ $KEYMAP = vicmd ]; then
+    echo -ne "\033]12;6\007"
+    echo -ne "\033[2 q"
+  else
+    echo -ne "\033]12;Grey\007"
+    echo -ne "\033[4 q"
+  fi
+}
+zle -N zle-keymap-select
+zle-line-init () {
+  zle -K viins
+  echo -ne "\033]12;Gray\007"
+  echo -ne "\033[4 q"
+}
+zle -N zle-line-init
 
 # command not found hook: https://wiki.archlinux.org/index.php/Pkgfile
 [[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && 
@@ -118,3 +141,6 @@ stty -ixon
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
 
+
+# added by travis gem
+[ -f /home/x/.travis/travis.sh ] && source /home/x/.travis/travis.sh

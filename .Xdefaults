@@ -46,6 +46,7 @@ urxvt.imLocale:             en_US.UTF-8
 urxvt.borderLess:           false
 urxvt.pointerBlank:         true
 urxvt.pointerBlankDelay:    4
+urxvt*iconFile:             /usr/share/icons/FlatWoken/scalable/apps/xterm.svg 
 
 ! no ISO 14755 mode (fix for C-M-v)
 urxvt.iso14755:             false
@@ -62,8 +63,8 @@ urxvt.boldItalicFont:       xft:Inconsolata\ for\ Powerline:style=Bold:style=Ita
 ! --  Extensions -- !
 ! requires urxvt-perl package
 
-urxvt.perl-ext-common:      matcher,keyboard-select,url-select,clipboard
-urxvt.keysym.C-Escape:      perl:keyboard-select:activate
+urxvt.perl-ext-common:      matcher,keyboard-select,url-select,clipboard,font-size
+urxvt.keysym.C-x:           perl:keyboard-select:activate
 urxvt.keysym.M-u:           perl:url-select:select_next
 urxvt.keysym.C-b:           perl:clipboard:paste_escaped
 urxvt.keysym.C-1:	    perl:font-size:increase
@@ -76,9 +77,11 @@ urxvt.clipboard.copycmd:    xsel --input  --clipboard
 urxvt.clipboard.pastecmd:   xsel --output --clipboard
 urxvt.keysym.C-M-c:         perl:clipboard:copy
 urxvt.keysym.C-V:           perl:clipboard:paste
+urxvt.keysym.M-r:           perl:keyboard-select:search
+urxvt.keysym.C-i:           perl:font-size:decrease
+urxvt.keysym.C-equal:       perl:font-size:increase
+urxvt.font-size.step:       4
 urxvt.intensityStyles:      false
-urxvt*iconFile:             /usr/share/icons/FlatWoken/scalable/apps/xterm.svg 
- 
 
 
 !                                 _____                           _ 

@@ -6,7 +6,7 @@ PROMPT='
 %{%f%b%k%}$(build_prompt) '
 build_prompt() {
 # only show the agnoster git prompt in git dir
-if [ -d .git ]; then
+if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
   RETVAL=$?
   prompt_status
   prompt_virtualenv

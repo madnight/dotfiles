@@ -23,7 +23,7 @@ Plugin 'szw/vim-tags'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'DamienCassou/textlint'
+Plugin 'textlint/textlint'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'blackgate/tropikos-vim-theme'
 Plugin 'flazz/vim-colorschemes'
@@ -37,6 +37,7 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'reedes/vim-thematic'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'Shougo/neocomplcache.vim'
+Plugin 'smancill/conky-syntax.vim'
 call vundle#end()  
 
 " Functions
@@ -247,6 +248,7 @@ vmap ^ $
 map <D-/> <C-_><C-_>
 map Y y$
 map <C-s> <ESC>:w<CR>
+map <C-w> <ESC>:wq<CR>
 imap <C-s> <ESC>:w<CR>i
 map <xCSI>[62~ <MouseDown>:
 "map <S-d> <S-d><ESC>

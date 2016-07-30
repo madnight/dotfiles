@@ -47,15 +47,21 @@ urxvt.borderLess:           false
 urxvt.pointerBlank:         true
 urxvt.pointerBlankDelay:    4
 urxvt*iconFile:             /usr/share/icons/FlatWoken/scalable/apps/xterm.svg 
+! do not scroll with output
+URxvt*scrollTtyOutput: false
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer: true
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress: true
 
 ! no ISO 14755 mode (fix for C-M-v)
 urxvt.iso14755:             false
 urxvt.iso14755_52:          false
 
-urxvt.font:                 xft:Inconsolata\ for\ Powerline:style=dz:pixelsize=21:autohint=true
-urxvt.boldFont:             xft:Inconsolata\ for\ Powerline:style=dz:style=Bold:pixelsize=21:autohint=true
-urxvt.italicFont:           xft:Inconsolata\ for\ Powerline:style=Italic:pixelsize=21:autohint=true
-urxvt.boldItalicFont:       xft:Inconsolata\ for\ Powerline:style=Bold:style=Italic:pixelsize=18:autohint=true
+urxvt.font:                 xft:Inconsolata\ for\ Powerline:style=dz:pixelsize=20:autohint=true
+urxvt.boldFont:             xft:Inconsolata\ for\ Powerline:style=dz:style=Bold:pixelsize=20:autohint=true
+urxvt.italicFont:           xft:Inconsolata\ for\ Powerline:style=Italic:pixelsize=20:autohint=true
+urxvt.boldItalicFont:       xft:Inconsolata\ for\ Powerline:style=Bold:style=Italic:pixelsize=20:autohint=true
 
 ! URxvt*font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
 ! URxvt*font: xft:Inconsolata -g:style=g:pixelsize=18
@@ -63,7 +69,7 @@ urxvt.boldItalicFont:       xft:Inconsolata\ for\ Powerline:style=Bold:style=Ita
 ! --  Extensions -- !
 ! requires urxvt-perl package
 
-urxvt.perl-ext-common:      matcher,keyboard-select,url-select,clipboard,font-size
+urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard,font-size
 urxvt.keysym.C-x:           perl:keyboard-select:activate
 urxvt.keysym.M-u:           perl:url-select:select_next
 urxvt.keysym.C-b:           perl:clipboard:paste_escaped
@@ -71,7 +77,9 @@ urxvt.keysym.C-1:	    perl:font-size:increase
 urxvt.keysym.M-3:           perl:font-size:decrease
 urxvt.matcher.button:       1
 urxvt.matcher.rend.0:       -Uline fg16
-urxvt.urlLauncher:          chromium
+urxvt.urlLauncher:          /usr/bin/chromium
+URxvt.url-select.underline: true
+URxvt.url-select.launcher:  /usr/bin/xdg-open
 urxvt.clipboard.autocopy:   true
 urxvt.clipboard.copycmd:    xsel --input  --clipboard
 urxvt.clipboard.pastecmd:   xsel --output --clipboard

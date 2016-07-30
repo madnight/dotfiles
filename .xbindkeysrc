@@ -51,7 +51,7 @@
     Mod2 + F12 
 
 #Volume mute
-"amixer set Master toggle; pulseaudio-ctl mute"
+"amixer set Master toggle"
     m:0x10 + c:76
     Mod2 + F10 
 
@@ -97,8 +97,8 @@
 
 #Webbrowser
 "chromium"
-    m:0x50 + c:133
-    Mod2+Mod4 + Super_L 
+    m:0x50 + c:25
+    Mod2+Mod4 + w 
 
 #Terminal
 "urxvt"
@@ -159,6 +159,11 @@
 "quicktile top-left"
     m:0x50 + c:79
     Mod2+Mod4 + KP_Home 
+
+#Shutdown
+"systemctl poweroff"
+    m:0x54 + c:24
+    Control+Mod2+Mod4 + q 
 
 #
 # End of xbindkeys configuration

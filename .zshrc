@@ -10,6 +10,7 @@
 # reload xdefaults
 [[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
 
+fortune -a -s -n 200 | cowsay
 
 # activate color-completion
 zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
@@ -18,7 +19,7 @@ zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\
 
 HISTFILE=~/.histfile
 HISTSIZE=100000
-SAVEHIST=10000
+SAVEHIST=1000000
 DEFAULT_USER="x"
 
 bindkey -e

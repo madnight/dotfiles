@@ -395,3 +395,36 @@ function timer(){
     sleep 0.1
    done
 }
+
+function cd() {
+    new_directory="$*";
+    if [ $# -eq 0 ]; then 
+        new_directory=${HOME};
+    fi;
+    builtin cd "${new_directory}" && ls
+}
+
+function ende() {
+ google-translate en de "$*"   
+}
+
+function deen() {
+ google-translate de en "$*"   
+}
+
+function randtranslate() {
+ a=$(fortune) && echo $a && ende $a
+}
+
+function calct() {
+    awk "BEGIN{ print $* }" ;
+} 
+
+# Get a 42 chars password: generate-password 42
+generate-password() {
+if [[ 18 -lt $1 ]] then
+  strings /dev/urandom | grep -o '[[:alnum:]]' | head -n $1 | tr -d '\n'; echo; 
+  else
+    echo "password to short unsecure"
+  fi
+}

@@ -33,7 +33,7 @@ setopt AUTO_CD
 setopt CORRECT
 setopt PROMPT_SUBST
 setopt completealiases
-setopt correctall
+#setopt correctall
 setopt append_history
 setopt share_history
 setopt hist_verify
@@ -111,6 +111,7 @@ export SHELL=/usr/bin/zsh
 export TCLLIBPATH=~/.local/share/tktheme
 #export LANG=en_US.UTF-8
 unset GREP_OPTIONS
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 
 # auto startx if display is not set
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then

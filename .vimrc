@@ -248,8 +248,9 @@ vmap ^ $
 map <D-/> <C-_><C-_>
 map Y y$
 map <C-s> <ESC>:w<CR>
-map <C-w> <ESC>:wq<CR>
-imap <C-s> <ESC>:w<CR>i
+map <C-w> <ESC>:wq!<CR>
+map <S-w> <ESC>:q!<CR>
+imap <C-s> <ESC>:w<CR>
 map <xCSI>[62~ <MouseDown>:
 "map <S-d> <S-d><ESC>
 "map <S-a> <S-a><ESC>

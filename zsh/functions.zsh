@@ -18,8 +18,8 @@ cdParentKey() {
   echo
 }
 
-zle -N                 cdParentKey
-zle -N                 cdUndoKey
+zle -N             cdParentKey
+zle -N             cdUndoKey
 bindkey '^[.'      cdParentKey
 bindkey '^[,'      cdUndoKey
 
@@ -89,10 +89,20 @@ for c in $sudo_commands; do alias sc-$c="sudo systemctl $c"; done
 
 asm () 
 {
+    filename=$1
     nasm -f elf $1
-    ld -o $1 $1.o -melf_i386
-    rm $1.o
-    echo "Done building, the file 'echo' is your executable"
+    ld -o "${filename%.*}" "${filename%.*}.o" -melf_i386
+    command rm "${filename%.*}.o"
+    echo "Done building, the file '${filename%.*}' is your executable"
+}
+
+asm32() 
+{
+    filename=$1
+    nasm -f elf $1
+    gcc -m32 "${filename%.*}.o" -o "${filename%.*}"
+    command rm "${filename%.*}.o"
+    echo "Done building, the file '${filename%.*}' is your executable"
 }
 
 # backup and list packages
@@ -168,6 +178,17 @@ md5copy() {
     rsync -c -h --stats --info=progress2 $1 $2
     parallel md5sum ::: $1 $2$1
 }
+
+# prevent myself form doing bad stuff, 
+# that causes problems e.g. unresolvable dependencies
+#sudo() {
+        #case $1 in
+            #gem)          echo "do not install gems as root!" && return;;
+            #pip)          echo "do not install pips as root!" && return;;
+        #esac
+        #command $*
+#}
+
 
 extract () {
     if [ -f $1 ] ; then

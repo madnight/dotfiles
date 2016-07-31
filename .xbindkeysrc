@@ -90,10 +90,15 @@
     m:0x50 + c:26
     Mod2+Mod4 + e 
 
-#Radio
+#Radio BBC 1
 "vlc ~/Radio/bbcradio1.pls"
     m:0x10 + c:75
     Mod2 + F9 
+
+#Radio JAM FM
+"vlc ~/Radio/jamfm.m3u"
+    m:0x10 + c:73
+    Mod2 + F7 
 
 #Webbrowser
 "chromium"

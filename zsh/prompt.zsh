@@ -14,7 +14,8 @@ if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
   # prompt dir is already on rprompt
   # prompt_dir
   prompt_git
-  prompt_hg
+  # we dont need mercurial
+  # prompt_hg
   prompt_end
 else 
 # otherwise use minimal theme

@@ -87,7 +87,7 @@ edit)
 for c in $user_commands; do alias sc-$c="systemctl $c"; done
 for c in $sudo_commands; do alias sc-$c="sudo systemctl $c"; done
 
-asm () 
+asm ()
 {
     filename=$1
     nasm -f elf $1
@@ -96,7 +96,7 @@ asm ()
     echo "Done building, the file '${filename%.*}' is your executable"
 }
 
-asm32() 
+asm32()
 {
     filename=$1
     nasm -f elf $1
@@ -106,10 +106,10 @@ asm32()
 }
 
 # backup and list packages
-packages () 
+packages ()
 {
-    pacman -Qqe  >| /home/datadisk/Dropbox/ArchBackup/pkglist_$(date +%F).txt 
-    pacman -Qqe  
+    pacman -Qqe  >| /home/datadisk/Dropbox/ArchBackup/pkglist_$(date +%F).txt
+    pacman -Qqe
 }
 
 # tranlate given string with online leo dictonary
@@ -127,7 +127,7 @@ leo()
 }
 
 
-pagrep() 
+pagrep()
 {
     [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
     find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
@@ -179,7 +179,7 @@ md5copy() {
     parallel md5sum ::: $1 $2$1
 }
 
-# prevent myself form doing bad stuff, 
+# prevent myself form doing bad stuff,
 # that causes problems e.g. unresolvable dependencies
 #sudo() {
         #case $1 in
@@ -240,7 +240,7 @@ findbin() {
 }
 
 colortest() {
-    T='gYw'   
+    T='gYw'
     echo -e "\n                 40m     41m     42m     43m\
         44m     45m     46m     47m";
 
@@ -262,17 +262,17 @@ conf() {
     case $1 in
         dict)          	vim ~/.conky/dict;;
         weather)       	vim ~/.conky/conky_weather/weather_5days;;
-        wiki)		vim ~/.conky/wiki;;
-        irc)		vim ~/.conky/irc;;
-        grey)   	vim ~/.conky/conkyrc_grey;;
-        mail)   	vim ~/.conky/mail;;
-        hc)	    	vim ~/.config/herbstluftwm/autostart;;
-        compton)   	vim ~/.config/compton.conf;;
+        wiki)           vim ~/.conky/wiki;;
+        irc)            vim ~/.conky/irc;;
+        grey)           vim ~/.conky/conkyrc_grey;;
+        mail)           vim ~/.conky/mail;;
+        hc)             vim ~/.config/herbstluftwm/autostart;;
+        compton)        vim ~/.config/compton.conf;;
         autostart)      vim ~/.config/herbstluftwm/autostart;;
         log)   	        vim ~/.conky/log;;
-        news)   	vim ~/.conky/news;;
-        i3)             vim ~/.i3/config;;    
-        status)         vim ~/.i3status.conf;;    
+        news)           vim ~/.conky/news;;
+        i3)             vim ~/.i3/config;;
+        status)         vim ~/.i3status.conf;;
         vim)            vim ~/.vimrc;;
         res)            vim ~/.Xresources && xrdb ~/.Xresources;;
         def)            vim ~/.Xdefaults && xrdb ~/.Xdefaults;;
@@ -291,11 +291,11 @@ conk() {
         dict)          	conky -c ~/.conky/dict &;;
         mail)          	conky -c ~/.conky/mail &;;
         weather)       	conky -c ~/.conky/conky_weather/weather_5days &;;
-        wiki)		conky -c ~/.conky/wiki &;;
-        grey)   	conky -c ~/.conky/conkyrc_grey &;;
-        irc)   	  	conky -c ~/.conky/irc &;;
-        log)   	  	conky -c ~/.conky/log &;;
-        news)   	conky -c ~/.conky/news &;;
+        wiki)           conky -c ~/.conky/wiki &;;
+        grey)           conky -c ~/.conky/conkyrc_grey &;;
+        irc)            conky -c ~/.conky/irc &;;
+        log)            conky -c ~/.conky/log &;;
+        news)           conky -c ~/.conky/news &;;
         *)              echo "Unknown application: $1";;
     esac
 }
@@ -320,14 +320,14 @@ function repeat() {
 
 # synonyme search
 function syn() {
-    BROWSER="/usr/bin/lynx -source" 
-    WEBSITE="http://thesaurus.reference.com/search?q=$1" 
-    HTML2TEXT="/usr/bin/html2text -style compact" 
-    if test $1; then 
+    BROWSER="/usr/bin/lynx -source"
+    WEBSITE="http://thesaurus.reference.com/search?q=$1"
+    HTML2TEXT="/usr/bin/html2text -style compact"
+    if test $1; then
         lynx -source 'http://www.thesaurus.com/browse/'"$1"'?s=' | html2text
-    else 
-        echo "Usage: $0 word" 
-        exit 1 
+    else
+        echo "Usage: $0 word"
+        exit 1
     fi
 }
 
@@ -366,14 +366,13 @@ function showdesk() {
     fi
 }
 
-colors()
-{
-    ( x=`tput op` y=`printf %$((${COLUMNS}-6))s`;
+printcolors() {
+    x=`tput op` y=`printf %$((${COLUMNS}-6))s`;
     for i in {0..7};
     do
         o=00$i;
         echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;
-    done )
+    done
 }
 
 ix() {
@@ -402,35 +401,35 @@ echo "^C to cancel, ^D to send."
 }
 
 function countdown(){
-   date1=$((`date +%s` + $1)); 
-   while [ "$date1" -ge `date +%s` ]; do 
+   date1=$((`date +%s` + $1));
+   while [ "$date1" -ge `date +%s` ]; do
      echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
      sleep 0.1
    done
 }
 
 function timer(){
-  date1=`date +%s`; 
-   while true; do 
-    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
+  date1=`date +%s`;
+   while true; do
+    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r";
     sleep 0.1
    done
 }
 
 function cd() {
     new_directory="$*";
-    if [ $# -eq 0 ]; then 
+    if [ $# -eq 0 ]; then
         new_directory=${HOME};
     fi;
     builtin cd "${new_directory}" && ls
 }
 
 function ende() {
- google-translate en de "$*"   
+ google-translate en de "$*"
 }
 
 function deen() {
- google-translate de en "$*"   
+ google-translate de en "$*"
 }
 
 function randtranslate() {
@@ -439,12 +438,12 @@ function randtranslate() {
 
 function calct() {
     awk "BEGIN{ print $* }" ;
-} 
+}
 
 # Get a 42 chars password: generate-password 42
 generate-password() {
 if [[ 18 -lt $1 ]] then
-  strings /dev/urandom | grep -o '[[:alnum:]]' | head -n $1 | tr -d '\n'; echo; 
+  strings /dev/urandom | grep -o '[[:alnum:]]' | head -n $1 | tr -d '\n'; echo;
   else
     echo "password to short unsecure"
   fi

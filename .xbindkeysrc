@@ -101,7 +101,7 @@
     Mod2 + F7 
 
 #Webbrowser
-"chromium"
+"chromium --profile-directory='Default'"
     m:0x50 + c:25
     Mod2+Mod4 + w 
 

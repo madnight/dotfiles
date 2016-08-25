@@ -41,12 +41,12 @@
     Mod2+Mod4 + i 
 
 #Volume down
-"amixer set Master 5%- ; pulseaudio-ctl down"
+"amixer set Master 3%- ; pulseaudio-ctl down"
     m:0x10 + c:95
     Mod2 + F11 
 
 #Volume up
-"amixer set Master 5%+ ; pulseaudio-ctl up"
+"amixer set Master 3%+ ; pulseaudio-ctl up"
     m:0x10 + c:96
     Mod2 + F12 
 

@@ -110,7 +110,7 @@ xft:            unifont:medium
 ! erosion theme by earsplit
 
 *.foreground:   #bea492
-*.background:   #222222
+*.background:   #181715
 *.cursorcolor:  #bea492
 
 ! black

@@ -105,6 +105,11 @@
     m:0x50 + c:25
     Mod2+Mod4 + w 
 
+#Anon Browser
+"chromium --incognito --profile-directory='Profile 4' --new-window https://check.torproject.org"
+    m:0x50 + c:33
+    Mod2+Mod4 + p 
+
 #Terminal
 "urxvt"
     m:0x50 + c:36

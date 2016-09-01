@@ -32,8 +32,10 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 setopt AUTO_CD
 setopt CORRECT
 setopt PROMPT_SUBST
-setopt completealiases
-#setopt correctall
+# you should not be setting the complete_aliases option 
+# if you want to have completion for aliases
+# setopt complete_aliases
+# setopt correctall
 setopt append_history
 setopt share_history
 setopt hist_verify
@@ -102,6 +104,16 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 [[ -e ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && 
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# fish like autosuggestions key bindings
+# ctrl + space accept the suggestion
+bindkey '^ ' autosuggest-accept
+# ctrl + return execute the suggestion
+bindkey '^^m' autosuggest-execute
+
+# https://github.com/zsh-users/zsh-autosuggestions
+# fish like autosuggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # ENVIORNMENT variables
 export ARCHFLAGS="-arch x86_64"
 export LC_ALL="en_US.UTF-8"
@@ -109,9 +121,10 @@ export EDITOR="vim"
 export BROWSER="chromium"
 export SHELL=/usr/bin/zsh
 export TCLLIBPATH=~/.local/share/tktheme
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 #export LANG=en_US.UTF-8
 unset GREP_OPTIONS
-PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 
 # auto startx if display is not set
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then

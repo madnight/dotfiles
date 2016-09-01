@@ -9,7 +9,7 @@
 
 [alias]
         wip = "!f() { git add -A; git ls-files --deleted -z | xargs -0 -r git rm; s=`git show --format=%s HEAD | head -1`; if [ \"wip\" = \"$s\" ]; then git commit --amend -m \"wip\"; else git commit -m \"wip\"; fi;}; f"
-        squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+        s = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
         ls = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
         ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
         publish = "!git push -u origin $(git branch-name)"

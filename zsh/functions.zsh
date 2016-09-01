@@ -174,21 +174,10 @@ cycle() {
 
 # copy with md check
 md5copy() {
-    echo "usage: md5copy Star_Trek.mkv /run/media/x/stick/"
+    echo "example usage: md5copy Star_Trek.mkv /run/media/x/stick/"
     rsync -c -h --stats --info=progress2 $1 $2
     parallel md5sum ::: $1 $2$1
 }
-
-# prevent myself form doing bad stuff,
-# that causes problems e.g. unresolvable dependencies
-#sudo() {
-        #case $1 in
-            #gem)          echo "do not install gems as root!" && return;;
-            #pip)          echo "do not install pips as root!" && return;;
-        #esac
-        #command $*
-#}
-
 
 extract () {
     if [ -f $1 ] ; then
@@ -300,6 +289,10 @@ conk() {
     esac
 }
 
+# check if a website use HSTS (HTTP Strict Transport Security)
+hsts() {
+curl -s -D- $1 | grep Strict
+}
 
 orphans() {
     if [[ ! -n $(pacman -Qdt) ]]; then
@@ -447,4 +440,8 @@ if [[ 18 -lt $1 ]] then
   else
     echo "password to short unsecure"
   fi
+}
+
+function monitor() { 
+    watch -n1 -t "lsof -i -n|awk '{print \$1, \$2, \$9}'|column -t"; 
 }

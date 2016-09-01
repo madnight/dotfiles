@@ -22,6 +22,9 @@ thunderbird &
 # web browser
 chromium &
 
+# messenger
+bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && franz &' &
+
 # sound
 pulseaudio --start &
 

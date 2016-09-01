@@ -121,7 +121,7 @@
     Mod2 + XF86Tools 
 
 #Notes
-"subl3 ~/notes"
+"urxvt -e ''vim ~/notes''"
     m:0x10 + c:69
     Mod2 + F3 
 

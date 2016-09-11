@@ -1,30 +1,69 @@
 [credential]
-        helper = store
-
+    helper = store
+[help]
+	# Automatically correct and execute mistyped commands
+    autocorrect = 1
 [diff]
-        tool = meld
-
+    tool = meld
 [merge]
-        tool = meld
-
-[alias]
-        wip = "!f() { git add -A; git ls-files --deleted -z | xargs -0 -r git rm; s=`git show --format=%s HEAD | head -1`; if [ \"wip\" = \"$s\" ]; then git commit --amend -m \"wip\"; else git commit -m \"wip\"; fi;}; f"
-        s = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
-        ls = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
-        ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
-        publish = "!git push -u origin $(git branch-name)"
-        review = difftool origin/master...
-        la = "!git config -l | grep alias | cut -c 7-"
-
+    tool = meld
+[apply]
+    # Detect whitespace errors when applying a patch
+    whitespace = fix
 [pull]
     rebase = true
-
 [commit]
     gpgsign = true
-
 [user]
-	email = mail@beuke.org
+    email = mail@beuke.org
 	name = Fabian Beuke
 	signingkey = E0914083
 [rerere]
+	# Reuse recorded resolution of conflicted merges
 	enabled = true
+[alias]
+    wip = "!f() { git add -A; git ls-files --deleted -z | xargs -0 -r git rm; s=`git show --format=%s HEAD | head -1`; if [ \"wip\" = \"$s\" ]; then git commit --amend -m \"wip\"; else git commit -m \"wip\"; fi;}; f"
+    s = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m\"$(git log --format=%B --reverse HEAD..HEAD@{1})\"; };f"
+    ls = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --graph --decorate --date=relative
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    publish = "!git push -u origin $(git branch-name)"
+    review = difftool origin/master...
+    la = "!git config -l | grep alias | cut -c 7-"
+    # View abbreviated SHA, description, and history graph of the latest 20 commits
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+    # Show the diff between the latest commit and the current state
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+    di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+    # Pull in remote changes for the current repository and all its submodules
+    p = !"git pull; git submodule foreach git pull origin master"
+    # Clone a repository including all submodules
+    c = clone --recursive
+    # commit all changes
+    ca = !git add -a && git commit -av
+    # switch to a branch, creating it if necessary
+    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+    # Show verbose output about tags, branches or remotes
+    tags = tag -l
+    branches = branch -v
+    remotes = remote -v
+    # Amend the currently staged files to the latest commit
+    amend = commit --amend --reuse-message=HEAD
+    # Credit an author on the latest commit
+    credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+    # Interactive rebase with the given number of latest commits
+    reb = "!r() { git rebase -i HEAD~$1; }; r"
+    # Remove the old tag with this name and tag the latest commit with it.
+    retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
+    # Find branches containing commit
+    fb = "!f() { git branch -a --contains $1; }; f"
+    # Find tags containing commit
+    ft = "!f() { git describe --always --contains $1; }; f"
+    # Find commits by source code
+    fc = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+    # Find commits by commit message
+    fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+    # Remove branches that have already been merged with master a.k.a. ‘delete merged’
+    dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+    # List contributors with number of commits
+    contributors = shortlog --summary --numbered

@@ -16,6 +16,9 @@ bash -c "~/scripts/automute.sh" &
 # autoupdate system (pacman / yaourt)
 bash -c "~/scripts/autoupdate.bash" &
 
+# low memory warning (freeze swap prevention)
+bash -c "~/scripts/lowmem.bash" &
+
 # email client
 thunderbird &
 

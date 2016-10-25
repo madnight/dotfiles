@@ -8,13 +8,11 @@ INTERVAL=30
 
 while :
 do
+    total=$(free -m|awk '/^Mem:/{print $2}')
+    used=$(free -m|awk '/^Mem:/{print $3}')
+    available=$(free -m|awk '/^Mem:/{print $6}')
 
-    free=$(free -m|awk '/^Mem:/{print $4}')
-    buffers=$(free -m|awk '/^Mem:/{print $6}')
-    cached=$(free -m|awk '/^Mem:/{print $7}')
-    available=$(free -m | sed -n 2p | awk '{print $4}')
-
-    message="Free $free""MB"", buffers $buffers""MB"", cached $cached""MB"", available $available""MB"""
+    message="total $total""MB"", used $used""MB"", available $available""MB"""
 
     if [ $available -lt "$THRESHOLD" ]
         then

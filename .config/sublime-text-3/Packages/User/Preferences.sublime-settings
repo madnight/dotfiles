@@ -16,6 +16,7 @@
 		"Function Name Display",
 		"LaTeXing",
 		"Numix Theme",
+		"Package Control",
 		"Phpcs",
 		"QMakeProject",
 		"SFTP",
@@ -51,5 +52,5 @@
 	"vintage_start_in_command_mode": true,
 	"wide_caret": true,
 	"word_wrap": true,
-	"wrap_width": 80
+	"wrap_width": 120
 }

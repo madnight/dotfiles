@@ -228,6 +228,7 @@ nnoremap <leader>cd :lcd %:p:h<CR>
 nnoremap <SPACE> :
 nnoremap <leader>n :NERDTreeToggle<CR>
 inoremap jk <ESC>
+inoremap <Space> <Space><C-g>u
 nnoremap <C-L> :nohl<CR><C-L>
 " keymaps
 " control h, j, k, l tab navigation

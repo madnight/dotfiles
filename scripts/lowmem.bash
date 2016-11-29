@@ -10,7 +10,7 @@ while :
 do
     total=$(free -m|awk '/^Mem:/{print $2}')
     used=$(free -m|awk '/^Mem:/{print $3}')
-    available=$(free -m|awk '/^Mem:/{print $6}')
+    available=$(free -m|awk '/^Mem:/{print $7}')
 
     message="total $total""MB"", used $used""MB"", available $available""MB"""
 

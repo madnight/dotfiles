@@ -1,0 +1,37 @@
+background no
+use_xft yes
+xftfont GohuFont:size=11
+xftalpha 0.8
+update_interval 2
+total_run_times 0
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 1270 100
+# maximum_height 100
+maximum_width 1200
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color white
+default_shade_color black
+alignment top_right
+gap_x 680
+gap_y 700
+no_buffers yes
+double_buffer yes
+cpu_avg_samples 2
+override_utf8_locale no
+text_buffer_size 16384
+override_utf8_locale yes
+own_window yes
+own_window_class Conky
+own_window_type override
+
+TEXT
+#${font Terminus:size=10}Error Logs${font} ${voffset -5}
+#$stippled_hr
+${execi 1 journalctl -p 3 --since yesterday --no-pager | uniq -f 4 | tail -n 44}

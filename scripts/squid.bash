@@ -19,7 +19,7 @@ wait && echo " finished"
 
 # i like png better
 echo "convert *.gif to *.png"
-ls -1 *.gif | parallel --will-cite -j 8 convert '{}' '{.}.png'
+find . -name '*.gif' | parallel --will-cite -j 8 convert '{}' '{.}.png'
 
 echo "remove *.gif"
-rm *.gif
+rm ./*.gif

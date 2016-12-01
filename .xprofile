@@ -1,14 +1,18 @@
+
+# define if internet as function
+
 # compositor
-compton --backend glx --vsync opengl-swc &
+# compton --backend glx --vsync opengl-swc &
 
 # clear download folder
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 
 # wait for active internet connection and start desktop background monitor
 bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && conky -c ~/.conky/conkyrc_grey' &
+bash -c 'sleep 10 && conky -c ~/.conky/errors' &
 
 # backup packages list
-bash -c "pacman -Qqe  > ~/Dropbox/ArchBackup/pkglist_$(date +%F).txt" &
+bash -c "pacman -Qqe > ~/Dropbox/ArchBackup/pkglist_$(date +%F).txt" &
 
 # automute while afk
 bash -c "~/scripts/automute.sh" &
@@ -16,17 +20,24 @@ bash -c "~/scripts/automute.sh" &
 # autoupdate system (pacman / yaourt)
 bash -c "~/scripts/autoupdate.bash" &
 
+# monitor events
+bash -c "~/scripts/monitoring.bash" &
+
+# sync github mirror repositories
+bash -c "~/scripts/mirror.bash" &
+
 # low memory warning (freeze swap prevention)
 bash -c "~/scripts/lowmem.bash" &
 
 # email client
 thunderbird &
 
-# web browser
+# web browser (save memory by starting only 1 process per individual website)
 chromium &
+# chromium --process-per-site &
 
 # messenger
-bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && franz &' &
+# bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && franz &' &
 
 # sound
 pulseaudio --start &

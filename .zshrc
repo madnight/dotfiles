@@ -69,9 +69,11 @@ bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
 # for rxvt home and end 
-bindkey "\e[8~" end-of-line
-bindkey "\e[7~" beginning-of-line
-bindkey "\e[3~" delete-char
+bindkey "\e[1~" end-of-line
+bindkey "\e[4~" beginning-of-line
+#bindkey "\e[3~" delete-chabindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
 
 # by default, there is a 0.4 second delay after you hit the <ESC> key
 # let's reduce this delay to 0.1 seconds.
@@ -149,13 +151,25 @@ fi
 stty -ixon 
 
 # private aliases and functions suchs as backup
-[[ -e ~/zsh/zshrc_priv ]] && source ~/zsh/zshrc_priv
+[[ -e ~/.zshrc_priv ]] && source ~/.zshrc_priv
 
 # import prompt, aliases and functions
 [[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
 
+# load tmux settings
+# [[ -e ~/.tmux.conf ]] && tmux source ~/.tmux.conf
 
 # added by travis gem
 [ -f /home/x/.travis/travis.sh ] && source /home/x/.travis/travis.sh
+
+
+
+NPM_PACKAGES="${HOME}/.npm-packages"
+PATH="$NPM_PACKAGES/bin:$PATH"
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+
+export QT_QPA_PLATFORMTHEME='gtk2'

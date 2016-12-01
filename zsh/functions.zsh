@@ -65,7 +65,7 @@ cpstat () { tar cf - "$1" | pv | (cd "$2";tar xf -) }
 dls () { echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`; }
 
 # some funny git stuff
-yodacommit() { git add -u && git commit -m "$(fortune)" }
+yodacommit() { git commit -m "$(fortune)" }
 yoda() { git add -u && git commit && git push; }
 
 # systemd shortcuts
@@ -349,6 +349,14 @@ function texnonstop() {
     latexmk -pvc -pdf -latex=pdflatex -interaction=nonstopmode $1
 }
 
+function g() {
+    search=""
+    echo "Googling: $@"
+    for term in $@; do
+        search="$search%20$term"
+    done
+    xdg-open "http://www.google.com/search?q=$search"
+}
 
 function showdesk() {
     current_mode="$(wmctrl -m | grep 'showing the desktop')";
@@ -427,6 +435,26 @@ function deen() {
 
 function randtranslate() {
  a=$(fortune) && echo $a && ende $a
+}
+
+findbin() {
+    find -type f -executable -exec file -i '{}' \; | grep 'charset=binary'
+}
+
+gdb_get_backtrace() {
+    local exe=$1
+    local core=$2
+
+    gdb ${exe} \
+        --core ${core} \
+        --batch \
+        --quiet \
+        -ex "thread apply all bt full" \
+        -ex "quit"
+}
+
+pdf() {
+    evince "$@" &
 }
 
 function calct() {

@@ -121,7 +121,7 @@
     Mod2 + XF86Tools 
 
 #Notes
-"urxvt -e ''vim ~/notes''"
+"subl3 ~/notes''"
     m:0x10 + c:69
     Mod2 + F3 
 
@@ -170,7 +170,7 @@
     m:0x50 + c:79
     Mod2+Mod4 + KP_Home 
 
-#Shutdown
+#Shutdown and install kernel updates
 "systemctl poweroff"
     m:0x54 + c:24
     Control+Mod2+Mod4 + q 

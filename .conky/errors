@@ -34,4 +34,4 @@ own_window_type override
 TEXT
 #${font Terminus:size=10}Error Logs${font} ${voffset -5}
 #$stippled_hr
-${execi 1 journalctl -p 3 --since yesterday --no-pager | uniq -f 4 | tail -n 44}
+${execi 1 journalctl -p 3 --since yesterday --no-pager | uniq -f 4 | tail -n 24}

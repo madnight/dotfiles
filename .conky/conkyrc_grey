@@ -2,7 +2,7 @@ background yes
 
 use_xft yes
 #xftfont Tamsyn:size=15
-xftfont GohuFont:size=11
+xftfont Gohu GohuFont:size=11
 #xftfont Ubuntu Mono:size=11
 xftalpha 0.8
 update_interval 1.0

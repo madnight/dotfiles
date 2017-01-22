@@ -2,7 +2,8 @@
 
 function notify {
    notify-send -t 5s 'Warning!' "$1" --icon=dialog-warning
-   echo "$1" | mutt -s "Monitoring Notification" fabianbeuke@gmail.com
+   #echo "$1" | mutt -s "Monitoring Notification" fabianbeuke@gmail.com
+   echo "" | mutt -s "$1" fabianbeuke@gmail.com
 }
 
 while sleep 5m
@@ -20,11 +21,11 @@ if ping -c 1 google.com > /dev/null; then
       notify 'autoupdates stopped'
 
    # check if my aur packages source is avaiable
-   ! wget -S --spider http://mirror.easyname.at/blackarch/blackarch/os/x86_64/dripcap-0.3.10-1-x86_64.pkg.tar.xz  2>&1 | grep 'HTTP/1.1 200 OK' && \
+   ! wget -S --spider http://mirror.easyname.at/blackarch/blackarch/os/x86_64/dripcap-0.4.9-1-x86_64.pkg.tar.xz  2>&1 | grep 'HTTP/1.1 200 OK' && \
       notify 'dripcap offline/updated'
 
 fi
 
 # repeat every 5 hours
-sleep 5h
+sleep 8h
 done

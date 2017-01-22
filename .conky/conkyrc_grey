@@ -110,7 +110,7 @@ ${fs_bar 5,260 /home/datadisk} ${alignr}${fs_used_perc /home/datadisk}%
 I/O Read: $alignr $diskio_read
 I/O Write: $alignr $diskio_write
 
-AUDIO:
+AUDIO: $alignr ${exec amixer -c 0 get Master | grep 'Mono: Playback' | awk '{print $6}' | sed -e 's/[][]//g'}
 ${execbar echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' | tr -d '%')} $alignr ${execi 1 echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' )}
 ${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}  
 #${iconv_start UTF-8 ISO_8859-1}

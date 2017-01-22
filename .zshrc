@@ -122,7 +122,7 @@ export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export BROWSER="chromium"
 export SHELL=/usr/bin/zsh
-export TCLLIBPATH=~/.local/share/tktheme
+#export TCLLIBPATH=~/.local/share/tktheme
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
 PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 #export LANG=en_US.UTF-8
@@ -171,5 +171,6 @@ PATH="$NPM_PACKAGES/bin:$PATH"
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+export CHROME_BIN=/usr/bin/chromium
 
-export QT_QPA_PLATFORMTHEME='gtk2'
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

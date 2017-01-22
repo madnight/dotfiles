@@ -30,13 +30,14 @@ statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
 
 cl() { cd $1 && pwd && ls; }
 
-google() { chromium "http://www.google.com/search?q=$1"; }
-
 github() { chromium "https://github.com/search?q=$1"; }
 
-killport() { lsof -i tcp:$1 | awk 'NR!=1 {print $2}' | xargs kill; }
+killport() { lsof -i tcp:8080 | grep LISTEN | awk '{print $2}' | xargs kill; }
 
 cd() { builtin cd $1 && ls; }
+
+aur() { yaourt --noconfirm --color "$@"}
+aurless() { yaourt --noconfirm --color $1 | less -r }
 
 facd() { cd $(locate -i $1 | head -n 1); }
 
@@ -129,8 +130,14 @@ leo()
 
 pagrep()
 {
-    [[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
-    find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
+    #[[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
+    #find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
+    rg "$1"
+}
+
+man()
+{
+    command man -t "$1" | ps2pdf - /tmp/"$1".pdf && pdf /tmp/"$1".pdf
 }
 
 installfont() {
@@ -349,13 +356,9 @@ function texnonstop() {
     latexmk -pvc -pdf -latex=pdflatex -interaction=nonstopmode $1
 }
 
-function g() {
-    search=""
-    echo "Googling: $@"
-    for term in $@; do
-        search="$search%20$term"
-    done
-    xdg-open "http://www.google.com/search?q=$search"
+alias g=google
+function google() {
+    lynx -dump "http://www.google.com/search?hl=en&q=$1" | grep -E "Did\ you\ mean\ to\ search|instead"
 }
 
 function showdesk() {

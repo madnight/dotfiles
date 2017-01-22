@@ -32,7 +32,7 @@ xterm*termName:             xterm-256color
 !                                    | |_| | |   >  <  \ V /| |_ 
 !                                     \___/|_|  /_/\_\  \_/  \__|
 
-! urxvt.letterSpace:          -1.5
+urxvt.letterSpace:          -1.5
 urxvt.buffered:             false
 ! urxvt.cursorUnderline:      false
 urxvt.cursorBlink:          false
@@ -58,10 +58,10 @@ URxvt*scrollTtyKeypress: true
 urxvt.iso14755:             false
 urxvt.iso14755_52:          false
 
-urxvt.font:                 xft:Monaco\ for\ Powerline:style=dz:pixelsize=18:autohint=true
-urxvt.boldFont:             xft:Monaco\ for\ Powerline:style=dz:style=Bold:pixelsize=18:autohint=true
-urxvt.italicFont:           xft:Monaco\ for\ Powerline:style=Italic:pixelsize=18:autohint=true
-urxvt.boldItalicFont:       xft:Monaco\ for\ Powerline:style=Bold:style=Italic:pixelsize=18:autohint=true
+urxvt.font:                 xft:Monaco\ for\ Powerline:style=Regular:pixelsize=17:autohint=true
+urxvt.boldFont:             xft:Monaco\ for\ Powerline:style=dz:style=Bold:pixelsize=17:autohint=true
+urxvt.italicFont:           xft:Monaco\ for\ Powerline:style=Italic:pixelsize=17:autohint=true
+urxvt.boldItalicFont:       xft:Monaco\ for\ Powerline:style=Bold:style=Italic:pixelsize=17:autohint=true
 
 ! URxvt*font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
 ! URxvt*font: xft:Inconsolata -g:style=g:pixelsize=18

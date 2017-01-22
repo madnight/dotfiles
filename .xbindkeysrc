@@ -111,7 +111,7 @@
     Mod2+Mod4 + p 
 
 #Terminal
-"urxvt"
+"if ! ps aux | pgrep urxvt > null; then urxvt; else wmctrl -a urxvt; fi"
     m:0x50 + c:36
     Mod2+Mod4 + Return 
 

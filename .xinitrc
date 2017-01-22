@@ -25,6 +25,9 @@ xrdb -merge ~/.Xdefaults
 # load key bindings
 xbindkeys
 
+# load nvidia-settings (force low gpu settings non gaming)
+nvidia-settings -l
+
 # sync between the primary X11 clipboard and the GTK clipboard
 autocutsel -fork &
 autocutsel -selection PRIMARY -fork &

@@ -69,7 +69,7 @@ urxvt.boldItalicFont:       xft:Monaco\ for\ Powerline:style=Bold:style=Italic:p
 ! --  Extensions -- !
 ! requires urxvt-perl package
 
-urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard,font-size
+urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard,font-size,tabbedex,resize-font
 urxvt.keysym.C-x:           perl:keyboard-select:activate
 urxvt.keysym.M-u:           perl:url-select:select_next
 urxvt.keysym.C-b:           perl:clipboard:paste_escaped
@@ -94,6 +94,16 @@ URxvt.keysym.Home: \033[1~
 URxvt.keysym.End: \033[4~
 URxvt.keysym.KP_Home: \033[1~
 URxvt.keysym.KP_End:  \033[4~
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger: C-Up
+URxvt.tabbed.tabbar-fg: 2
+URxvt.tabbed.tabbar-bg: -1
+URxvt.tabbed.tab-fg: 3
+URxvt.tabbed.tab-bg: -1
+URxvt.tabbed.title: no
+URxvt.tabbed.new-button: no
+URxvt.tabbed.autohide: yes
+
 
 !                                 _____                           _ 
 !                                |  __ \                         | |

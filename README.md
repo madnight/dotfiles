@@ -1,13 +1,15 @@
 [![Build Status](https://travis-ci.org/madnight/dotfiles.svg?branch=master)](https://travis-ci.org/madnight/dotfiles)
 [![Issue Count](https://codeclimate.com/github/madnight/dotfiles/badges/issue_count.svg?maxAge=2592000)](https://codeclimate.com/github/madnight/dotfiles/issues)
 
-My Arch Linux setup 
+My Arch setup 
 
-Programms i use:
-+  xterm - as terminal
-+  vim - as editor
-+  conky - for the side bar
-+  vlc - for the music 
++  urxvt - as terminal + tabbedex plugin for tabs
++  vim - as terminal editor (small edits)
++  atom - as graphical editor (programming)
++  xfce4 - DE on desktop
++  i3 - WM on notebook
++  conky - for monitoring
++  vlc - for music and movies
 +  j4-dmenu-desktop - to run programs
 +  xdotool - for window movement in xfce4
 +  compton - as compositor to avoid tearing

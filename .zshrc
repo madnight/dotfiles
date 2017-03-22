@@ -174,3 +174,9 @@ export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 export CHROME_BIN=/usr/bin/chromium
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# if [[ "$(uname -r)" != "$upacman -Q linux)" ]]; then
+#  echo -e "\n\n\nkernel updated -> consider reboot"
+#  uname -r;pacman -Q linux
+# fi

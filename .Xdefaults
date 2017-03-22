@@ -69,12 +69,10 @@ urxvt.boldItalicFont:       xft:Monaco\ for\ Powerline:style=Bold:style=Italic:p
 ! --  Extensions -- !
 ! requires urxvt-perl package
 
-urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard,font-size,tabbedex,resize-font
+urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard,tabbedex
 urxvt.keysym.C-x:           perl:keyboard-select:activate
 urxvt.keysym.M-u:           perl:url-select:select_next
 urxvt.keysym.C-b:           perl:clipboard:paste_escaped
-urxvt.keysym.C-1:	        perl:font-size:increase
-urxvt.keysym.M-3:           perl:font-size:decrease
 urxvt.matcher.button:       1
 urxvt.matcher.rend.0:       -Uline fg16
 urxvt.urlLauncher:          /usr/bin/chromium
@@ -86,16 +84,12 @@ urxvt.clipboard.pastecmd:   xsel --output --clipboard
 urxvt.keysym.C-M-c:         perl:clipboard:copy
 urxvt.keysym.C-V:           perl:clipboard:paste
 urxvt.keysym.M-r:           perl:keyboard-select:search
-urxvt.keysym.C-i:           perl:font-size:decrease
-urxvt.keysym.C-equal:       perl:font-size:increase
 urxvt.font-size.step:       4
 urxvt.intensityStyles:      false
 URxvt.keysym.Home: \033[1~
 URxvt.keysym.End: \033[4~
 URxvt.keysym.KP_Home: \033[1~
 URxvt.keysym.KP_End:  \033[4~
-URxvt.resize-font.smaller: C-Down
-URxvt.resize-font.bigger: C-Up
 URxvt.tabbed.tabbar-fg: 2
 URxvt.tabbed.tabbar-bg: -1
 URxvt.tabbed.tab-fg: 3
@@ -103,6 +97,10 @@ URxvt.tabbed.tab-bg: -1
 URxvt.tabbed.title: no
 URxvt.tabbed.new-button: no
 URxvt.tabbed.autohide: yes
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Left: \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
 
 
 !                                 _____                           _ 

@@ -1,28 +1,42 @@
-"                 _|                                                        _|_|  _|            
-"     _|      _|      _|_|_|  _|_|          _|_|_|    _|_|    _|_|_|      _|            _|_|_|  
-"     _|      _|  _|  _|    _|    _|      _|        _|    _|  _|    _|  _|_|_|_|  _|  _|    _|  
-"       _|  _|    _|  _|    _|    _|      _|        _|    _|  _|    _|    _|      _|  _|    _|  
-"         _|      _|  _|    _|    _|        _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|  
-"                                                                                           _|  
-"                                                                                       _|_|    
+"                 _|                                                        _|_|  _|
+"     _|      _|      _|_|_|  _|_|          _|_|_|    _|_|    _|_|_|      _|            _|_|_|
+"     _|      _|  _|  _|    _|    _|      _|        _|    _|  _|    _|  _|_|_|_|  _|  _|    _|
+"       _|  _|    _|  _|    _|    _|      _|        _|    _|  _|    _|    _|      _|  _|    _|
+"         _|      _|  _|    _|    _|        _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|
+"                                                                                           _|
+"                                                                                       _|_|
 
+"let base16colorspace=256  " Access colors present in 256 colorspace
 set smartindent
 set rtp+=~/.vim/bundle/Vundle.vim
 filetype plugin indent on
 syntax on
 
 call vundle#begin()
+Plugin 'madnight/vim-swap-lines'
+Plugin 'xolox/vim-misc' " dependency for vim session
+Plugin 'xolox/vim-session'
+Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'sjl/gundo.vim'
 Plugin 'KurtPreston/vim-autoformat-rails'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'scrooloose/nerdcommenter'
 Plugin 'scheakur/vim-scheakur'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'orthecreedence/void.vim'
 Plugin 'ajh17/Spacegray.vim'
-Plugin 'fholgado/minibufexpl.vim'
-Plugin 'Bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'szw/vim-tags'
+Plugin 'godlygeek/tabular'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'textlint/textlint'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'blackgate/tropikos-vim-theme'
@@ -31,8 +45,8 @@ Plugin 'vim-scripts/a.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mhinz/vim-signify'
 Plugin 'chrisbra/changesPlugin'
+Plugin 'chriskempson/base16-vim'
 Plugin 'Shougo/neocomplcache'
-Plugin 'godlygeek/tabular'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'reedes/vim-thematic'
 Plugin 'Chiel92/vim-autoformat'
@@ -52,21 +66,18 @@ function! StopProfile()
   :noautocmd qall!
 endfunction
 
-" scrooloose/syntastic settings 
-let g:syntastic_always_populate_loc_list = 0
+" syntastic settings
 let g:syntastic_loc_list_height = 2
-let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 1
 let g:syntastic_error_symbol = '✘'
 let g:syntastic_warning_symbol = "▲"
-
-"let g:syntastic_cpp_include_dirs = ['/usr/include/qt4/QtGui','/usr/include/qt4/QtCore', 'includes', 'headers']
 let g:syntastic_cpp_config_file = '~/.syntastic_includes'
-
 let g:syntastic_cpp_check_header = 1
 let g:syntastic__signs=1
-"let g:syntastic_quiet_warnings=1
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 let g:livepreview_previewer = 'evince'
 let g:LatexBox_latexmk_options = "-pvc -pdfps"
@@ -78,16 +89,6 @@ silent! iunmap (
 silent! iunmap )
 silent! iunmap {
 silent! iunmap }
-
-"autocmd BufNewFile,BufWritePost,BufRead *.tex set makeprg=pdflatex\ %\ &&\ xdg-open\ %:r.pdf
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-augroup mySyntastic
-  au!
-  au FileType tex let b:syntastic_mode = "passive"
-augroup END
 
 " Vim Typo Fixes
 command! WQ wq
@@ -110,24 +111,13 @@ if has('mouse')
   set mouse=a
 endif
 
-" MiniBufExpl Colors
-hi MBENormal               guifg=#808080 guibg=fg
-hi MBEChanged              guifg=#CD5907 guibg=fg
-hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
-hi MBEVisibleChanged       guifg=#F1266F guibg=fg
-hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg
-hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
-
 set shell=/bin/bash 
 set tabstop=4       " The width of a TAB is set to 4.
                     " Still it is a \t. It is just that
                     " Vim will interpret it to be having
                     " a width of 4.
-
 set shiftwidth=4    " Indents will have a width of 4
-
 set softtabstop=4   " Sets the number of columns for a TAB
-
 set expandtab       " Expand TABs to spaces
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
@@ -144,26 +134,26 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " vim airline
 set laststatus=2
-let g:airline_theme='molokai'
 let g:airline_powerline_fonts = 1 
-
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='molokai'
+"let g:airline_theme='base16'
 let g:ctrlp_status_func = {
   \ 'main': 'CtrlPStatusFunc_1',
   \ 'prog': 'CtrlPStatusFunc_2',
   \ }
 
-"let g:airline_section_b = 'asdasdasdsad'
 let g:airline#extensions#hunks#enabled = 1
 let g:tagbar_status_func = 'TagbarStatusFunc'
 
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
-augroup END
+"augroup AutoSyntastic
+  "autocmd!
+  "autocmd BufWritePost *.c,*.cpp call s:syntastic()
+"augroup END
 
-function! s:syntastic()
-  SyntasticCheck
-endfunction
+"function! s:syntastic()
+  "SyntasticCheck
+"endfunction
 
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
@@ -205,7 +195,6 @@ set expandtab
 set formatoptions=l
 set lbr
 set nofoldenable
-set background=light
 set mouse=a
 set invnumber
 set t_Co=256
@@ -216,12 +205,7 @@ set laststatus=2
 set cmdheight=1
 set noruler
 set noshowcmd
-let g:miniBufExplMapCTabSwitchBufs = 1
 let mapleader=","
-"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-"let g:livepreview_previewer = 'zathura'
-"let g:auto_save = 1 
-
 
 nnoremap <C-j> <C-w>j
 nnoremap <leader>cd :lcd %:p:h<CR>
@@ -230,10 +214,6 @@ nnoremap <leader>n :NERDTreeToggle<CR>
 inoremap jk <ESC>
 inoremap <Space> <Space><C-g>u
 nnoremap <C-L> :nohl<CR><C-L>
-" keymaps
-" control h, j, k, l tab navigation
-" nmap <S-h> <C-w>h			
-" nmap <S-j> <C-w>wh<CR>
 map <C-PageUp> <C-w>wh<CR>
 map <C-PageDown> <C-w>wl<CR>
 nmap <S-k> <C-w>wl<CR>
@@ -264,23 +244,15 @@ map <C-w> <ESC>:wq!<CR>
 map <S-w> <ESC>:q!<CR>
 imap <C-s> <ESC>:w<CR>
 map <xCSI>[62~ <MouseDown>:
-"map <S-d> <S-d><ESC>
-"map <S-a> <S-a><ESC>
 
+set background=dark
 
-""""""plugin settings"""""""""""""""""""""
 hi clear CursorLine
 augroup CLClear
   autocmd! ColorScheme * hi clear CursorLine
 augroup END
 
-"colorscheme molokai
-"colorscheme genericdc
-colorscheme default
-"colorscheme twilight 
-"colorscheme wombat256mod
-"colorscheme atom-dark-256
-"
+colorscheme hybrid
 
 map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
 au BufNewFile,BufRead,BufEnter *.tex setlocal spell spelllang=de_de,en_gb
@@ -317,17 +289,23 @@ endfun
 
 if has("gui_running")
   "set guifont=Inconsolata\ for\ Powerline\ dz\ 17
-  " set guifont=Monaco\ 13
+  set guifont=Monaco\ 17
+" Save session on quitting Vim
+    "autocmd VimLeave * NERDTreeClose
+    "
+ "autocmd VimEnter * NERDTree
   " set guifont=Inconsolata-g\ 15
   " set guifont=Ubuntu\ Mono\ 15
-   set guifont=Consolas\ 15
+  " set guifont=Consolas\ 15
   " set guifont=17
   " set guifont=Monospace\ 13
-  
-  colorscheme twilight
-  " colorscheme molokai
+
+  " colorscheme twilight
+  " colorscheme hybrid
+  colorscheme base16-tomorrow-night
+  set background=dark
    "colorscheme github
- 
+  " colorscheme molokai
   set guioptions-=T
   set guicursor=a:blinkon0 
   set guioptions-=m
@@ -336,52 +314,22 @@ if has("gui_running")
   set guioptions-=l
   set guioptions-=R
   set guioptions-=r
-  set guioptions-=b    
+  set guioptions-=b
+
+  "autocmd VimEnter * NERDTree
+  "autocmd VimEnter * OpenSession
 endif
 
 
-"hi Comment      ctermfg=7
-"hi VertSplit	ctermfg=0 ctermbg=none
-"hi StatusLine	ctermfg=0 ctermbg=none
-"hi StatusLineNC	ctermfg=0 ctermbg=none
-"hi Folded ctermbg=0 ctermfg=8
-"hi Pmenu ctermfg=7 ctermbg=0
-"hi PmenuSel ctermfg=0 ctermbg=15
-"hi LineNr ctermfg=0 ctermbg=none
-"hi CursorLine ctermfg=none ctermbg=none cterm=none
-"hi CursorLineNr ctermfg=none ctermbg=0
-"hi CursorColumn ctermfg=none ctermbg=0
-"hi SignColumn ctermbg=none
-"hi SyntasticErrorSign ctermfg=1 ctermbg=none
-hi SyntasticWarningSign ctermfg=3 ctermbg=none
-hi SyntasticStyleErrorSign ctermfg=1 ctermbg=none
-hi SyntasticStyleWarningSign ctermfg=3 ctermbg=none
-hi SyntasticErrorLine ctermfg=none ctermbg=none
-hi SyntasticWarningLine ctermfg=none ctermbg=none
-hi SyntasticStyleErrorLine ctermfg=none ctermbg=none
-hi SyntasticStyleWarningLine ctermfg=none ctermbg=none
-"hi SpellBad ctermfg=0 ctermbg=3
-"hi SpellCap ctermfg=0 ctermbg=1
-"hi LineNr ctermfg=59  ctermbg=NONE
-hi CursorLine cterm=bold term=bold
-hi Statement ctermfg=3
-hi String ctermfg=15
-"hi String ctermfg=15
-"hi Identifier ctermfg=59
 let g:NERDTreeWinPos = "left"
-let php_sql_query=1                                                                                        
+let php_sql_query=1
 let Tlist_Use_Right_Window   = 1
 let php_htmlInStrings=1
-let s:green = '#a2a96f'
-let s:orange= '#a2a96f'
-let s:lightgreen = '#c2c98f'
-let colors_name = "default"
 let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
 let g:neocomplcache_enable_smart_case = 1
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
 " Enable heavy features.
 " Use camel case completion.
 let g:neocomplcache_enable_camel_case_completion = 1
@@ -426,3 +374,27 @@ let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers = ['eslint']
+
+noremap <silent> <c-up> :call SwapUp()<CR>
+noremap <silent> <c-down> :call SwapDown()<CR>
+
+" By default, JSX syntax highlighting and indenting will
+" be enabled only for files with the .jsx extension.
+" If you would like JSX in .js files, add
+let g:jsx_ext_required = 0
+
+set list listchars=tab:»-,trail:·,extends:»,precedes:«
+
+let g:session_autosave = 'yes'
+let g:session_autoload = 'yes'
+
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']

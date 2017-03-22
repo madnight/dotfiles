@@ -51,7 +51,7 @@
     Mod2 + F12 
 
 #Volume mute
-"amixer set Master toggle"
+"amixer set Master toggle && espeak -v+f4 'sound activated'"
     m:0x10 + c:76
     Mod2 + F10 
 

@@ -20,7 +20,7 @@ default_color white
 default_shade_color black
 alignment top_right
 gap_x 680
-gap_y 700
+gap_y 790
 no_buffers yes
 double_buffer yes
 cpu_avg_samples 2
@@ -34,4 +34,4 @@ own_window_type override
 TEXT
 #${font Terminus:size=10}Error Logs${font} ${voffset -5}
 #$stippled_hr
-${execi 1 journalctl -p 3 --since yesterday --no-pager | uniq -f 4 | tail -n 24}
+${execi 1 journalctl -p 3 --since yesterday --no-pager | uniq -f 4 | tail -n 18}

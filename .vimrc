@@ -13,46 +13,54 @@ filetype plugin indent on
 syntax on
 
 call vundle#begin()
-Plugin 'madnight/vim-swap-lines'
-Plugin 'xolox/vim-misc' " dependency for vim session
-Plugin 'xolox/vim-session'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'sjl/gundo.vim'
+Plugin 'fholgado/minibufexpl.vim'
+Plugin 'Chiel92/vim-autoformat'
 Plugin 'KurtPreston/vim-autoformat-rails'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scheakur/vim-scheakur'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'orthecreedence/void.vim'
-Plugin 'ajh17/Spacegray.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'szw/vim-tags'
-Plugin 'godlygeek/tabular'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'textlint/textlint'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'blackgate/tropikos-vim-theme'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'vim-scripts/a.vim'
+Plugin 'Shougo/neocomplcache'
+Plugin 'Shougo/neocomplcache.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'mhinz/vim-signify'
+Plugin 'ajh17/Spacegray.vim'
+Plugin 'bkad/CamelCaseMotion'
+Plugin 'blackgate/tropikos-vim-theme'
+Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'chrisbra/changesPlugin'
 Plugin 'chriskempson/base16-vim'
-Plugin 'Shougo/neocomplcache'
-Plugin 'bkad/CamelCaseMotion'
+Plugin 'chriskempson/vim-tomorrow-theme'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'godlygeek/tabular'
+Plugin 'gregsexton/gitv'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'junegunn/vader.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'madnight/vim-swap-lines'
+Plugin 'matze/vim-move'
+Plugin 'mhinz/vim-signify'
+Plugin 'mileszs/ack.vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'orthecreedence/void.vim'
+Plugin 'pangloss/vim-javascript'
 Plugin 'reedes/vim-thematic'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'Shougo/neocomplcache.vim'
+Plugin 'scheakur/vim-scheakur'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'sjl/gundo.vim'
 Plugin 'smancill/conky-syntax.vim'
-call vundle#end()  
+Plugin 'suan/vim-instant-markdown'
+Plugin 'szw/vim-tags'
+Plugin 'textlint/textlint'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-scripts/a.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'w0ng/vim-hybrid'
+"Plugin 'xolox/vim-misc' " dependency for vim session
+"Plugin 'xolox/vim-session'
+call vundle#end()
 
 " Functions
 function! Profile() 
@@ -134,8 +142,8 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " vim airline
 set laststatus=2
-let g:airline_powerline_fonts = 1 
-let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline_theme='molokai'
 "let g:airline_theme='base16'
 let g:ctrlp_status_func = {
@@ -272,9 +280,6 @@ autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 
-" highlight LineNr ctermfg=59
-highlight LineNr ctermfg=236
-
 cnoremap <silent> q<cr>  call QuitPrompt()<cr>
 cnoremap <silent> wq<cr> call QuitPrompt()<cr>
 cnoremap <silent> x<cr> call QuitPrompt()<cr>
@@ -290,6 +295,8 @@ endfun
 if has("gui_running")
   "set guifont=Inconsolata\ for\ Powerline\ dz\ 17
   set guifont=Monaco\ 17
+
+  "let g:nerdtree_tabs_open_on_console_startup=1
 " Save session on quitting Vim
     "autocmd VimLeave * NERDTreeClose
     "
@@ -315,11 +322,20 @@ if has("gui_running")
   set guioptions-=R
   set guioptions-=r
   set guioptions-=b
-
-  "autocmd VimEnter * NERDTree
-  "autocmd VimEnter * OpenSession
+  "" Adding automatons for when entering or leaving Vim
+  au VimEnter * nested :call LoadSession()
+  au VimLeave * NERDTreeClose
+  au VimLeave * MBEClose
+  au VimLeave * :call MakeSession()
+  autocmd VimEnter * NERDTree
+  let g:nerdtree_tabs_open_on_gui_startup=0
+  let g:nerdtree_tabs_open_on_new_tab=0
+  let g:nerdtree_tabs_autofind=1
 endif
 
+
+highlight LineNr guibg=#1D1F21
+set nuw=1
 
 let g:NERDTreeWinPos = "left"
 let php_sql_query=1
@@ -398,3 +414,33 @@ let g:session_autosave = 'yes'
 let g:session_autoload = 'yes'
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+hi LineTooLong cterm=bold ctermbg=red guibg=LightYellow
+match LineTooLong /\%>80v.\+/
+
+
+function! MakeSession()
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  if (filewritable(b:sessiondir) != 2)
+    exe 'silent !mkdir -p ' b:sessiondir
+    redraw!
+  endif
+  let b:filename = b:sessiondir . '/session.vim'
+  exe "mksession! " . b:filename
+endfunction
+
+function! LoadSession()
+  let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
+  let b:sessionfile = b:sessiondir . "/session.vim"
+  if (filereadable(b:sessionfile))
+    exe 'source ' b:sessionfile
+  else
+    echo "No session loaded."
+  endif
+endfunction
+
+noremap <C-Right>  :MBEbn<CR>
+noremap <C-Left> :MBEbp<CR>
+let g:miniBufExplUseSingleClick = 1
+
+

@@ -13,8 +13,13 @@ filetype plugin indent on
 syntax on
 
 call vundle#begin()
+Plugin 'majutsushi/tagbar'
+Plugin 'kien/ctrlp.vim'
 Plugin 'fholgado/minibufexpl.vim'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'kchmck/vim-coffee-script'
 Plugin 'KurtPreston/vim-autoformat-rails'
 Plugin 'Shougo/neocomplcache'
 Plugin 'Shougo/neocomplcache.vim'
@@ -32,7 +37,6 @@ Plugin 'gregsexton/gitv'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'junegunn/vader.vim'
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'madnight/vim-swap-lines'
 Plugin 'matze/vim-move'
 Plugin 'mhinz/vim-signify'
@@ -58,8 +62,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/a.vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'w0ng/vim-hybrid'
-"Plugin 'xolox/vim-misc' " dependency for vim session
-"Plugin 'xolox/vim-session'
 call vundle#end()
 
 " Functions
@@ -330,7 +332,7 @@ if has("gui_running")
   autocmd VimEnter * NERDTree
   let g:nerdtree_tabs_open_on_gui_startup=0
   let g:nerdtree_tabs_open_on_new_tab=0
-  let g:nerdtree_tabs_autofind=1
+  "let g:nerdtree_tabs_autofind=1
 endif
 
 
@@ -441,6 +443,13 @@ endfunction
 
 noremap <C-Right>  :MBEbn<CR>
 noremap <C-Left> :MBEbp<CR>
+
+noremap <C-W> :bd<CR>
 let g:miniBufExplUseSingleClick = 1
 
 
+let NERDTreeShowHidden=1
+"autocmd CursorHold,CursorHoldI * call NERDTreeFocus() | call g:NERDTree.ForCurrentTab().getRoot().refresh() | call g:NERDTree.ForCurrentTab().render() | wincmd w
+au BufNewFile,BufRead *.coffee set filetype=coffee
+
+let g:NERDTreeMouseMode = 3

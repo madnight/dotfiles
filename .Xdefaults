@@ -32,7 +32,7 @@ xterm*termName:             xterm-256color
 !                                    | |_| | |   >  <  \ V /| |_ 
 !                                     \___/|_|  /_/\_\  \_/  \__|
 
-urxvt.letterSpace:          -1.5
+!urxvt.letterSpace:          -1.5
 urxvt.buffered:             false
 ! urxvt.cursorUnderline:      false
 urxvt.cursorBlink:          false
@@ -120,9 +120,10 @@ xft:            unifont:medium
 
 ! erosion theme by earsplit
 
-*.foreground:   #bea492
+!*.foreground:   #E8E1E1
+*.foreground:   #ffffff
 *.background:   #181715
-*.cursorcolor:  #bea492
+!*.cursorcolor:  #bea492
 
 ! black
 *.color0:       #332d29

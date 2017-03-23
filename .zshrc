@@ -52,7 +52,7 @@ if [ $term = urxvt ] || [ $term = xterm ]; then
     # set bg color
     echo -ne "\033]11;#181715\007"
     # set fg color
-    echo -ne "\033]10;#BEA492\007" 
+    echo -ne "\033]10;#DBBCBC\007" 
 fi
 
 # change xterm cursor to steady bar

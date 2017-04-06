@@ -13,6 +13,8 @@ filetype plugin indent on
 syntax on
 
 call vundle#begin()
+Plugin 'schickling/vim-bufonly'
+Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 Plugin 'fholgado/minibufexpl.vim'
@@ -250,7 +252,7 @@ vmap ^ $
 map <D-/> <C-_><C-_>
 map Y y$
 map <C-s> <ESC>:w<CR>
-map <C-w> <ESC>:wq!<CR>
+"map <C-w> <ESC>:wq!<CR>
 map <S-w> <ESC>:q!<CR>
 imap <C-s> <ESC>:w<CR>
 map <xCSI>[62~ <MouseDown>:
@@ -296,7 +298,7 @@ endfun
 
 if has("gui_running")
   "set guifont=Inconsolata\ for\ Powerline\ dz\ 17
-  set guifont=Monaco\ 17
+  set guifont=Monaco\ 16
 
   "let g:nerdtree_tabs_open_on_console_startup=1
 " Save session on quitting Vim
@@ -444,7 +446,7 @@ endfunction
 noremap <C-Right>  :MBEbn<CR>
 noremap <C-Left> :MBEbp<CR>
 
-noremap <C-W> :bd<CR>
+noremap <C-X> :bd<CR>
 let g:miniBufExplUseSingleClick = 1
 
 
@@ -453,3 +455,17 @@ let NERDTreeShowHidden=1
 au BufNewFile,BufRead *.coffee set filetype=coffee
 
 let g:NERDTreeMouseMode = 3
+ " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+"let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ackprg = 'rg --vimgrep'
+noremap <Leader>a :Ack <cword><cr>
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+let g:ctrlp_funky_syntax_highlight = 1
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>

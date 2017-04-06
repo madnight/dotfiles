@@ -298,7 +298,7 @@ endfun
 
 if has("gui_running")
   "set guifont=Inconsolata\ for\ Powerline\ dz\ 17
-  set guifont=Monaco\ 16
+  set guifont=Monaco\ 13
 
   "let g:nerdtree_tabs_open_on_console_startup=1
 " Save session on quitting Vim

@@ -79,7 +79,6 @@ bindkey "${terminfo[kend]}" end-of-line
 # let's reduce this delay to 0.1 seconds.
 export KEYTIMEOUT=1
 
-
 # modal cursor color for vi's insert/normal modes.
 zle-keymap-select () {
   if [ $KEYMAP = vicmd ]; then

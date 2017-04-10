@@ -67,3 +67,5 @@
     dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
     # List contributors with number of commits
     contributors = shortlog --summary --numbered
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX

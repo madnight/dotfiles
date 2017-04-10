@@ -1,17 +1,17 @@
 #!/bin/sh
-#                               _|            _|    _|                          
-#                     _|    _|      _|_|_|        _|_|_|_|  _|  _|_|    _|_|_|  
-#                       _|_|    _|  _|    _|  _|    _|      _|_|      _|        
-#                     _|    _|  _|  _|    _|  _|    _|      _|        _|        
-#                     _|    _|  _|  _|    _|  _|      _|_|  _|          _|_|_|  
-                                                                               
-# wallpaper 
+#                               _|            _|    _|
+#                     _|    _|      _|_|_|        _|_|_|_|  _|  _|_|    _|_|_|
+#                       _|_|    _|  _|    _|  _|    _|      _|_|      _|
+#                     _|    _|  _|  _|    _|  _|    _|      _|        _|
+#                     _|    _|  _|  _|    _|  _|      _|_|  _|          _|_|_|
+
+# wallpaper
 hsetroot -solid '#1c1c1c'
 
 xset r rate 150 50  # set your speed!
-xset -dpms          # no screensaver
-xset s off 
-xset s off -dpms
+#xset -dpms          # no screensaver
+#xset s off
+#xset s off -dpms
 xset +fp ~/.fonts
 xset +fp /usr/share/fonts/local
 xset fp rehash
@@ -19,7 +19,7 @@ xset -b             # disable terminal bell
 
 xsetroot -cursor_name left_ptr &
 
-xrdb -merge ~/.Xresources 
+xrdb -merge ~/.Xresources
 xrdb -merge ~/.Xdefaults
 
 # load key bindings

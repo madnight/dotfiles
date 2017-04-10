@@ -34,6 +34,10 @@ if ping -c 1 google.com > /dev/null; then
   update "svn" scidvspc
   update "svn" chessx
   update "svn" codeblocks
+
+  update "svn" jdownloader/browser
+  update "svn" jdownloader/trunk
+  update "svn" jdownloader/MyJDownloaderClient
 fi
 
 # repeat every 2 hours

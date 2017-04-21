@@ -36,7 +36,6 @@ top_name_width 12
 
 default_bar_size 260 5 
 
-
 lua_load ~/.conky/conky_grey.lua
 lua_draw_hook_post main
 
@@ -92,16 +91,16 @@ $stippled_hr
 Network
 $stippled_hr
 IP: $alignr${addr enp5s0}
-DNS: $alignr${execi 180 cat /etc/resolv.conf | grep nameserver | awk '{print $2}'}
+DNS: $alignr${execi 180 cat /etc/resolv.conf | grep nameserver | awk '{print $2}' | head -n 1}
 Ping: ${color #ddaa00}${alignr}${execi 10 ping -c 2 8.8.8.8 | sed -n '2,2p' |cut -c47-50}ms$color
 Conn: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 count}${alignr}/${tcp_portmon 1 65535 count}
 #${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
 #${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1#}
 
 Total: ${totalup enp5s0} ${alignr} Total: ${totaldown enp5s0} 
-${upspeedgraph enp5s0 25,140 000000 000000 1200KiB} ${alignr} ${downspeedgraph enp5s0 25,140 000000 000000 1200KiB} 
-Up: ${upspeedf enp5s0}kB/s  ${alignr} Down: ${color #ddaa00}${downspeedf enp5s0}kb/s $color
-       ${execi 6 /home/x/scripts/netpsstx enp5s0}pk/s  ${alignr}      ${execi 6 /home/x/scripts/netpssrx enp5s0}pk/s 
+${upspeedgraph enp5s0 25,140 000000 000000 10000KiB} ${alignr} ${downspeedgraph enp5s0 25,140 000000 000000 25000KiB}
+Up: ${upspeedf enp5s0} kB/s  ${alignr} Down: ${color #ddaa00}${downspeedf enp5s0} kb/s $color
+     ${execi 6 /home/x/scripts/netpsstx enp5s0} pk/s  ${alignr}      ${execi 6 /home/x/scripts/netpssrx enp5s0} pk/s
 
 ROOT: ${fs_free /} F   $alignr ${fs_used /} / ${fs_size /} U
 ${fs_bar 5,260 /} ${alignr} ${fs_used_perc /}%

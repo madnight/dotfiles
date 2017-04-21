@@ -1,20 +1,21 @@
 
-!       _|      _|        _|                _|_|                      _|    _|                
-!         _|  _|      _|_|_|    _|_|      _|        _|_|_|  _|    _|  _|  _|_|_|_|    _|_|_|  
-!           _|      _|    _|  _|_|_|_|  _|_|_|_|  _|    _|  _|    _|  _|    _|      _|_|      
-!         _|  _|    _|    _|  _|          _|      _|    _|  _|    _|  _|    _|          _|_|  
-!       _|      _|    _|_|_|    _|_|_|    _|        _|_|_|    _|_|_|  _|      _|_|  _|_|_|    
+!       _|      _|        _|                _|_|                      _|    _|
+!         _|  _|      _|_|_|    _|_|      _|        _|_|_|  _|    _|  _|  _|_|_|_|    _|_|_|
+!           _|      _|    _|  _|_|_|_|  _|_|_|_|  _|    _|  _|    _|  _|    _|      _|_|
+!         _|  _|    _|    _|  _|          _|      _|    _|  _|    _|  _|    _|          _|_|
+!       _|      _|    _|_|_|    _|_|_|    _|        _|_|_|    _|_|_|  _|      _|_|  _|_|_|
 
 
-!                                   __   ___                      
-!                                   \ \ / / |                     
-!                                    \ V /| |_ ___ _ __ _ __ ___  
+!                                   __   ___
+!                                   \ \ / / |
+!                                    \ V /| |_ ___ _ __ _ __ ___
 !                                    /   \| __/ _ \ '__| '_ ` _  \
 !                                   / /^\ \ ||  __/ |  | | | | | |
 !                                   \/   \/\__\___|_|  |_| |_| |_|
-                                                                 
+
+
 xterm*faceName:             Inconsolata for Powerline
-xterm*scaleHeight:          1.01 
+xterm*scaleHeight:          1.01
 xterm*faceSize:             16
 xterm*saveLines:            16384
 xterm*geometry:             80x24-500+400
@@ -23,13 +24,12 @@ xterm*boldMode:             false
 xterm*allowBoldFonts:       false
 xterm*utf8:                 true
 xterm*termName:             xterm-256color
-!xterm.VT100*utf8:           1
 
-!                                     _   _                  _   
-!                                    | | | |                | |  
-!                                    | | | |_ ____  ____   _| |_ 
+!                                     _   _                  _
+!                                    | | | |                | |
+!                                    | | | |_ ____  ____   _| |_
 !                                    | | | |  __\ \/ /\ \ / / __|
-!                                    | |_| | |   >  <  \ V /| |_ 
+!                                    | |_| | |   >  <  \ V /| |_
 !                                     \___/|_|  /_/\_\  \_/  \__|
 
 !urxvt.letterSpace:          -1.5
@@ -46,7 +46,7 @@ urxvt.imLocale:             en_US.UTF-8
 urxvt.borderLess:           false
 urxvt.pointerBlank:         true
 urxvt.pointerBlankDelay:    4
-urxvt*iconFile:             /usr/share/icons/FlatWoken/scalable/apps/xterm.svg 
+urxvt*iconFile:             /usr/share/icons/FlatWoken/scalable/apps/xterm.svg
 ! do not scroll with output
 URxvt*scrollTtyOutput: false
 ! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
@@ -103,7 +103,7 @@ URxvt.keysym.Control-Left: \033[1;5D
 URxvt.keysym.Control-Right: \033[1;5C
 
 
-!                                 _____                           _ 
+!                                 _____                           _
 !                                |  __ \                         | |
 !                                | |  \/ ___ _ __   ___ _ __ __ _| |
 !                                | | __ / _ \ '_ \ / _ \ '__/ _` | |
@@ -115,7 +115,7 @@ xft.dpi:        96
 xft.antialias:  true
 xft.hinting:    true
 xft.hintstyle:  hintslight
-xft.rgba:       none 
+xft.rgba:       none
 xft:            unifont:medium
 
 ! erosion theme by earsplit

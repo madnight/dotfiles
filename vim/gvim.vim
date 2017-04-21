@@ -1,3 +1,10 @@
+"          ____       _
+"         / ___|_   _(_)_ __ ___
+"        | |  _\ \ / / | '_ ` _ \
+"        | |_| |\ V /| | | | | | |
+"         \____| \_/ |_|_| |_| |_|
+"
+
 if has('mouse')
   set mouse=a
 endif
@@ -6,16 +13,8 @@ if has("gui_running")
   map <leader>r :NERDTreeFind<cr>
 
   set guifont=Monaco\ 15
-  " set guifont=Inconsolata-g\ 15
-  " set guifont=Ubuntu\ Mono\ 15
-  " set guifont=Consolas\ 15
-  " set guifont=Monospace\ 13
 
   colorscheme base16-tomorrow-night
-  " colorscheme hybrid
-  " colorscheme twilight
-  " colorscheme github
-  " colorscheme molokai
 
   set background=dark
   set guioptions-=T

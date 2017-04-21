@@ -48,8 +48,6 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'chriskempson/base16-vim'
 " fuzzy file, buffer, mru, tag, etc finder
 Plug 'ctrlpvim/ctrlp.vim', {'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU']}
-" small bar with clickable tabs (buffers)
-Plug 'fholgado/minibufexpl.vim'
 " a big collection of colorscheme
 Plug 'flazz/vim-colorschemes'
 " vim script for text filtering and alignment
@@ -170,6 +168,8 @@ Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
 Plug 'szw/vim-g', {'on': 'Google'}
 " comment out stuff via shortcut
 Plug 'scrooloose/nerdcommenter'
+" toggles between relative and absolute line numbers automatically
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
 call plug#end()
 
 augroup load_us_ycm
@@ -177,4 +177,15 @@ augroup load_us_ycm
   autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'vim-snippets')
                      \| autocmd! load_us_ycm
 augroup END
+
+function! s:VisualAck()
+  let temp = @"
+  normal! gvy
+  let escaped_pattern = escape(@", "[]().*")
+  let @" = temp
+  execute "Ack! '" . escaped_pattern . "'"
+endfunction
+
+nnoremap K :Ack! '<C-r><C-w>'<cr>
+vnoremap K :<C-u>call <sid>VisualAck()<cr>
 

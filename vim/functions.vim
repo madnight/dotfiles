@@ -1,3 +1,4 @@
+"
 "        _____                 _   _
 "       |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
 "       | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
@@ -40,4 +41,12 @@ fun! QuitPrompt()
       let choice = confirm("Close?", "&yes\n&no", 1)
       if choice == 1 | wq | endif
 endfun
+
+function! s:VisualAck()
+  let temp = @"
+  normal! gvy
+  let escaped_pattern = escape(@", "[]().*")
+  let @" = temp
+  execute "Ack! '" . escaped_pattern . "'"
+endfunction
 

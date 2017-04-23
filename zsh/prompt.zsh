@@ -17,7 +17,7 @@ if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
   # we dont need mercurial
   # prompt_hg
   prompt_end
-else 
+else
 # otherwise use minimal theme
  echo -ne "%{$fg[red]%} » %{$reset_color%}"
 fi

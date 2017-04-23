@@ -14,9 +14,9 @@
 !                                   \/   \/\__\___|_|  |_| |_| |_|
 
 
-xterm*faceName:             Inconsolata for Powerline
+xterm*faceName:             Moncao for Powerline
 xterm*scaleHeight:          1.01
-xterm*faceSize:             16
+xterm*faceSize:             12
 xterm*saveLines:            16384
 xterm*geometry:             80x24-500+400
 xterm*VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
@@ -58,7 +58,7 @@ URxvt*scrollTtyKeypress: true
 urxvt.iso14755:             false
 urxvt.iso14755_52:          false
 
-urxvt.font:                 xft:Monaco\ for\ Powerline:style=Regular:pixelsize=17:autohint=true
+urxvt.font:                 xft:Monaco\ for\ Powerline:style=Regular:pixelsize=15:autohint=true
 urxvt.boldFont:             xft:Monaco\ for\ Powerline:style=dz:style=Bold:pixelsize=17:autohint=true
 urxvt.italicFont:           xft:Monaco\ for\ Powerline:style=Italic:pixelsize=17:autohint=true
 urxvt.boldItalicFont:       xft:Monaco\ for\ Powerline:style=Bold:style=Italic:pixelsize=17:autohint=true
@@ -69,7 +69,7 @@ urxvt.boldItalicFont:       xft:Monaco\ for\ Powerline:style=Bold:style=Italic:p
 ! --  Extensions -- !
 ! requires urxvt-perl package
 
-urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard,tabbedex
+urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard
 urxvt.keysym.C-x:           perl:keyboard-select:activate
 urxvt.keysym.M-u:           perl:url-select:select_next
 urxvt.keysym.C-b:           perl:clipboard:paste_escaped
@@ -97,10 +97,10 @@ URxvt.tabbed.tab-bg: -1
 URxvt.tabbed.title: no
 URxvt.tabbed.new-button: no
 URxvt.tabbed.autohide: yes
-URxvt.keysym.Control-Up: \033[1;5A
-URxvt.keysym.Control-Down: \033[1;5B
-URxvt.keysym.Control-Left: \033[1;5D
-URxvt.keysym.Control-Right: \033[1;5C
+! URxvt.keysym.Control-Up: \033[1;5A
+! URxvt.keysym.Control-Down: \033[1;5B
+! URxvt.keysym.Control-Left: \033[1;5D
+! URxvt.keysym.Control-Right: \033[1;5C
 
 
 !                                 _____                           _

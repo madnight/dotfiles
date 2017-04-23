@@ -10,6 +10,8 @@ cdUndoKey() {
   echo
 }
 
+unfreeze() { tmux send-keys C-q }
+
 cdParentKey() {
   pushd .. > /dev/null
   zle      reset-prompt
@@ -29,6 +31,8 @@ grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$
 statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
 
 cl() { cd $1 && pwd && ls; }
+
+duplicates() { sort $1 | uniq -cd }
 
 github() { chromium "https://github.com/search?q=$1"; }
 
@@ -473,6 +477,6 @@ if [[ 18 -lt $1 ]] then
   fi
 }
 
-function monitor() { 
-    watch -n1 -t "lsof -i -n|awk '{print \$1, \$2, \$9}'|column -t"; 
+function monitor() {
+    watch -n1 -t "lsof -i -n|awk '{print \$1, \$2, \$9}'|column -t";
 }

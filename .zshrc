@@ -1,11 +1,11 @@
 
-#                          _|                                              _|_|  _|            
-#      _|_|_|_|    _|_|_|  _|_|_|          _|_|_|    _|_|    _|_|_|      _|            _|_|_|  
-#          _|    _|_|      _|    _|      _|        _|    _|  _|    _|  _|_|_|_|  _|  _|    _|  
-#        _|          _|_|  _|    _|      _|        _|    _|  _|    _|    _|      _|  _|    _|  
-#      _|_|_|_|  _|_|_|    _|    _|        _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|  
-#                                                                                          _|  
-#                                                                                      _|_|    
+#                          _|                                              _|_|  _|
+#      _|_|_|_|    _|_|_|  _|_|_|          _|_|_|    _|_|    _|_|_|      _|            _|_|_|
+#          _|    _|_|      _|    _|      _|        _|    _|  _|    _|  _|_|_|_|  _|  _|    _|
+#        _|          _|_|  _|    _|      _|        _|    _|  _|    _|    _|      _|  _|    _|
+#      _|_|_|_|  _|_|_|    _|    _|        _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|
+#                                                                                          _|
+#                                                                                      _|_|
 
 # reload xdefaults
 [[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
@@ -32,7 +32,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 setopt AUTO_CD
 setopt CORRECT
 setopt PROMPT_SUBST
-# you should not be setting the complete_aliases option 
+# you should not be setting the complete_aliases option
 # if you want to have completion for aliases
 # setopt complete_aliases
 # setopt correctall
@@ -48,16 +48,16 @@ zstyle ':completion:*' rehash true
 
 term="$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')"
 
-if [ $term = urxvt ] || [ $term = xterm ]; then 
+if [ $term = urxvt ] || [ $term = xterm ]; then
     # set bg color
     echo -ne "\033]11;#181715\007"
     # set fg color
-    echo -ne "\033]10;#DBBCBC\007" 
+    echo -ne "\033]10;#DBBCBC\007"
 fi
 
 # change xterm cursor to steady bar
-if [ $term = xterm ]; then 
-    echo -e -n "\x1b[\x36 q" 
+if [ $term = xterm ]; then
+    echo -e -n "\x1b[\x36 q"
 fi
 
 # vi mode keybinding (-e for emacs)
@@ -68,7 +68,7 @@ bindkey '^R' history-substring-search-up
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
-# for rxvt home and end 
+# for rxvt home and end
 bindkey "\e[1~" end-of-line
 bindkey "\e[4~" beginning-of-line
 #bindkey "\e[3~" delete-chabindkey "${terminfo[khome]}" beginning-of-line
@@ -98,11 +98,11 @@ zle-line-init () {
 zle -N zle-line-init
 
 # command not found hook: https://wiki.archlinux.org/index.php/Pkgfile
-[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] && 
+[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] &&
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # colorize command if valid e.g. ls (green) asd123 (red)
-[[ -e ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && 
+[[ -e ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # fish like autosuggestions key bindings
@@ -147,7 +147,7 @@ if exists percol; then
 fi
 
 # prevent C-s form freezing the term
-stty -ixon 
+stty -ixon
 
 # private aliases and functions suchs as backup
 [[ -e ~/.zshrc_priv ]] && source ~/.zshrc_priv
@@ -179,3 +179,4 @@ export CHROME_BIN=/usr/bin/chromium
 #  echo -e "\n\n\nkernel updated -> consider reboot"
 #  uname -r;pacman -Q linux
 # fi
+unsetopt HUP

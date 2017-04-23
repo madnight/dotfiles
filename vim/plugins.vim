@@ -76,6 +76,8 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'jaxbot/semantic-highlight.vim'
 " enhanced javascript synxtax highlighting
 Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' }
+" list of JavaScript ES6 snippets and syntax highlighting for vim
+Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
 " improved nerdtree side panel (more ide like)
 Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeToggle' }
 " css3 syntax highlight
@@ -91,7 +93,7 @@ Plug 'junegunn/gv.vim', {'on': ['GV']}
 " coffeescript syntax support
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 " colorize hex codes this plugin is still inefficient for large files
-Plug 'lilydjwg/colorizer', { 'for': 'css' }
+Plug 'gko/vim-coloresque', { 'for': 'css' }
 " debugger for php, python and other languages
 Plug 'joonty/vdebug', {'on': ['VdebugStart']}
 " allow atom like line swapping with arrow keys
@@ -148,6 +150,7 @@ Plug 'tpope/vim-surround'
 Plug 'tyru/open-browser.vim'
 " vim status line
 Plug 'vim-airline/vim-airline'
+Plug 'christoomey/vim-tmux-navigator'
 " vim status line themes
 Plug 'vim-airline/vim-airline-themes'
 " jump between source and header (.cpp -> .h)

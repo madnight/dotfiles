@@ -48,6 +48,12 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'chriskempson/base16-vim'
 " fuzzy file, buffer, mru, tag, etc finder
 Plug 'ctrlpvim/ctrlp.vim', {'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU']}
+" ctrlp improved result matcher
+Plug 'FelikZ/ctrlp-py-matcher'
+" generate fancy tmux status lines (airline like)
+Plug 'edkolev/tmuxline.vim',  {'on': ['Tmuxline']}
+" autocomplete things that you see in other terminal
+Plug 'wellle/tmux-complete.vim', { 'on': [] }
 " a big collection of colorscheme
 Plug 'flazz/vim-colorschemes'
 " vim script for text filtering and alignment
@@ -159,6 +165,8 @@ Plug 'vim-scripts/a.vim', {'on': 'A'}
 Plug 'w0ng/vim-hybrid'
 " syntastic replacement that uses background threads for syntax check
 Plug 'w0rp/ale'
+" syntax highlighting for tmux
+Plug 'tmux-plugins/vim-tmux', { 'for': 'tmux' }
 " automated tag file generation and syntax highlighting of tags in vim
 " Plug 'xolox/vim-easytags' // disabled performance reasons
 " miscellaneous auto-load vim scripts
@@ -173,11 +181,15 @@ Plug 'szw/vim-g', {'on': 'Google'}
 Plug 'scrooloose/nerdcommenter'
 " toggles between relative and absolute line numbers automatically
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
+nmap  <Leader>cw <ESC>
+" cvim / vimium like window choosing by hinting
+Plug 't9md/vim-choosewin', {'on': 'ChooseWin'}
 call plug#end()
 
 augroup load_us_ycm
   autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'vim-snippets')
+  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'vim-snippets', 'tmux-complete.vim')
                      \| autocmd! load_us_ycm
 augroup END
 

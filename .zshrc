@@ -1,11 +1,10 @@
 
-#                          _|                                              _|_|  _|
-#      _|_|_|_|    _|_|_|  _|_|_|          _|_|_|    _|_|    _|_|_|      _|            _|_|_|
-#          _|    _|_|      _|    _|      _|        _|    _|  _|    _|  _|_|_|_|  _|  _|    _|
-#        _|          _|_|  _|    _|      _|        _|    _|  _|    _|    _|      _|  _|    _|
-#      _|_|_|_|  _|_|_|    _|    _|        _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|
-#                                                                                          _|
-#                                                                                      _|_|
+# ███████╗███████╗██╗  ██╗     ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗
+# ╚══███╔╝██╔════╝██║  ██║    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝
+#   ███╔╝ ███████╗███████║    ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
+#  ███╔╝  ╚════██║██╔══██║    ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
+# ███████╗███████║██║  ██║    ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
+# ╚══════╝╚══════╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝
 
 # reload xdefaults
 [[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
@@ -89,12 +88,15 @@ zle-keymap-select () {
     echo -ne "\033[4 q"
   fi
 }
+
 zle -N zle-keymap-select
+
 zle-line-init () {
   zle -K viins
   echo -ne "\033]12;Gray\007"
   echo -ne "\033[4 q"
 }
+
 zle -N zle-line-init
 
 # command not found hook: https://wiki.archlinux.org/index.php/Pkgfile
@@ -163,8 +165,6 @@ stty -ixon
 # added by travis gem
 [ -f /home/x/.travis/travis.sh ] && source /home/x/.travis/travis.sh
 
-
-
 NPM_PACKAGES="${HOME}/.npm-packages"
 PATH="$NPM_PACKAGES/bin:$PATH"
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
@@ -174,9 +174,10 @@ export CHROME_BIN=/usr/bin/chromium
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
-# if [[ "$(uname -r)" != "$upacman -Q linux)" ]]; then
-#  echo -e "\n\n\nkernel updated -> consider reboot"
-#  uname -r;pacman -Q linux
-# fi
 unsetopt HUP
+
+KEYTIMEOUT=1
+
+if command -v tmux>/dev/null; then
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux
+fi

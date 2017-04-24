@@ -1,10 +1,11 @@
-"                 |                                                        _|_|  _|
-"     _|      _|      _|_|_|  _|_|          _|_|_|    _|_|    _|_|_|      _|            _|_|_|
-"     _|      _|  _|  _|    _|    _|      _|        _|    _|  _|    _|  _|_|_|_|  _|  _|    _|
-"       _|  _|    _|  _|    _|    _|      _|        _|    _|  _|    _|    _|      _|  _|    _|
-"         _|      _|  _|    _|    _|        _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|
-"                                                                                           _|
-"                                                                                       _|_|
+
+" ██╗   ██╗██╗███╗   ███╗     ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗
+" ██║   ██║██║████╗ ████║    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝
+" ██║   ██║██║██╔████╔██║    ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
+" ╚██╗ ██╔╝██║██║╚██╔╝██║    ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
+"  ╚████╔╝ ██║██║ ╚═╝ ██║    ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
+"   ╚═══╝  ╚═╝╚═╝     ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝
+
 
 filetype plugin indent on
 syntax on
@@ -81,6 +82,9 @@ set laststatus=2
 set cmdheight=1
 set noruler
 set noshowcmd
+set timeoutlen=1000 ttimeoutlen=0
+" old regex engine is much faster
+set re=1
 
 set background=dark
 
@@ -137,3 +141,22 @@ nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
 nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
 nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
 nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+  " Adding automatons for when entering or leaving Vim
+  au VimEnter * nested :call LoadSession()
+  au VimLeave * NERDTreeClose
+  au VimLeave * MBEClose
+  au VimLeave * :call MakeSession()
+  " au VimEnter * NERDTree
+
+

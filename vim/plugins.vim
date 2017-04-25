@@ -50,6 +50,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'ctrlpvim/ctrlp.vim', {'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU']}
 " ctrlp improved result matcher
 Plug 'FelikZ/ctrlp-py-matcher'
+" Plug 'nixprime/cpsm'
 " generate fancy tmux status lines (airline like)
 Plug 'edkolev/tmuxline.vim',  {'on': ['Tmuxline']}
 " autocomplete things that you see in other terminal
@@ -93,7 +94,7 @@ Plug 'artur-shaik/vim-javacomplete2', {'for': 'java'}
 " nginx syntax highlight
 Plug 'evanmiller/nginx-vim-syntax',  { 'for': 'nginx' }
 " wrapper for fzf a command line fuzzy finder
-Plug 'junegunn/fzf.vim', { 'do': 'yes \| ./install' }
+" Plug 'junegunn/fzf.vim', { 'do': 'yes \| ./install' }
 " lightweight gitv (if gitv is too slow)
 Plug 'junegunn/gv.vim', {'on': ['GV']}
 " coffeescript syntax support

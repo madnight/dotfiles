@@ -18,9 +18,9 @@ let g:ackprg = 'rg --vimgrep'
 let g:ctrlp_use_caching = 0
 let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_match_window = 'results:100'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_user_command = 'rg %s --files --color never'
+let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_min_count =2

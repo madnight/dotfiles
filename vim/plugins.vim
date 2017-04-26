@@ -52,7 +52,7 @@ Plug 'ctrlpvim/ctrlp.vim', {'on': ['CtrlP', 'CtrlPMixed', 'CtrlPMRU']}
 Plug 'FelikZ/ctrlp-py-matcher'
 " Plug 'nixprime/cpsm'
 " generate fancy tmux status lines (airline like)
-Plug 'edkolev/tmuxline.vim',  {'on': ['Tmuxline']}
+" Plug 'edkolev/tmuxline.vim',  {'on': ['Tmuxline']}
 " autocomplete things that you see in other terminal
 Plug 'wellle/tmux-complete.vim', { 'on': [] }
 " a big collection of colorscheme

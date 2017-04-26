@@ -85,6 +85,7 @@ set noshowcmd
 set timeoutlen=1000 ttimeoutlen=0
 " old regex engine is much faster
 set re=1
+set lazyredraw
 
 set background=dark
 
@@ -95,27 +96,39 @@ augroup END
 
 colorscheme hybrid
 
-au BufNewFile,BufRead,BufEnter *.tex setlocal spell spelllang=de_de,en_gb
-au BufNewFile,BufRead,BufEnter *.txt setlocal spell spelllang=de_de,en_gb
-au BufNewFile,BufRead,BufEnter *.pl set filetype=prolog
-au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
-au BufNewFile,BufRead *.coffee set filetype=coffee
+augroup vimrc_autocmd
+  autocmd!
+  au BufNewFile,BufRead,BufEnter *.tex setlocal spell spelllang=de_de,en_gb
+  au BufNewFile,BufRead,BufEnter *.txt setlocal spell spelllang=de_de,en_gb
+  au BufNewFile,BufRead,BufEnter *.pl set filetype=prolog
+  au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
+  au BufNewFile,BufRead *.coffee set filetype=coffee
 
-au FileType php set omnifunc=phpcomplete#CompletePHP
-au FileType mail setlocal spell spelllang=de_de,en_gb
-au FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-au FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-au FileType ruby,eruby let g:rubycomplete_rails = 1
-au FileType ruby set omnifunc=rubycomplete#Complete
-au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-au FileType python setlocal omnifunc=pythoncomplete#Complete
-au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-au CursorHold * call ale#Lint()
-au CursorHoldI * call ale#Lint()
-au InsertLeave * call ale#Lint()
-au TextChanged * call ale#Lint()
+  au FileType php set omnifunc=phpcomplete#CompletePHP
+  au FileType mail setlocal spell spelllang=de_de,en_gb
+  au FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+  au FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+  au FileType ruby,eruby let g:rubycomplete_rails = 1
+  au FileType ruby set omnifunc=rubycomplete#Complete
+  au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  au FileType python setlocal omnifunc=pythoncomplete#Complete
+  au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+  au CursorHold * call ale#Lint()
+  au CursorHoldI * call ale#Lint()
+  au InsertLeave * call ale#Lint()
+  au TextChanged * call ale#Lint()
+
+  " Adding automatons for when entering or leaving Vim
+  au VimEnter * nested :call LoadSession()
+  au VimLeave * NERDTreeClose
+  au VimLeave * MBEClose
+  au VimLeave * :call MakeSession()
+  " au VimEnter * NERDTree
+
+augroup END
 
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
@@ -143,12 +156,4 @@ nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
 nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 set wildignore+=*/.git/*,*/tmp/*,*.swp,*.so,*.zip,*/node_modules/*
-
-  " Adding automatons for when entering or leaving Vim
-  au VimEnter * nested :call LoadSession()
-  au VimLeave * NERDTreeClose
-  au VimLeave * MBEClose
-  au VimLeave * :call MakeSession()
-  " au VimEnter * NERDTree
-
 

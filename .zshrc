@@ -73,6 +73,7 @@ bindkey "\e[4~" beginning-of-line
 #bindkey "\e[3~" delete-chabindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
+bindkey -M viins 'jj' vi-cmd-mode
 
 # by default, there is a 0.4 second delay after you hit the <ESC> key
 # let's reduce this delay to 0.1 seconds.
@@ -163,7 +164,7 @@ stty -ixon
 # [[ -e ~/.tmux.conf ]] && tmux source ~/.tmux.conf
 
 # added by travis gem
-[ -f /home/x/.travis/travis.sh ] && source /home/x/.travis/travis.sh
+# [ -f /home/x/.travis/travis.sh ] && source /home/x/.travis/travis.sh
 
 NPM_PACKAGES="${HOME}/.npm-packages"
 PATH="$NPM_PACKAGES/bin:$PATH"
@@ -172,12 +173,12 @@ unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 export CHROME_BIN=/usr/bin/chromium
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 unsetopt HUP
 
 KEYTIMEOUT=1
 
 if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux attach -t home
 fi

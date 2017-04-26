@@ -46,6 +46,7 @@ map e <Plug>CamelCaseMotion_e
 
 inoremap jk <ESC>
 
+nmap <Leader>cw <ESC>
 nmap s <Plug>(easymotion-bd-f)
 nmap <Leader>rv <ESC>:so ~/.vimrc<CR>
 nmap <Leader>v <ESC>:so ~/.vimrc<CR>

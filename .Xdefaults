@@ -14,16 +14,15 @@
 !                                   \/   \/\__\___|_|  |_| |_| |_|
 
 
-xterm*faceName:             Moncao for Powerline
-xterm*scaleHeight:          1.01
-xterm*faceSize:             12
-xterm*saveLines:            16384
+xterm*font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+xterm*blodFont: -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
+xterm*saveLines:            0
 xterm*geometry:             80x24-500+400
 xterm*VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
-xterm*boldMode:             false
-xterm*allowBoldFonts:       false
+xterm*allowBoldFonts:       true
 xterm*utf8:                 true
 xterm*termName:             xterm-256color
+xterm*backarrowKey: false
 
 !                                     _   _                  _
 !                                    | | | |                | |
@@ -111,12 +110,12 @@ URxvt.tabbed.autohide: yes
 !                                 \____/\___|_| |_|\___|_|  \__,_|_|
 !
 
-xft.dpi:        96
-xft.antialias:  true
-xft.hinting:    true
-xft.hintstyle:  hintslight
-xft.rgba:       none
-xft:            unifont:medium
+xft.dpi:        120
+! xft.antialias:  true
+! xft.hinting:    false
+! xft.hintstyle:  hintslight
+! xft.rgba:       none
+! xft:            unifont:medium
 
 ! erosion theme by earsplit
 

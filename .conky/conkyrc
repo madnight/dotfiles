@@ -1,9 +1,6 @@
 background yes
-
 use_xft yes
-#xftfont Tamsyn:size=15
 xftfont Gohu GohuFont:size=11
-#xftfont Ubuntu Mono:size=11
 xftalpha 0.8
 update_interval 1.0
 total_run_times 0
@@ -23,16 +20,12 @@ default_shade_color black
 alignment top_right
 gap_x 13
 gap_y 12
-#no_buffers yes
 cpu_avg_samples 2
 override_utf8_locale no
 uppercase yes
 text_buffer_size 16000
 format_human_readable yes
 top_name_width 12
-#own_window yes
-#own_window_class Conky
-#own_window_type override
 
 default_bar_size 260 5
 
@@ -90,7 +83,7 @@ $color
 $stippled_hr
 Network
 $stippled_hr
-IP: $alignr${execi 180 nc 4.ifcfg.me 23 | grep IPv4 | awk '{print $4}' }
+IP: $alignr${execi 20 curl -s https://4.ifcfg.me }
 DNS: $alignr${execi 180 cat /etc/resolv.conf | grep nameserver | awk '{print $2}' | head -n 1}
 Ping: ${color #ddaa00}${alignr}${execi 10 ping -c 2 8.8.8.8 | sed -n '2,2p' |cut -c47-50}ms$color
 Conn: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 count}${alignr}/${tcp_portmon 1 65535 count}
@@ -112,9 +105,4 @@ I/O Write: $alignr $diskio_write
 AUDIO: $alignr ${exec amixer -c 0 get Master | grep 'Mono: Playback' | awk '{print $6}' | sed -e 's/[][]//g'}
 ${execbar echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' | tr -d '%')} $alignr ${execi 1 echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' )}
 ${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
-#${rss http://www.spiegel.de/schlagzeilen/tops/index.rss 10 item_title 1}
-#${rss http://www.spiegel.de/schlagzeilen/tops/index.rss 10 item_title 2}
-#${rss https://www.archlinux.org/feeds/news/ 10 item_title 3}  ${iconv_stop}
-
-
 

@@ -30,7 +30,7 @@
 #Kill window
 "bash -c "kill -9 $(xdotool getactivewindow getwindowpid)""
     m:0x50 + c:45
-    Mod2+Mod4 + k
+    Mod2+Mod4 + q
 
 #Resize window
 "bash -c "wmctrl -i -r $(xdotool getactivewindow) -e 0,130,110,1440,840""
@@ -83,7 +83,7 @@
     Mod2+Mod4 + p
 
 #Terminal
-"if ! ps aux | pgrep urxvt > null; then urxvt; else wmctrl -a urxvt; fi"
+"if ! ps aux | pgrep xterm > null; then xterm; else wmctrl -a xterm; fi"
     m:0x50 + c:36
     Mod2+Mod4 + Return
 

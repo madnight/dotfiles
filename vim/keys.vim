@@ -1,6 +1,17 @@
+
+"         _
+"        | | _____ _   _ ___
+"        | |/ / _ \ | | / __|
+"        |   <  __/ |_| \__ \
+"        |_|\_\___|\__, |___/
+"                  |___/
+
+nnoremap K :Ack! '<C-r><C-w>'<cr>
 nnoremap <C-j> <C-w>j
 nnoremap K :Ack! '<C-r><C-w>'<cr>
 nnoremap <Leader>sb :CtrlPBuffer<CR>
+" serach Most recently used (MRU) files (native vim function [oldfiles])
+nnoremap <C-m> :History<CR>
 nnoremap <leader>cd :lcd %:p:h<CR>
 nnoremap <SPACE> :
 nnoremap <leader>n :NERDTreeToggle<CR>
@@ -10,10 +21,16 @@ nnoremap <Leader>rw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 nnoremap <Leader>dw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-nnoremap <silent> <C-p> :CtrlPMixed<CR>
-nnoremap <silent> <C-r> :earlier<CR>
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-r> :later<CR>
 nnoremap <silent> <C-e> :WinResizerStartResize<CR>
 nnoremap ZZ :call QuitPrompt()<cr>
+
+" nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
+" nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
+" nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
+" nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
+" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 cnoremap <silent> q<cr>  call QuitPrompt()<cr>
 cnoremap <silent> wq<cr> call QuitPrompt()<cr>
@@ -24,10 +41,10 @@ noremap <Leader>s :Ack
 noremap <C-X> :bd<CR>
 noremap <silent> <c-up> :call SwapUp()<CR>
 noremap <silent> <c-down> :call SwapDown()<CR>
-" noremap <C-Right> :MBEbn<CR>
-noremap <C-Right> :bnext<CR>
-" noremap <C-Left> :MBEbp<CR>
-noremap <C-Left> :bprevious<CR>
+noremap <C-l> :bnext<CR>
+noremap <C-h> :bprevious<CR>
+" thats bugged and only work with xterm
+" noremap <BS> :bprevious<CR>
 noremap <Leader>rn :call NumberToggle()<CR>
 
 " fugitive shortcuts
@@ -49,15 +66,15 @@ inoremap jk <ESC>
 nmap <Leader>cw <ESC>
 nmap s <Plug>(easymotion-bd-f)
 nmap <Leader>rv <ESC>:so ~/.vimrc<CR>
+nmap <Leader>pi <ESC>:PlugInstall<CR>
 nmap <Leader>v <ESC>:so ~/.vimrc<CR>
 nmap <Leader>cw <ESC>:ChooseWin<CR>
-let g:choosewin_overlay_enable = 1
 nmap ya y$
 nmap <S-k> <C-w>wl<CR>
 nmap <S-w> :bd<CR>
 " Jump faster
 nmap <C-j> 4j
-nmap <C-h> <C-w>h
+" nmap <C-h> <C-w>h
 nmap <M-l> <C-w>l
 " Alt / Mod Key (A-,M-) := <ESC>
 nmap <ESC>l <C-w>l
@@ -80,6 +97,8 @@ imap <C-s> <ESC>:w<CR>
 imap <C-g> <Plug>IMAP_JumpForward
 
 vmap ^ $
+
+vnoremap K :<C-u>call <sid>VisualAck()<cr>
 vnoremap K :<C-u>call <sid>VisualAck()<cr>
 
 map <D-/> <C-_><C-_>
@@ -88,8 +107,4 @@ map <C-s> <ESC>:w<CR>
 map <S-w> <ESC>:q!<CR>
 map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
 
-nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
-nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
-nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
-nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
-nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+

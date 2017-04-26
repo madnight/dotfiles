@@ -27,6 +27,7 @@ autoload -Uz promptinit && promptinit
 autoload -Uz colors && colors
 # User configuration
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export FZF_DEFAULT_COMMAND='rg --files --hidden -g ""'
 
 setopt AUTO_CD
 setopt CORRECT
@@ -54,9 +55,11 @@ if [ $term = urxvt ] || [ $term = xterm ]; then
     echo -ne "\033]10;#DBBCBC\007"
 fi
 
-# change xterm cursor to steady bar
 if [ $term = xterm ]; then
+    # change xterm cursor to steady bar
     echo -e -n "\x1b[\x36 q"
+    # fix <C-h> combo in xterm (it sends erase otherwise)
+    stty erase '^?'
 fi
 
 # vi mode keybinding (-e for emacs)
@@ -180,5 +183,5 @@ unsetopt HUP
 KEYTIMEOUT=1
 
 if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && tmux attach -t home
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && { tmux attach -t home || tmux new }
 fi

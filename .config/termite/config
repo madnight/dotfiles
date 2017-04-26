@@ -1,11 +1,9 @@
 [colors]
-
 # special
 foreground      = #bea492
 foreground_bold = #bea492
 cursor          = #bea492
 background      = #181512
-#background = rgba(0, 0, 0, 0.8)
 highlight       = #181512
 
 # black
@@ -41,15 +39,7 @@ color7  = #504339
 color15 = #9a875f
 
 [options]
-#font = Monospace 13
-#font = Inconsolata-g 14
-#font = Consolas 15
-# font = Inconsolata for Powerline 17
 font = Monaco for Powerline 12
-#font = Menlo 12
-#font = Ubuntu Mono 14
-#font = Hermit 13
-#font: -misc-tamsyn-medium-r-normal--15-108-100-100-c-80-iso8859-1
 audible_bell = false
 visible_bell = false
 urgent_on_bell = false
@@ -59,6 +49,4 @@ search_wrap = true
 scrollback_lines = 9999
 cursor_blink = off
 cursor_shape = ibeam
-#cursor_shape = underline
-#padding = 2
 allow_bold = false

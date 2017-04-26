@@ -264,7 +264,7 @@ conf() {
         weather)       	vim ~/.conky/conky_weather/weather_5days;;
         wiki)           vim ~/.conky/wiki;;
         irc)            vim ~/.conky/irc;;
-        grey)           vim ~/.conky/conkyrc_grey;;
+        grey)           vim ~/.conky/conkyrc;;
         mail)           vim ~/.conky/mail;;
         hc)             vim ~/.config/herbstluftwm/autostart;;
         compton)        vim ~/.config/compton.conf;;
@@ -292,7 +292,7 @@ conk() {
         mail)          	conky -c ~/.conky/mail &;;
         weather)       	conky -c ~/.conky/conky_weather/weather_5days &;;
         wiki)           conky -c ~/.conky/wiki &;;
-        grey)           conky -c ~/.conky/conkyrc_grey &;;
+        grey)           conky -c ~/.conky/conkyrc &;;
         irc)            conky -c ~/.conky/irc &;;
         log)            conky -c ~/.conky/log &;;
         news)           conky -c ~/.conky/news &;;

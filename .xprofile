@@ -1,6 +1,3 @@
-
-# define if internet as function
-
 # compositor
 # compton --backend glx --vsync opengl-swc &
 
@@ -8,7 +5,7 @@
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 
 # wait for active internet connection and start desktop background monitor
-bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && conky -c ~/.conky/conkyrc_grey' &
+bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && conky -c ~/.conky/conkyrc' &
 
 bash -c 'sleep 10 && conky -c ~/.conky/errors' &
 
@@ -33,17 +30,8 @@ bash -c "~/scripts/lowmem.bash" &
 # email client
 thunderbird &
 
-# web browser (save memory by starting only 1 process per individual website)
+# web browser
 chromium &
-# chromium --process-per-site &
-
-# messenger
-# bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && franz &' &
 
 # sound
 pulseaudio --start &
-
-# irc chat client
-xfce4-terminal -e weechat &
-
-docker start 7991ac1cfddd

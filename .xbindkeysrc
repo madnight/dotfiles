@@ -1,148 +1,152 @@
 
-# ██╗  ██╗██████╗ ██╗███╗   ██╗██████╗ ██╗  ██╗███████╗██╗   ██╗██████╗  ██████╗
-# ╚██╗██╔╝██╔══██╗██║████╗  ██║██╔══██╗██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝
-#  ╚███╔╝ ██████╔╝██║██╔██╗ ██║██║  ██║█████╔╝ █████╗   ╚████╔╝ ██████╔╝██║
-#  ██╔██╗ ██╔══██╗██║██║╚██╗██║██║  ██║██╔═██╗ ██╔══╝    ╚██╔╝  ██╔══██╗██║
-# ██╔╝ ██╗██████╔╝██║██║ ╚████║██████╔╝██║  ██╗███████╗   ██║   ██║  ██║╚██████╗
-# ╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝
+#  ██╗  ██╗██████╗ ██╗███╗   ██╗██████╗ ██╗  ██╗███████╗██╗   ██╗██████╗  ██████╗
+#  ╚██╗██╔╝██╔══██╗██║████╗  ██║██╔══██╗██║ ██╔╝██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝
+#   ╚███╔╝ ██████╔╝██║██╔██╗ ██║██║  ██║█████╔╝ █████╗   ╚████╔╝ ██████╔╝██║
+#   ██╔██╗ ██╔══██╗██║██║╚██╗██║██║  ██║██╔═██╗ ██╔══╝    ╚██╔╝  ██╔══██╗██║
+#  ██╔╝ ██╗██████╔╝██║██║ ╚████║██████╔╝██║  ██╗███████╗   ██║   ██║  ██║╚██████╗
+#  ╚═╝  ╚═╝╚═════╝ ╚═╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝
 
 
-#Filemanager
+# Filemanager
 "thunar"
     m:0x50 + c:31
     Mod2+Mod4 + i
 
-#Volume down
+# Volume down
 "amixer set Master 3%- ; pulseaudio-ctl down"
     m:0x10 + c:95
     Mod2 + F11
 
-#Volume up
+# Volume up
 "amixer set Master 3%+ ; pulseaudio-ctl up"
     m:0x10 + c:96
     Mod2 + F12
 
-#Volume mute
+# Volume mute
 "amixer set Master toggle && espeak -v+f4 'sound activated'"
     m:0x10 + c:76
     Mod2 + F10
 
-#Kill window
+# Kill window
 "bash -c "kill -9 $(xdotool getactivewindow getwindowpid)""
     m:0x50 + c:45
     Mod2+Mod4 + q
 
-#Resize window
+# Resize window
 "bash -c "wmctrl -i -r $(xdotool getactivewindow) -e 0,130,110,1440,840""
     m:0x14 + c:52
     Control+Mod2 + y
 
-#dmenu
-"j4-dmenu-desktop --dmenu="dmenu -i -fn \"-*-gohufont-medium-r-*-*-14-*\"" --display-binar"
+# dmenu
+"rofi -demnu -combi-modi window,drun -show combi -modi combi"
     m:0x50 + c:68
     Mod2+Mod4 + F2
 
-#Player pause
+#  lock screen
+"bash ~/scripts/lock.sh"
+    Mod2+Mod4 + l
+
+# Player pause
 "playerctl play-pause"
     m:0x10 + c:74
     Mod2 + F8
 
-#Window max
+# Window max
 "bash -c "wmctrl -i -r $(xdotool getactivewindow) -e 0,0,0,1920,1025""
     m:0x50 + c:58
     Mod2+Mod4 + m
 
-#Killall
+# Killall
 "killall -u x"
     m:0x5c + c:53
     Control+Alt+Mod2+Mod4 + x
 
-#Filemanager
+# Filemanager
 "thunar"
     m:0x50 + c:26
     Mod2+Mod4 + e
 
-#Radio BBC 1
+# Radio BBC 1
 "vlc ~/Radio/bbcradio1.pls"
     m:0x10 + c:75
     Mod2 + F9
 
-#Radio JAM FM
+# Radio JAM FM
 "vlc ~/Radio/jamfm.m3u"
     m:0x10 + c:73
     Mod2 + F7
 
-#Webbrowser
+# Webbrowser
 "chromium --profile-directory='Default'"
     m:0x50 + c:25
     Mod2+Mod4 + w
 
-#Anon Browser
+# Anon Browser
 "chromium --incognito --profile-directory='Profile 4' --new-window https://check.torproject.org"
     m:0x50 + c:33
     Mod2+Mod4 + p
 
-#Terminal
+# Terminal
 "if ! ps aux | pgrep xterm > null; then xterm; else wmctrl -a xterm; fi"
     m:0x50 + c:36
     Mod2+Mod4 + Return
 
-#Screenshot
+# Screenshot
 "xfce4-screenshooter"
     m:0x10 + c:191
     Mod2 + XF86Tools
 
-#Notes
+# Notes
 "subl3 ~/notes''"
     m:0x10 + c:69
     Mod2 + F3
 
-#Window  bordered
+# Window  bordered
 "quicktile bordered"
     m:0x50 + c:56
     Mod2+Mod4 + b
 
-#Tile left
+# Tile left
 "quicktile left"
     m:0x50 + c:83
     Mod2+Mod4 + KP_Left
 
-#Tile right
+# Tile right
 "quicktile right"
     m:0x50 + c:85
     Mod2+Mod4 + KP_Right
 
-#Tile top
+# Tile top
 "quicktile top"
     m:0x50 + c:80
     Mod2+Mod4 + KP_Up
 
-#Tile bottom
+# Tile bottom
 "quicktile bottom"
     m:0x50 + c:88
     Mod2+Mod4 + KP_Down
 
-#Tile bottom left
+# Tile bottom left
 "quicktile bottom-left"
     m:0x50 + c:87
     Mod2+Mod4 + KP_End
 
-#Tile bottom right
+# Tile bottom right
 "quicktile bottom-right"
     m:0x50 + c:89
     Mod2+Mod4 + KP_Next
 
-#Tile top right
+# Tile top right
 "quicktile top-right"
     m:0x50 + c:81
     Mod2+Mod4 + KP_Prior
 
-#Tile top left
+# Tile top left
 "quicktile top-left"
     m:0x50 + c:79
     Mod2+Mod4 + KP_Home
 
-#Shutdown and install kernel updates
+# Shutdown and install kernel updates
 "systemctl poweroff"
     m:0x54 + c:24
     Control+Mod2+Mod4 + q

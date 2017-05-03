@@ -45,12 +45,27 @@ augroup vimrc_autocmd
   au TextChanged * call ale#Lint()
 
   " Adding automatons for when entering or leaving Vim
+if len(argv()) < 1
   au VimEnter * nested :call LoadSession()
   au VimLeave * NERDTreeClose
   au VimLeave * MBEClose
   au VimLeave * :call MakeSession()
+endif
   " au VimEnter * NERDTree
 
+augroup END
+
+" ask to auto create directory and file if not exsistent on save
+augroup vimrc-auto-mkdir
+  autocmd!
+  autocmd BufWritePre * call s:auto_mkdir(expand('<afile>:p:h'), v:cmdbang)
+  function! s:auto_mkdir(dir, force)
+    if !isdirectory(a:dir)
+          \   && (a:force
+          \       || input("'" . a:dir . "' does not exist. Create? [y/N]") =~? '^y\%[es]$')
+      call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+    endif
+  endfunction
 augroup END
 
 augroup load_us_ycm

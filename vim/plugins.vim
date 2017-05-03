@@ -76,6 +76,7 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 " plugins active on trigger (lazy loaded)
 
+Plug 'benmills/vimux'
 " a code-completion engine for Vim
 Plug 'Valloric/YouCompleteMe',                  { 'on': [], 'do': function('BuildYCM') }
 " resizer mode ctrl-e
@@ -179,6 +180,8 @@ Plug 'tpope/vim-haml',                          { 'for' : ['haml','sass','scss',
 Plug 'fatih/vim-go',                            { 'for': 'go' }
 " offical rust plugin
 Plug 'rust-lang/rust.vim',                      { 'for': 'rust' }
+" vim support for systemd configs
+Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
 
 
 " disabled plugins

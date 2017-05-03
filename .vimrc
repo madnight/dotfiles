@@ -33,7 +33,7 @@ command! Wqa wqa
 command! W w
 command! Q q
 command! WS w !sudo tee %
-command! CtrlPFunky call plug#load('ctrlp.vim', 'ctrlp-funky') | CtrlPFunky
+" command! CtrlPFunky call plug#load('ctrlp.vim', 'ctrlp-funky') | CtrlPFunky
 
 set shell=/bin/bash
 " The width of a TAB is set to 4.

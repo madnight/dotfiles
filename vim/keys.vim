@@ -6,6 +6,9 @@
 "        |_|\_\___|\__, |___/
 "                  |___/
 
+nnoremap <Leader>l :b#<cr>
+nnoremap <Leader>vrlc :VimuxRunLastCommand<cr>
+nnoremap <Leader>vir :VimuxInterruptRunner<cr>
 nnoremap K :Ack! '<C-r><C-w>'<cr>
 nnoremap <C-j> <C-w>j
 nnoremap K :Ack! '<C-r><C-w>'<cr>
@@ -21,16 +24,15 @@ nnoremap <Leader>rw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 nnoremap <Leader>dw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <C-r> :later<CR>
 nnoremap <silent> <C-e> :WinResizerStartResize<CR>
+nnoremap <silent> <C-p> :Files<CR>
 nnoremap ZZ :call QuitPrompt()<cr>
 
-" nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
-" nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
-" nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
-" nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
-" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+nnoremap <silent> <ESC>l :TmuxNavigateLeft<cr>
+nnoremap <silent> <ESC>h :TmuxNavigateRight<cr>
+nnoremap <silent> <ESC>k :TmuxNavigateDown<cr>
+nnoremap <silent> <ESC>j :TmuxNavigateUp<cr>
+nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 cnoremap <silent> q<cr>  call QuitPrompt()<cr>
 cnoremap <silent> wq<cr> call QuitPrompt()<cr>
@@ -74,7 +76,6 @@ nmap <S-k> <C-w>wl<CR>
 nmap <S-w> :bd<CR>
 " Jump faster
 nmap <C-j> 4j
-" nmap <C-h> <C-w>h
 nmap <M-l> <C-w>l
 " Alt / Mod Key (A-,M-) := <ESC>
 nmap <ESC>l <C-w>l

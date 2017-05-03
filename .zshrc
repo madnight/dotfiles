@@ -11,6 +11,13 @@
 
 fortune -a -s -n 200 | cowsay
 
+# remove the trailing slash (usefull in ln)
+zstyle ':completion:*' squeeze-slashes true
+# completion cache
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+# fish like syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # activate color-completion
 zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
 # format on completion
@@ -152,7 +159,7 @@ if exists percol; then
     bindkey '^R' percol_select_history
 fi
 
-# prevent C-s form freezing the term
+# prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
 stty -ixon
 
 # private aliases and functions suchs as backup
@@ -180,8 +187,59 @@ export CHROME_BIN=/usr/bin/chromium
 
 unsetopt HUP
 
-KEYTIMEOUT=1
+# just enter “cd …./dir”
+rationalise-dot() {
+  if [[ $LBUFFER = *.. ]]; then
+    LBUFFER+=/..
+  else
+    LBUFFER+=.
+  fi
+}
+zle -N rationalise-dot
+bindkey . rationalise-dot
 
-if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && { tmux attach -t home || tmux new }
-fi
+# if command -v tmux>/dev/null; then
+  # [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && { tmux attach -t home || tmux new }
+# fi
+
+# https://github.com/bhilburn/powerlevel9k/issues/319
+bindkey -v
+export KEYTIMEOUT=1
+function zle-line-init {
+  powerlevel9k_prepare_prompts
+  if (( ${+terminfo[smkx]} )); then
+    printf '%s' ${terminfo[smkx]}
+  fi
+  zle reset-prompt
+  zle -R
+}
+
+function zle-line-finish {
+  powerlevel9k_prepare_prompts
+  if (( ${+terminfo[rmkx]} )); then
+    printf '%s' ${terminfo[rmkx]}
+  fi
+  zle reset-prompt
+  zle -R
+}
+
+function zle-keymap-select {
+  powerlevel9k_prepare_prompts
+  zle reset-prompt
+  zle -R
+}
+
+zle -N zle-line-init
+zle -N ale-line-finish
+zle -N zle-keymap-select
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir context rbenv vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator dir_writable background_jobs vi_mode command_execution_time)
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
+POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX='%F{red} » '
+POWERLEVEL9K_SHOW_CHANGESET=true
+POWERLEVEL9K_LINUX_ICON='\uf300'
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+POWERLEVEL9K_MODE='awesome-patched'
+source  ~/powerlevel9k/powerlevel9k.zsh-theme
+

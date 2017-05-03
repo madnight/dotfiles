@@ -22,7 +22,7 @@ xterm*VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(
 xterm*allowBoldFonts:       true
 xterm*utf8:                 true
 xterm*termName:             xterm-256color
-xterm*backarrowKey: false
+! xterm*backarrowKey: false
 
 !                                     _   _                  _
 !                                    | | | |                | |
@@ -31,15 +31,16 @@ xterm*backarrowKey: false
 !                                    | |_| | |   >  <  \ V /| |_
 !                                     \___/|_|  /_/\_\  \_/  \__|
 
-!urxvt.letterSpace:          -1.5
+! urxvt.letterSpace:          -0.5
 urxvt.buffered:             false
-! urxvt.cursorUnderline:      false
+! use tmux scroll buffer instead
+urxvt*saveLines:            0
+urxvt.cursorUnderline:      false
 urxvt.cursorBlink:          false
 urxvt.urgentOnBell:         true
 urxvt.inheritPixmap:        false
 urxvt.geometry:             80x24-500+400
 urxvt.scrollBar:            false
-urxvt.saveLines:            12000
 urxvt.depth:                32
 urxvt.imLocale:             en_US.UTF-8
 urxvt.borderLess:           false
@@ -57,45 +58,21 @@ URxvt*scrollTtyKeypress: true
 urxvt.iso14755:             false
 urxvt.iso14755_52:          false
 
-urxvt.font:                 xft:Monaco\ for\ Powerline:style=Regular:pixelsize=15:autohint=true
-urxvt.boldFont:             xft:Monaco\ for\ Powerline:style=dz:style=Bold:pixelsize=17:autohint=true
-urxvt.italicFont:           xft:Monaco\ for\ Powerline:style=Italic:pixelsize=17:autohint=true
-urxvt.boldItalicFont:       xft:Monaco\ for\ Powerline:style=Bold:style=Italic:pixelsize=17:autohint=true
+
+urxvt.font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:SourceCodePro+Powerline+Awesome\ Regular:pixelsize=20:antialias=true:hinting=true
+! urxvt.font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:FantasqueSansMono Nerd Font:Regular:pixelsize=38:antialias=true:hinting=true
+! urxvt.boldFont:             xft:Monaco\ for\ Powerline:style=dz:style=Bold:pixelsize=17:autohint=true
+! urxvt.italicFont:           xft:Monaco\ for\ Powerline:style=Italic:pixelsize=17:autohint=true
+! urxvt.boldItalicFont:       xft:Monaco\ for\ Powerline:style=Bold:style=Italic:pixelsize=17:autohint=true
 
 ! URxvt*font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
 ! URxvt*font: xft:Inconsolata -g:style=g:pixelsize=18
 
 ! --  Extensions -- !
 ! requires urxvt-perl package
-
-urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard
-urxvt.keysym.C-x:           perl:keyboard-select:activate
-urxvt.keysym.M-u:           perl:url-select:select_next
-urxvt.keysym.C-b:           perl:clipboard:paste_escaped
-urxvt.matcher.button:       1
-urxvt.matcher.rend.0:       -Uline fg16
-urxvt.urlLauncher:          /usr/bin/chromium
-URxvt.url-select.underline: true
-URxvt.url-select.launcher:  /usr/bin/xdg-open
-urxvt.clipboard.autocopy:   true
-urxvt.clipboard.copycmd:    xsel --input  --clipboard
-urxvt.clipboard.pastecmd:   xsel --output --clipboard
-urxvt.keysym.C-M-c:         perl:clipboard:copy
-urxvt.keysym.C-V:           perl:clipboard:paste
-urxvt.keysym.M-r:           perl:keyboard-select:search
-urxvt.font-size.step:       4
-urxvt.intensityStyles:      false
-URxvt.keysym.Home: \033[1~
-URxvt.keysym.End: \033[4~
-URxvt.keysym.KP_Home: \033[1~
-URxvt.keysym.KP_End:  \033[4~
-URxvt.tabbed.tabbar-fg: 2
-URxvt.tabbed.tabbar-bg: -1
-URxvt.tabbed.tab-fg: 3
-URxvt.tabbed.tab-bg: -1
-URxvt.tabbed.title: no
-URxvt.tabbed.new-button: no
-URxvt.tabbed.autohide: yes
+! disable all perl extenstion and let tmux handle the fancy stuff
+urxvt.perl-ext:
+urxvt.perl-ext-common:
 ! URxvt.keysym.Control-Up: \033[1;5A
 ! URxvt.keysym.Control-Down: \033[1;5B
 ! URxvt.keysym.Control-Left: \033[1;5D
@@ -110,7 +87,7 @@ URxvt.tabbed.autohide: yes
 !                                 \____/\___|_| |_|\___|_|  \__,_|_|
 !
 
-xft.dpi:        120
+xft.dpi:        96
 ! xft.antialias:  true
 ! xft.hinting:    false
 ! xft.hintstyle:  hintslight

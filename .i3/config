@@ -16,11 +16,16 @@ gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 smart_borders on
 
-exec --no-startup-id xfconfd
-exec --no-startup-id xfsettingsd --sm-client-disable
-exec --no-startup-id xfce4-volumed
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id compton -b
+exec --no-startup-id xfsettingsd --sm-client-disable &
+exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
+exec --no-startup-id xfce4-volumed
 exec --no-startup-id xscreensaver -nosplash
+exec --no-startup-id xxfce4-panel --disable-wm-check
+
+
 for_window [class="^.*"] border pixel 1
 
 exec --no-startup-id bash -c "sleep 20 && mv /home/x/Downloads/* /home/x/Downloads/old"
@@ -70,6 +75,33 @@ for_window [window_role="about"] floating enable
 for_window [window_role="gtkdialog"] floating enable
 for_window [title="Preferences$"] floating enable
 
+# Open specific applications in floating mode
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="Calamares"] floating enable border normal
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lightdm-gtk-greeter-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [class="Manjaro Welcome"] floating enable
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Skype"] floating enable border normal
+for_window [class="Thus"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Xfburn"] floating enable
+
 # Assignemts
 assign [class="(?i)chromium"] → 2: www
 assign [class="(?i)vlc"] → 4: media
@@ -77,6 +109,7 @@ assign [class="(?i)thunderbird"] → 5: mail
 assign [class="(?i)mutt"] → 5: mail
 assign [class="(?i)skype"] → 7: chat
 
+bindsym Mod1+23 exec workspace next
 bindsym $mod+w exec chromium
 bindsym $mod+e exec thunar
 bindsym $mod+m [class="Chromium"] focus
@@ -201,7 +234,7 @@ bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'Do you really want to exit i
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-  bindsym j resize shrink width 10 px or 10 ppt
+    bindsym j resize shrink width 10 px or 10 ppt
     bindsym k resize grow height 10 px or 10 ppt
     bindsym l resize shrink height 10 px or 10 ppt
     bindsym semicolon resize grow width 10 px or 10 ppt
@@ -227,9 +260,9 @@ bar {
      statusline  #CCCCCC
        background  #181512
    }
- position bottom
+ position top
 #    font -Misc-Fixed-Medium-R-Normal--15-140-75-75-C-90-ISO10646-1
-   font pango: Fixed, Awesome 14
+   font pango: GohuFont, Awesome 11
  tray_output primary
 #    font pango: Terminus, Awesome 13
 # font -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1

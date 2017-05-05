@@ -1,6 +1,6 @@
 background no
 use_xft yes
-xftfont Gohu GohuFont:size=11
+xftfont Gohu GohuFont:size=14
 xftalpha 0.8
 update_interval 2
 total_run_times 0

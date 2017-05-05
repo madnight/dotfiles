@@ -11,6 +11,8 @@
 
 fortune -a -s -n 200 | cowsay
 
+export $(dbus-launch)
+
 # remove the trailing slash (usefull in ln)
 zstyle ':completion:*' squeeze-slashes true
 # completion cache

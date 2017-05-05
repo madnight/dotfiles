@@ -1,6 +1,6 @@
-background yes
+background no
 use_xft yes
-xftfont Gohu GohuFont:size=11
+xftfont Gohu GohuFont:size=14
 xftalpha 0.8
 update_interval 1.0
 total_run_times 0
@@ -26,6 +26,9 @@ uppercase yes
 text_buffer_size 16000
 format_human_readable yes
 top_name_width 12
+own_window yes
+own_window_class Conky
+own_window_type override
 
 default_bar_size 260 5
 

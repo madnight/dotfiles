@@ -31,7 +31,6 @@ xterm*termName:             xterm-256color
 !                                    | |_| | |   >  <  \ V /| |_
 !                                     \___/|_|  /_/\_\  \_/  \__|
 
-! urxvt.letterSpace:          -0.5
 urxvt.buffered:             false
 ! use tmux scroll buffer instead
 urxvt*saveLines:            0
@@ -70,9 +69,35 @@ urxvt.font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:SourceCodePr
 
 ! --  Extensions -- !
 ! requires urxvt-perl package
-! disable all perl extenstion and let tmux handle the fancy stuff
-urxvt.perl-ext:
-urxvt.perl-ext-common:
+
+urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard
+urxvt.keysym.C-x:           perl:keyboard-select:activate
+urxvt.keysym.M-u:           perl:url-select:select_next
+urxvt.keysym.C-b:           perl:clipboard:paste_escaped
+urxvt.matcher.button:       1
+urxvt.matcher.rend.0:       -Uline fg16
+urxvt.urlLauncher:          /usr/bin/chromium
+URxvt.url-select.underline: true
+URxvt.url-select.launcher:  /usr/bin/xdg-open
+urxvt.clipboard.autocopy:   true
+urxvt.clipboard.copycmd:    xsel --input  --clipboard
+urxvt.clipboard.pastecmd:   xsel --output --clipboard
+urxvt.keysym.C-M-c:         perl:clipboard:copy
+urxvt.keysym.C-V:           perl:clipboard:paste
+urxvt.keysym.M-r:           perl:keyboard-select:search
+urxvt.font-size.step:       4
+urxvt.intensityStyles:      false
+URxvt.keysym.Home: \033[1~
+URxvt.keysym.End: \033[4~
+URxvt.keysym.KP_Home: \033[1~
+URxvt.keysym.KP_End:  \033[4~
+URxvt.tabbed.tabbar-fg: 2
+URxvt.tabbed.tabbar-bg: -1
+URxvt.tabbed.tab-fg: 3
+URxvt.tabbed.tab-bg: -1
+URxvt.tabbed.title: no
+URxvt.tabbed.new-button: no
+URxvt.tabbed.autohide: yes
 ! URxvt.keysym.Control-Up: \033[1;5A
 ! URxvt.keysym.Control-Down: \033[1;5B
 ! URxvt.keysym.Control-Left: \033[1;5D

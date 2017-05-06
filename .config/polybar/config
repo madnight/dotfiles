@@ -1,0 +1,255 @@
+" vi: ft=dosini
+
+[bar/top]
+width = 100%
+height = 20
+background = #181715
+foreground = #E8E1E1
+
+fixed-center = true
+; font-0 = Inconsolata Nerd Font:pixelsize=11
+; font-0 = UbuntuMonoDerivativePowerline Nerd Font:pixelsize=12
+; font-0 = Sauce Code Pro Nerd Font:pixelsize=11
+font-0 = Hasklig Nerd Font:pixelsize=10;0
+font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;0
+font-2 = FontAwesome:size=12;0
+modules-left = apps i3
+modules-center = xwindow
+modules-right = vpn ip fs-root cpu cputemp gputemp memory wired updates date powermenu
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+[module/wired]
+type = internal/network
+interface = enp5s0
+interval = 3.0
+ping-interval = 3
+; udspeed-minwidth = 5
+accumulate-stats = true
+label-connected = %downspeed%  %upspeed% 
+format-disconnected = <label-disconnected>
+label-disconnected = not connected
+
+[module/fs-root]
+type = internal/fs
+interval = 25
+mount-0 = /
+label-mounted =  %free%
+
+[module/i3]
+type = internal/i3
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+enable-scroll = false
+format = <label-state> <label-mode>
+format-padding-right = 2
+label-unfocused-foreground = #ffffff
+label-unfocused-padding = 1
+label-focused-foreground = #c16772
+label-focused-padding = 1
+label-urgent-foreground = #e4b226
+label-urgent-padding = 1
+ws-icon-0 = tmux;
+ws-icon-1 = www;
+ws-icon-2 = www;
+ws-icon-3 = music;
+ws-icon-4 = irssi;
+ws-icon-default = 
+
+[module/cpu]
+type = internal/cpu
+interval = 3
+format-padding = 2
+; label =  %percentage%%
+format = <label> <ramp-load>
+label = 
+ramp-load-0 = ▁
+ramp-load-1 = ▂
+ramp-load-2 = ▃
+ramp-load-3 = ▄
+ramp-load-4 = ▅
+ramp-load-5 = ▆
+ramp-load-6 = ▇
+ramp-load-7 = █
+
+[module/memory]
+type = internal/memory
+interval = 3
+format = <label>
+format-padding = 2
+label =  %gb_used% (%percentage_used%%)
+
+[module/battery]
+type = internal/battery
+full-at = 100
+battery = BAT1
+adapter = ACAD
+poll-interval = 5
+format-charging = <animation-charging> <label-charging>
+format-charging-padding = 2
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-padding = 2
+format-full = <ramp-capacity> <label-full>
+format-full-padding = 2
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 500
+
+[module/volume]
+type = internal/volume
+speaker-mixer = Speaker
+headphone-mixer = Headphone
+headphone-id = 9
+format-volume = <ramp-volume> <label-volume>
+label-volume = volume %percentage%%
+label-volume-foreground = #ff
+format-muted-prefix = " "
+format-muted-foreground = #66
+label-muted = sound muted
+label-muted-foreground = #99ffffff
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-foreground = #9f78e1
+ramp-headphones-0 = 
+ramp-headphones-1 = 
+ramp-headphones-foreground = #9f78e1
+
+[module/xwindow]
+type = internal/xwindow
+label-maxlen = 30
+label-foreground = #bbb
+
+[module/date]
+type = internal/date
+interval = 1
+date = %a %d %b %Y,
+time = %H:%M
+format = <label>
+format-padding = 2
+label =  %date% %time%
+
+[module/network]
+type = internal/network
+interface = enp5s0
+format-connected = <label-connected>
+format-connected-padding = 2
+format-disconnected = <label-disconnected>
+format-disconnected-padding = 2
+label-connected =  %essid%
+label-disconnected =  None
+animation-packetloss-0 = 
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 
+animation-packetloss-1-foreground = ${bar/top.foreground}
+animation-packetloss-framerate = 500
+
+
+[module/powermenu]
+type = custom/menu
+label-open = 
+label-close = cancel
+label-close-background = #312842
+label-close-foreground = #ffeefc
+label-open-padding-left = 0
+label-open-padding-right = 1
+label-close-padding = 3
+menu-0-0 = lock
+menu-0-0-exec = ~/scripts/lock.sh
+menu-0-0-background = #312842
+menu-0-0-foreground = #c05c47
+menu-0-0-padding-right = 3
+menu-0-1 = reboot
+menu-0-1-exec = menu-open-1
+menu-0-1-background = #312842
+menu-0-1-foreground = #c05c47
+menu-0-1-padding-right = 3
+menu-0-2 = power off
+menu-0-2-exec = menu-open-2
+menu-0-2-background = #312842
+menu-0-2-foreground = #c05c47
+menu-0-2-padding-right = 3
+menu-1-0 = reboot?
+menu-1-0-exec = reboot
+menu-1-0-background = #312842
+menu-1-0-foreground = #e4b226
+menu-1-0-padding-right = 3
+menu-2-0 = power off?
+menu-2-0-exec = poweroff
+menu-2-0-background = #312842
+menu-2-0-foreground = #e4b226
+menu-2-0-padding-right = 3
+
+[module/updates]
+type = custom/script
+exec = checkupdates | wc -l
+interval = 10
+label  =  %output%
+label-padding= 1
+
+[module/ip]
+type = custom/script
+exec = curl -s https://4.ifcfg.me
+interval = 10
+label  = ip %output%
+label-padding= 1
+
+[module/vpn]
+type = custom/script
+exec = pgrep -x chromium
+interval = 5
+label = vpn
+label-padding = 1
+format-prefix =  
+
+[module/cputemp]
+type = custom/script
+exec-if = sensors
+exec =  sensors | grep CPUTIN | cut -c18-19
+format-prefix = "CPU  "
+format-suffix = "°C "
+
+[module/gputemp]
+type = custom/script
+exec-if = sensors
+exec =  nvidia-settings -q [gpu:0]/GPUCoreTemp | grep '):' | awk '{print $4}' | sed 's/\.//'
+format-prefix = "GPU  "
+format-suffix = "°C "
+
+[module/apps]
+type = custom/menu
+menu-0-0 = Browsers
+menu-0-0-exec = menu-open-1
+menu-0-2 = Multimedia
+menu-0-2-exec = menu-open-2
+menu-1-0 = Firefox
+menu-1-0-exec = firefox &
+menu-1-1 = Chromium
+menu-1-1-exec = chromium &
+menu-2-0 = Gimp
+menu-2-0-exec = gimp &
+menu-2-1 = Scrot
+menu-2-1-exec = scrot &
+label-open = 
+label-close = x
+label-separator = |
+
+[module/weather]
+type = custom/script
+interval = 10
+format = <label>
+format-prefix = " "
+exec = python2 /home/x/scripts/weather

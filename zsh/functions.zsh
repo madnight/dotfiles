@@ -28,6 +28,8 @@ bindkey '^[,'      cdUndoKey
 # one-liners
 grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2"; }
 
+killall() { ps -ef | grep $1 | grep -v grep | awk '{print $2}' | xargs kill -9; }
+
 statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
 
 cl() { cd $1 && pwd && ls; }
@@ -109,6 +111,20 @@ asm32()
     command rm "${filename%.*}.o"
     echo "Done building, the file '${filename%.*}' is your executable"
 }
+
+# fancy history search via C-r
+function exists { which $1 &> /dev/null; }
+if exists percol; then
+    function percol_select_history() {
+        local tac
+        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+        CURSOR=$#BUFFER         # move cursor
+        zle -R -c               # refresh
+    }
+    zle -N percol_select_history
+    bindkey '^R' percol_select_history
+fi
 
 # backup and list packages
 packages ()
@@ -239,7 +255,7 @@ findbin() {
     done
 }
 
-colortest() {
+colors() {
     T='gYw'
     echo -e "\n                 40m     41m     42m     43m\
         44m     45m     46m     47m";

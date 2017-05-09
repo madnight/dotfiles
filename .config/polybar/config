@@ -1,20 +1,46 @@
 " vi: ft=dosini
 
+
 [bar/top]
-width = 100%
-height = 20
+height = 22
 background = #181715
-foreground = #E8E1E1
 tray-position = right
+foreground = #C1C1C1
+linecolor = #fba922
+accent = #e60053
+bordercolor = #333
+tray-padding = 0
+tray-maxsize = 22
+
+; Margin Setup
+; module-margin = 1
+padding-left = 0
+padding-right = 1
+module-margin-left = 1
+module-margin-right = 2
+
+; Fancy floating bar
+; width = 98%
+; radius = 10.0
+; offset-x = 20
+; offset-y = 10
+
+override-redirect = true
+underline-size = 2
+overline-size = 2
+; border-top-size = 1
+; border-top-color = #eee
+line-color = #ffffff
+; separator =
 fixed-center = true
-font-0 = Gohu GohuFont:pixelsize=14;1
+font-0 = Gohu Gohufont:pixelsize=14;1
 font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;2
 font-2 = Hasklig Nerd Font:pixelsize=20;5
 font-3 = UbuntuMono Nerd Font:pixelsize=14;1
 font-4 = UbuntuMono Nerd Font:pixelsize=17;2
-modules-left = apps i3 vpn ip weather
-modules-center = xwindow
-modules-right = fs-root cputemp gputemp cpu memory wired updates volume date powermenu
+modules-left = apps vpn ip weather fs-root cputemp
+modules-center = i3
+modules-right = gputemp cpu memory wired updates volume date powermenu
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
@@ -24,7 +50,7 @@ interface = enp5s0
 interval = 3.0
 ping-interval = 3
 accumulate-stats = true
-label-connected = %downspeed:3%  %upspeed:3% 
+label-connected =  %downspeed:8%  %upspeed:8%
 format-disconnected = <label-disconnected>
 label-disconnected = not connected
 
@@ -38,29 +64,29 @@ label-mounted =  %free%
 type = internal/i3
 pin-workspaces = true
 index-sort = true
-; strip-wsnumbers = true
+strip-wsnumbers = true
 enable-scroll = false
-; format = <label-state> <label-mode>
-format = <label-mode> <label-state>
-format-padding-left = 1
+label-focused-padding = 1
+label-unfocused-padding = 1
 fuzzy-match = true
 label-unfocused-foreground = #ffffff
-label-focused-foreground = #c16772
-label-urgent-foreground = #e4b226
+; label-focused-foreground = #646A6D
+; label-focused-background = #383838
+label-focused-underline = #505050
+label-urgent-foreground = #B47352
 
 [module/cpu]
 type = internal/cpu
 interval = 3
 label = %{T5}%{T-} %percentage:2%%
 format = <label>
-format-padding= 0
+; label-underline = #908A66
 
 [module/memory]
 type = internal/memory
 interval = 3
 format = <label>
-label = %gb_used%
-label-padding= 1
+label = %{T5}%{T-} %gb_used%
 
 [module/battery]
 type = internal/battery
@@ -73,7 +99,6 @@ format-charging-padding = 2
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-padding = 2
 format-full = <ramp-capacity> <label-full>
-format-full-padding = 2
 label-charging = %percentage%%
 label-discharging = %percentage%%
 label-full = %percentage%%
@@ -92,18 +117,9 @@ animation-charging-framerate = 500
 [module/volume]
 type = internal/volume
 master-mixer = Master
-format-volume =  <ramp-volume> <label-volume>
-format-volume-padding = 1
+format-volume =  <label-volume>
 label-muted =  muted
 label-muted-foreground = #66
-ramp-volume-0 = ▁
-ramp-volume-1 = ▂
-ramp-volume-2 = ▃
-ramp-volume-3 = ▄
-ramp-volume-4 = ▅
-ramp-volume-5 = ▆
-ramp-volume-6 = ▇
-ramp-volume-7 = █
 
 [module/xwindow]
 type = internal/xwindow
@@ -112,13 +128,18 @@ label-foreground = #bbb
 
 [module/date]
 type = internal/date
-interval = 1
-date = %a %d %b %Y,
+label = %{T5}%{T-} %date%   %time%
+; date = %Y-%m-%d
+date = %a %d %b %Y
 time = %H:%M
-format = <label>
-format-padding = 0
-label =  %date% %time%
-label-padding= 1
+interval = 5
+
+; [module/date]
+; type = internal/date
+; interval = 1
+; time = %H:%M
+; format = <label>
+; label =  %date% %time%
 
 [module/powermenu]
 type = custom/menu
@@ -126,8 +147,6 @@ label-open = 
 label-close = cancel
 label-close-background = #312842
 label-close-foreground = #ffeefc
-label-open-padding-right = 1
-label-close-padding = 3
 menu-0-0 = lock
 menu-0-0-exec = ~/scripts/lock.sh
 menu-0-0-background = #312842
@@ -160,14 +179,6 @@ exec = checkupdates | wc -l
 exec-if = ! checkupdates | wc -l | grep -q 0
 interval = 10
 label  =  %output%
-label-padding= 1
-
-[module/vol]
-type = custom/script
-exec = amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '['
-interval = 3
-label  =  %output%
-label-padding= 1
 
 [module/ip]
 type = custom/script
@@ -189,9 +200,8 @@ label-padding = 1
 type = custom/script
 exec-if = sensors
 exec =  sensors | grep CPUTIN | cut -c18-19
-format-prefix = "CPU %{T4} %{T-}"
+format-prefix = "%{T4} %{T-}"
 format-suffix = "°C"
-format-padding = 1
 
 [module/gputemp]
 type = custom/script
@@ -215,7 +225,8 @@ menu-2-0-exec = gimp &
 menu-2-1 = Scrot
 menu-2-1-exec = scrot &
 label-open = 
-label-padding = 1
+label-open-padding = 1
+label-close-padding = 1
 label-close = x
 label-separator = |
 

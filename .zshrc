@@ -6,13 +6,29 @@
 # ███████╗███████║██║  ██║    ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
 # ╚══════╝╚══════╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# auto startx if display is not set
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+    exec startx
+fi
+
 # reload xdefaults
 [[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
 
-fortune -a -s -n 200 | cowsay
+# prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
+[[ $- == *i* ]] && stty -ixon
+
+# fortune -a -s -n 200 | cowsay
+
+xset r rate 150 50   # speeeeed!
 
 export $(dbus-launch)
 
+##########################
+# Autocompletion settings
+##########################
 # remove the trailing slash (usefull in ln)
 zstyle ':completion:*' squeeze-slashes true
 # completion cache
@@ -24,6 +40,10 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
 # format on completion
 zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
+# for autocompletion with an arrow-key driven interface
+zstyle ':completion:*' menu select
+# find new installed binarys and offer completion
+zstyle ':completion:*' rehash true
 
 HISTFILE=~/.histfile
 HISTSIZE=100000
@@ -34,29 +54,19 @@ bindkey -e
 autoload -Uz compinit && compinit
 autoload -Uz promptinit && promptinit
 autoload -Uz colors && colors
-# User configuration
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export FZF_DEFAULT_COMMAND='rg --files --hidden -g ""'
-
 setopt AUTO_CD
 setopt CORRECT
 setopt PROMPT_SUBST
-# you should not be setting the complete_aliases option
-# if you want to have completion for aliases
-# setopt complete_aliases
-# setopt correctall
 setopt append_history
 setopt share_history
 setopt hist_verify
 setopt hist_ignore_all_dups
 
-# for autocompletion with an arrow-key driven interface
-zstyle ':completion:*' menu select
-# find new installed binarys and offer completion
-zstyle ':completion:*' rehash true
-
 term="$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed 's/^.* //')"
 
+#############################
+# terminal specific settings
+#############################
 if [ $term = urxvt ] || [ $term = xterm ]; then
     # set bg color
     echo -ne "\033]11;#181715\007"
@@ -71,14 +81,16 @@ if [ $term = xterm ]; then
     stty erase '^?'
 fi
 
-# vi mode keybinding (-e for emacs)
+##############
+# Keybindings
+##############
+# vi mode keybinding
 bindkey -v
-bindkey '^P' up-history
+bindkey '^P' vi-cmd-mode
 bindkey '^N' down-history
 bindkey '^R' history-substring-search-up
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
-
 # for rxvt home and end
 bindkey "\e[1~" end-of-line
 bindkey "\e[4~" beginning-of-line
@@ -86,10 +98,13 @@ bindkey "\e[4~" beginning-of-line
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
 bindkey -M viins 'jj' vi-cmd-mode
+bindkey 'jj' vi-cmd-mode
+# fish like autosuggestions key bindings
+# ctrl + space accept the suggestion
+bindkey '^ ' autosuggest-accept
+# ctrl + return execute the suggestion
+bindkey '^^m' autosuggest-execute
 
-# by default, there is a 0.4 second delay after you hit the <ESC> key
-# let's reduce this delay to 0.1 seconds.
-export KEYTIMEOUT=1
 
 # modal cursor color for vi's insert/normal modes.
 zle-keymap-select () {
@@ -120,128 +135,48 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 [[ -e ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
 source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# fish like autosuggestions key bindings
-# ctrl + space accept the suggestion
-bindkey '^ ' autosuggest-accept
-# ctrl + return execute the suggestion
-bindkey '^^m' autosuggest-execute
-
 # https://github.com/zsh-users/zsh-autosuggestions
 # fish like autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+########################
 # ENVIORNMENT variables
+########################
 export ARCHFLAGS="-arch x86_64"
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US.UTF-8"
+export LLC_COLLATE="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+export LC_MESSAGES="en_US.UTF-8"
+export LC_MONETARY="en_US.UTF-8"
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export BROWSER="chromium"
 export SHELL=/usr/bin/zsh
 #export TCLLIBPATH=~/.local/share/tktheme
 export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+export CHROME_BIN=/usr/bin/chromium
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export FZF_DEFAULT_COMMAND='rg --files --hidden -g ""'
 PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
-#export LANG=en_US.UTF-8
+NPM_PACKAGES="${HOME}/.npm-packages"
+PATH="$NPM_PACKAGES/bin:$PATH"
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 unset GREP_OPTIONS
+unsetopt HUP
 
-# auto startx if display is not set
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    exec startx
-fi
-
-# fancy history search via C-r
-function exists { which $1 &> /dev/null; }
-if exists percol; then
-    function percol_select_history() {
-        local tac
-        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
-        CURSOR=$#BUFFER         # move cursor
-        zle -R -c               # refresh
-    }
-    zle -N percol_select_history
-    bindkey '^R' percol_select_history
-fi
-
-# prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
-stty -ixon
-
+#################################
+# source additional zhs settings
+#################################
 # private aliases and functions suchs as backup
 [[ -e ~/.zshrc_priv ]] && source ~/.zshrc_priv
-
 # import prompt, aliases and functions
 [[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
 
-# load tmux settings
-# [[ -e ~/.tmux.conf ]] && tmux source ~/.tmux.conf
-
-# added by travis gem
-# [ -f /home/x/.travis/travis.sh ] && source /home/x/.travis/travis.sh
-
-NPM_PACKAGES="${HOME}/.npm-packages"
-PATH="$NPM_PACKAGES/bin:$PATH"
-# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
-unset MANPATH # delete if you already modified MANPATH elsewhere in your config
-export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
-export CHROME_BIN=/usr/bin/chromium
-
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-unsetopt HUP
-
-# just enter “cd …./dir”
-rationalise-dot() {
-  if [[ $LBUFFER = *.. ]]; then
-    LBUFFER+=/..
-  else
-    LBUFFER+=.
-  fi
-}
-zle -N rationalise-dot
-bindkey . rationalise-dot
-
-# if command -v tmux>/dev/null; then
-  # [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && { tmux attach -t home || tmux new }
-# fi
-
-# https://github.com/bhilburn/powerlevel9k/issues/319
-bindkey -v
-export KEYTIMEOUT=1
-function zle-line-init {
-  powerlevel9k_prepare_prompts
-  if (( ${+terminfo[smkx]} )); then
-    printf '%s' ${terminfo[smkx]}
-  fi
-  zle reset-prompt
-  zle -R
-}
-
-function zle-line-finish {
-  powerlevel9k_prepare_prompts
-  if (( ${+terminfo[rmkx]} )); then
-    printf '%s' ${terminfo[rmkx]}
-  fi
-  zle reset-prompt
-  zle -R
-}
-
-function zle-keymap-select {
-  powerlevel9k_prepare_prompts
-  zle reset-prompt
-  zle -R
-}
-
-zle -N zle-line-init
-zle -N ale-line-finish
-zle -N zle-keymap-select
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir context rbenv vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator dir_writable background_jobs vi_mode command_execution_time)
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
-POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX='%F{red} » '
-POWERLEVEL9K_SHOW_CHANGESET=true
-POWERLEVEL9K_LINUX_ICON='\uf300'
-POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-POWERLEVEL9K_MODE='awesome-patched'
-source  ~/powerlevel9k/powerlevel9k.zsh-theme
 

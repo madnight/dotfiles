@@ -12,17 +12,14 @@
 !                                    /   \| __/ _ \ '__| '_ ` _  \
 !                                   / /^\ \ ||  __/ |  | | | | | |
 !                                   \/   \/\__\___|_|  |_| |_| |_|
-
-
-xterm*font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
-xterm*blodFont: -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
+xterm*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+xterm*blodFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
 xterm*saveLines:            0
 xterm*geometry:             80x24-500+400
-xterm*VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
 xterm*allowBoldFonts:       true
 xterm*utf8:                 true
 xterm*termName:             xterm-256color
-! xterm*backarrowKey: false
+xterm*VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
 
 !                                     _   _                  _
 !                                    | | | |                | |
@@ -30,11 +27,11 @@ xterm*termName:             xterm-256color
 !                                    | | | |  __\ \/ /\ \ / / __|
 !                                    | |_| | |   >  <  \ V /| |_
 !                                     \___/|_|  /_/\_\  \_/  \__|
-
 urxvt.buffered:             false
 ! use tmux scroll buffer instead
-urxvt*saveLines:            0
-urxvt.cursorUnderline:      false
+urxvt*saveLines:            999
+urxvt.letterSpace:          0
+urxvt.cursorUnderline:      true
 urxvt.cursorBlink:          false
 urxvt.urgentOnBell:         true
 urxvt.inheritPixmap:        false
@@ -46,31 +43,27 @@ urxvt.borderLess:           false
 urxvt.pointerBlank:         true
 urxvt.pointerBlankDelay:    4
 urxvt*iconFile:             /usr/share/icons/FlatWoken/scalable/apps/xterm.svg
-! do not scroll with output
-URxvt*scrollTtyOutput: false
-! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
-URxvt*scrollWithBuffer: true
-! scroll back to the bottom on keypress
-URxvt*scrollTtyKeypress: true
-
 ! no ISO 14755 mode (fix for C-M-v)
 urxvt.iso14755:             false
 urxvt.iso14755_52:          false
+! do not scroll with output
+URxvt*scrollTtyOutput:      false
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer:     true
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress:    true
+! font settings
+! urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:Hasklig Nerd Font:size=20
+urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:SourceCodePro+Powerline+Awesome\ Regular:size=12:antialias=true:hinting=true
 
-
-urxvt.font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:SourceCodePro+Powerline+Awesome\ Regular:pixelsize=20:antialias=true:hinting=true
 ! urxvt.font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:FantasqueSansMono Nerd Font:Regular:pixelsize=38:antialias=true:hinting=true
 ! urxvt.boldFont:             xft:Monaco\ for\ Powerline:style=dz:style=Bold:pixelsize=17:autohint=true
 ! urxvt.italicFont:           xft:Monaco\ for\ Powerline:style=Italic:pixelsize=17:autohint=true
 ! urxvt.boldItalicFont:       xft:Monaco\ for\ Powerline:style=Bold:style=Italic:pixelsize=17:autohint=true
-
 ! URxvt*font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
 ! URxvt*font: xft:Inconsolata -g:style=g:pixelsize=18
-
-! --  Extensions -- !
-! requires urxvt-perl package
-
-urxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard
+! Urxvt extensions requires urxvt-perl package
+urxvt.perl-ext-common:      default -searchable-scrollback,matcher,keyboard-select,url-select,clipboard
 urxvt.keysym.C-x:           perl:keyboard-select:activate
 urxvt.keysym.M-u:           perl:url-select:select_next
 urxvt.keysym.C-b:           perl:clipboard:paste_escaped
@@ -87,22 +80,10 @@ urxvt.keysym.C-V:           perl:clipboard:paste
 urxvt.keysym.M-r:           perl:keyboard-select:search
 urxvt.font-size.step:       4
 urxvt.intensityStyles:      false
-URxvt.keysym.Home: \033[1~
-URxvt.keysym.End: \033[4~
-URxvt.keysym.KP_Home: \033[1~
-URxvt.keysym.KP_End:  \033[4~
-URxvt.tabbed.tabbar-fg: 2
-URxvt.tabbed.tabbar-bg: -1
-URxvt.tabbed.tab-fg: 3
-URxvt.tabbed.tab-bg: -1
-URxvt.tabbed.title: no
-URxvt.tabbed.new-button: no
-URxvt.tabbed.autohide: yes
-! URxvt.keysym.Control-Up: \033[1;5A
-! URxvt.keysym.Control-Down: \033[1;5B
-! URxvt.keysym.Control-Left: \033[1;5D
-! URxvt.keysym.Control-Right: \033[1;5C
-
+URxvt.keysym.Home:          \033[1~
+URxvt.keysym.End:           \033[4~
+URxvt.keysym.KP_Home:       \033[1~
+URxvt.keysym.KP_End:        \033[4~
 
 !                                 _____                           _
 !                                |  __ \                         | |
@@ -110,8 +91,6 @@ URxvt.tabbed.autohide: yes
 !                                | | __ / _ \ '_ \ / _ \ '__/ _` | |
 !                                | |_\ \  __/ | | |  __/ | | (_| | |
 !                                 \____/\___|_| |_|\___|_|  \__,_|_|
-!
-
 xft.dpi:        96
 ! xft.antialias:  true
 ! xft.hinting:    false
@@ -121,8 +100,7 @@ xft.dpi:        96
 
 ! erosion theme by earsplit
 
-!*.foreground:   #E8E1E1
-*.foreground:   #ffffff
+*.foreground:   #E8E1E1
 *.background:   #181715
 !*.cursorcolor:  #bea492
 

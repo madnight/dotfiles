@@ -1,5 +1,10 @@
-# compositor
-# compton --backend glx --vsync opengl-swc &
+
+#                              __ _ _
+#       __  ___ __  _ __ ___  / _(_) | ___
+#       \ \/ / '_ \| '__/ _ \| |_| | |/ _ \
+#        >  <| |_) | | | (_) |  _| | |  __/
+#       /_/\_\ .__/|_|  \___/|_| |_|_|\___|
+#            |_|
 
 # clear download folder
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
@@ -35,3 +40,8 @@ chromium &
 
 # sound
 pulseaudio --start &
+
+# compositor
+# compton --backend glx --vsync opengl-swc &
+
+

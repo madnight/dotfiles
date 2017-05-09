@@ -44,7 +44,7 @@
 
 #  lock screen
 "bash ~/scripts/lock.sh"
-    Mod2+Mod4 + l
+    Mod2+Mod4 + F1
 
 # Player pause
 "playerctl play-pause"
@@ -76,6 +76,11 @@
     m:0x10 + c:73
     Mod2 + F7
 
+# bindsym $mod1+Shift+Tab exec i3-alt-tab --prev
+"i3-alt-tab --next"
+    m:0x18 + c:23
+    Alt+Mod2 + Tab
+
 # Webbrowser
 "chromium --profile-directory='Default'"
     m:0x50 + c:25
@@ -87,7 +92,8 @@
     Mod2+Mod4 + p
 
 # Terminal
-"if ! ps aux | pgrep xterm > null; then xterm; else wmctrl -a xterm; fi"
+# "if ! ps aux | pgrep xterm > null; then xterm; else wmctrl -a xterm; fi"
+"urxvt -e zsh"
     m:0x50 + c:36
     Mod2+Mod4 + Return
 

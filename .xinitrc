@@ -8,9 +8,9 @@
 # Executed by startx (run your window manager from here)
 
 # wallpaper
-feh --bg-scale Wallpaper/xqhh3ux831iy.jpg
+feh --bg-scale groot-i-am-root-qhd.jpg
 
-xset r rate 150 50  # set your speed!
+xset r rate 250 50
 #xset -dpms          # no screensaver
 #xset s off
 #xset s off -dpms
@@ -19,6 +19,8 @@ xset +fp /usr/share/fonts/local
 xset fp rehash
 xset -b             # disable terminal bell
 
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
 xsetroot -cursor_name left_ptr &
 
 xrdb -merge ~/.Xresources
@@ -26,9 +28,6 @@ xrdb -merge ~/.Xdefaults
 
 # load key bindings
 xbindkeys
-
-# load nvidia-settings (force low gpu settings non gaming)
-nvidia-settings -l
 
 # sync between the primary X11 clipboard and the GTK clipboard
 autocutsel -fork &
@@ -45,9 +44,9 @@ fi
 
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
+
 DEFAULT_SESSION='i3 --shmlog-size 0'
 
-xset r rate 250 50
 
 case $1 in
   awesome       ) exec dbus-launch awesome ;;

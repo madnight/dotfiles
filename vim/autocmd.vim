@@ -45,14 +45,13 @@ augroup vimrc_autocmd
   au TextChanged * call ale#Lint()
 
   " Adding automatons for when entering or leaving Vim
-if len(argv()) < 1
-  au VimEnter * nested :call LoadSession()
-  au VimLeave * NERDTreeClose
-  au VimLeave * MBEClose
-  au VimLeave * :call MakeSession()
-endif
+  if len(argv()) < 1
+    au VimEnter * nested :call LoadSession()
+    au VimLeave * NERDTreeClose
+    au VimLeave * MBEClose
+    au VimLeave * :call MakeSession()
+  endif
   " au VimEnter * NERDTree
-
 augroup END
 
 " ask to auto create directory and file if not exsistent on save

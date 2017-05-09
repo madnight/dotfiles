@@ -10,7 +10,9 @@ filetype plugin indent on
 syntax on
 let mapleader="\,"
 
-" Load plugins, functions and gui settings
+"##########################
+" Load plugins and configs
+"##########################
 source ~/vim/functions.vim
 source ~/vim/plugins.vim
 source ~/vim/gvim.vim
@@ -19,22 +21,9 @@ source ~/vim/keys.vim
 source ~/vim/plugins-config.vim
 source ~/.private_vimrc
 
-colorscheme hybrid
-
-silent! iunmap (
-silent! iunmap )
-silent! iunmap {
-silent! iunmap }
-
-" Vim Typo Fixes
-command! WQ wq
-command! Wq wq
-command! Wqa wqa
-command! W w
-command! Q q
-command! WS w !sudo tee %
-" command! CtrlPFunky call plug#load('ctrlp.vim', 'ctrlp-funky') | CtrlPFunky
-
+"############
+" Typo Fixes
+"############
 set shell=/bin/bash
 " The width of a TAB is set to 4.
 set tabstop=4
@@ -84,16 +73,28 @@ set lazyredraw
 set nocursorcolumn
 set nocursorline
 set norelativenumber
-syntax sync minlines=200
-
 set background=dark
 set nuw=1
 set updatetime=1000
 set wildignore+=*/.git/*,*/tmp/*,*.swp,*.so,*.zip,*/node_modules
 
+"############
+" Typo Fixes
+"############
+command! WQ wq
+command! Wq wq
+command! Wqa wqa
+command! W w
+command! Q q
+command! WS w !sudo tee %
+
+"############
+" Colortheme
+"############
+colorscheme hybrid
 hi clear CursorLine
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 hi LineNr guibg=#1D1F21
 
-
+syntax sync minlines=200

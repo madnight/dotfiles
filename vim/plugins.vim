@@ -8,8 +8,10 @@
  "
 
 call plug#begin()
-" always active plugins
 
+"#######################
+" always active plugins
+"#######################
 " easymotion provides a much simpler way to use some motions in vim
 Plug 'easymotion/vim-easymotion'
 " editorconfig define consistent coding styles in different editors
@@ -73,16 +75,15 @@ Plug 'scrooloose/nerdcommenter'
 " toggles between relative and absolute line numbers automatically
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
-
+"#########################################
 " plugins active on trigger (lazy loaded)
-
-Plug 'benmills/vimux'
+"#########################################
+" vim plugin to interact with tmux
+Plug 'benmills/vimux',                          { 'on': 'VimuxRunCommand' }
 " a code-completion engine for Vim
 Plug 'Valloric/YouCompleteMe',                  { 'on': [], 'do': function('BuildYCM') }
 " resizer mode ctrl-e
 Plug 'simeji/winresizer',                       { 'on': 'WinResizerStartResize' }
-" hardtime helps you break that annoying habit vimmers have
-Plug 'takac/vim-hardtime',                      { 'on': 'HardTimeOn' }
 " Track the engine.
 Plug 'SirVer/ultisnips',                        { 'on': [] }
 " Snippets are separated from the engine. Add this if you want them:
@@ -127,9 +128,12 @@ Plug 'szw/vim-g',                               { 'on': 'Google' }
 Plug 't9md/vim-choosewin',                      { 'on': 'ChooseWin' }
 " be able to write files with sudo right
 Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
+" shows a git diff in the 'gutter' (sign column) // chech performance
+Plug 'airblade/vim-gitgutter'
 
+"#########################################
 " language specific plugins (lazy loaded)
-
+"#########################################
 " improved PHP omni-completion, based on the default phpcomplete.vim
 Plug 'shawncplus/phpcomplete.vim',              { 'for': 'php' }
 " markdown preview
@@ -183,9 +187,9 @@ Plug 'rust-lang/rust.vim',                      { 'for': 'rust' }
 " vim support for systemd configs
 Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
 
-
+"##################
 " disabled plugins
-
+"##################
 " automated tag file generation and syntax highlighting of tags in vim
 " Plug 'xolox/vim-easytags' // disabled performance reasons
 
@@ -195,13 +199,13 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
 " ide like tagbar that lists all function of a class / file
 " Plug 'majutsushi/tagbar', {'on' : 'LdTagbar'} // disabled performance reasons
 
-" shows a git diff in the 'gutter' (sign column) // disabled performance reasons
-" Plug 'airblade/vim-gitgutter'
-
 " Plug 'nixprime/cpsm' // does only work with vim python support
 
 " generate fancy tmux status lines (airline like)
 " Plug 'edkolev/tmuxline.vim',  {'on': ['Tmuxline']} // will be enabled if needed
+
+" hardtime helps you break that annoying habit vimmers have
+" Plug 'takac/vim-hardtime',                      { 'on': 'HardTimeOn' }
 
 call plug#end()
 

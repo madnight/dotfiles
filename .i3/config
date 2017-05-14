@@ -147,34 +147,34 @@ bindsym $mod+space floating toggle
 # workspaces
 
 # assignemts
-assign [class="(?i)chromium"] → 
-assign [class="(?i)vlc"] → 
-assign [class="(?i)thunderbird"] → 
-assign [class="(?i)mutt"] → 
+assign [class="(?i)chromium"] → 1
+assign [class="(?i)vlc"] → 4
+assign [class="(?i)thunderbird"] → 3
+assign [class="(?i)mutt"] → 3
 
 # www
-bindsym $mod+1 workspace 
-bindsym $mod+Shift+1 move container to workspace 
+bindsym $mod+1 workspace 1
+bindsym $mod+Shift+1 move container to workspace 1
 
 # tmux
-bindsym $mod+2 workspace 
-bindsym $mod+Shift+2 move container to workspace 
+bindsym $mod+2 workspace 2
+bindsym $mod+Shift+2 move container to workspace 2
 
 # mail
-bindsym $mod+3 workspace 
-bindsym $mod+Shift+3 move container to workspace 
-
-# chat
-bindsym $mod+4 workspace 
-bindsym $mod+Shift+4 move container to workspace 
+bindsym $mod+3 workspace 3
+bindsym $mod+Shift+3 move container to workspace 3
 
 # music
-bindsym $mod+5 workspace 
-bindsym $mod+Shift+5 move container to workspace 
+bindsym $mod+4 workspace 4
+bindsym $mod+Shift+4 move container to workspace 4
+
+# chat
+bindsym $mod+5 workspace 5
+bindsym $mod+Shift+5 move container to workspace 5
 
 # filemanager
-bindsym $mod+6 workspace 
-bindsym $mod+Shift+6 move container to workspace 
+bindsym $mod+6 workspace 6
+bindsym $mod+Shift+6 move container to workspace 6
 
 bindsym $mod+7 workspace 7
 bindsym $mod+Shift+7 move container to workspace 7

@@ -1,6 +1,5 @@
 " vi: ft=dosini
 
-
 [bar/top]
 height = 22
 background = #181715
@@ -25,7 +24,7 @@ module-margin-right = 2
 ; offset-x = 20
 ; offset-y = 10
 
-override-redirect = true
+; override-redirect = true
 underline-size = 2
 overline-size = 2
 ; border-top-size = 1
@@ -38,6 +37,10 @@ font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;2
 font-2 = Hasklig Nerd Font:pixelsize=20;5
 font-3 = UbuntuMono Nerd Font:pixelsize=14;1
 font-4 = UbuntuMono Nerd Font:pixelsize=17;2
+font-5 = fixed:pixelsize=10
+font-6 = unifont:fontformat=truetype:size=6:heavy;-2
+font-7 = siji:pixelsize=10
+font-8 = FontAwesome:pixelsize=9;0
 modules-left = apps vpn ip weather fs-root cputemp
 modules-center = i3
 modules-right = gputemp cpu memory wired updates volume date powermenu
@@ -74,11 +77,26 @@ label-unfocused-foreground = #ffffff
 ; label-focused-background = #383838
 label-focused-underline = #505050
 label-urgent-foreground = #B47352
+label-mode-padding = 1
+label-mode-foreground = #000
+label-focused = %icon%
+label-unfocused = %icon%
+label-urgent = %icon%
+label-visible = %icon%
+ws-icon-0 =0;
+ws-icon-1 =1;
+ws-icon-2 =2;
+ws-icon-3 =3;
+ws-icon-4 =4;
+ws-icon-5 =5;
+ws-icon-6 =6;
+
+; ws-icon-default = 
 
 [module/cpu]
 type = internal/cpu
 interval = 3
-label = %{T5}%{T-} %percentage:2%%
+label = %{T9}%{T-} %percentage:2%%
 format = <label>
 ; label-underline = #908A66
 

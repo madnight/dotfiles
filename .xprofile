@@ -35,11 +35,20 @@ bash -c "~/scripts/lowmem.bash" &
 # email client
 thunderbird &
 
+# notification deamon
+dunst &
+
 # web browser
 chromium &
 
 # sound
 pulseaudio --start &
+
+xrdb ~/.Xdefaults
+xrdb ~/.Xresources
+xmodmap ~/.Xmodmap
+setxkbmap de
+
 
 # compositor
 # compton --backend glx --vsync opengl-swc &

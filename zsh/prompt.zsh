@@ -1,9 +1,10 @@
 # modified agnoster theme
-source ~/zsh/agnoster.zsh-theme
+# source ~/zsh/agnoster.zsh-theme
 
 # agnoster modifications by overwrite
-PROMPT='
-%{%f%b%k%}$(build_prompt) '
+# PROMPT='
+# %{%f%b%k%}$(build_prompt) '
+
 build_prompt() {
 # only show the agnoster git prompt in git dir
 if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
@@ -93,9 +94,10 @@ RPROMPT="%B%{$fg[black]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
 ZLE_RPROMPT_INDENT=0
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir context rbenv vcs)
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator dir_writable background_jobs vi_mode command_execution_time)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=' '
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=''
 POWERLEVEL9K_MULTILINE_SECOND_PROMPT_PREFIX='%F{red} »  '
 POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true

@@ -7,8 +7,8 @@
 #                                                                                  _|
 #                                                                              _|_|
 
-set $default_gaps_inner 20
-set $default_gaps_outer 20
+set $default_gaps_inner 50
+set $default_gaps_outer 0
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 smart_borders on
@@ -22,19 +22,11 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id xfce4-volumed
 exec --no-startup-id xscreensaver -nosplash
-exec --no-startup-id xfce4-panel --disable-wm-check &
+# exec --no-startup-id xfce4-panel --disable-wm-check &
 exec --no-startup-id SHELL=/bin/bash polybar top -r &
-exec --no-startup-id bash -c "sleep 20 && mv /home/x/Downloads/* /home/x/Downloads/old"
-exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && conky -c /home/x/.conky/conkyrc'
-exec --no-startup-id bash -c 'while [[ ! $(curl -I google.com | grep 302 )  ]]; do echo true; done && conky -c /home/x/.conky/errors'
-exec --no-startup-id pulseaudio --start
-exec --no-startup-id xrdb ~/.Xdefaults
-exec --no-startup-id xrdb ~/.Xresources
-exec --no-startup-id xmodmap ~/.Xmodmap
-exec --no-startup-id setxkbmap de
-exec --no-startup-id xinput --set-prop 9 'Device Accel Constant Deceleration' 3
+# exec --no-startup-id xinput --set-prop 9 'Device Accel Constant Deceleration' 3
 exec --no-startup-id xset mouse 3 6
-exec --no-startup-id i3-msg 'exec chromium'
+exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/urxvt -e "tmux"'
 
 for_window [class="(?i)gcolor2"] floating enable
 for_window [class="(?i)deja"] floating enable, border none
@@ -47,6 +39,7 @@ for_window [class="(?i)pavucontrol"] floating enable
 for_window [class="(?i)gadmin-proftp"] floating enable
 for_window [class="(?i)chromium"] border none
 for_window [class="(?i)thunar"] floating enable
+for_window [class="(?i)polybar"] floating enable
 for_window [class="(?i)SpeedCrunch"] floating enable
 for_window [class="(?i)MultiSystem"] floating enable
 for_window [class="(?i)gtkdialog"] floating enable
@@ -191,12 +184,12 @@ bindsym $mod+0 workspace 0
 bindsym $mod+Shift+0 move container to workspace 0
 
 
-
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 

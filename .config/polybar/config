@@ -1,39 +1,54 @@
 " vi: ft=dosini
 
+[global/wm]
+; Adjust the _NET_WM_STRUT_PARTIAL top value
+;   Used for top aligned bars
+margin-bottom = 20
+; Adjust the _NET_WM_STRUT_PARTIAL bottom value
+;   Used for bottom aligned bars
+margin-top = 0
+
 [bar/top]
-height = 22
+height = 24
 background = #181715
-tray-position = right
 foreground = #C1C1C1
 linecolor = #fba922
 accent = #e60053
 bordercolor = #333
-tray-padding = 0
-tray-maxsize = 22
 
-; Margin Setup
+; tray settings
+tray-offset-x = 898
+tray-maxsize = 22
+; tray-position = center
+tray-transparent = false
+
+; margin Setup
 ; module-margin = 1
 padding-left = 0
 padding-right = 1
 module-margin-left = 1
 module-margin-right = 2
 
-; Fancy floating bar
-; width = 98%
-; radius = 10.0
-; offset-x = 20
-; offset-y = 10
+; fancy floating bar
+width = 98%
+radius = 10.0
+offset-x = 20
+offset-y = 12
+override-redirect = true
+wm-restack = i3
 
-; override-redirect = true
 underline-size = 2
 overline-size = 2
 ; border-top-size = 1
 ; border-top-color = #eee
 line-color = #ffffff
-; separator =
+separator = %{F#525252}|%{F-}
 fixed-center = true
-font-0 = Gohu Gohufont:pixelsize=14;1
-font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;2
+
+; font-0 = Misc Fixed:pixelsize=12;1
+; font-0 = Misc Tamzen:pixelsize=15;1
+font-0 = Gohu Gohufont:pixelsize=14;2
+font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;3
 font-2 = Hasklig Nerd Font:pixelsize=20;5
 font-3 = UbuntuMono Nerd Font:pixelsize=14;1
 font-4 = UbuntuMono Nerd Font:pixelsize=17;2
@@ -41,9 +56,9 @@ font-5 = fixed:pixelsize=10
 font-6 = unifont:fontformat=truetype:size=6:heavy;-2
 font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
-modules-left = apps vpn ip weather fs-root cputemp
+modules-left = apps vpn weather fs-root cputemp cpu
 modules-center = i3
-modules-right = gputemp cpu memory wired updates volume date powermenu
+modules-right = gputemp memory wired updates volume date time
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
@@ -72,10 +87,10 @@ enable-scroll = false
 label-focused-padding = 1
 label-unfocused-padding = 1
 fuzzy-match = true
-label-unfocused-foreground = #ffffff
-; label-focused-foreground = #646A6D
+label-unfocused-foreground = #525252
+label-focused-foreground = #ffffff
 ; label-focused-background = #383838
-label-focused-underline = #505050
+; label-focused-underline = #505050
 label-urgent-foreground = #B47352
 label-mode-padding = 1
 label-mode-foreground = #000
@@ -96,7 +111,7 @@ ws-icon-6 =6;
 [module/cpu]
 type = internal/cpu
 interval = 3
-label = %{T9}%{T-} %percentage:2%%
+label = %{T9}%{T-}%percentage:3%%
 format = <label>
 ; label-underline = #908A66
 
@@ -146,9 +161,13 @@ label-foreground = #bbb
 
 [module/date]
 type = internal/date
-label = %{T5}%{T-} %date%   %time%
-; date = %Y-%m-%d
+label = %{T5}%{T-} %date%
 date = %a %d %b %Y
+interval = 5
+
+[module/time]
+type = internal/date
+label =  %time%
 time = %H:%M
 interval = 5
 
@@ -163,6 +182,7 @@ interval = 5
 type = custom/menu
 label-open = 
 label-close = cancel
+label-open-padding = 1
 label-close-background = #312842
 label-close-foreground = #ffeefc
 menu-0-0 = lock
@@ -209,7 +229,7 @@ format-prefix = 
 [module/vpn]
 type = custom/script
 exec = curl -s https://4.ifcfg.me/country
-exec-if = pgrep -x chromium
+exec-if = pgrep -x openvpn
 interval = 5
 label =  %output%
 label-padding = 1
@@ -243,7 +263,7 @@ menu-2-0-exec = gimp &
 menu-2-1 = Scrot
 menu-2-1-exec = scrot &
 label-open = 
-label-open-padding = 1
+label-open-padding-left = 1
 label-close-padding = 1
 label-close = x
 label-separator = |

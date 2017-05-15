@@ -1,6 +1,6 @@
 background no
 use_xft yes
-xftfont Gohu GohuFont:size=14
+xftfont Gohu GohuFont:size=11
 xftalpha 0.8
 update_interval 2
 total_run_times 0
@@ -10,7 +10,6 @@ own_window_transparent yes
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 double_buffer yes
 minimum_size 1270 100
-# maximum_height 100
 maximum_width 1200
 draw_shades no
 draw_outline no
@@ -19,8 +18,8 @@ draw_graph_borders yes
 default_color white
 default_shade_color black
 alignment top_right
-gap_x 680
-gap_y 790
+gap_x 670
+gap_y 770
 no_buffers yes
 double_buffer yes
 cpu_avg_samples 2
@@ -32,4 +31,4 @@ own_window_class Conky
 own_window_type override
 
 TEXT
-${execi 1 journalctl -p 3 --since yesterday --no-pager | uniq -f 4 | tail -n 18}
+${execi 1 journalctl -p 3 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 18}

@@ -54,6 +54,9 @@ URxvt*scrollWithBuffer:     true
 URxvt*scrollTtyKeypress:    true
 ! font settings
 ! urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:Hasklig Nerd Font:size=20
+
+! urxvt.font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-0-iso8859-1,xft:SourceCodePro+Powerline+Awesome\ Regular:size=12:antialias=true:hinting=true
+
 urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:SourceCodePro+Powerline+Awesome\ Regular:size=12:antialias=true:hinting=true
 
 ! urxvt.font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:FantasqueSansMono Nerd Font:Regular:pixelsize=38:antialias=true:hinting=true
@@ -63,7 +66,7 @@ urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,
 ! URxvt*font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-80-iso10646-1
 ! URxvt*font: xft:Inconsolata -g:style=g:pixelsize=18
 ! Urxvt extensions requires urxvt-perl package
-urxvt.perl-ext-common:      default -searchable-scrollback,matcher,keyboard-select,url-select,clipboard
+urxvt.perl-ext-common:      default -searchable-scrollback,matcher,keyboard-select,clipboard
 urxvt.keysym.C-x:           perl:keyboard-select:activate
 urxvt.keysym.M-u:           perl:url-select:select_next
 urxvt.keysym.C-b:           perl:clipboard:paste_escaped
@@ -91,7 +94,6 @@ URxvt.keysym.KP_End:        \033[4~
 !                                | | __ / _ \ '_ \ / _ \ '__/ _` | |
 !                                | |_\ \  __/ | | |  __/ | | (_| | |
 !                                 \____/\___|_| |_|\___|_|  \__,_|_|
-xft.dpi:        96
 ! xft.antialias:  true
 ! xft.hinting:    false
 ! xft.hintstyle:  hintslight

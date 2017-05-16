@@ -17,7 +17,7 @@ draw_graph_borders yes
 default_color white
 default_shade_color black
 alignment top_right
-gap_x 160
+gap_x 180
 gap_y 42
 cpu_avg_samples 2
 override_utf8_locale no
@@ -28,6 +28,7 @@ top_name_width 12
 own_window yes
 own_window_class Conky
 own_window_type override
+default_color cccccc
 
 default_bar_size 250 5
 

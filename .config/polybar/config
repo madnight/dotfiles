@@ -1,9 +1,20 @@
 " vi: ft=dosini
 
+
+[colors]
+background = ${xrdb:color0:#222}
+background-alt = #444
+foreground = ${xrdb:color15:#222}
+foreground-alt =  ${xrdb:color2:#555}
+highlight = ${xrdb:color7}
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
 [global/wm]
 ; Adjust the _NET_WM_STRUT_PARTIAL top value
 ;   Used for top aligned bars
-margin-bottom = 20
+margin-bottom = 5
 ; Adjust the _NET_WM_STRUT_PARTIAL bottom value
 ;   Used for bottom aligned bars
 margin-top = 0
@@ -33,9 +44,9 @@ module-margin-right = 2
 width = 98%
 radius = 10.0
 offset-x = 20
-offset-y = 12
-override-redirect = true
-wm-restack = i3
+offset-y = 15
+; override-redirect = true
+; wm-restack = i3
 
 underline-size = 2
 overline-size = 2
@@ -57,10 +68,13 @@ font-6 = unifont:fontformat=truetype:size=6:heavy;-2
 font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
 modules-left = apps vpn weather fs-root cputemp cpu
-modules-center = i3
+; modules-center = i3
+modules-center = i3 bspwm
 modules-right = gputemp memory wired updates volume date time
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+; scroll-up = i3wm-wsnext
+; scroll-down = i3wm-wsprev
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
 
 [module/wired]
 type = internal/network
@@ -77,6 +91,29 @@ type = internal/fs
 interval = 25
 mount-0 = /
 label-mounted =  %free%
+
+; [module/volume]
+; type = internal/volume
+; master-mixer = Master
+; format-volume =  <label-volume>
+; label-muted =  muted
+; label-muted-foreground = #66
+
+[module/volume]
+type = internal/volume
+format-volume = <label-volume> <bar-volume>
+label-volume = 
+format-muted-prefix = ""
+label-muted = " muted"
+bar-volume-width = 8
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ━
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = #525252
 
 [module/i3]
 type = internal/i3
@@ -98,6 +135,36 @@ label-focused = %icon%
 label-unfocused = %icon%
 label-urgent = %icon%
 label-visible = %icon%
+ws-icon-0 =0;
+ws-icon-1 =1;
+ws-icon-2 =2;
+ws-icon-3 =3;
+ws-icon-4 =4;
+ws-icon-5 =5;
+ws-icon-6 =6;
+
+[module/bspwm]
+type = internal/bspwm
+pin-workspaces = false
+strip-wsnumbers = true
+enable-click = true
+inline-mode = false
+reverse-scroll = false
+fuzzy-match = true
+index-sort = true
+enable-scroll = false
+label-focused-padding = 1
+label-dimmed-padding = 1
+label-dimmed-foreground = #525252
+label-focused-foreground = #ffffff
+label-urgent-foreground = #B47352
+label-mode-padding = 1
+label-mode-foreground = #000
+label-focused = %icon%
+label-dimmed = %icon%
+label-urgent = %icon%
+label-occupied = %icon%
+label-empty = %icon%
 ws-icon-0 =0;
 ws-icon-1 =1;
 ws-icon-2 =2;
@@ -146,13 +213,6 @@ animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-framerate = 500
-
-[module/volume]
-type = internal/volume
-master-mixer = Master
-format-volume =  <label-volume>
-label-muted =  muted
-label-muted-foreground = #66
 
 [module/xwindow]
 type = internal/xwindow

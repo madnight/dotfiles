@@ -7,8 +7,8 @@
 #                                                                                  _|
 #                                                                              _|_|
 
-set $default_gaps_inner 50
-set $default_gaps_outer 0
+set $default_gaps_inner 20
+set $default_gaps_outer 30
 gaps inner $default_gaps_inner
 gaps outer $default_gaps_outer
 smart_borders on
@@ -182,7 +182,6 @@ bindsym $mod+Shift+9 move container to workspace 9
 # desk
 bindsym $mod+0 workspace 0
 bindsym $mod+Shift+0 move container to workspace 0
-
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

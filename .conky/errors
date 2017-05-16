@@ -18,7 +18,7 @@ draw_graph_borders yes
 default_color white
 default_shade_color black
 alignment top_right
-gap_x 670
+gap_x 660
 gap_y 770
 no_buffers yes
 double_buffer yes
@@ -29,6 +29,7 @@ override_utf8_locale yes
 own_window yes
 own_window_class Conky
 own_window_type override
+default_color cccccc
 
 TEXT
 ${execi 1 journalctl -p 3 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 18}

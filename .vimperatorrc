@@ -1,0 +1,4 @@
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+set gui=nomenu
+nnoremap j 3j
+nnoremap k 3k

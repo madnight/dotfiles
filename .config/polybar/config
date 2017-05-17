@@ -1,6 +1,5 @@
 " vi: ft=dosini
 
-
 [colors]
 background = ${xrdb:color0:#222}
 background-alt = #444
@@ -12,27 +11,24 @@ secondary = #e60053
 alert = #bd2c40
 
 [global/wm]
-; Adjust the _NET_WM_STRUT_PARTIAL top value
-;   Used for top aligned bars
+; used for top aligned bars
 margin-bottom = 5
-; Adjust the _NET_WM_STRUT_PARTIAL bottom value
-;   Used for bottom aligned bars
+; used for bottom aligned bars
 margin-top = 0
 
-[bar/top]
+
+[bar/base]
 height = 24
 background = #181715
 foreground = #C1C1C1
 linecolor = #fba922
 accent = #e60053
 bordercolor = #333
-
 ; tray settings
 tray-offset-x = 898
 tray-maxsize = 22
 ; tray-position = center
 tray-transparent = false
-
 ; margin Setup
 ; module-margin = 1
 padding-left = 0
@@ -45,8 +41,8 @@ width = 98%
 radius = 10.0
 offset-x = 20
 offset-y = 15
-; override-redirect = true
-; wm-restack = i3
+override-redirect = true
+wm-restack = bspwm
 
 underline-size = 2
 overline-size = 2
@@ -55,7 +51,6 @@ overline-size = 2
 line-color = #ffffff
 separator = %{F#525252}|%{F-}
 fixed-center = true
-
 ; font-0 = Misc Fixed:pixelsize=12;1
 ; font-0 = Misc Tamzen:pixelsize=15;1
 font-0 = Gohu Gohufont:pixelsize=14;2
@@ -68,13 +63,21 @@ font-6 = unifont:fontformat=truetype:size=6:heavy;-2
 font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
 modules-left = apps vpn weather fs-root cputemp cpu
-; modules-center = i3
-modules-center = i3 bspwm
 modules-right = gputemp memory wired updates volume date time
-; scroll-up = i3wm-wsnext
-; scroll-down = i3wm-wsprev
+
+[bar/top-bspwm]
+inherit = bar/base
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
+modules-center = bspwm
+wm-restack = bspwm
+
+[bar/top-i3]
+inherit = bar/base
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+modules-center = i3
+wm-restack = i3
 
 [module/wired]
 type = internal/network
@@ -91,13 +94,6 @@ type = internal/fs
 interval = 25
 mount-0 = /
 label-mounted =  %free%
-
-; [module/volume]
-; type = internal/volume
-; master-mixer = Master
-; format-volume =  <label-volume>
-; label-muted =  muted
-; label-muted-foreground = #66
 
 [module/volume]
 type = internal/volume
@@ -145,7 +141,7 @@ ws-icon-6 =6;
 
 [module/bspwm]
 type = internal/bspwm
-pin-workspaces = false
+pin-workspaces = true
 strip-wsnumbers = true
 enable-click = true
 inline-mode = false
@@ -153,8 +149,7 @@ reverse-scroll = false
 fuzzy-match = true
 index-sort = true
 enable-scroll = false
-label-focused-padding = 1
-label-dimmed-padding = 1
+; label-dimmed-padding = 1
 label-dimmed-foreground = #525252
 label-focused-foreground = #ffffff
 label-urgent-foreground = #B47352
@@ -164,7 +159,12 @@ label-focused = %icon%
 label-dimmed = %icon%
 label-urgent = %icon%
 label-occupied = %icon%
-label-empty = %icon%
+label-empty =
+label-dimmend-padding = 1
+label-urgent-padding = 1
+label-occupied-padding = 1
+label-empty-padding = 1
+label-focused-padding = 1
 ws-icon-0 =0;
 ws-icon-1 =1;
 ws-icon-2 =2;

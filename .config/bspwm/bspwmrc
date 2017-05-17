@@ -1,12 +1,13 @@
 #!/bin/sh
 
-bspc config border_width        1
-bspc config window_gap          10
+bspc config border_width 2
+bspc config window_gap 10
 
 # for monitor in $(bspc query -M); do
     # bspc monitor $monitor -d 1,2,3,4,5,6,7,8,9
 # done
 
+bspc monitor ^1 -d 1 2 3 4 5 6 7 8 9
 bspc monitor -d 1 2 3 4 5 6 7 8 9 0
 
 bspc config top_padding 60
@@ -29,10 +30,13 @@ bspc config urgent_border_color "#9f7155"
 bspc config focused_locked_border_color "#9a875f"
 bspc config normal_frame_opacity 0.0
 bspc config focused_frame_opacity 0.1
+bspc config click_to_focus
 
 # Rules
-bspc rule -a '*:keepassx' state=floating
 bspc rule -a Chromium-browser desktop=^1
+bspc rule -a Thunderbird desktop=^3
+bspc rule -a VLC desktop=^4
+bspc rule -a '*:keepassx' state=floating
 bspc rule -a Skype pseudo_tiled=on
 bspc rule -a Spotify pseudo_tiled=on
 bspc rule -a Thunar pseudo_tiled=on

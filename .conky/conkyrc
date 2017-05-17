@@ -18,7 +18,7 @@ default_color white
 default_shade_color black
 alignment top_right
 gap_x 180
-gap_y 42
+gap_y 50
 cpu_avg_samples 2
 override_utf8_locale no
 uppercase yes

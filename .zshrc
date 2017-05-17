@@ -175,8 +175,23 @@ unsetopt HUP
 # private aliases and functions suchs as backup
 [[ -e ~/.zshrc_priv ]] && source ~/.zshrc_priv
 # import prompt, aliases and functions
-[[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
+# [[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
+
+source ~/.zplug/init.zsh
+zplug mafredri/zsh-async, from:github
+zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
+
+# just enter âcd â¦./dirâ
+rationalise-dot() {
+  if [[ $LBUFFER = *.. ]]; then
+    LBUFFER+=/..
+  else
+    LBUFFER+=.
+  fi
+}
+zle -N rationalise-dot
+bindkey . rationalise-dot
 
 

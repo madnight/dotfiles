@@ -49,7 +49,6 @@ xrdb ~/.Xresources
 xmodmap ~/.Xmodmap
 setxkbmap de
 
-
 # compositor
 # compton --backend glx --vsync opengl-swc &
 

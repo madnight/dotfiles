@@ -128,6 +128,10 @@ super + y
 super + g
     bspc node -s biggest
 
+# resize window to watch conky
+super + c
+    bspc config right_padding 200
+
 #############
 # state/flags
 #############

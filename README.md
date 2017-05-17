@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/madnight/dotfiles.svg?branch=master)](https://travis-ci.org/madnight/dotfiles)
 [![Issue Count](https://codeclimate.com/github/madnight/dotfiles/badges/issue_count.svg?maxAge=2592000)](https://codeclimate.com/github/madnight/dotfiles/issues)
 
-Arch setup 
+Arch setup
 
 | Software | Choice | Note
 | ------------- |:-------------:|-------------|

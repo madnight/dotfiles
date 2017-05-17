@@ -1,5 +1,11 @@
 " vi: ft=dosini
 
+[global/wm]
+; used for top aligned bars
+margin-bottom = 5
+; used for bottom aligned bars
+margin-top = 0
+
 [colors]
 background = ${xrdb:color0:#222}
 background-alt = #444
@@ -9,13 +15,6 @@ highlight = ${xrdb:color7}
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
-
-[global/wm]
-; used for top aligned bars
-margin-bottom = 5
-; used for bottom aligned bars
-margin-top = 0
-
 
 [bar/base]
 height = 24
@@ -29,25 +28,18 @@ tray-offset-x = 898
 tray-maxsize = 22
 ; tray-position = center
 tray-transparent = false
-; margin Setup
-; module-margin = 1
 padding-left = 0
 padding-right = 1
 module-margin-left = 1
 module-margin-right = 2
-
 ; fancy floating bar
 width = 98%
 radius = 10.0
 offset-x = 20
 offset-y = 15
 override-redirect = true
-wm-restack = bspwm
-
 underline-size = 2
 overline-size = 2
-; border-top-size = 1
-; border-top-color = #eee
 line-color = #ffffff
 separator = %{F#525252}|%{F-}
 fixed-center = true
@@ -111,36 +103,7 @@ bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = #525252
 
-[module/i3]
-type = internal/i3
-pin-workspaces = true
-index-sort = true
-strip-wsnumbers = true
-enable-scroll = false
-label-focused-padding = 1
-label-unfocused-padding = 1
-fuzzy-match = true
-label-unfocused-foreground = #525252
-label-focused-foreground = #ffffff
-; label-focused-background = #383838
-; label-focused-underline = #505050
-label-urgent-foreground = #B47352
-label-mode-padding = 1
-label-mode-foreground = #000
-label-focused = %icon%
-label-unfocused = %icon%
-label-urgent = %icon%
-label-visible = %icon%
-ws-icon-0 =0;
-ws-icon-1 =1;
-ws-icon-2 =2;
-ws-icon-3 =3;
-ws-icon-4 =4;
-ws-icon-5 =5;
-ws-icon-6 =6;
-
-[module/bspwm]
-type = internal/bspwm
+[module/wm]
 pin-workspaces = true
 strip-wsnumbers = true
 enable-click = true
@@ -149,10 +112,10 @@ reverse-scroll = false
 fuzzy-match = true
 index-sort = true
 enable-scroll = false
-; label-dimmed-padding = 1
 label-dimmed-foreground = #525252
 label-focused-foreground = #ffffff
 label-urgent-foreground = #B47352
+label-unfocused-foreground = #525252
 label-mode-padding = 1
 label-mode-foreground = #000
 label-focused = %icon%
@@ -165,6 +128,8 @@ label-urgent-padding = 1
 label-occupied-padding = 1
 label-empty-padding = 1
 label-focused-padding = 1
+label-unfocused = %icon%
+label-visible = %icon%
 ws-icon-0 =0;
 ws-icon-1 =1;
 ws-icon-2 =2;
@@ -172,15 +137,21 @@ ws-icon-3 =3;
 ws-icon-4 =4;
 ws-icon-5 =5;
 ws-icon-6 =6;
-
 ; ws-icon-default = 
+
+[module/i3]
+type = internal/i3
+inherit = module/wm
+
+[module/bspwm]
+type = internal/bspwm
+inherit = module/wm
 
 [module/cpu]
 type = internal/cpu
 interval = 3
 label = %{T9}%{T-}%percentage:3%%
 format = <label>
-; label-underline = #908A66
 
 [module/memory]
 type = internal/memory
@@ -223,20 +194,11 @@ label-foreground = #bbb
 type = internal/date
 label = %{T5}%{T-} %date%
 date = %a %d %b %Y
-interval = 5
 
 [module/time]
 type = internal/date
 label =  %time%
 time = %H:%M
-interval = 5
-
-; [module/date]
-; type = internal/date
-; interval = 1
-; time = %H:%M
-; format = <label>
-; label =  %date% %time%
 
 [module/powermenu]
 type = custom/menu

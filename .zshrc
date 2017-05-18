@@ -170,7 +170,7 @@ unset GREP_OPTIONS
 unsetopt HUP
 
 #################################
-# source additional zhs settings
+# source additional zsh settings
 #################################
 # private aliases and functions suchs as backup
 [[ -e ~/.zshrc_priv ]] && source ~/.zshrc_priv
@@ -183,7 +183,7 @@ source ~/.zplug/init.zsh
 zplug mafredri/zsh-async, from:github
 zplug sindresorhus/pure, use:pure.zsh, from:github, as:theme
 
-# just enter âcd â¦./dirâ
+# just enter ... dots
 rationalise-dot() {
   if [[ $LBUFFER = *.. ]]; then
     LBUFFER+=/..

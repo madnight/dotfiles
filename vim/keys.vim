@@ -34,11 +34,17 @@ nnoremap <silent> <C-e> :WinResizerStartResize<CR>
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap ZZ :call QuitPrompt()<cr>
 " Alt / Mod Key (A-,M-) := <ESC>
+
 nnoremap <silent> <ESC>h :TmuxNavigateLeft<cr>
 nnoremap <silent> <ESC>l :TmuxNavigateRight<cr>
 nnoremap <silent> <ESC>k :TmuxNavigateDown<cr>
 nnoremap <silent> <ESC>j :TmuxNavigateUp<cr>
 nnoremap <silent> <ESC>\ :TmuxNavigatePrevious<cr>
+
+map <silent> <ESC>H :vertical resize +5<cr>
+map <silent> <ESC>L :vertical resize -5<cr>
+map <silent> <ESC>J :resize +5<cr>
+map <silent> <ESC>K :resize -5<cr>
 
 noremap <Leader>a :Ack <cword><cr>
 noremap <Leader>s :Ack

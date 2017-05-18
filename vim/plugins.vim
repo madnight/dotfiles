@@ -82,8 +82,6 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'benmills/vimux',                          { 'on': 'VimuxRunCommand' }
 " a code-completion engine for Vim
 Plug 'Valloric/YouCompleteMe',                  { 'on': [], 'do': function('BuildYCM') }
-" resizer mode ctrl-e
-Plug 'simeji/winresizer',                       { 'on': 'WinResizerStartResize' }
 " Track the engine.
 Plug 'SirVer/ultisnips',                        { 'on': [] }
 " Snippets are separated from the engine. Add this if you want them:
@@ -206,6 +204,10 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
 
 " hardtime helps you break that annoying habit vimmers have
 " Plug 'takac/vim-hardtime',                      { 'on': 'HardTimeOn' }
+
+" dont need this plugin anymore, due to tmux like window resizing
+" resizer mode ctrl-e
+" Plug 'simeji/winresizer',                       { 'on': 'WinResizerStartResize' }
 
 call plug#end()
 

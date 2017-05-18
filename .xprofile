@@ -44,12 +44,17 @@ chromium &
 # sound
 pulseaudio --start &
 
+# reduce monitor brigthness at night
+redshift &
+
 xrdb ~/.Xdefaults
 xrdb ~/.Xresources
 xmodmap ~/.Xmodmap
 setxkbmap de
 
 # compositor
-# compton --backend glx --vsync opengl-swc &
+compton --backend glx --vsync opengl-swc &
 
+# polybar
+while true; do SHELL=/bin/bash polybar -r top-bspwm; done &
 

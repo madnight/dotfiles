@@ -58,7 +58,7 @@ XF86Tools
 
 # Notes
 F3
-    gvim ~/notes
+    urxvt -e zsh -c "vim ~/notes"
 
 # shutdown
 control + q

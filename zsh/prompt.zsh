@@ -83,12 +83,12 @@ bindkey . rationalise-dot
 # zle -N ale-line-finish
 # zle -N zle-keymap-select
 
-# local timing='$(printf "%%{$fg[black]%%}%.2f%%f" "$ZSH_COMMAND_TIME")'
+local timing='$(printf "%%{$fg[black]%%}%.2f%%f" "$ZSH_COMMAND_TIME")'
 
-# error="%{$fg[black]%}%(?..%? )"
-# right=("$git" "$error" "$timing")
+error="%{$fg[black]%}%(?..%? )"
+right=("$git" "$error" "$timing")
 
-# RPROMPT="%B%{$fg[black]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
+RPROMPT="%B%{$fg[black]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
 # # fix right prompt indentation
 # ZLE_RPROMPT_INDENT=0
 

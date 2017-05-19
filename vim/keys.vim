@@ -7,6 +7,9 @@
 "                  |___/
 
 
+
+nnoremap + <C-a>
+nnoremap - <C-x>
 nnoremap <Leader>vs :vsplit<cr>
 nnoremap <Leader>hs :split<cr>
 nnoremap <Leader>l :b#<cr>

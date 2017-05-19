@@ -129,7 +129,7 @@ super + g
 
 # resize window to watch conky
 super + c
-    bspc config right_padding 200
+    bspc config right_padding 210
 
 #############
 # state/flags

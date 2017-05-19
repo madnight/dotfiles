@@ -31,7 +31,7 @@ conky.config = {
 	default_color = '#cccccc',
 	default_bar_width = 200,
 	default_bar_height = 5,
-	lua_load = '~/.conky/conky_grey.lua',
+	lua_load = '~/.conky/conky.lua',
 	lua_draw_hook_post = 'main',
 };
 

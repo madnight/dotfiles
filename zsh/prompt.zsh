@@ -12,7 +12,7 @@ if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
   prompt_virtualenv
   prompt_context
   # prompt dir is already on rprompt
-  # prompt_dir
+  prompt_dir
   prompt_git
   # we dont need mercurial
   # prompt_hg

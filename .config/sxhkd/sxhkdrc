@@ -35,6 +35,10 @@ super + F4
 control + q
     kill -9 $(xdotool getactivewindow getwindowpid)
 
+# kill window
+control + super + q
+    shutdown -h now
+
 # lock screen
 F1
     bash ~/scripts/lock.sh"

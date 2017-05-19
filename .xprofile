@@ -55,6 +55,9 @@ setxkbmap de
 # compositor
 compton --backend glx --vsync opengl-swc &
 
+# hide mouse when not needed
+unclutter &
+
 # polybar
 while true; do SHELL=/bin/bash polybar -r top-bspwm; done &
 

@@ -1,41 +1,39 @@
-background no
-use_xft yes
-xftfont Gohu GohuFont:size=11
-update_interval 1.0
-total_run_times 0
-own_window yes
-own_window_type normal
-own_window_transparent yes
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
-double_buffer yes
-minimum_size 220 5
-maximum_width 300
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders yes
-default_color white
-default_shade_color black
-alignment top_right
-gap_x 180
-gap_y 50
-cpu_avg_samples 2
-override_utf8_locale no
-uppercase yes
-text_buffer_size 16000
-format_human_readable yes
-top_name_width 12
-own_window yes
-own_window_class Conky
-own_window_type override
-default_color cccccc
+conky.config = {
+	background = false,
+	use_xft = true,
+	font = 'Gohu GohuFont:size=11',
+	update_interval = 1.0,
+	total_run_times = 0,
+	own_window = true,
+	own_window_type = 'desktop',
+	own_window_class = 'Conky',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	double_buffer = true,
+	minimum_width = 220, minimum_height = 5,
+	maximum_width = 300,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	draw_graph_borders = true,
+	default_color = 'white',
+	default_shade_color = 'black',
+	alignment = 'top_right',
+	gap_x = 110,
+	gap_y = 50,
+	cpu_avg_samples = 2,
+	override_utf8_locale = false,
+	uppercase = true,
+	text_buffer_size = 16000,
+	format_human_readable = true,
+	top_name_width = 12,
+	default_color = '#cccccc',
+	default_bar_width = 250, default_bar_height = 5,
+	lua_load = '~/.conky/conky_grey.lua',
+	lua_draw_hook_post = 'main',
+};
 
-default_bar_size 250 5
-
-lua_load ~/.conky/conky_grey.lua
-lua_draw_hook_post main
-
-TEXT
+conky.text = [[
 #$stippled_hr
 #$alignc $nodename $sysname
 #${font Ubuntu:size=17}                     tlhIngan maH!${font}
@@ -104,3 +102,4 @@ AUDIO: $alignr ${exec amixer -c 0 get Master | grep 'Mono: Playback' | awk '{pri
 ${execbar echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' | tr -d '%')} $alignr ${execi 1 echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' )}
 ${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
 
+]];

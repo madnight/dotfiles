@@ -1,0 +1,166 @@
+#!/bin/bash
+set -eu
+
+# modify the following two variables to match your requirements
+# path to the folder where you store your colorschemes
+COLORSCHEME_PATH=~/.config/Colorschemes
+# path to your xrdb config file
+XRDB_CONF_PATH=~/.Xdefaults
+
+getXrdbColor() {
+    case "$@" in
+        blk | black)
+            xrdb -query | grep color0: | cut -d '#' -f2
+            ;;
+        red)
+            xrdb -query | grep color1: | cut -d '#' -f2
+            ;;
+        grn | green)
+            xrdb -query | grep color2: | cut -d '#' -f2
+            ;;
+        ylw | yellow)
+            xrdb -query |  grep color3: | cut -d '#' -f2
+            ;;
+        blu | blue)
+            xrdb -query |  grep color4: | cut -d '#' -f2
+            ;;
+        mag | magenta)
+            xrdb -query |  grep color5: | cut -d '#' -f2
+            ;;
+        cyn | cyan)
+            xrdb -query |  grep color6: | cut -d '#' -f2
+            ;;
+        wht | white)
+            xrdb -query |  grep color7: | cut -d '#' -f2
+            ;;
+        bblk | bblack)
+            xrdb -query |  grep color8: | cut -d '#' -f2
+            ;;
+        bred)
+            xrdb -query |  grep color9: | cut -d '#' -f2
+            ;;
+        bgrn | bgreen)
+            xrdb -query |  grep color10: | cut -d '#' -f2
+            ;;
+        bylw | byellow)
+            xrdb -query |  grep color11: | cut -d '#' -f2
+            ;;
+        bblu | bblue)
+            xrdb -query |  grep color12: | cut -d '#' -f2
+            ;;
+        bmag | bmagenta)
+            xrdb -query |  grep color13: | cut -d '#' -f2
+            ;;
+        bcyn | bcyan)
+            xrdb -query |  grep color14: | cut -d '#' -f2
+            ;;
+        bwht | bwhite)
+            xrdb -query |  grep color15: | cut -d '#' -f2
+            ;;
+        cs | cursor)
+            xrdb -query | grep cursorColor: | cut -d '#' -f2
+            ;;
+        bg | background)
+            xrdb -query | grep background: | cut -d '#' -f2
+            ;;
+        fg | foreground)
+            xrdb -query | grep foreground: | cut -d '#' -f2
+            ;;
+        *)
+            exit 1
+            ;;
+    esac
+}
+
+updateXrdb() {
+    xrdb -load $XRDB_CONF_PATH
+    xrdb -merge $COLORSCHEME
+}
+
+updateBspwm() {
+    bspc config normal_border_color "#$(getXrdbColor bblack)"
+    bspc config active_border_color "#$(getXrdbColor bblack)"
+    bspc config focused_border_color "#$(getXrdbColor cyan)"
+    bspc config presel_feedback_color "#$(getXrdbColor bblack)"
+}
+
+updateTerminal() {
+    local query terminal
+    # fg, bg, cs
+    query="\033]10;#$(getXrdbColor foreground)\007"
+    query+="\033]11;#$(getXrdbColor background)\007"
+    query+="\033]12;#$(getXrdbColor cursor)\007"
+    # urxvt borders
+    query+="\033]708;#$(getXrdbColor background)\007"
+    # colors
+    query+="\033]4;0;#$(getXrdbColor black)\007"
+    query+="\033]4;8;#$(getXrdbColor bblack)\007"
+    query+="\033]4;1;#$(getXrdbColor red)\007"
+    query+="\033]4;9;#$(getXrdbColor bred)\007"
+    query+="\033]4;2;#$(getXrdbColor green)\007"
+    query+="\033]4;10;#$(getXrdbColor bgreen)\007"
+    query+="\033]4;3;#$(getXrdbColor yellow)\007"
+    query+="\033]4;11;#$(getXrdbColor byellow)\007"
+    query+="\033]4;4;#$(getXrdbColor blue)\007"
+    query+="\033]4;12;#$(getXrdbColor bblue)\007"
+    query+="\033]4;5;#$(getXrdbColor magenta)\007"
+    query+="\033]4;13;#$(getXrdbColor bmagenta)\007"
+    query+="\033]4;6;#$(getXrdbColor cyan)\007"
+    query+="\033]4;14;#$(getXrdbColor bcyan)\007"
+    query+="\033]4;7;#$(getXrdbColor white)\007"
+    query+="\033]4;15;#$(getXrdbColor bwhite)\007"
+    # send sequence to all terminals
+    for terminal in /dev/pts/[0-9]*; do
+        printf "%b" "${query}" > "${terminal}" &
+    done
+}
+
+getColorschemePath() {
+    find "${COLORSCHEME_PATH}/${argument}".*resources -type f
+}
+
+showColorschemes() {
+    find "${COLORSCHEME_PATH}" -type f | sed 's/\..resources//g; s/.*\///g'
+}
+
+showHelp() {
+    echo \
+'Make sure that the variables located at the top of the script colorscheme-switch match your setup
+Usage: colorscheme-switch (-h | --help) | (-l | --list) | (-s colorscheme | --switch colorscheme)
+    --help = show this help text
+    --list = list all available colorschemes
+    --switch = set a available colorscheme in xrdb and all terminals'
+
+}
+
+main() {
+    local option argument
+    option="${1-}"
+    argument="${2-}"
+    case "${option}" in
+        -s | --switch)
+            if getColorschemePath &> /dev/null; then
+                COLORSCHEME="$(getColorschemePath)"
+                updateXrdb
+                updateTerminal
+                if pgrep -x bspwm &> /dev/null; then
+                    updateBspwm
+                fi
+            else
+                exit 1
+            fi
+            ;;
+        -l | --list)
+            showColorschemes
+            ;;
+        -h | --help)
+            showHelp
+            ;;
+        *)
+            exit 1
+            ;;
+    esac
+}
+
+COLORSCHEME=''
+main "$@"

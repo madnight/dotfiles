@@ -8,7 +8,7 @@
 
 
 nnoremap <Leader>vs :vsplit<cr>
-nnoremap <Leader>hs :hsplit<cr>
+nnoremap <Leader>hs :split<cr>
 nnoremap <Leader>l :b#<cr>
 nnoremap <Leader>q :q<cr>
 nnoremap <Leader>wq :wq<cr>

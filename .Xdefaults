@@ -39,7 +39,7 @@ xterm*VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(
 urxvt.buffered:             false
 ! use tmux scroll buffer instead
 urxvt*saveLines:            999
-urxvt.letterSpace:          0
+urxvt.letterSpace:          -1
 urxvt.cursorUnderline:      true
 urxvt.cursorBlink:          false
 urxvt.urgentOnBell:         true

@@ -43,9 +43,12 @@ overline-size = 2
 line-color = #ffffff
 separator = %{F#525252}|%{F-}
 fixed-center = true
+
+font-0 = lucy tewii:pixelsize=8;1
 ; font-0 = Misc Fixed:pixelsize=12;1
 ; font-0 = Misc Tamzen:pixelsize=15;1
-font-0 = Gohu Gohufont:pixelsize=14;2
+; font-0 = Gohu Gohufont:pixelsize=14;2
+; font-0 = xos4 terminus:pixelsize=8;
 font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;3
 font-2 = Hasklig Nerd Font:pixelsize=20;5
 font-3 = UbuntuMono Nerd Font:pixelsize=14;1
@@ -56,6 +59,8 @@ font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
 modules-left = apps vpn weather fs-root cputemp cpu
 modules-right = gputemp memory wired updates volume date time
+; modules-left = apps vpn weather fs-root cputemp cpu-ramp
+; modules-right = gputemp memory-bar wired updates volume date time
 
 [bar/top-bspwm]
 inherit = bar/base
@@ -102,6 +107,7 @@ bar-volume-fill-font = 2
 bar-volume-empty = ─
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = #525252
+
 
 [module/wm]
 pin-workspaces = true
@@ -153,11 +159,50 @@ interval = 3
 label = %{T9}%{T-}%percentage:3%%
 format = <label>
 
+[module/cpu-ramp]
+type = internal/cpu
+interval = 3
+format = <label> <ramp-coreload>
+label = %{T9}%{T-}
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
 [module/memory]
 type = internal/memory
 interval = 3
 format = <label>
 label = %{T5}%{T-} %gb_used%
+
+[module/memory-bar]
+type = internal/memory
+format = <label> <bar-used>
+label = %{T5}%{T-}
+bar-used-width = 8
+bar-used-indicator = |
+bar-used-indicator-font = 2
+bar-used-indicator-foreground = #ff
+bar-used-fill = ━
+bar-used-fill-font = 2
+bar-used-empty = ─
+bar-used-empty-font = 2
+bar-used-empty-foreground = #525252
 
 [module/battery]
 type = internal/battery

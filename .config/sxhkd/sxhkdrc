@@ -7,10 +7,6 @@
 super + Return
     urxvt
 
-# program launcher
-super + @space
-    dmenu_run
-
 # make sxhkd reload its configuration files:
 super + Escape
     pkill -USR1 -x sxhkd; \
@@ -37,7 +33,7 @@ control + q
 
 # kill window
 control + super + q
-    shutdown -h now
+    zenity --question --text="Shutdown?" && shutdown -h now
 
 # lock screen
 F1
@@ -113,11 +109,7 @@ alt + Tab
 
 # quit bspwm normally
 super + alt + Escape
-    bspc quit
-
-# close and kill
-# control + q
-    # bspc node -k
+    zenity --question --text="Quit bspwm?" && bspc quit
 
 # reload sxhkd config
 super + shift + r
@@ -151,6 +143,10 @@ super + {t,shift + t,s,f}
 super + ctrl + {x,y,z}
     bspc node -g {locked,sticky,private}
 
+# switch floating
+super + @space
+    bspc node -t floating
+
 ############
 # focus/swap
 ############
@@ -164,7 +160,7 @@ super + {p,b,comma,period}
     bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node in the current desktop
-super + {_,shift + }c
+super + {_,shift + } Tab
     bspc node -f {next,prev}.local
 
 # focus the next/previous desktop in the current monitor
@@ -214,7 +210,7 @@ super + alt + {h,j,k,l}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
-super + alt + shift + {h,j,k,l}
+super + shift + {h,j,k,l}
     bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # move a floating window

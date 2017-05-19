@@ -59,6 +59,7 @@ noremap <Leader>gs :Gstatus<cr>
 noremap <Leader>gc :Gcommit<cr>
 noremap <Leader>ga :Gwrite<cr>
 noremap <Leader>gl :Glog<cr>
+noremap <Leader>gh :Glog<cr>
 noremap <Leader>gd :Gdiff<cr>
 noremap <Leader>gb :Gblame<cr>
 

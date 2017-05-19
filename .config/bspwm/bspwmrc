@@ -34,9 +34,10 @@ bspc config focused_frame_opacity 0.1
 bspc config click_to_focus
 
 # Rules
+bspc rule -a Conky sticky=on manage=off lower=on
 bspc rule -a Chromium-browser desktop=^1
 bspc rule -a Thunderbird desktop=^3
-bspc rule -a VLC desktop=^4
+bspc rule -a vlc desktop=^4
 bspc rule -a '*:keepassx' state=floating
 bspc rule -a Skype pseudo_tiled=on
 bspc rule -a Spotify pseudo_tiled=on
@@ -44,7 +45,6 @@ bspc rule -a Thunar pseudo_tiled=on
 bspc rule -a Skype pseudo_tiled=on
 bspc rule -a File-roller pseudo_tiled=on
 bspc rule -a Transmission-gtk pseudo_tiled=on
-bspc rule -a Conky sticky=on manage=off lower=on
 bspc rule -a astime sticky=on
 bspc rule -a feh floating=on manage=off
 bspc rule -a gcolor2 floating=true center=true

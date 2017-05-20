@@ -76,6 +76,12 @@ scroll-down = i3wm-wsprev
 modules-center = i3
 wm-restack = i3
 
+[module/kernel]
+type = custom/script
+exec = uname -r
+tail = false
+interval = 1024
+
 [module/wired]
 type = internal/network
 interface = enp5s0

@@ -45,6 +45,10 @@ sxhkd -c Git/dotfiles/.config/sxhkd/sxhkdrc &
 DEFAULT_SESSION='bspwm'
 # DEFAULT_SESSION='i3 --shmlog-size 0'
 
+xmodmap -e "clear Lock"
+xmodmap -e "keycode 9 = NoSymbol"
+xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+
 case $1 in
   bspwm         ) exec dbus-launch bspwm-session ;;
   cinnamon      ) exec dbus-launch cinnamon-session ;;

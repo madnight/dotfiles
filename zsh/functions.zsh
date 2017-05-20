@@ -496,3 +496,29 @@ if [[ 18 -lt $1 ]] then
 function monitor() {
     watch -n1 -t "lsof -i -n|awk '{print \$1, \$2, \$9}'|column -t";
 }
+
+########################
+# fzf enhanced functions
+########################
+fe() {
+  local files
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
+# fkill - kill process
+fkill() {
+  local pid
+  pid=$(ps -aux | sed 1d | fzf -m | awk '{print $1}')
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+
+# cd into the directory of the selected file
+fcd() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
+}

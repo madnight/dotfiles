@@ -76,6 +76,11 @@ scroll-down = i3wm-wsprev
 modules-center = i3
 wm-restack = i3
 
+[module/redshift]
+type = custom/script
+interval = 5
+exec = ~/.config/polybar/redshift.sh
+
 [module/kernel]
 type = custom/script
 exec = uname -r

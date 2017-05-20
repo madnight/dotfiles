@@ -31,9 +31,13 @@ super + F4
 control + q
     kill -9 $(xdotool getactivewindow getwindowpid)
 
-# kill window
+# shutdown
 control + super + q
     zenity --question --text="Shutdown?" && shutdown -h now
+
+# restart
+control + super + r
+    zenity --question --text="Restart?" && shutdown -r now
 
 # lock screen
 F1
@@ -62,10 +66,6 @@ XF86Tools
 # Notes
 F3
     urxvt -e zsh -c "vim ~/notes"
-
-# shutdown
-control + q
-    systemctl poweroff
 
 ################
 # volume related
@@ -129,7 +129,7 @@ super + g
 
 # resize window to watch conky
 super + c
-    bspc config right_padding 210
+    zsh ~/scripts/bspwm-toggle-conky-padding.zsh
 
 #############
 # state/flags
@@ -143,9 +143,9 @@ super + {t,shift + t,s,f}
 super + ctrl + {x,y,z}
     bspc node -g {locked,sticky,private}
 
-# switch floating
+# toggle floating
 super + @space
-    bspc node -t floating
+    bspc node -t floating || bspc node -t tiled
 
 ############
 # focus/swap

@@ -1,11 +1,10 @@
 
-#              _|  _|_|_|                                          _|_|  _|
-#                        _|        _|_|_|    _|_|    _|_|_|      _|            _|_|_|
-#              _|    _|_|        _|        _|    _|  _|    _|  _|_|_|_|  _|  _|    _|
-#              _|        _|      _|        _|    _|  _|    _|    _|      _|  _|    _|
-#              _|  _|_|_|          _|_|_|    _|_|    _|    _|    _|      _|    _|_|_|
-#                                                                                  _|
-#                                                                              _|_|
+#         _ _____                    __ _
+#        (_)___ /    ___ ___  _ __  / _(_) __ _
+#        | | |_ \   / __/ _ \| '_ \| |_| |/ _` |
+#        | |___) | | (_| (_) | | | |  _| | (_| |
+#        |_|____/   \___\___/|_| |_|_| |_|\__, |
+#                                         |___/
 
 set $default_gaps_inner 15
 set $default_gaps_outer 0
@@ -22,61 +21,56 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id xfce4-volumed
 exec --no-startup-id xscreensaver -nosplash
-# exec --no-startup-id xfce4-panel --disable-wm-check &
 exec --no-startup-id SHELL=/bin/bash polybar top-i3 -r &
-# exec --no-startup-id xinput --set-prop 9 'Device Accel Constant Deceleration' 3
 exec --no-startup-id xset mouse 3 6
 exec --no-startup-id i3-msg 'workspace 2; exec /usr/bin/urxvt -e "tmux"'
 
-for_window [class="(?i)gcolor2"] floating enable
-for_window [class="(?i)deja"] floating enable, border none
-for_window [class="(?i)xsane"] floating enable
-for_window [class="(?i)guake"] floating enable
-for_window [class="(?i)truecrypt"] floating enable
-for_window [class="(?i)keepass"] floating enable
-for_window [class="(?i)skype"] floating enable
-for_window [class="(?i)pavucontrol"] floating enable
-for_window [class="(?i)gadmin-proftp"] floating enable
-for_window [class="(?i)chromium"] border none
-for_window [class="(?i)thunar"] floating enable
-for_window [class="(?i)polybar"] floating enable
-for_window [class="(?i)SpeedCrunch"] floating enable
-for_window [class="(?i)MultiSystem"] floating enable
-for_window [class="(?i)gtkdialog"] floating enable
-for_window [instance="^weechat$"] floating enable, move absolute position 750 600, resize shrink width 100 px or 100 ppt, resize shrink height 100 px or 100 ppt
-for_window [instance="^weechat$"] border none
-for_window [class="URxvt" instance="ranger"] border normal, floating enable
-for_window [window_role="pop-up"] floating enable
-for_window [window_role="task_dialog"] floating enable
-for_window [window_role="about"] floating enable
-for_window [window_role="gtkdialog"] floating enable
-for_window [title="Preferences$"] floating enable
-for_window [title="alsamixer"] floating enable border pixel 1
-for_window [class="Calamares"] floating enable border normal
-for_window [class="Clipgrab"] floating enable
-for_window [title="File Transfer*"] floating enable
-for_window [class="Galculator"] floating enable border pixel 1
-for_window [class="GParted"] floating enable border normal
-for_window [title="i3_help"] floating enable sticky enable border normal
-for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="(?i)gcolor2"]              floating enable
+for_window [class="(?i)deja"]                 floating enable, border none
+for_window [class="(?i)xsane"]                floating enable
+for_window [class="(?i)guake"]                floating enable
+for_window [class="(?i)truecrypt"]            floating enable
+for_window [class="(?i)keepass"]              floating enable
+for_window [class="(?i)skype"]                floating enable
+for_window [class="(?i)pavucontrol"]          floating enable
+for_window [class="(?i)gadmin-proftp"]        floating enable
+for_window [class="(?i)thunar"]               floating enable
+for_window [class="(?i)polybar"]              floating enable
+for_window [class="(?i)SpeedCrunch"]          floating enable
+for_window [class="(?i)MultiSystem"]          floating enable
+for_window [class="(?i)gtkdialog"]            floating enable
+for_window [class="Calamares"]                floating enable border normal
+for_window [class="Clipgrab"]                 floating enable
+for_window [class="Galculator"]               floating enable border pixel 1
+for_window [class="GParted"]                  floating enable border normal
+for_window [class="Lxappearance"]             floating enable sticky enable border normal
 for_window [class="Manjaro Settings Manager"] floating enable border normal
-for_window [class="Manjaro Welcome"] floating enable
-for_window [title="MuseScore: Play Panel"] floating enable
-for_window [class="Nitrogen"] floating enable sticky enable border normal
-for_window [class="Oblogout"] fullscreen enable
-for_window [class="octopi"] floating enable
-for_window [class="Pamac-manager"] floating enable
-for_window [class="Pavucontrol"] floating enable
-for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-for_window [class="Simple-scan"] floating enable border normal
-for_window [class="(?i)System-config-printer.py"] floating enable border normal
-for_window [class="Skype"] floating enable border normal
-for_window [class="Thus"] floating enable border normal
-for_window [class="Timeset-gui"] floating enable border normal
-for_window [class="(?i)virtualbox"] floating enable border normal
-for_window [class="Xfburn"] floating enable
-# for_window [class="polybar"] tiling enable border no
+for_window [class="Manjaro Welcome"]          floating enable
+for_window [class="Nitrogen"]                 floating enable sticky enable border normal
+for_window [class="octopi"]                   floating enable
+for_window [class="Pamac-manager"]            floating enable
+for_window [class="Pavucontrol"]              floating enable
+for_window [class="Qtconfig-qt4"]             floating enable sticky enable border normal
+for_window [class="Simple-scan"]              floating enable border normal
+for_window [class="Skype"]                    floating enable border normal
+for_window [class="Thus"]                     floating enable border normal
+for_window [class="Timeset-gui"]              floating enable border normal
+for_window [class="(?i)virtualbox"]           floating enable border normal
+for_window [class="Xfburn"]                   floating enable
+for_window [instance="^weechat$"]             floating enable, move absolute position 750 600, resize shrink width 100 px or 100 ppt, resize shrink height 100 px or 100 ppt
+for_window [title="MuseScore: Play Panel"]    floating enable
+for_window [title="i3_help"]                  floating enable sticky enable border normal
+for_window [title="File Transfer*"]           floating enable
+for_window [title="Preferences$"]             floating enable
+for_window [title="alsamixer"]                floating enable border pixel 1
+for_window [window_role="pop-up"]             floating enable
+for_window [window_role="task_dialog"]        floating enable
+for_window [window_role="about"]              floating enable
+for_window [window_role="gtkdialog"]          floating enable
+for_window [instance="^weechat$"]             border none
+for_window [class="(?i)chromium"]             border none
+for_window [class="URxvt" instance="ranger"]  border normal, floating enable
+for_window [class="Oblogout"]                 fullscreen enable
 
 bindsym Mod1+23 exec workspace next
 bindsym $mod+n workspace back_and_forth
@@ -104,12 +98,12 @@ bindsym $mod+d workspace next
 bindsym $mod+a workspace prev
 
 # change focus
-bindsym $mod+h focus left
-bindsym $mod+l focus right
-bindsym $mod+j focus down
-bindsym $mod+k focus up
+bindsym $mod+h         focus left
+bindsym $mod+l         focus right
+bindsym $mod+j         focus down
+bindsym $mod+k         focus up
 bindsym $mod+semicolon focus left
-bindsym $mod+colon focus right
+bindsym $mod+colon     focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left workspace prev
@@ -138,51 +132,33 @@ bindsym $mod+Shift+e layout toggle split
 bindsym $mod+Shift+space focus mode_toggle
 bindsym $mod+space floating toggle
 
-# workspaces
-
 # assignemts
-assign [class="(?i)chromium"] → 1
-assign [class="(?i)vlc"] → 4
-assign [class="(?i)thunderbird"] → 3
-assign [class="(?i)mutt"] → 3
+assign [class="(?i)chromium"] 1
+assign [class="(?i)vlc"] 4
+assign [class="(?i)thunderbird"] 3
+assign [class="(?i)mutt"] 3
 
-# www
-bindsym $mod+1 workspace 1
 bindsym $mod+Shift+1 move container to workspace 1
-
-# tmux
-bindsym $mod+2 workspace 2
 bindsym $mod+Shift+2 move container to workspace 2
-
-# mail
-bindsym $mod+3 workspace 3
 bindsym $mod+Shift+3 move container to workspace 3
-
-# music
-bindsym $mod+4 workspace 4
 bindsym $mod+Shift+4 move container to workspace 4
-
-# chat
-bindsym $mod+5 workspace 5
 bindsym $mod+Shift+5 move container to workspace 5
-
-# filemanager
-bindsym $mod+6 workspace 6
 bindsym $mod+Shift+6 move container to workspace 6
-
-bindsym $mod+7 workspace 7
 bindsym $mod+Shift+7 move container to workspace 7
-
-# net
-bindsym $mod+8 workspace 8
 bindsym $mod+Shift+8 move container to workspace 8
-
-bindsym $mod+9 workspace 9
 bindsym $mod+Shift+9 move container to workspace 9
-
-# desk
-bindsym $mod+0 workspace 0
 bindsym $mod+Shift+0 move container to workspace 0
+
+bindsym $mod+0 workspace 0
+bindsym $mod+9 workspace 9
+bindsym $mod+8 workspace 8
+bindsym $mod+7 workspace 7
+bindsym $mod+6 workspace 6
+bindsym $mod+5 workspace 5
+bindsym $mod+4 workspace 4
+bindsym $mod+3 workspace 3
+bindsym $mod+2 workspace 2
+bindsym $mod+1 workspace 1
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -196,12 +172,12 @@ bindsym $mod+Shift+q exec "i3-nagbar -t warning -m 'Do you really want to exit i
 # resize window (you can also use the mouse for that)
 mode "resize" {
     # Resize the border in the desired direction.
-    bindsym h       resize grow   left 10 px or 10 ppt
-    bindsym Shift+H resize shrink left 10 px or 10 ppt
-    bindsym j       resize grow   down 10 px or 10 ppt
-    bindsym Shift+J resize shrink down 10 px or 10 ppt
-    bindsym k       resize grow   up 10 px or 10 ppt
-    bindsym Shift+K resize shrink up 10 px or 10 ppt
+    bindsym h       resize grow   left  10 px or 10 ppt
+    bindsym Shift+H resize shrink left  10 px or 10 ppt
+    bindsym j       resize grow   down  10 px or 10 ppt
+    bindsym Shift+J resize shrink down  10 px or 10 ppt
+    bindsym k       resize grow   up    10 px or 10 ppt
+    bindsym Shift+K resize shrink up    10 px or 10 ppt
     bindsym l       resize grow   right 10 px or 10 ppt
     bindsym Shift+L resize shrink right 10 px or 10 ppt
 

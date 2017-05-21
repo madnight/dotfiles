@@ -57,7 +57,7 @@ compton --backend glx --vsync opengl-swc &
 unclutter &
 
 # polybar
-while true; do SHELL=/bin/bash polybar -r top-bspwm; done &
+# while true; do SHELL=/bin/bash polybar -r top-bspwm; done &
 
 # hotkey deamon
-sxhkd -c Git/dotfiles/.config/sxhkd/sxhkdrc &
+sxhkd &

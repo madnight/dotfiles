@@ -15,7 +15,7 @@ bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && con
 bash -c 'sleep 10 && conky -c ~/.conky/errors' &
 
 # backup packages list
-bash -c "pacman -Qqe > ~/Dropbox/ArchBackup/pkglist_$(date +%F).txt" &
+zsh-c "pacman -Qqe >! ~/scripts/backup/pkglist.txt" &
 
 # automute while afk
 bash -c "~/scripts/automute.sh" &

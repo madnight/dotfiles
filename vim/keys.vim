@@ -13,6 +13,8 @@ nnoremap <Leader>cn :cnext<cr>
 nnoremap <Leader>cp :cprev<cr>
 nnoremap + <C-a>
 nnoremap - <C-x>
+nnoremap <Leader>fh :History<cr>
+nnoremap <Leader>fb :Buffer<cr>
 nnoremap <Leader>vs :vsplit<cr>
 nnoremap <Leader>hs :split<cr>
 nnoremap <Leader>l :b#<cr>
@@ -24,7 +26,6 @@ nnoremap <Leader>vk :VimuxInterruptRunner<cr>
 nnoremap K :Ack! '<C-r><C-w>'<cr>
 nnoremap <C-j> <C-w>j
 nnoremap K :Ack! '<C-r><C-w>'<cr>
-nnoremap <Leader>sb :CtrlPBuffer<CR>
 " serach Most recently used (MRU) files (native vim function [oldfiles])
 nnoremap <C-m> :History<CR>
 nnoremap <Leader>cd :lcd %:p:h<CR>
@@ -53,7 +54,7 @@ map <silent> <ESC>J :resize +5<cr>
 map <silent> <ESC>K :resize -5<cr>
 
 noremap <Leader>a :Ack <cword><cr>
-noremap <Leader>s :Ack
+noremap <Leader>ack :Ack 
 noremap <C-X> :bd<CR>
 noremap <silent> <c-up> :call SwapUp()<CR>
 noremap <silent> <c-down> :call SwapDown()<CR>
@@ -70,7 +71,8 @@ noremap <Leader>gd :Gdiff<cr>
 noremap <Leader>gb :Gblame<cr>
 
 nmap <Leader>cw <ESC>
-nmap s <Plug>(easymotion-bd-f)
+nmap <Leader>s <Plug>(easymotion-overwin-f)
+nmap <C-f> <Plug>(easymotion-overwin-f)
 nmap <Leader>rv <ESC>:so ~/.vimrc<CR>
 nmap <Leader>pi <ESC>:PlugInstall<CR>
 nmap <Leader>v <ESC>:so ~/.vimrc<CR>

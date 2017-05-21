@@ -157,6 +157,7 @@ command! WS w !sudo tee %
 colorscheme hybrid
 hi clear CursorLine
 hi clear SpellBad
+highlight LineNr ctermfg=DarkGrey
 hi SpellBad cterm=underline ctermfg=red
 hi LineNr guibg=#1D1F21
 

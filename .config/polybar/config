@@ -2,7 +2,7 @@
 
 [global/wm]
 ; used for top aligned bars
-margin-bottom = 5
+margin-bottom = 20
 ; used for bottom aligned bars
 margin-top = 0
 
@@ -43,7 +43,6 @@ overline-size = 2
 line-color = #ffffff
 separator = %{F#525252}|%{F-}
 fixed-center = true
-
 font-0 = lucy tewii:pixelsize=8;1
 ; font-0 = Misc Fixed:pixelsize=12;1
 ; font-0 = Misc Tamzen:pixelsize=15;1
@@ -74,7 +73,9 @@ inherit = bar/base
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 modules-center = i3
-wm-restack = i3
+offset-y = 0
+; wm-restack = i3
+override-redirect = false
 
 [module/redshift]
 type = custom/script

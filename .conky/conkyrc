@@ -102,6 +102,6 @@ ${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
 
 Syslog
 $stippled_hr
-${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | cut -d" " -f5- | fold -w 33 }
+${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | cut -d" " -f5- | fold -w 33 | head -n 18 }
 $stippled_hr
 ]];

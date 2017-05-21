@@ -10,7 +10,7 @@
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 
 # wait for active internet connection and start desktop background monitor
-bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && conky -c ~/.conky/conkyrc' &
+bash -c 'while true; do conky -c ~/.conky/conkyrc; done &' &
 
 # backup packages list
 zsh-c "pacman -Qqe >! ~/scripts/backup/pkglist.txt" &
@@ -59,3 +59,5 @@ unclutter &
 # polybar
 while true; do SHELL=/bin/bash polybar -r top-bspwm; done &
 
+# hotkey deamon
+sxhkd -c Git/dotfiles/.config/sxhkd/sxhkdrc &

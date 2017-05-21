@@ -14,13 +14,11 @@ xset +fp ~/.fonts
 xset +fp /usr/share/fonts/local
 xset fp rehash
 # disable terminal bell
-xset -b  
+xset -b
 xsetroot -cursor_name left_ptr &
 xrdb -merge ~/.Xresources
 xrdb -merge ~/.Xdefaults
 source ~/.xprofile
-# hotkey deamon
-sxhkd -c Git/dotfiles/.config/sxhkd/sxhkdrc &
 
 # sync primary clipboard and GTK clipboard
 autocutsel -fork &
@@ -44,3 +42,6 @@ case $1 in
   xfce          ) exec dbus-launch xfce4-session ;;
   *             ) exec dbus-launch $DEFAULT_SESSION ;;
 esac
+
+# hotkey deamon
+sxhkd -c Git/dotfiles/.config/sxhkd/sxhkdrc &

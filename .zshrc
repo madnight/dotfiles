@@ -1,10 +1,10 @@
 
-# ███████╗███████╗██╗  ██╗     ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗
-# ╚══███╔╝██╔════╝██║  ██║    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝
-#   ███╔╝ ███████╗███████║    ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
-#  ███╔╝  ╚════██║██╔══██║    ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
-# ███████╗███████║██║  ██║    ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
-# ╚══════╝╚══════╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝
+ #                _                        __ _
+ #        _______| |__     ___ ___  _ __  / _(_) __ _
+ #       |_  / __| '_ \   / __/ _ \| '_ \| |_| |/ _` |
+ #        / /\__ \ | | | | (_| (_) | | | |  _| | (_| |
+ #       /___|___/_| |_|  \___\___/|_| |_|_| |_|\__, |
+ #                                              |___/
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -275,14 +275,5 @@ globalias() {
    zle self-insert
 }
 zle -N globalias
-
-# space expands all aliases, including global
-bindkey -M emacs " " globalias
 bindkey -M viins " " globalias
 
-# control-space to make a normal space
-bindkey -M emacs "^ " magic-space
-bindkey -M viins "^ " magic-space
-
-# normal space during searches
-bindkey -M isearch " " magic-space

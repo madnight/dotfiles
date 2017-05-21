@@ -12,8 +12,6 @@ bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 # wait for active internet connection and start desktop background monitor
 bash -c 'while [[ ! $(curl -I google.com | grep 302) ]]; do sleep 1; done && conky -c ~/.conky/conkyrc' &
 
-bash -c 'sleep 10 && conky -c ~/.conky/errors' &
-
 # backup packages list
 zsh-c "pacman -Qqe >! ~/scripts/backup/pkglist.txt" &
 

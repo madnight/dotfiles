@@ -9,9 +9,9 @@
 
 call plug#begin()
 
-" ######################
+" #####################
 " always active plugins
-" ######################
+" #####################
 
 " easymotion provides a much simpler way to use some motions in vim
 Plug 'easymotion/vim-easymotion'
@@ -110,9 +110,10 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'twuommcdo/vim-exchange'
 
 
-"#########################################
+" #######################################
 " plugins active on trigger (lazy loaded)
-"#########################################
+" #######################################
+
 " vim plugin to interact with tmux
 Plug 'benmills/vimux',                          { 'on': 'VimuxRunCommand' }
 
@@ -272,9 +273,10 @@ Plug 'rust-lang/rust.vim',                      { 'for': 'rust' }
 Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
 
 
-"##################
+" ################
 " disabled plugins
-"##################
+" ################
+
 " automated tag file generation and syntax highlighting of tags in vim
 " Plug 'xolox/vim-easytags' // disabled performance reasons
 

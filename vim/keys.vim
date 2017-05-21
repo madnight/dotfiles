@@ -7,7 +7,10 @@
 "                  |___/
 
 
-
+" unmap <Enter>
+"
+nnoremap <Leader>cn :cnext<cr>
+nnoremap <Leader>cp :cprev<cr>
 nnoremap + <C-a>
 nnoremap - <C-x>
 nnoremap <Leader>vs :vsplit<cr>
@@ -25,7 +28,7 @@ nnoremap <Leader>sb :CtrlPBuffer<CR>
 " serach Most recently used (MRU) files (native vim function [oldfiles])
 nnoremap <C-m> :History<CR>
 nnoremap <Leader>cd :lcd %:p:h<CR>
-nnoremap <SPACE> :
+nnoremap <SPACE> :<C-f>
 nnoremap <Leader>n :NERDTreeToggle<CR>
 nnoremap <C-L> :nohl<CR><C-L>
 " remove trailing white spaces

@@ -16,6 +16,7 @@ fi
 
 # reload xdefaults
 [[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
+[[ -e ~/.Xresources ]] && xrdb ~/.Xresources
 
 # prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
 [[ $- == *i* ]] && stty -ixon

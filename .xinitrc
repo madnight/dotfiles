@@ -1,3 +1,4 @@
+#!/bin/sh
 #
 #                               _|            _|    _|
 #                     _|    _|      _|_|_|        _|_|_|_|  _|  _|_|    _|_|_|
@@ -16,8 +17,6 @@ xset fp rehash
 # disable terminal bell
 xset -b
 xsetroot -cursor_name left_ptr &
-xrdb -merge ~/.Xresources
-xrdb -merge ~/.Xdefaults
 source ~/.xprofile
 
 # sync primary clipboard and GTK clipboard
@@ -35,11 +34,11 @@ xmodmap -e "keycode 9 = NoSymbol"
 xmodmap -e "keycode 66 = Escape NoSymbol Escape"
 
 case $1 in
-  bspwm         ) exec dbus-launch bspwm-session ;;
-  cinnamon      ) exec dbus-launch cinnamon-session ;;
-  gnome         ) exec dbus-launch gnome-session ;;
-  i3|i3wm       ) exec dbus-launch i3 --shmlog-size 0 ;;
-  xfce          ) exec dbus-launch xfce4-session ;;
-  *             ) exec dbus-launch $DEFAULT_SESSION ;;
+  bspwm    ) exec dbus-launch bspwm-session      ;;
+  cinnamon ) exec dbus-launch cinnamon-session   ;;
+  gnome    ) exec dbus-launch gnome-session      ;;
+  i3|i3wm  ) exec dbus-launch i3 --shmlog-size 0 ;;
+  xfce     ) exec dbus-launch xfce4-session      ;;
+  *        ) exec dbus-launch $DEFAULT_SESSION   ;;
 esac
 

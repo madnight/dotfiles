@@ -43,5 +43,3 @@ case $1 in
   *             ) exec dbus-launch $DEFAULT_SESSION ;;
 esac
 
-# hotkey deamon
-sxhkd -c Git/dotfiles/.config/sxhkd/sxhkdrc &

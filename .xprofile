@@ -10,7 +10,7 @@
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 
 # wait for active internet connection and start desktop background monitor
-bash -c 'while true; do conky -c ~/.conky/conkyrc; done &' &
+# bash -c 'while true; do conky -c ~/.conky/conkyrc; done &' &
 
 # backup packages list
 zsh-c "pacman -Qqe >! ~/scripts/backup/pkglist.txt" &
@@ -37,7 +37,7 @@ thunderbird &
 dunst &
 
 # web browser
-chromium &
+# chromium &
 
 # sound
 pulseaudio --start &

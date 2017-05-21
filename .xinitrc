@@ -1,46 +1,33 @@
-#!/bin/sh
+#
 #                               _|            _|    _|
 #                     _|    _|      _|_|_|        _|_|_|_|  _|  _|_|    _|_|_|
 #                       _|_|    _|  _|    _|  _|    _|      _|_|      _|
 #                     _|    _|  _|  _|    _|  _|    _|      _|        _|
 #                     _|    _|  _|  _|    _|  _|      _|_|  _|          _|_|_|
 
-# Executed by startx (run your window manager from here)
-
 # wallpaper
 feh --bg-scale groot-i-am-root-qhd.jpg
 
+# x settings
 xset r rate 250 50
 xset +fp ~/.fonts
 xset +fp /usr/share/fonts/local
 xset fp rehash
-xset -b             # disable terminal bell
-
-export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-
+# disable terminal bell
+xset -b  
 xsetroot -cursor_name left_ptr &
-
 xrdb -merge ~/.Xresources
 xrdb -merge ~/.Xdefaults
+source ~/.xprofile
+# hotkey deamon
+sxhkd -c Git/dotfiles/.config/sxhkd/sxhkdrc &
 
-# sync between the primary X11 clipboard and the GTK clipboard
+# sync primary clipboard and GTK clipboard
 autocutsel -fork &
 autocutsel -selection PRIMARY -fork &
 
-if [ -d /etc/X11/xinit/xinitrc.d ]; then
-  for f in /etc/X11/xinit/xinitrc.d/*; do
-    [ -x "$f" ] && . "$f"
-  done
-  unset f
-fi
-
-[ -f ~/.xprofile ] && source ~/.xprofile
-
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-
 export $(dbus-launch)
-
-sxhkd -c Git/dotfiles/.config/sxhkd/sxhkdrc &
 
 DEFAULT_SESSION='bspwm'
 # DEFAULT_SESSION='i3 --shmlog-size 0'
@@ -57,4 +44,3 @@ case $1 in
   xfce          ) exec dbus-launch xfce4-session ;;
   *             ) exec dbus-launch $DEFAULT_SESSION ;;
 esac
-

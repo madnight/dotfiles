@@ -148,6 +148,11 @@ bindkey -M viins "\e$" vi-end-of-line
 bindkey -M viins "\ej" down-history
 bindkey -M viins "\ek" up-history
 
+bindkey -M viins '^H'  backward-delete-char
+bindkey -M vicmd '^H'  backward-delete-char
+bindkey -M viins '^?'  backward-delete-char
+bindkey -M vicmd '^Y'  yank
+
 # modal cursor color for vi's insert/normal modes.
 zle-keymap-select () {
   if [ $KEYMAP = vicmd ]; then
@@ -276,4 +281,6 @@ globalias() {
 }
 zle -N globalias
 bindkey -M viins " " globalias
+
+source ~/zsh/zsh-git-prompt/zshrc.sh
 

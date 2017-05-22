@@ -40,6 +40,7 @@ color15 = #9a875f
 
 [options]
 font = tamzenforpowerline 14
+# font = Gohu Gohufont 11
 audible_bell = false
 visible_bell = false
 urgent_on_bell = false

@@ -15,11 +15,12 @@
 nnoremap <Leader>lb :e#<cr>
 nnoremap <C-I> i <ESC>r
 nmap ü [
-nmap + [
+" noremap + [
 nnoremap <Leader>cn :cnext<cr>
 nnoremap <Leader>cp :cprev<cr>
 nnoremap + <C-a>
 nnoremap - <C-x>
+nnoremap ä <C-a>
 nnoremap <Leader>fh :History<cr>
 nnoremap <Leader>fb :Buffer<cr>
 nnoremap <Leader>vs :vsplit<cr>

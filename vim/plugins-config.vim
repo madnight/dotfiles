@@ -83,6 +83,7 @@ let g:hardtime_showmsg = 0
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2
 let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
+let g:list_of_normal_keys = ["h", "j", "k", "l"]
 let g:hardtime_ignore_quickfix = 1
 
 let g:vim_json_syntax_conceal = 0

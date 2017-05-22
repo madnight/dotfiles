@@ -1,26 +1,26 @@
 # modified agnoster theme
-source ~/zsh/agnoster.zsh-theme
+# source ~/zsh/agnoster.zsh-theme
 
 # agnoster modifications by overwrite
-PROMPT='%{%f%b%k%}$(build_prompt) '
+ # PROMPT='%{%f%b%k%}$(build_prompt) '
 
-build_prompt() {
-# only show the agnoster git prompt in git dir
-if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-  RETVAL=$?
-  prompt_status
-  prompt_virtualenv
-  prompt_context
-  # prompt dir is already on rprompt
-  prompt_git
-  # we dont need mercurial
-  # prompt_hg
-  prompt_end
-else
-# otherwise use minimal theme
- echo -ne "%{$fg[red]%} » %{$reset_color%}"
-fi
-}
+# build_prompt() {
+# # only show the agnoster git prompt in git dir
+# if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+#   RETVAL=$?
+#   prompt_status
+#   prompt_virtualenv
+#   prompt_context
+#   # prompt dir is already on rprompt
+#   prompt_git
+#   # we dont need mercurial
+#   # prompt_hg
+#   prompt_end
+# else
+# # otherwise use minimal theme
+#  echo -ne "%{$fg[red]%} » %{$reset_color%}"
+# fi
+# }
 
 #show shell execution time needed on right prompt
 ZSH_COMMAND_START=0
@@ -64,7 +64,6 @@ RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
 
 GIT_PROMPT_EXECUTABLE="haskell"
 
-
 # Default values for the appearance of the prompt. Configure at will.
 ZSH_THEME_GIT_PROMPT_PREFIX="("
 ZSH_THEME_GIT_PROMPT_SUFFIX=")"
@@ -74,7 +73,7 @@ ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{●%G%}"
 ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖%G%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{+%G%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="%{▲%G%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{.%G%}"
+ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
 PROMPT='$(git_super_status)%{$fg[red]%} » %{$reset_color%}'

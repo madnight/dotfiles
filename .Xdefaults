@@ -65,8 +65,9 @@ URxvt*scrollTtyKeypress:    true
 ! urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:Hasklig Nerd Font:size=20
 
 ! urxvt.font: -gohu-gohufont-medium-r-normal--14-100-100-100-c-0-iso8859-1,xft:SourceCodePro+Powerline+Awesome\ Regular:size=10:antialias=true:hinting=true
-
-urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:Inconsolata\ for\ Powerline:size=12,xft:SourceCodePro+Powerline+Awesome\ Regular:size=12:antialias=true:hinting=true
+! urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:Inconsolata\\ for\\ Powerline:size=12,xft:SourceCodePro+Powerline+Awesome\\ Regular:size=20:antialias=true:hinting=true
+!
+urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:Hasklig Nerd Font\ Regular:size=30:antialias=true:hinting=true
 
 ! urxvt.font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:FantasqueSansMono Nerd Font:Regular:pixelsize=38:antialias=true:hinting=true
 ! urxvt.boldFont:             xft:Monaco\ for\ Powerline:style=dz:style=Bold:pixelsize=17:autohint=true

@@ -157,7 +157,7 @@ pagrep()
 
 man()
 {
-    command man -t "$1" | ps2pdf - /tmp/"$1".pdf && pdf /tmp/"$1".pdf
+    command man -t "$1" | ps2pdf - /tmp/"$1".pdf && zathura /tmp/"$1".pdf
 }
 
 installfont() {

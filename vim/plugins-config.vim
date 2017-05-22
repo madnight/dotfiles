@@ -74,6 +74,17 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '--'
 
+"#############################
+" HardTime to break bad habits
+"#############################
+let g:hardtime_default_on = 1
+let g:hardtime_timeout = 2000
+let g:hardtime_showmsg = 0
+let g:hardtime_allow_different_key = 1
+let g:hardtime_maxcount = 2
+let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
+let g:hardtime_ignore_quickfix = 1
+
 let g:vim_json_syntax_conceal = 0
 
 " custom tmux navigator key maps

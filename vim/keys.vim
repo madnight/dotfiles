@@ -8,7 +8,14 @@
 
 
 " unmap <Enter>
+
+" tpope mapping (ü = [ us keyboard)
 "
+"
+nnoremap <Leader>lb :e#<cr>
+nnoremap <C-I> i <ESC>r
+nmap ü [
+nmap + [
 nnoremap <Leader>cn :cnext<cr>
 nnoremap <Leader>cp :cprev<cr>
 nnoremap + <C-a>

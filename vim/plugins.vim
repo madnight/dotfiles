@@ -79,6 +79,9 @@ Plug 'tpope/vim-sleuth'
 " add parentheses arround current word or sentence
 Plug 'tpope/vim-surround'
 
+" add useful extra commands
+Plug 'tpope/vim-unimpaired'
+
 " open url in browser
 Plug 'tyru/open-browser.vim'
 
@@ -109,6 +112,8 @@ Plug 'jeffkreeftmeijer/vim-numbertoggle'
 " Easy text exchange operator for Vim.
 Plug 'twuommcdo/vim-exchange'
 
+" hardtime helps you break that annoying habit vimmers have
+Plug 'takac/vim-hardtime'
 
 " #######################################
 " plugins active on trigger (lazy loaded)
@@ -188,7 +193,6 @@ Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
 " shows a git diff in the 'gutter' (sign column) // chech performance
 Plug 'airblade/vim-gitgutter'
-
 
 " #########################################
 " language specific plugins (lazy loaded)
@@ -273,6 +277,7 @@ Plug 'rust-lang/rust.vim',                      { 'for': 'rust' }
 Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
 
 
+
 " ################
 " disabled plugins
 " ################
@@ -290,9 +295,6 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
 
 " generate fancy tmux status lines (airline like)
 " Plug 'edkolev/tmuxline.vim',  {'on': ['Tmuxline']} // will be enabled if needed
-
-" hardtime helps you break that annoying habit vimmers have
-" Plug 'takac/vim-hardtime',                      { 'on': 'HardTimeOn' }
 
 
 " dont need this plugin anymore, due to tmux like window resizing

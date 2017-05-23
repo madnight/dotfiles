@@ -13,10 +13,10 @@ bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 bash -c 'while true; do conky -c ~/.conky/conkyrc && sleep 1; done &' &
 
 # backup packages list
-zsh-c "pacman -Qqe >! ~/scripts/backup/pkglist.txt" &
+zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &
 
 # add monitor on the fly
-zsh-c "~/scripts/monitor.bash" &
+zsh -c "~/scripts/monitor.bash" &
 
 # automute while afk
 bash -c "~/scripts/automute.sh" &

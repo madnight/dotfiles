@@ -13,7 +13,7 @@
 "
 "
 nnoremap <Leader>lb :e#<cr>
-nnoremap <C-I> i <ESC>r
+" nnoremap <C-I> i <ESC>r
 nmap ü [
 " noremap + [
 nnoremap <Leader>cn :cnext<cr>
@@ -96,7 +96,7 @@ nmap <C-b> <C-]>
 nmap o o<ESC>
 nmap <C-k> 4k
 nmap <C-a> :A<CR>
-nmap <C-o> O<Esc>
+" nmap <C-o> O<Esc>
 nmap ^ $
 nmap zz ZZ
 nmap <C-g> <Plug>IMAP_JumpForward
@@ -132,4 +132,3 @@ silent! iunmap (
 silent! iunmap )
 silent! iunmap {
 silent! iunmap }
-

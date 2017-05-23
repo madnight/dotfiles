@@ -352,4 +352,5 @@ type = custom/script
 interval = 600
 format = <label>
 format-prefix = " "
+exec-if = ping -c 1 google.com > /dev/null
 exec = python $HOME/scripts/weather

@@ -282,5 +282,5 @@ globalias() {
 zle -N globalias
 bindkey -M viins " " globalias
 
-source ~/zsh/zsh-git-prompt/zshrc.sh
+source ~/Git/zsh-git-prompt/zshrc.sh
 

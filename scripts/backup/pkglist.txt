@@ -55,7 +55,6 @@ cava
 cdrtools
 chessx
 chromium
-chromium-pepper-flash
 clang
 clearlooks-colors-gtk-theme
 cln
@@ -69,7 +68,6 @@ composer
 compton
 conky-lua-nv
 coreutils
-cortex-git
 cowsay
 cppcheck
 cpplint
@@ -131,7 +129,6 @@ filezilla
 findutils
 firefox
 fish
-flatwoken-icons-git
 flex
 font-manager
 foomatic-db
@@ -141,7 +138,6 @@ fortune-mod-archlinux
 fortune-mod-bofh-excuses
 fortune-mod-chucknorris
 fortune-mod-vimtips
-freshplayerplugin-git
 fzf
 g2sc
 gawk
@@ -260,10 +256,8 @@ iproute2
 ipscan
 iputils
 irqbalance
-isousb
 iw
 ix
-j4-dmenu-desktop
 jack
 jansson
 jbig2dec
@@ -277,7 +271,6 @@ keepassx2
 kodi
 lapack
 lcms
-leiningen2-git
 less
 lib32-fontconfig
 lib32-freetype2

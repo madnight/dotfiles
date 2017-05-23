@@ -11,7 +11,7 @@ bspc config window_gap   10
 
 i=1
 for monitor in $(bspc query -M); do
-    bspc monitor $monitor -d {$i..$(($i+5))}
+    eval bspc monitor $monitor -d {$i..$(($i+5))}
     let "i += 6"
 done
 
@@ -31,13 +31,14 @@ bspc config focused_border_color  "#87AFAF"
 
 # Rules
 bspc rule -a '*:keepassx2:*' state=tiled split_dir=south split_ratio=0.66 focus=on
+bspc rule -a SpeedCrunch	 state=tiled split_dir=south split_ratio=0.66 focus=on
 bspc rule -a Gvim            state=tiled split_dir=north split_ratio=0.1 focus=on
 
 bspc rule -a Conky  sticky=on manage=off lower=on
 bspc rule -a astime sticky=on
 
 bspc rule -a Chromium-browser desktop=1 focus=on
-bspc rule -a Firefoxx	  desktop=1 focus=on
+bspc rule -a Firefoxx		  desktop=1 focus=on
 bspc rule -a Chromium		  desktop=1 focus=on
 bspc rule -a Thunderbird      desktop=3
 bspc rule -a Vlc              desktop=4

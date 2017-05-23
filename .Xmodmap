@@ -1,0 +1,19 @@
+clear control
+clear mod4
+! clear mod1
+
+xmodmap -e "clear Lock"
+! this will deactivae escape key
+xmodmap -e "keycode 9 = NoSymbol"
+! this will make Caps Lock to act as Esc
+xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+
+add mod4 = Super_L
+! add mod1 = Alt_L Meta_L
+! add mod1 = Alt_R Meta_R
+add control = Control_L
+add control = Control_R
+
+keycode  94 = dead_circumflex degree dead_circumflex degree notsign notsign notsign
+keycode  49 = less greater less greater bar brokenbar bar
+

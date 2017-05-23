@@ -74,8 +74,7 @@ fi
 # right prompt settings
 local timing='$(printf "%%{$fg[cyan]%%}%.2f%%f" "$ZSH_COMMAND_TIME")'
 error="%{$fg[red]%}%(?..%? )"
-right=("$git" "$error" "$timing")
-RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
+right=("$git" "$error" "$timing" "$vi_mode_prompt_info"  )
 
 GIT_PROMPT_EXECUTABLE="haskell"
 
@@ -89,6 +88,28 @@ ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖%G%}"
 ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{+%G%}"
 ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
 ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{%G%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{|u%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
 PROMPT='$(git_super_status)%{$fg[red]%} » %{$reset_color%}'
+
+function insert-mode () { echo "INSERT" }
+function normal-mode () { echo "NORMAL" }
+
+function set-prompt () {
+    case ${KEYMAP} in
+      (vicmd)      VI_MODE="$(normal-mode)" ;;
+      (main|viins) VI_MODE="$(insert-mode)" ;;
+      (*)          VI_MODE="$(insert-mode)" ;;
+    esac
+    RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\") %{$fg[green]%}$(echo $VI_MODE)"
+}
+
+function zle-line-init zle-keymap-select {
+    set-prompt
+    zle reset-prompt
+}
+preexec () { print -rn -- $terminfo[el]; }
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+

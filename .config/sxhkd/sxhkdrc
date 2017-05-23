@@ -29,7 +29,7 @@ super + p
 
 # dmenu
 super + F2
-    rofi -demnu -combi-modi window,drun -show combi -modi combi
+    rofi -demnu -combi-modi drun -show combi -modi combi
 
 super + F4
     rofi -theme c64.rasi -demnu -combi-modi window,drun -show colorscheme -modi colorscheme:~/scripts/rofi-colorscheme-switch

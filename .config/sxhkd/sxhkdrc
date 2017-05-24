@@ -85,11 +85,11 @@ F3
 
 # Volume down
 F11
-    amixer set Master 3%- ; pulseaudio-ctl down
+    amixer set Master 1%- || pulseaudio-ctl down 1
 
 # Volume up
 F12
-    amixer set Master 3%+ ; pulseaudio-ctl up
+    amixer set Master 1%+ || pulseaudio-ctl up 1
 
 # Volume mute
 F10

@@ -115,6 +115,12 @@ Plug 'twuommcdo/vim-exchange'
 " hardtime helps you break that annoying habit vimmers have
 Plug 'takac/vim-hardtime'
 
+" wrapper for fuzzy findec
+Plug 'junegunn/fzf.vim'
+
+" fzf with mru
+Plug 'tweekmonster/fzf-filemru'
+
 " #######################################
 " plugins active on trigger (lazy loaded)
 " #######################################
@@ -135,10 +141,7 @@ Plug 'honza/vim-snippets',                      { 'on': [] }
 Plug 'dyng/ctrlsf.vim',                         { 'on': 'CtrlSF' }
 
 " fuzzy file, buffer, mru, tag, etc finder with rg backend
-Plug 'junegunn/fzf',                            { 'on': ['Files', 'History'], 'dir': '~/.fzf', 'do': './install --all' }
-
-" wrapper for fuzzy finder
-Plug 'junegunn/fzf.vim',                        { 'on': ['Files', 'History'] }
+Plug 'junegunn/fzf',                            { 'on': ['FilesMru', 'Files', 'History'], 'dir': '~/.fzf', 'do': './install --all' }
 
 " autocomplete things that you see in other terminal
 Plug 'wellle/tmux-complete.vim',                { 'on': [] }

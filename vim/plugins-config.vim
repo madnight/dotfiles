@@ -115,6 +115,7 @@ let g:jsx_ext_required = 0
 
 " overcome limit imposed by max height
 let g:ackprg = 'rg --vimgrep'
+set grepprg=rg\ --vimgrep
 let g:tmux_navigator_no_mappings = 1
 
 let g:winresizer_horiz_resize = 1
@@ -122,4 +123,9 @@ let g:vim_markdown_preview_github=1
 
 let g:UltiSnipsExpandTrigger="<C-l>"
 
-
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+"   \   <bang>0)

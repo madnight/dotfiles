@@ -19,7 +19,6 @@ aspell
 aspell-de
 aspell-en
 astyle
-atom
 audacity
 aurvote
 autoconf
@@ -60,7 +59,6 @@ clearlooks-colors-gtk-theme
 cln
 cloc
 cmake
-codeblocks
 coffee-script
 coffeelint
 command-not-found
@@ -248,6 +246,7 @@ imgur
 inetutils
 inkscape
 inotify-tools
+inox-bin
 intellij-idea-community-edition
 intltool
 inxi
@@ -448,7 +447,6 @@ psmisc
 pulseaudio
 pulseaudio-ctl
 pv
-pychess
 pygmentize
 pygtk
 pylama
@@ -561,7 +559,6 @@ slang
 smartmontools
 socat
 sonar-scanner
-sonarqube
 speech-dispatcher
 speedcrunch
 sshfs
@@ -612,7 +609,6 @@ texlive-plainextra
 texlive-pstricks
 texlive-publishers
 texlive-science
-the_silver_searcher
 thunar
 thunar-archive-plugin
 thunar-media-tags-plugin
@@ -624,7 +620,6 @@ tigervnc
 tint2
 tinyproxy
 tk
-tkpacman
 tmux
 tmuxinator
 tor-browser-en
@@ -666,11 +661,8 @@ vi
 vifm
 vim-spell-de
 vim-spell-en
-visual-studio-code
 vlc
-vsftpd
 vte-common
-vundle-git
 w3m
 watchdog
 wavpack
@@ -678,14 +670,10 @@ webkitgtk2
 weechat
 which
 wikiquote-fortune
-winusb
 wireshark-cli
 wkhtmltopdf
 wmctrl
 wxgtk
-xbindkeys
-xbindkeys_config-gtk2
-xboard
 xcb-util-image
 xcb-util-wm
 xclip

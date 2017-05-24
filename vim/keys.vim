@@ -12,6 +12,8 @@
 " tpope mapping (ü = [ us keyboard)
 "
 "
+"
+nnoremap <C-p> :FilesMru --tiebreak=end<cr>
 nnoremap <Leader>lb :e#<cr>
 " nnoremap <C-I> i <ESC>r
 nmap ü [
@@ -46,7 +48,7 @@ nnoremap <Leader>dw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 nnoremap <silent> <C-e> :WinResizerStartResize<CR>
-nnoremap <silent> <C-p> :Files<CR>
+" nnoremap <silent> <C-p> :Files<CR>
 nnoremap ZZ :call QuitPrompt()<cr>
 " Alt / Mod Key (A-,M-) := <ESC>
 

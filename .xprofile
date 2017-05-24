@@ -65,5 +65,7 @@ unclutter &
 # hotkey deamon
 sxhkd &
 
+[ ! -s ~/.config/mpd/pid ] && echo mpd &
+
 xset +fp ~/.fonts/tamzen-font/bdf &
 xset fp rehash &

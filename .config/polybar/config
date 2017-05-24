@@ -6,6 +6,10 @@ margin-bottom = 20
 ; used for bottom aligned bars
 margin-top = 0
 
+
+
+# ping!!dunst 
+
 [colors]
 background = ${xrdb:color0:#222}
 background-alt = #444
@@ -56,8 +60,8 @@ font-5 = fixed:pixelsize=10
 font-6 = unifont:fontformat=truetype:size=6:heavy;-2
 font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
-modules-left = apps vpn weather fs-root cputemp cpu
-modules-right = gputemp memory wired updates volume date time
+modules-left = apps vpn weather fs-root cputemp cpu memory
+modules-right = gputemp wired ping updates volume date time
 ; modules-left = apps vpn weather fs-root cputemp cpu-ramp
 ; modules-right = gputemp memory-bar wired updates volume date time
 
@@ -160,6 +164,15 @@ ws-icon-6 =6;
 [module/i3]
 type = internal/i3
 inherit = module/wm
+
+[module/ping]
+type = custom/script
+exec = ping -c 2 8.8.8.8 | sed -n '2,2p' |cut -c47-50
+exec-if = ping -c 1 google.com > /dev/null
+interval = 5
+label  = %output% ms
+label-padding= 1
+format-prefix = 
 
 [module/bspwm]
 type = internal/bspwm

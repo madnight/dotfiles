@@ -10,6 +10,11 @@
 # wm independent hotkeys
 ########################
 
+
+# go (Shift=move) to desktop (and focus the monitor that the desktop is located on. Bspwm style)
+super + {_,shift + }{1-9,0}
+    bspc {desktop -f,node -d} ^{1-9,10}
+
 # terminal emulator
 super + Return
     urxvt
@@ -29,7 +34,7 @@ super + p
 
 # dmenu
 super + F2
-    rofi -demnu -combi-modi drun -show combi -modi combi
+    rofi -demnu -combi-modi drun,window -show combi -modi combi
 
 super + F4
     rofi -theme c64.rasi -demnu -combi-modi window,drun -show colorscheme -modi colorscheme:~/scripts/rofi-colorscheme-switch

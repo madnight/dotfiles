@@ -105,16 +105,6 @@ F7
 F9
     vlc ~/Radio/bbcradio1.pls
 
-
-###############
-# i3 hotkeys
-###############
-
-# switch to next window
-alt + Tab
-    i3-alt-tab --next
-
-
 ###############
 # bspwm hotkeys
 ###############

@@ -42,7 +42,7 @@ bspc rule -a Chromium-browser desktop=1 focus=on
 bspc rule -a Firefoxx		  desktop=1 focus=on
 bspc rule -a Chromium		  desktop=1 focus=on
 bspc rule -a Thunderbird      desktop=3
-bspc rule -a Vlc              desktop=4
+bspc rule -a Vlc              desktop=7
 
 # pseudo tiled rules
 bspc rule -a Thunar           pseudo_tiled=on focus=on

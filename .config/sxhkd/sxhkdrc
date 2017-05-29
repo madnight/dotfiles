@@ -41,7 +41,7 @@ super + F4
 
 # kill window
 control + q
-    kill -9 $(xdotool getactivewindow getwindowpid)
+    bspc node -k || kill -9 $(xdotool getactivewindow getwindowpid)
 
 # shutdown
 control + super + q

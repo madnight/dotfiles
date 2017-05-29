@@ -572,6 +572,7 @@ socat
 sonar-scanner
 speech-dispatcher
 speedcrunch
+sqlmap
 sshfs
 sshpass
 st

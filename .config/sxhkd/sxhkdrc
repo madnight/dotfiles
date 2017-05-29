@@ -10,11 +10,6 @@
 # wm independent hotkeys
 ########################
 
-
-# go (Shift=move) to desktop (and focus the monitor that the desktop is located on. Bspwm style)
-super + {,shift + }{1-9,0}
-    bspc {desktop -f,node -d} ^{1-9,10}
-
 # terminal emulator
 super + Return
     urxvt
@@ -51,13 +46,9 @@ control + super + q
 control + super + r
     zenity --question --text="Reboot?" && shutdown -r now
 
-# restart
-control + super + r
-    zenity --question --text="Restart?" && shutdown -r now
-
 # lock screen
 F1
-    bash ~/scripts/lock.sh"
+    bash ~/scripts/lock.sh
 
 # resize window
 control + y
@@ -135,7 +126,7 @@ super + g
 
 # resize window to watch conky
 super + c
-    zsh ~/scripts/bspwm-toggle-conky-padding.zsh
+    bash ~/scripts/bspwm/toggle-conky-padding.bash
 
 #############
 # state/flags
@@ -160,6 +151,10 @@ super + @space
 ############
 # focus/swap
 ############
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	{bspc desktop -f, bash ~/scripts/bspwm/switch-move.bash} ^{1-9,0}
 
 # focus the node in the given direction
 super + {_,alt + }{h,j,k,l}
@@ -192,8 +187,8 @@ super + {o,i}
     bspc wm -h on
 
 # focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-    bspc {desktop -f,node -d} '^{1-9,10}'
+# super + {_,shift + }{1-9,0}
+    # bspc {desktop -f,node -d} '^{1-9,10}'
 
 ###########
 # preselect
@@ -234,4 +229,3 @@ super + shift + l
 # move a floating window
 super + {Left,Down,Up,Right}
     bspc node -v {-20 0,0 20,0 -20,20 0}
-

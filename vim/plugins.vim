@@ -201,6 +201,8 @@ Plug 'airblade/vim-gitgutter'
 " language specific plugins (lazy loaded)
 " #########################################
 
+Plug 'kovetskiy/sxhkd-vim',                     { 'for': 'sxhkd' }
+
 " improved PHP omni-completion, based on the default phpcomplete.vim
 Plug 'shawncplus/phpcomplete.vim',              { 'for': 'php' }
 

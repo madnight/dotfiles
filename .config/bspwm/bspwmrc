@@ -62,7 +62,9 @@ bspc rule -a Meld state=fullscreen center=true focus=on
 
 bspc rule -a pavucontrol desktop=X follow=true state=floating center=true
 
-compton -b &
-while true; do SHELL=/bin/bash polybar -r top-bspwm; done &
+# hile true; do MONITOR=VGA-1 && SHELL=/bin/bash polybar -r top-bspwm; sleep5; done &
+# while true; do MONITOR=VGA-1 && SHELL=/bin/bash polybar -r top-bspwm; sleep5; done &
 nm-applet &
 
+export MONITOR=VGA-0 && SHELL=/bin/bash polybar -r top-bspwm
+export MONITOR=DVI-I-1 && SHELL=/bin/bash polybar -r top-bspwm

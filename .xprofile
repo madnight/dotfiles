@@ -54,7 +54,7 @@ xmodmap ~/.Xmodmap
 setxkbmap de
 
 # compositor
-compton --backend glx --vsync opengl-swc &
+# compton --backend glx --vsync opengl-swc &
 
 # hide mouse when not needed
 unclutter &

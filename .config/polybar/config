@@ -67,6 +67,7 @@ modules-right = gputemp wired ping updates volume date time
 
 [bar/top-bspwm]
 inherit = bar/base
+monitor = ${env:MONITOR:fallback-value}
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
@@ -159,7 +160,7 @@ ws-icon-3 =3;
 ws-icon-4 =4;
 ws-icon-5 =5;
 ws-icon-6 =6;
-; ws-icon-default = 
+ws-icon-default = 
 
 [module/i3]
 type = internal/i3

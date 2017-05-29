@@ -59,6 +59,7 @@ clearlooks-colors-gtk-theme
 cln
 cloc
 cmake
+cmus
 coffee-script
 coffeelint
 command-not-found
@@ -157,6 +158,7 @@ glade
 glew
 glibc
 glu
+gmpc
 gnome-common
 gnome-desktop
 gnome-font-viewer
@@ -336,6 +338,7 @@ meld
 menumaker
 mime-types
 mitmproxy
+mkdocs
 mlocate
 moc
 monaco-powerline-font-git
@@ -344,8 +347,13 @@ mongodb-tools
 mono
 monodevelop
 mons
+mopidy
+mopidy-youtube
 mozilla-common
 mpc
+mpd
+mps-youtube
+mpv
 msmtp
 mtools
 mtpfs
@@ -461,6 +469,7 @@ python-gobject
 python-grip-git
 python-html2text
 python-hypothesis
+python-livereload
 python-pillow
 python-pip
 python-psutil
@@ -479,7 +488,9 @@ python-waitress
 python2-cairo
 python2-dbus
 python2-gobject2
+python2-livereload
 python2-pillow
+python2-pip
 python2-ply
 python2-psutil
 python2-pycurl

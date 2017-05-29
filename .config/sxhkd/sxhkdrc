@@ -12,7 +12,7 @@
 
 
 # go (Shift=move) to desktop (and focus the monitor that the desktop is located on. Bspwm style)
-super + {_,shift + }{1-9,0}
+super + {,shift + }{1-9,0}
     bspc {desktop -f,node -d} ^{1-9,10}
 
 # terminal emulator
@@ -46,6 +46,10 @@ control + q
 # shutdown
 control + super + q
     zenity --question --text="Shutdown?" && shutdown -h now
+
+# reboot
+control + super + r
+    zenity --question --text="Reboot?" && shutdown -r now
 
 # restart
 control + super + r

@@ -141,6 +141,8 @@ set hidden
 set history=50
 " use mouse in visual mode (not normal,insert,command,help mode
 set mouse=v
+" soft wrap
+set wrap
 
 "############
 " Typo Fixes

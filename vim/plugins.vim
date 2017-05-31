@@ -207,10 +207,10 @@ Plug 'kovetskiy/sxhkd-vim',                     { 'for': 'sxhkd' }
 Plug 'shawncplus/phpcomplete.vim',              { 'for': 'php' }
 
 " markdown preview
-Plug 'suan/vim-instant-markdown',               { 'for': 'markdown' }
+" Plug 'suan/vim-instant-markdown',               { 'for': 'markdown' }
 
 " open markdown preview in browser
-Plug 'JamshedVesuna/vim-markdown-preview',      { 'for': 'markdown' }
+" Plug 'JamshedVesuna/vim-markdown-preview',      { 'for': 'markdown' }
 
 " syntax highlighting, matching rules and mappings for the original Markdown and extensions
 Plug 'plasticboy/vim-markdown',                 { 'for': 'markdown' }

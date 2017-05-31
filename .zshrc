@@ -14,17 +14,8 @@ if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
     exec startx
 fi
 
-# reload xdefaults
-[[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
-[[ -e ~/.Xresources ]] && xrdb ~/.Xresources
-
 # prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
 [[ $- == *i* ]] && stty -ixon
-
-# speeeeed!
-xset r rate 150 50
-
-export $(dbus-launch)
 
 ##########################
 # Autocompletion settings

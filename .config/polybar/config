@@ -73,6 +73,11 @@ scroll-down = bspwm-deskprev
 modules-center = bspwm
 wm-restack = bspwm
 
+[bar/top-bspwm-work]
+inherit = bar/top-bspwm
+modules-left = apps vpn fs-root cputemp cpu memory
+modules-right = wired-work ping updates volume date time
+
 [bar/top-i3]
 inherit = bar/base
 scroll-up = i3wm-wsnext
@@ -102,6 +107,10 @@ accumulate-stats = true
 label-connected =  %downspeed:8%  %upspeed:8%
 format-disconnected = <label-disconnected>
 label-disconnected = not connected
+
+[module/wired-work]
+inherit = module/wired
+interface = wlp1s0
 
 [module/fs-root]
 type = internal/fs

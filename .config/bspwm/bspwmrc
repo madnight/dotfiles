@@ -9,11 +9,19 @@
 bspc config border_width 2
 bspc config window_gap   10
 
+
+
 i=1
 for monitor in $(bspc query -M); do
     eval bspc monitor $monitor -d {$i..$(($i+5))}
     let "i += 6"
 done
+
+if [[ $(hostname) == 'skylake' ]]; then
+    xrandr --output HDMI1 --primary --left-of eDP1
+    bspc monitor eDP1 -d 1 2 3
+    bspc monitor HDMI1 -d 4 5 6
+fi
 
 # some extra top space for bar
 bspc config top_padding    45
@@ -59,6 +67,7 @@ bspc rule -a lxappearance    state=floating center=true focus=on
 bspc rule -a gimp            state=floating
 
 bspc rule -a Meld state=fullscreen center=true focus=on
+bspc rule -a Slack desktop=1 state=fullscreen center=true focus=on
 
 bspc rule -a pavucontrol desktop=X follow=true state=floating center=true
 
@@ -66,5 +75,10 @@ bspc rule -a pavucontrol desktop=X follow=true state=floating center=true
 # while true; do MONITOR=VGA-1 && SHELL=/bin/bash polybar -r top-bspwm; sleep5; done &
 nm-applet &
 
-export MONITOR=VGA-0 && SHELL=/bin/bash polybar -r top-bspwm
-export MONITOR=DVI-I-1 && SHELL=/bin/bash polybar -r top-bspwm
+if [[ $(hostname) == 'arch' ]]; then
+    export MONITOR=VGA-0 && SHELL=/bin/bash polybar -r top-bspwm
+    export MONITOR=DVI-I-1 && SHELL=/bin/bash polybar -r top-bspwm
+elif [[ $(hostname) == 'skylake' ]]; then
+    export MONITOR=eDP1 && SHELL=/bin/bash polybar -r top-bspwm-work
+    export MONITOR=HDMI1 && SHELL=/bin/bash polybar -r top-bspwm-work
+fi

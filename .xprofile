@@ -1,22 +1,26 @@
 
-#                              __ _ _
-#       __  ___ __  _ __ ___  / _(_) | ___
-#       \ \/ / '_ \| '__/ _ \| |_| | |/ _ \
-#        >  <| |_) | | | (_) |  _| | |  __/
-#       /_/\_\ .__/|_|  \___/|_| |_|_|\___|
-#            |_|
+ #                              __ _ _
+ #       __  ___ __  _ __ ___  / _(_) | ___
+ #       \ \/ / '_ \| '__/ _ \| |_| | |/ _ \
+ #        >  <| |_) | | | (_) |  _| | |  __/
+ #       /_/\_\ .__/|_|  \___/|_| |_|_|\___|
+ #            |_|
 
 # clear download folder
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 
 # wait for active internet connection and start desktop background monitor
-bash -c 'while true; do conky -c ~/.conky/conkyrc && sleep 1; done &' &
+if [[ $(hostname) == 'skylake' ]]; then
+    bash -c 'while true; do conky -c ~/.conky/conkyrc-work && sleep 1; done &' &
+elif [[ $(hostname) == 'arch' ]]; then
+    bash -c 'while true; do conky -c ~/.conky/conkyrc && sleep 1; done &' &
+fi
 
 # backup packages list
-zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &
+# zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &
 
 # add monitor on the fly
-zsh -c "~/scripts/monitor.bash" &
+# zsh -c "~/scripts/monitor.bash" &
 
 # automute while afk
 bash -c "~/scripts/automute.sh" &
@@ -50,7 +54,7 @@ redshift &
 
 xrdb ~/.Xdefaults
 xrdb ~/.Xresources
-xmodmap ~/.Xmodmap
+# xmodmap ~/.Xmodmap
 setxkbmap de
 
 # compositor
@@ -69,3 +73,10 @@ sxhkd &
 
 xset +fp ~/.fonts/tamzen-font/bdf &
 xset fp rehash &
+
+# load xdefaults
+[[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
+[[ -e ~/.Xresources ]] && xrdb ~/.Xresources
+
+# speeeeed!
+xset r rate 150 50

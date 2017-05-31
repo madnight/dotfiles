@@ -33,7 +33,7 @@ let g:airline#extensions#whitespace#enabled = 0
 "###################
 " NerdTree settings
 "###################
-let g:NERDTreeMinimalUI = 1
+let g:NERDTreeMinimalUI = 0
 let g:NERDTreeShowHidden=1
 let g:NERDTreeWinPos = "left"
 let g:NERDTreeMouseMode = 3

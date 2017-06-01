@@ -57,11 +57,25 @@ xrdb ~/.Xresources
 # xmodmap ~/.Xmodmap
 setxkbmap de
 
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+wmname LG3D
+
 # compositor
-# compton --backend glx --vsync opengl-swc &
+compton --backend glx --vsync opengl-swc &
 
 # hide mouse when not needed
 unclutter &
+
+# java WM tweaks
+export _JAVA_OPTIONS='-Dsun.java2d.opengl=true'
+
+# This may solve a rendering issue of Java GUIs occurring in
+# window managers like awesome or dwm or bspwm
+# This works because the JVM contains a hard-coded
+# list of known, non-re-parenting window managers.
+export _JAVA_AWT_WM_NONREPARENTING=1
+wmname LG3D
 
 # polybar
 # while true; do SHELL=/bin/bash polybar -r top-bspwm; done &

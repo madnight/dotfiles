@@ -13,6 +13,8 @@
 "
 "
 "
+map K <Plug>(expand_region_expand)
+map J <Plug>(expand_region_shrink)
 nmap gx <Plug>(openbrowser-smart-search) 
 vmap gx <Plug>(openbrowser-smart-search) 
 nnoremap <C-p> :FilesMru --tiebreak=end<cr>

@@ -127,6 +127,9 @@ Plug 'townk/vim-autoclose'
 " preview colours in source code while editing 
 Plug 'ap/vim-css-color'
 
+" shows a git diff in the 'gutter' (sign column) 
+Plug 'airblade/vim-gitgutter'
+
 " #######################################
 " plugins active on trigger (lazy loaded)
 " #######################################
@@ -200,8 +203,7 @@ Plug 't9md/vim-choosewin',                      { 'on': 'ChooseWin' }
 " be able to write files with sudo right
 Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
-" shows a git diff in the 'gutter' (sign column) // chech performance
-Plug 'airblade/vim-gitgutter'
+
 
 " #########################################
 " language specific plugins (lazy loaded)

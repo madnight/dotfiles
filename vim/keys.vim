@@ -13,6 +13,8 @@
 "
 "
 "
+nmap gx <Plug>(openbrowser-smart-search) 
+vmap gx <Plug>(openbrowser-smart-search) 
 nnoremap <C-p> :FilesMru --tiebreak=end<cr>
 nnoremap <Leader>lb :e#<cr>
 " nnoremap <C-I> i <ESC>r

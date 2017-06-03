@@ -124,6 +124,8 @@ Plug 'tweekmonster/fzf-filemru'
 " autoclose brackets
 Plug 'townk/vim-autoclose'
 
+" preview colours in source code while editing 
+Plug 'ap/vim-css-color'
 
 " #######################################
 " plugins active on trigger (lazy loaded)

@@ -40,7 +40,7 @@ urxvt.buffered:             false
 ! use tmux scroll buffer instead
 urxvt*saveLines:            999
 urxvt.letterSpace:          -1
-urxvt.cursorUnderline:      true
+urxvt.cursorUnderline:      false
 urxvt.cursorBlink:          false
 urxvt.urgentOnBell:         true
 urxvt.inheritPixmap:        false

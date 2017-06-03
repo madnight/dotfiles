@@ -211,6 +211,7 @@ Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
 
 
+Plug 'terryma/vim-multiple-cursors'
 " #########################################
 " language specific plugins (lazy loaded)
 " #########################################

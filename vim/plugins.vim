@@ -133,6 +133,9 @@ Plug 'airblade/vim-gitgutter'
 " this plugin defines a new text object, based on indentation levels
 Plug 'michaeljsmith/vim-indent-object'
 
+" fix gui only colorschemes to work in terminal
+Plug 'godlygeek/csapprox'
+
 " #######################################
 " plugins active on trigger (lazy loaded)
 " #######################################

@@ -130,6 +130,9 @@ Plug 'ap/vim-css-color'
 " shows a git diff in the 'gutter' (sign column) 
 Plug 'airblade/vim-gitgutter'
 
+" this plugin defines a new text object, based on indentation levels
+Plug 'michaeljsmith/vim-indent-object'
+
 " #######################################
 " plugins active on trigger (lazy loaded)
 " #######################################

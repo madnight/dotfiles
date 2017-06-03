@@ -121,6 +121,10 @@ Plug 'junegunn/fzf.vim'
 " fzf with mru
 Plug 'tweekmonster/fzf-filemru'
 
+" autoclose brackets
+Plug 'townk/vim-autoclose'
+
+
 " #######################################
 " plugins active on trigger (lazy loaded)
 " #######################################

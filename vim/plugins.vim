@@ -13,9 +13,6 @@ call plug#begin()
 " always active plugins
 " #####################
 
-" easymotion provides a much simpler way to use some motions in vim
-Plug 'easymotion/vim-easymotion'
-
 " editorconfig define consistent coding styles in different editors
 Plug 'editorconfig/editorconfig-vim'
 
@@ -24,6 +21,8 @@ Plug 'junegunn/vim-peekaboo'
 
 " incsearch.vim incrementally highlights ALL pattern matches
 Plug 'haya14busa/incsearch.vim'
+
+map /  <Plug>(incsearch-forward)
 
 " camel case jumps with w
 Plug 'bkad/CamelCaseMotion'
@@ -124,10 +123,10 @@ Plug 'tweekmonster/fzf-filemru'
 " autoclose brackets
 Plug 'townk/vim-autoclose'
 
-" preview colours in source code while editing 
+" preview colours in source code while editing
 Plug 'ap/vim-css-color'
 
-" shows a git diff in the 'gutter' (sign column) 
+" shows a git diff in the 'gutter' (sign column)
 Plug 'airblade/vim-gitgutter'
 
 " this plugin defines a new text object, based on indentation levels
@@ -135,6 +134,17 @@ Plug 'michaeljsmith/vim-indent-object'
 
 " fix gui only colorschemes to work in terminal
 Plug 'godlygeek/csapprox'
+
+" easy text exchange operator for Vim
+Plug 'tommcdo/vim-exchange'
+
+" easy text exchange operator for Vim
+Plug 'justinmk/vim-sneak'
+
+" True Sublime Text style multiple selections for Vim
+" i might remove this plugins due to vims native feature of search, replace
+" and dot repeat + cgn feature
+Plug 'terryma/vim-multiple-cursors'
 
 " #######################################
 " plugins active on trigger (lazy loaded)
@@ -210,8 +220,6 @@ Plug 't9md/vim-choosewin',                      { 'on': 'ChooseWin' }
 Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
 
-
-Plug 'terryma/vim-multiple-cursors'
 " #########################################
 " language specific plugins (lazy loaded)
 " #########################################
@@ -241,6 +249,10 @@ Plug 'sheerun/vim-polyglot'
 " dont need this plugin anymore, due to tmux like window resizing
 " resizer mode ctrl-e
 " Plug 'simeji/winresizer',                       { 'on': 'WinResizerStartResize' }
+
+" the vim-sneak plugins suits me better (minimalist alternative to EasyMotion)
+" easymotion provides a much simpler way to use some motions in vim
+" Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 

@@ -10,19 +10,18 @@
 " unmap <Enter>
 
 function LightTheme()
-    execute "!" sed -i 's/hybrid/Tomorrow/g' ~/.vimrc
-    execute "!" sed -i 's/dark/light/g' ~/.vimrc
+    :silent exec "! sed -i 's/hybrid/Tomorrow/g' ~/.vim-theme-swtich"
+    :silent exec "! sed -i 's/=dark/=light/g' ~/.vim-theme-switch"
 endfunction
 
 function DarkTheme()
-    :silent exec "! sed -i 's/Tomorrow/hybrid/g' ~/.vimrc"
-    :silent exec "! sed -i 's/light/dark/g' ~/.vimrc"
-    " exec "r!echo 11"
+    :silent exec "! sed -i 's/Tomorrow/hybrid/g' ~/.vim-theme-switch"
+    :silent exec "! sed -i 's/=light/=dark/g' ~/.vim-theme-switch"
 endfunction
 
+map / <Plug>(incsearch-forward)
 " swap words
 nmap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>:noh<CR>
-
 " push current line up or down
 nnoremap <leader><Up> ddkP
 nnoremap <leader><Down> ddp
@@ -38,8 +37,8 @@ nnoremap <Leader>te :call DarkTheme()<cr>
 
 map K <Plug>(expand_region_expand)
 map J <Plug>(expand_region_shrink)
-nmap gx <Plug>(openbrowser-smart-search) 
-vmap gx <Plug>(openbrowser-smart-search) 
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
 
 nnoremap <C-p> :FilesMru --tiebreak=end<cr>
 nnoremap <Leader>lb :e#<cr>

@@ -21,11 +21,11 @@ super + Escape
 
 # webbrowser
 super + w
-    chromium
+    uchromium
 
 # anon vrowser
 super + p
-    chromium --incognito --profile-directory='Profile 4' --new-window https://check.torproject.org
+    tor-browser-en
 
 # dmenu
 super + F2
@@ -126,7 +126,7 @@ super + g
 
 # resize window to watch conky
 super + c
-    bash ~/scripts/bspwm/toggle-conky-padding.bash
+    zsh ~/scripts/bspwm/toggle-conky-padding.zsh
 
 #############
 # state/flags

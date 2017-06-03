@@ -1,4 +1,4 @@
-
+" vi: ft=vim
 "              _                              __ _
 "       __   _(_)_ __ ___     ___ ___  _ __  / _(_) __ _
 "       \ \ / / | '_ ` _ \   / __/ _ \| '_ \| |_| |/ _` |
@@ -79,7 +79,6 @@ set re=1
 set lazyredraw
 set nocursorcolumn
 set nocursorline
-set norelativenumber
 set background=dark
 set nuw=1
 set updatetime=1000
@@ -159,7 +158,7 @@ command! WS w !sudo tee %
 colorscheme hybrid
 hi clear CursorLine
 hi clear SpellBad
-highlight LineNr ctermfg=DarkGrey
+hi LineNr ctermfg=DarkGrey
 hi SpellBad cterm=underline ctermfg=red
 hi LineNr guibg=#1D1F21
 

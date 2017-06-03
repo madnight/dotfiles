@@ -27,7 +27,7 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 xmodmap -e "clear Lock"
 xmodmap -e "keycode 9 = NoSymbol"
-xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+xmodmap -e "keycode 66 = Escape NoSymbol Escape Escape NoSymbol Escape"
 
 bspwm
 #startxfce4

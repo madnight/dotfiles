@@ -22,8 +22,6 @@ Plug 'junegunn/vim-peekaboo'
 " incsearch.vim incrementally highlights ALL pattern matches
 Plug 'haya14busa/incsearch.vim'
 
-map /  <Plug>(incsearch-forward)
-
 " camel case jumps with w
 Plug 'bkad/CamelCaseMotion'
 
@@ -117,6 +115,9 @@ Plug 'takac/vim-hardtime'
 " wrapper for fuzzy findec
 Plug 'junegunn/fzf.vim'
 
+" fuzzy file, buffer, mru, tag, etc finder with rg backend
+Plug 'junegunn/fzf'
+
 " fzf with mru
 Plug 'tweekmonster/fzf-filemru'
 
@@ -165,9 +166,6 @@ Plug 'honza/vim-snippets',                      { 'on': [] }
 " an ack.vim alternative mimics Ctrl-Shift-F (search with context)
 Plug 'dyng/ctrlsf.vim',                         { 'on': 'CtrlSF' }
 
-" fuzzy file, buffer, mru, tag, etc finder with rg backend
-Plug 'junegunn/fzf',                            { 'on': ['FilesMru', 'Files', 'History'], 'dir': '~/.fzf', 'do': './install --all' }
-
 " autocomplete things that you see in other terminal
 Plug 'wellle/tmux-complete.vim',                { 'on': [] }
 
@@ -213,9 +211,6 @@ Plug 'junegunn/goyo.vim',                       { 'on': 'Goyo' }
 " search on google
 Plug 'szw/vim-g',                               { 'on': 'Google' }
 
-" cvim / vimium like window choosing by hinting
-Plug 't9md/vim-choosewin',                      { 'on': 'ChooseWin' }
-
 " be able to write files with sudo right
 Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
@@ -253,6 +248,10 @@ Plug 'sheerun/vim-polyglot'
 " the vim-sneak plugins suits me better (minimalist alternative to EasyMotion)
 " easymotion provides a much simpler way to use some motions in vim
 " Plug 'easymotion/vim-easymotion'
+
+" its faster for me to switch windows with a fews keystrokes
+" cvim / vimium like window choosing by hinting
+" Plug 't9md/vim-choosewin',                      { 'on': 'ChooseWin' }
 
 call plug#end()
 

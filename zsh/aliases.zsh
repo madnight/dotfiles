@@ -93,7 +93,7 @@ alias killdocker='docker stop $(docker ps -a -q)'
 alias l='ls -CF'
 alias la='ls -A'
 alias lasti='yaourt -Q --date'
-alias lastinstalled='yaourt -Q --date'
+alias lastinstalled="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 50"
 alias lastp='yaourt -Q --date'
 alias listdate='yaourt -Q --date'
 alias listp='pacman -Qit | grep "Name\|Description\|Required By\|Depends On\|Build Date\|Install Date\|Install Reason\|^$"'

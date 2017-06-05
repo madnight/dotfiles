@@ -23,8 +23,8 @@ fi
 
 # some extra top space for bar
 bspc config top_padding    45
-# bspc config right_padding  10
-bspc config right_padding  210
+bspc config right_padding  10
+# bspc config right_padding  210
 bspc config left_padding   10
 bspc config bottom_padding 8
 

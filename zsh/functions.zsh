@@ -483,6 +483,18 @@ pdf() {
     evince "$@" &
 }
 
+# screen recoding to webm best uploaded at http://webmshare.com/ (gyfact cuts at 15 sec)
+record () {
+    # $1 resolution
+    # $2 offset x
+    # $3 offset y
+    # $4 output
+    # example
+    # ffmpeg -f x11grab -s 1024x768 -i :0.0+10,100 -c:v libvpx -crf 12 -b:v 500K ouput.webm
+    ffmpeg -f x11grab -s $1 -i :0.0+$2,$3 -c:v libvpx -crf 12 -b:v 500K $4
+    # open with firefox output.webm
+}
+
 function calct() {
     awk "BEGIN{ print $* }" ;
 }

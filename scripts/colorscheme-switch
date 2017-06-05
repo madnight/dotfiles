@@ -120,7 +120,7 @@ getColorschemePath() {
 }
 
 showColorschemes() {
-    find "${COLORSCHEME_PATH}" -type f | sed 's/\..resources//g; s/.*\///g'
+    find "${COLORSCHEME_PATH}/" -type f | sed 's/\..resources//g; s/.*\///g'
 }
 
 showHelp() {

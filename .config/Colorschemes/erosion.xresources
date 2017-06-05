@@ -1,0 +1,38 @@
+! erosion theme by earsplit
+
+*.foreground:   #A99E95
+/* *.foreground:   #C3BBB4 */
+*.background:   #181715
+*.cursorColor:  #e8e1e1
+
+! black
+*.color0:       #332d29
+*.color8:       #817267
+
+! red
+*.color1:       #8c644c
+*.color9:       #9f7155
+
+! green
+*.color2:       #746c48
+*.color10:      #857b52
+
+! yellow
+*.color3:       #908a66
+*.color11:      #9c956e
+
+! blue
+*.color4:       #646a6d
+*.color12:      #71777a
+
+! magenta
+*.color5:       #605655
+*.color13:      #656565
+
+! cyan
+*.color6:       #4b5c5e
+*.color14:      #556d70
+
+! white
+*.color7:       #504339
+*.color15:      #9a875f

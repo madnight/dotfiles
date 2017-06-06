@@ -45,6 +45,8 @@ bspc rule -a Conky  sticky=on manage=off lower=on
 bspc rule -a astime sticky=on
 
 bspc rule -a '*:Profile error occurred:*' state=floating focus=on
+bspc rule -a '*:KeePassHttp: Confirm Access:*' state=floating focus=on
+bspc rule -a '*:zathura:*' state=tiled
 
 bspc rule -a Firefox		  desktop=1 focus=on
 bspc rule -a Thunderbird      desktop=3
@@ -66,7 +68,6 @@ bspc rule -a gimp            state=floating
 
 bspc rule -a Meld state=fullscreen center=true focus=on
 bspc rule -a Slack desktop=1 state=fullscreen center=true focus=on
-
 bspc rule -a pavucontrol desktop=X follow=true state=floating center=true
 
 # hile true; do MONITOR=VGA-1 && SHELL=/bin/bash polybar -r top-bspwm; sleep5; done &

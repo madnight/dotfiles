@@ -97,3 +97,9 @@ xset fp rehash &
 
 # speeeeed!
 xset r rate 150 50
+
+xmodmap -e "clear Lock"
+xmodmap -e "keycode 9 = NoSymbol"
+xmodmap -e "keycode 66 = Escape NoSymbol Escape Escape NoSymbol Escape"
+
+

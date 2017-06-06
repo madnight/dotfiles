@@ -40,7 +40,6 @@ color15 = #9a875f
 
 [options]
 font = tamzenforpowerline 14
-# font = Gohu Gohufont 11
 audible_bell = false
 visible_bell = false
 urgent_on_bell = false
@@ -49,5 +48,4 @@ browser = chromium
 search_wrap = true
 scrollback_lines = 9999
 cursor_blink = off
-cursor_shape = ibeam
 allow_bold = false

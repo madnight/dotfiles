@@ -1,27 +1,3 @@
-# modified agnoster theme
-# source ~/zsh/agnoster.zsh-theme
-
-# agnoster modifications by overwrite
- # PROMPT='%{%f%b%k%}$(build_prompt) '
-
-# build_prompt() {
-# # only show the agnoster git prompt in git dir
-# if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-#   RETVAL=$?
-#   prompt_status
-#   prompt_virtualenv
-#   prompt_context
-#   # prompt dir is already on rprompt
-#   prompt_git
-#   # we dont need mercurial
-#   # prompt_hg
-#   prompt_end
-# else
-# # otherwise use minimal theme
-#  echo -ne "%{$fg[red]%} » %{$reset_color%}"
-# fi
-# }
-
 #show shell execution time needed on right prompt
 ZSH_COMMAND_START=0
 typeset -gF SECONDS
@@ -50,11 +26,6 @@ rationalise-dot() {
 }
 zle -N rationalise-dot
 bindkey . rationalise-dot
-
-
-# zle -N zle-line-init
-# zle -N ale-line-finish
-# zle -N zle-keymap-select
 
 
 # if mode indicator wasn't setup by theme, define default

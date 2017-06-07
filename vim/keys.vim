@@ -35,8 +35,9 @@ nnoremap <Leader>lt :set background=light<cr>:colorscheme Tomorrow<cr>
 nnoremap <Leader>dt :set background=dark<cr>:colorscheme hybrid<cr>
 nnoremap <Leader>te :call DarkTheme()<cr>
 
-map K <Plug>(expand_region_expand)
-map J <Plug>(expand_region_shrink)
+" find other mappings J is in use
+" map K <Plug>(expand_region_expand)
+" map J <Plug>(expand_region_shrink)
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 

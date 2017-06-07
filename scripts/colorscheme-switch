@@ -3,7 +3,7 @@ set -eu
 
 # modify the following two variables to match your requirements
 # path to the folder where you store your colorschemes
-COLORSCHEME_PATH=~/.config/Colorschemes
+COLORSCHEME_PATH=~/.config/colorschemes
 # path to your xrdb config file
 XRDB_CONF_PATH=~/.Xdefaults
 

@@ -11,9 +11,9 @@ bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 
 # wait for active internet connection and start desktop background monitor
 if [[ $(hostname) == 'skylake' ]]; then
-    bash -c 'while true; do conky -c ~/.conky/conkyrc-work && sleep 1; done &' &
+    bash -c 'while true; do conky -c ~/.config/conky/conkyrc-work && sleep 1; done &' &
 elif [[ $(hostname) == 'arch' ]]; then
-    bash -c 'while true; do conky -c ~/.conky/conkyrc && sleep 1; done &' &
+    bash -c 'while true; do conky -c ~/.config/conky/conkyrc && sleep 1; done &' &
 fi
 
 # backup packages list

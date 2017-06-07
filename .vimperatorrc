@@ -10,14 +10,14 @@ nmap J :tp<CR>
 " prevent accidental closing
 nmap <C-q> <nop>
 
-nmap ,g :open https://www.google.com/<CR>
-nmap ,r :open https://www.reddit.com/<CR>
-nmap ,up :open https://www.reddit.com/r/unixporn/<CR>
-nmap ,s :open https://www.spiegel.de<CR>
-nmap ,h :open https://news.ycombinator.com<CR>
-nmap ,gh :open https://github.com<CR>
-nmap ,go :open https://golem.de<CR>
-nmap ,dots :open https://github.com/madnight/dotfiles<CR>
+nmap ,g    :open https://www.google.com/              <CR>
+nmap ,r    :open https://www.reddit.com/              <CR>
+nmap ,up   :open https://www.reddit.com/r/unixporn/   <CR>
+nmap ,s    :open https://www.spiegel.de               <CR>
+nmap ,h    :open https://news.ycombinator.com         <CR>
+nmap ,gh   :open https://github.com                   <CR>
+nmap ,go   :open https://golem.de                     <CR>
+nmap ,dots :open https://github.com/madnight/dotfiles <CR>
 
 hi! Hint font-family: monospace; font-size: 16px; font-weight: bold; text-transform: uppercase; color: white; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding: 0px 1px 0px 1px;
 hi HintElem background-color: #073642; color: #b58900;

@@ -72,7 +72,7 @@ XF86Tools
 
 # Notes
 F3
-    urxvt -e zsh -c "vim ~/notes"
+    zsh ~/scripts/bspwm/scratchpad.zsh
 
 ################
 # volume related
@@ -133,8 +133,8 @@ super + c
 #############
 
 # set the window state
-super + {t,shift + t,s}
-    bspc node -t {tiled,pseudo_tiled,floating}
+super + {t,shift + t}
+    bspc node -t {tiled,pseudo_tiled}
 
 # toggle fullscreen
 super + f
@@ -229,3 +229,32 @@ super + shift + l
 # move a floating window
 super + {Left,Down,Up,Right}
     bspc node -v {-20 0,0 20,0 -20,20 0}
+
+
+super + s
+    id=$(bspc query -N -n "focused");\
+    if [ -n "$id" ];then \
+        xprop -id $id -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
+        bspc node -t "floating";\
+        xdotool windowunmap $id;\
+    fi
+
+super + shift + s
+    i=$(bspc query -N -n "focused.floating");\
+    if [ -n "$i" ];then \
+        xprop -id $i -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
+        xdotool windowunmap $i;\
+    else;\
+        i=$(for w in $(xwininfo -root -children | grep -e "^\s*0x[0-9a-f]\+" -o);do \
+            t=$(xprop -id $w _SCRATCH | grep ' = \(.*\)');\
+            if [ -n "$t" ];then \
+                echo $t $w;\
+            fi;\
+        done|sort -n|head -n1|cut -d" " -f 5);\
+        if [ -n "$i" ];then \
+            xprop -id $i -remove _SCRATCH;\
+            bspc rule -a \* state=floating center=on --one-shot;\
+            xdotool windowmap $i;\
+            bspc node -f $i;\
+        fi;\
+    fi

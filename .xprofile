@@ -82,9 +82,6 @@ wmname LG3D
 # hotkey deamon
 sxhkd &
 
-# pacman (aur) notifcations
-kalu &
-
 [ ! -s ~/.config/mpd/pid ] && echo mpd &
 
 xset +fp ~/.fonts/tamzen-font/bdf &

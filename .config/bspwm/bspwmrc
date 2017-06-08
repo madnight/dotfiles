@@ -79,8 +79,8 @@ if [[ $(hostname) == 'arch' ]]; then
     export MONITOR=VGA-0 && SHELL=/bin/bash polybar -r top-bspwm
     export MONITOR=DVI-I-1 && SHELL=/bin/bash polybar -r top-bspwm
 elif [[ $(hostname) == 'skylake' ]]; then
-    export MONITOR=eDP1 && SHELL=/bin/bash polybar -r top-bspwm-work
     export MONITOR=HDMI1 && SHELL=/bin/bash polybar -r top-bspwm-work
+    export MONITOR=eDP1 && SHELL=/bin/bash polybar -r top-bspwm-work
 fi
 
 xdotool search --onlyvisible --name tilda windowfocus

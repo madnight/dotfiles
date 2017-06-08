@@ -632,7 +632,7 @@ bindkey '^T' fzf-file-widget
 
 
 fzf-cd-widget() {
-  cd $HOME
+  # cd $HOME
   local cmd="${FZF_ALT_C_COMMAND:-"rg --files --hidden -g ''"}"
   setopt localoptions pipefail 2> /dev/null
   local dir="$(eval "$cmd" | FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} --reverse $FZF_DEFAULT_OPTS $FZF_ALT_C_OPTS" $(__fzfcmd) +m)"

@@ -80,7 +80,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
 " open url in browser
-Plug 'tyru/open-browser.vim'
+" Plug 'tyru/open-browser.vim'
 
 " vim status line
 Plug 'vim-airline/vim-airline'
@@ -104,7 +104,7 @@ Plug 'xolox/vim-misc'
 Plug 'scrooloose/nerdcommenter'
 
 " toggles between relative and absolute line numbers automatically
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
+" Plug 'jeffkreeftmeijer/vim-numbertoggle'
 
 " Easy text exchange operator for Vim.
 Plug 'twuommcdo/vim-exchange'
@@ -139,13 +139,22 @@ Plug 'godlygeek/csapprox'
 " easy text exchange operator for Vim
 Plug 'tommcdo/vim-exchange'
 
-" easy text exchange operator for Vim
-Plug 'justinmk/vim-sneak'
+" easymotion provides a much simpler way to use some motions in vim
+Plug 'easymotion/vim-easymotion'
 
 " True Sublime Text style multiple selections for Vim
 " i might remove this plugins due to vims native feature of search, replace
 " and dot repeat + cgn feature
 Plug 'terryma/vim-multiple-cursors'
+
+" FocusGained and FocusLost autocommand events for tmxux
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" pasting in Vim with indentation adjusted to destination context.
+Plug 'sickill/vim-pasta'
+
+" kooter changes the working directory to the project root
+Plug 'airblade/vim-rooter'
 
 " #######################################
 " plugins active on trigger (lazy loaded)
@@ -219,8 +228,85 @@ Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 " language specific plugins (lazy loaded)
 " #########################################
 
+" this collective plugins seems to have some problems to detect buffer
+" switches (missing highlighting on switch)
 " A collection of language packs for Vim.
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
+
+Plug 'kovetskiy/sxhkd-vim',                     { 'for': 'sxhkd' }
+
+" improved PHP omni-completion, based on the default phpcomplete.vim
+Plug 'shawncplus/phpcomplete.vim',              { 'for': 'php' }
+
+" syntax highlighting, matching rules and mappings for the original Markdown and extensions
+Plug 'plasticboy/vim-markdown',                 { 'for': 'markdown' }
+
+" HTML5 + inline SVG omnicomplete function, indent and syntax for vim
+Plug 'othree/html5.vim',                        { 'for': 'html' }
+
+" distinct highlighting of keywords vs values, JSON-specific warnings, quote concealing
+Plug 'elzr/vim-json',                           { 'for': 'json' }
+
+" adds some more stuff that I find useful, including all of my notes and customizations.
+Plug 'derekwyatt/vim-scala',                    { 'for': 'scala' }
+
+" css3 syntax highlight
+Plug 'hail2u/vim-css3-syntax',                  { 'for': 'css' }
+
+" java syntax highlight
+Plug 'artur-shaik/vim-javacomplete2',           { 'for': 'java' }
+
+" nginx syntax highlight
+Plug 'evanmiller/nginx-vim-syntax',             { 'for': 'nginx' }
+
+" coffeescript syntax support
+Plug 'kchmck/vim-coffee-script',                { 'for': 'coffee' }
+
+" colorize hex codes this plugin is still inefficient for large files
+Plug 'gko/vim-coloresque',                      { 'for': 'css' }
+
+" enhanced javascript synxtax highlighting
+Plug 'jelera/vim-javascript-syntax',            { 'for': 'javascript' }
+
+" vim support for react jsx
+Plug 'mxw/vim-jsx',                             { 'for': 'javascript' }
+
+" vim javascript support
+Plug 'pangloss/vim-javascript',                 { 'for': 'javascript' }
+
+" list of JavaScript ES6 snippets and syntax highlighting for vim
+Plug 'isRuslan/vim-es6',                        { 'for': 'javascript' }
+
+" wisely add end in ruby
+Plug 'tpope/vim-endwise',                       { 'for': 'ruby' }
+
+" enhanced cpp support
+Plug 'octol/vim-cpp-enhanced-highlight',        { 'for': 'cpp' }
+
+" code completion for python
+Plug 'davidhalter/jedi-vim',                    { 'for': 'python' }
+
+" vim syntax file for Docker's Dockerfile and snippets for snipMate
+Plug 'ekalinin/Dockerfile.vim',                 { 'for': 'Dockerfile' }
+
+" syntax highlighting for tmux
+Plug 'tmux-plugins/vim-tmux',                   { 'for': 'tmux' }
+
+" syntax highlighting, autocompletion for less
+Plug 'groenewege/vim-less',                     { 'for': 'less' }
+
+" runtime files for Haml, Sass, and SCSS that ship with vim
+Plug 'tpope/vim-haml',                          { 'for' : ['haml','sass','scss','css'] }
+
+" add go support for vim
+Plug 'fatih/vim-go',                            { 'for': 'go' }
+
+" offical rust plugin
+Plug 'rust-lang/rust.vim',                      { 'for': 'rust' }
+
+" vim support for systemd configs
+Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
+
 
 " ################
 " disabled plugins
@@ -238,16 +324,12 @@ Plug 'sheerun/vim-polyglot'
 " Plug 'nixprime/cpsm' // does only work with vim python support
 
 " generate fancy tmux status lines (airline like)
-" Plug 'edkolev/tmuxline.vim',  {'on': ['Tmuxline']} // will be enabled if needed
+" Plug 'edkolev/tmuxline.vim'
 
 
 " dont need this plugin anymore, due to tmux like window resizing
 " resizer mode ctrl-e
 " Plug 'simeji/winresizer',                       { 'on': 'WinResizerStartResize' }
-
-" the vim-sneak plugins suits me better (minimalist alternative to EasyMotion)
-" easymotion provides a much simpler way to use some motions in vim
-" Plug 'easymotion/vim-easymotion'
 
 " its faster for me to switch windows with a fews keystrokes
 " cvim / vimium like window choosing by hinting

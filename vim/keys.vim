@@ -19,6 +19,11 @@ function DarkTheme()
     :silent exec "! sed -i 's/=light/=dark/g' ~/.vim-theme-switch"
 endfunction
 
+map s <Plug>(easymotion-overwin-f)
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
+
+" write as sudo
+command W w !sudo tee % > /dev/null
 map / <Plug>(incsearch-forward)
 " swap words
 nmap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>:noh<CR>
@@ -31,7 +36,7 @@ nnoremap <C-Left> "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<
 nnoremap <C-Right> "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>/\w\+\_W\+<CR><C-l>
 
 " tpope mapping (ü = [ us keyboard)
-nnoremap <Leader>lt :set background=light<cr>:colorscheme Tomorrow<cr>
+noremap <Leader>lt :set background=light<cr>:colorscheme Tomorrow<cr>
 nnoremap <Leader>dt :set background=dark<cr>:colorscheme hybrid<cr>
 nnoremap <Leader>te :call DarkTheme()<cr>
 
@@ -44,8 +49,13 @@ vmap gx <Plug>(openbrowser-smart-search)
 nnoremap <C-p> :FilesMru --tiebreak=end<cr>
 nnoremap <Leader>lb :e#<cr>
 " nnoremap <C-I> i <ESC>r
-nmap ü [
+
+" o insert line below
+" O insert line above
 " noremap + [
+"
+nnoremap <Leader>cn :cnext<cr>
+nnoremap <Leader>cp :cprev<cr>
 nnoremap <ESC>n :cnext<cr>
 nnoremap <ESC>p :cprev<cr>
 nnoremap + <C-a>

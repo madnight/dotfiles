@@ -142,6 +142,7 @@ set history=50
 set mouse=v
 " soft wrap
 set wrap
+set relativenumber
 
 "############
 " Typo Fixes

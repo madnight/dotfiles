@@ -30,6 +30,12 @@ let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#branch#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 
+
+"####################
+" Tmux Line settings
+"####################
+let g:tmuxline_theme = 'zenburn'
+
 "###################
 " NerdTree settings
 "###################
@@ -81,7 +87,7 @@ let g:hardtime_default_on = 1
 let g:hardtime_timeout = 2000
 let g:hardtime_showmsg = 0
 let g:hardtime_allow_different_key = 1
-let g:hardtime_maxcount = 2
+let g:hardtime_maxcount = 4
 let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
 let g:list_of_normal_keys = ["h", "j", "k", "l"]
 let g:hardtime_ignore_quickfix = 1
@@ -131,4 +137,4 @@ command! -bang -nargs=* Rg
 "   \   <bang>0)
 "
 "
-let g:sneak#s_next = 1
+" let g:sneak#s_next = 1

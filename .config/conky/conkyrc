@@ -20,7 +20,7 @@ conky.config = {
 	default_color = 'white',
 	default_shade_color = 'black',
 	alignment = 'top_right',
-	gap_x = 10,
+	gap_x = 14,
 	gap_y = 50,
 	cpu_avg_samples = 2,
 	override_utf8_locale = false,
@@ -31,7 +31,7 @@ conky.config = {
 	default_color = '#cccccc',
 	default_bar_width = 200,
 	default_bar_height = 5,
-	lua_load = '~/.conky/conky.lua',
+	lua_load = '~/.config/conky/conky.lua',
 	lua_draw_hook_post = 'main',
 };
 

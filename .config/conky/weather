@@ -1,0 +1,33 @@
+conky.config = {
+	background = true,
+	use_xft = true,
+	font = 'lucy tewii:size=8',
+	xftalpha = 0.8,
+	update_interval = 2,
+	total_run_times = 0,
+	own_window = true,
+	own_window_type = 'desktop',
+	own_window_class = 'Conky',
+	own_window_transparent = true,
+	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+	minimum_width = 1270, minimum_height = 100,
+	maximum_width = 1200,
+	draw_shades = false,
+	draw_outline = false,
+	draw_borders = false,
+	default_color = 'white',
+	default_shade_color = 'black',
+	alignment = 'top_right',
+	gap_x = 694,
+	gap_y = 646,
+	no_buffers = true,
+	cpu_avg_samples = 2,
+	override_utf8_locale = false,
+	text_buffer_size = 16384,
+	override_utf8_locale = true,
+	default_color = '#cccccc',
+};
+
+conky.text = [[
+${execi 60 curl --silent http://wttr.in/Bremen?nTQ | head -n -2}
+]];

@@ -21,10 +21,9 @@ if ping -c 1 google.com > /dev/null; then
       notify 'autoupdates stopped'
 
    # check if my aur packages source is avaiable
-   ! curl --silent --head --fail  \
-      https://github.com/dripcap/dripcap/\
-      releases/download/v0.6.4/dripcap-linux-amd64.deb \
-      | grep 'Found' > /dev/null && \
+   curl --silent --head --fail \
+      https://github.com/dripcap/dripcap/releases/download/v0.6.4/dripcap-linux-amd64.deb \
+      | grep -q 'Found' || \
       notify 'dripcap offline/updated'
 
 fi

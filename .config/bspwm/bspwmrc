@@ -39,6 +39,8 @@ bspc config focused_border_color  "#87AFAF"
 bspc rule -a '*:keepassx2:*' state=tiled split_dir=south split_ratio=0.66 focus=on
 bspc rule -a SpeedCrunch	 state=tiled split_dir=south split_ratio=0.66 focus=on
 bspc rule -a Gvim            state=tiled split_dir=north split_ratio=0.1 focus=on
+bspc rule -a '*:tilda:*'	 state=tiled split_dir=north split_ratio=0.3 focus=on
+
 
 bspc rule -a Conky  sticky=on manage=off lower=on
 bspc rule -a astime sticky=on
@@ -80,3 +82,5 @@ elif [[ $(hostname) == 'skylake' ]]; then
     export MONITOR=eDP1 && SHELL=/bin/bash polybar -r top-bspwm-work
     export MONITOR=HDMI1 && SHELL=/bin/bash polybar -r top-bspwm-work
 fi
+
+xdotool search --onlyvisible --name tilda windowfocus

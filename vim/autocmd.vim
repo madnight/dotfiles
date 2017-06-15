@@ -27,6 +27,7 @@ augroup vimrc_autocmd
   au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
   au BufNewFile,BufRead *.coffee set filetype=coffee
 
+  au FileType mardown set spell spelllang=en_us
   au FileType php set omnifunc=phpcomplete#CompletePHP
   au FileType mail setlocal spell spelllang=de_de,en_gb
   au FileType ruby,eruby let g:rubycomplete_buffer_loading = 1

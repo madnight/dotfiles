@@ -6,7 +6,7 @@
 #		 |_.__/|___/ .__/ \_/\_/ |_| |_| |_|  \___\___/|_| |_|_| |_|\__, |
 #		           |_|                                              |___/
 
-bspc config border_width 2
+bspc config border_width 3
 bspc config window_gap   10
 
 i=1

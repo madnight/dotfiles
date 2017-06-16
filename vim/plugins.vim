@@ -150,9 +150,6 @@ Plug 'terryma/vim-multiple-cursors'
 " FocusGained and FocusLost autocommand events for tmxux
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
-" pasting in Vim with indentation adjusted to destination context.
-Plug 'sickill/vim-pasta'
-
 " kooter changes the working directory to the project root
 Plug 'airblade/vim-rooter'
 
@@ -334,6 +331,10 @@ Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
 " its faster for me to switch windows with a fews keystrokes
 " cvim / vimium like window choosing by hinting
 " Plug 't9md/vim-choosewin',                      { 'on': 'ChooseWin' }
+
+" strange beahaviour
+" pasting in Vim with indentation adjusted to destination context.
+" Plug 'sickill/vim-pasta'
 
 call plug#end()
 

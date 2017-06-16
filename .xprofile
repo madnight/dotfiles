@@ -1,4 +1,4 @@
-
+ # vi: ft=sh
  #                              __ _ _
  #       __  ___ __  _ __ ___  / _(_) | ___
  #       \ \/ / '_ \| '__/ _ \| |_| | |/ _ \
@@ -16,7 +16,8 @@ elif [[ $(hostname) == 'arch' ]]; then
     bash -c 'while true; do conky -c ~/.config/conky/conkyrc && sleep 1; done &'
 fi
 
-bash -c 'while true; do conky -c ~/.config/conky/weather && sleep 1; done &'
+conky -c ~/.config/conky/weather &
+conky -c ~/.config/conky/errors &
 
 # backup packages list
 # zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &

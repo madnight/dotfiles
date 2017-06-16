@@ -552,7 +552,7 @@ fe() {
 # fkill - kill process
 fkill() {
   local pid
-  pid=$(ps -aux | sed 1d | fzf -m | awk '{print $1}')
+  pid=$(ps a | sed 1d | fzf -m | awk '{print $1}')
   if [ "x$pid" != "x" ]
   then
     echo $pid | xargs kill -${1:-9}

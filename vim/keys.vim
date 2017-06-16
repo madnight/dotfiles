@@ -8,6 +8,14 @@
 
 
 " unmap <Enter>
+"
+nmap <silent> I "=nr2char(getchar())<cr>P
+"This allows for change paste motion cp{motion}
+nmap <silent> cp :set opfunc=ChangePaste<CR>g@
+function! ChangePaste(type, ...)
+    silent exe "normal! `[v`]\"_c"
+    silent exe "normal! p"
+endfunction
 
 function LightTheme()
     :silent exec "! sed -i 's/hybrid/Tomorrow/g' ~/.vim-theme-swtich"
@@ -152,8 +160,9 @@ map <C-s> <ESC>:w<CR>
 map <S-w> <ESC>:q!<CR>
 map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
 
-imap ii <Esc>
-imap jj <Esc>
+
+nnoremap ,i i_<Esc>r
+imap jj <Esc><Esc>
 imap <C-s> <ESC>:w<CR>
 imap <C-g> <Plug>IMAP_JumpForward
 

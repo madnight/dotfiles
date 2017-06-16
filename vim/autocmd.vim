@@ -45,6 +45,8 @@ augroup vimrc_autocmd
   au InsertLeave * call ale#Lint()
   au TextChanged * call ale#Lint()
 
+  au VimResized * wincmd =
+
   " Adding automatons for when entering or leaving Vim
   if len(argv()) < 1
     au VimEnter * nested :call LoadSession()

@@ -129,7 +129,13 @@ super + g
 
 # resize window to watch conky
 super + c
-    zsh ~/scripts/bspwm/toggle-conky-padding.zsh
+    zsh ~/scripts/bspwm/toggle-conky-padding.zsh right
+
+super + x
+    zsh ~/scripts/bspwm/toggle-conky-padding.zsh left
+
+super + v
+    zsh ~/scripts/bspwm/toggle-conky-padding.zsh down
 
 #############
 # state/flags
@@ -232,7 +238,6 @@ super + shift + l
 # move a floating window
 super + {Left,Down,Up,Right}
     bspc node -v {-20 0,0 20,0 -20,20 0}
-
 
 super + s
     id=$(bspc query -N -n "focused");\

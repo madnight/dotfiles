@@ -6,10 +6,6 @@ margin-bottom = 20
 ; used for bottom aligned bars
 margin-top = 0
 
-
-
-# ping!!dunst 
-
 [colors]
 background = ${xrdb:color0:#222}
 background-alt = #444
@@ -105,7 +101,7 @@ interface = enp5s0
 interval = 3.0
 ping-interval = 3
 accumulate-stats = true
-label-connected =  %downspeed:8%  %upspeed:8%
+label-connected =  %downspeed:9%  %upspeed:9%
 format-disconnected = <label-disconnected>
 label-disconnected = not connected
 

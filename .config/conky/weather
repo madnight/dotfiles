@@ -1,3 +1,5 @@
+-- vi: ft=conkyrc
+
 conky.config = {
 	background = true,
 	use_xft = true,
@@ -10,7 +12,8 @@ conky.config = {
 	own_window_class = 'Conky',
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-	minimum_width = 1270, minimum_height = 100,
+	minimum_width = 1270,
+	minimum_height = 100,
 	maximum_width = 1200,
 	draw_shades = false,
 	draw_outline = false,
@@ -19,7 +22,7 @@ conky.config = {
 	default_shade_color = 'black',
 	alignment = 'top_right',
 	gap_x = 694,
-	gap_y = 646,
+	gap_y = 267,
 	no_buffers = true,
 	cpu_avg_samples = 2,
 	override_utf8_locale = false,
@@ -28,6 +31,9 @@ conky.config = {
 	default_color = '#cccccc',
 };
 
+
 conky.text = [[
 ${execi 60 curl --silent http://wttr.in/Bremen?nTQ | head -n -2}
+${voffset 10}
+${execpi 60 DJS=`date +%_d`; cal -n 3 | sed s/"\(^\|[^0-9]\)$DJS"'\b'/'\1${color orange}'"$DJS"'$color'/}
 ]];

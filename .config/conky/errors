@@ -1,7 +1,9 @@
+-- vi: ft=conkyrc
+
 conky.config = {
 	background = true,
 	use_xft = true,
-	font = 'lucy tewii:size=8',
+	font = 'lucy tewii:size=10',
 	xftalpha = 0.8,
 	update_interval = 2,
 	total_run_times = 0,
@@ -10,7 +12,8 @@ conky.config = {
 	own_window_class = 'Conky',
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-	minimum_width = 1270, minimum_height = 100,
+	minimum_width = 1270,
+	minimum_height = 100,
 	maximum_width = 1200,
 	draw_shades = false,
 	draw_outline = false,
@@ -18,8 +21,8 @@ conky.config = {
 	default_color = 'white',
 	default_shade_color = 'black',
 	alignment = 'top_right',
-	gap_x = 660,
-	gap_y = 770,
+	gap_x = 675,
+	gap_y = 853,
 	no_buffers = true,
 	cpu_avg_samples = 2,
 	override_utf8_locale = false,
@@ -28,6 +31,7 @@ conky.config = {
 	default_color = '#cccccc',
 };
 
-conky.text = [[
-${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 18}
+conky.text =
+[[
+	${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 18}
 ]];

@@ -17,6 +17,8 @@ function! ChangePaste(type, ...)
     silent exe "normal! p"
 endfunction
 
+noremap <Leader>sen :set spell spelllang=en_us<cr>
+
 function LightTheme()
     :silent exec "! sed -i 's/hybrid/Tomorrow/g' ~/.vim-theme-swtich"
     :silent exec "! sed -i 's/=dark/=light/g' ~/.vim-theme-switch"

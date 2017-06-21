@@ -153,6 +153,8 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " kooter changes the working directory to the project root
 Plug 'airblade/vim-rooter'
 
+Plug 'leafgarland/typescript-vim'
+
 " #######################################
 " plugins active on trigger (lazy loaded)
 " #######################################

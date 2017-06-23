@@ -7,6 +7,13 @@
  "       |_|            |___/
  "
 
+let g:tmux_resizer_no_mappings = 1
+
+nnoremap <silent> {Left-mapping} :TmuxResizeLeft<cr>
+nnoremap <silent> {Down-Mapping} :TmuxResizeDown<cr>
+nnoremap <silent> {Up-Mapping} :TmuxResizeUp<cr>
+nnoremap <silent> {Right-Mapping} :TmuxResizeRight<cr>
+
 "################
 " Latex settings
 "################
@@ -138,3 +145,12 @@ command! -bang -nargs=* Rg
 "
 "
 " let g:sneak#s_next = 1
+"
+
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)

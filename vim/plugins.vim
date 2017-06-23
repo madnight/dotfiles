@@ -166,10 +166,10 @@ Plug 'benmills/vimux',                          { 'on': 'VimuxRunCommand' }
 Plug 'Valloric/YouCompleteMe',                  { 'on': [], 'do': function('BuildYCM') }
 
 " Track the engine.
-Plug 'SirVer/ultisnips',                        { 'on': [] }
+" Plug 'SirVer/ultisnips',                        { 'on': [] }
 
 " Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets',                      { 'on': [] }
+" Plug 'honza/vim-snippets',                      { 'on': [] }
 
 " an ack.vim alternative mimics Ctrl-Shift-F (search with context)
 Plug 'dyng/ctrlsf.vim',                         { 'on': 'CtrlSF' }
@@ -228,85 +228,86 @@ Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 " #########################################
 
 " this collective plugins seems to have some problems to detect buffer
+" update might be a local setting problem ....
 " switches (missing highlighting on switch)
 " A collection of language packs for Vim.
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
-Plug 'kovetskiy/sxhkd-vim',                     { 'for': 'sxhkd' }
-
-" improved PHP omni-completion, based on the default phpcomplete.vim
-Plug 'shawncplus/phpcomplete.vim',              { 'for': 'php' }
-
-" syntax highlighting, matching rules and mappings for the original Markdown and extensions
-Plug 'plasticboy/vim-markdown',                 { 'for': 'markdown' }
-
-" HTML5 + inline SVG omnicomplete function, indent and syntax for vim
-Plug 'othree/html5.vim',                        { 'for': 'html' }
-
-" distinct highlighting of keywords vs values, JSON-specific warnings, quote concealing
-Plug 'elzr/vim-json',                           { 'for': 'json' }
-
-" adds some more stuff that I find useful, including all of my notes and customizations.
-Plug 'derekwyatt/vim-scala',                    { 'for': 'scala' }
-
-" css3 syntax highlight
-Plug 'hail2u/vim-css3-syntax',                  { 'for': 'css' }
-
-" java syntax highlight
-Plug 'artur-shaik/vim-javacomplete2',           { 'for': 'java' }
-
-" nginx syntax highlight
-Plug 'evanmiller/nginx-vim-syntax',             { 'for': 'nginx' }
-
-" coffeescript syntax support
-Plug 'kchmck/vim-coffee-script',                { 'for': 'coffee' }
-
-" colorize hex codes this plugin is still inefficient for large files
-Plug 'gko/vim-coloresque',                      { 'for': 'css' }
-
-" enhanced javascript synxtax highlighting
-Plug 'jelera/vim-javascript-syntax',            { 'for': 'javascript' }
-
-" vim support for react jsx
-Plug 'mxw/vim-jsx',                             { 'for': 'javascript' }
-
-" vim javascript support
-Plug 'pangloss/vim-javascript',                 { 'for': 'javascript' }
-
-" list of JavaScript ES6 snippets and syntax highlighting for vim
-Plug 'isRuslan/vim-es6',                        { 'for': 'javascript' }
-
-" wisely add end in ruby
-Plug 'tpope/vim-endwise',                       { 'for': 'ruby' }
-
-" enhanced cpp support
-Plug 'octol/vim-cpp-enhanced-highlight',        { 'for': 'cpp' }
-
-" code completion for python
-Plug 'davidhalter/jedi-vim',                    { 'for': 'python' }
-
-" vim syntax file for Docker's Dockerfile and snippets for snipMate
-Plug 'ekalinin/Dockerfile.vim',                 { 'for': 'Dockerfile' }
-
-" syntax highlighting for tmux
-Plug 'tmux-plugins/vim-tmux',                   { 'for': 'tmux' }
-
-" syntax highlighting, autocompletion for less
-Plug 'groenewege/vim-less',                     { 'for': 'less' }
-
-" runtime files for Haml, Sass, and SCSS that ship with vim
-Plug 'tpope/vim-haml',                          { 'for' : ['haml','sass','scss','css'] }
-
-" add go support for vim
-Plug 'fatih/vim-go',                            { 'for': 'go' }
-
-" offical rust plugin
-Plug 'rust-lang/rust.vim',                      { 'for': 'rust' }
-
-" vim support for systemd configs
-Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
-
-
+" Plug 'kovetskiy/sxhkd-vim',                     { 'for': 'sxhkd' }
+"
+" " improved PHP omni-completion, based on the default phpcomplete.vim
+" Plug 'shawncplus/phpcomplete.vim',              { 'for': 'php' }
+"
+" " syntax highlighting, matching rules and mappings for the original Markdown and extensions
+" Plug 'plasticboy/vim-markdown',                 { 'for': 'markdown' }
+"
+" " HTML5 + inline SVG omnicomplete function, indent and syntax for vim
+" Plug 'othree/html5.vim',                        { 'for': 'html' }
+"
+" " distinct highlighting of keywords vs values, JSON-specific warnings, quote concealing
+" Plug 'elzr/vim-json',                           { 'for': 'json' }
+"
+" " adds some more stuff that I find useful, including all of my notes and customizations.
+" Plug 'derekwyatt/vim-scala',                    { 'for': 'scala' }
+"
+" " css3 syntax highlight
+" Plug 'hail2u/vim-css3-syntax',                  { 'for': 'css' }
+"
+" " java syntax highlight
+" Plug 'artur-shaik/vim-javacomplete2',           { 'for': 'java' }
+"
+" " nginx syntax highlight
+" Plug 'evanmiller/nginx-vim-syntax',             { 'for': 'nginx' }
+"
+" " coffeescript syntax support
+" Plug 'kchmck/vim-coffee-script',                { 'for': 'coffee' }
+"
+" " colorize hex codes this plugin is still inefficient for large files
+" Plug 'gko/vim-coloresque',                      { 'for': 'css' }
+"
+" " enhanced javascript synxtax highlighting
+" Plug 'jelera/vim-javascript-syntax',            { 'for': 'javascript' }
+"
+" " vim support for react jsx
+" Plug 'mxw/vim-jsx',                             { 'for': 'javascript' }
+"
+" " vim javascript support
+" Plug 'pangloss/vim-javascript',                 { 'for': 'javascript' }
+"
+" " list of JavaScript ES6 snippets and syntax highlighting for vim
+" Plug 'isRuslan/vim-es6',                        { 'for': 'javascript' }
+"
+" " wisely add end in ruby
+" Plug 'tpope/vim-endwise',                       { 'for': 'ruby' }
+"
+" " enhanced cpp support
+" Plug 'octol/vim-cpp-enhanced-highlight',        { 'for': 'cpp' }
+"
+" " code completion for python
+" Plug 'davidhalter/jedi-vim',                    { 'for': 'python' }
+"
+" " vim syntax file for Docker's Dockerfile and snippets for snipMate
+" Plug 'ekalinin/Dockerfile.vim',                 { 'for': 'Dockerfile' }
+"
+" " syntax highlighting for tmux
+" Plug 'tmux-plugins/vim-tmux',                   { 'for': 'tmux' }
+"
+" " syntax highlighting, autocompletion for less
+" Plug 'groenewege/vim-less',                     { 'for': 'less' }
+"
+" " runtime files for Haml, Sass, and SCSS that ship with vim
+" Plug 'tpope/vim-haml',                          { 'for' : ['haml','sass','scss','css'] }
+"
+" " add go support for vim
+" Plug 'fatih/vim-go',                            { 'for': 'go' }
+"
+" " offical rust plugin
+" Plug 'rust-lang/rust.vim',                      { 'for': 'rust' }
+"
+" " vim support for systemd configs
+" Plug 'Matt-Deacalion/vim-systemd-syntax',       { 'for': 'systemd' }
+"
+"
 " ################
 " disabled plugins
 " ################

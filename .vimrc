@@ -164,3 +164,7 @@ hi SpellBad cterm=underline ctermfg=red
 hi LineNr guibg=#1D1F21
 
 syntax sync minlines=200
+
+" move syntax enable to the bottom of vimrc to avoid syntax detection issues
+syntax on
+filetype plugin indent on

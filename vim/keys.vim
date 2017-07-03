@@ -9,6 +9,8 @@
 
 " unmap <Enter>
 "
+"
+"
 nmap <leader>nf :NERDTreeFind<cr>
 nmap <silent> I "=nr2char(getchar())<cr>P
 "This allows for change paste motion cp{motion}
@@ -65,7 +67,8 @@ nnoremap <Leader>lb :e#<cr>
 " O insert line above
 " noremap + [
 "
-nnoremap <Leader>cn :cnext<cr>
+" nnoremap <Leader>cn :cnext<cr>
+autocmd VimEnter * noremap <Leader>cn :cnext<cr>
 nnoremap <Leader>cp :cprev<cr>
 nnoremap <ESC>n :cnext<cr>
 nnoremap <ESC>p :cprev<cr>

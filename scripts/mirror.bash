@@ -8,9 +8,9 @@ function update {
 cd ~/Git/"$2" || exit
 
 if [ "$1" == "svn" ]; then
-    git svn rebase upstream/master
+    git svn rebase
 else
-    git rebase -s recursive -X theirs upstream/master
+    git pull upstream master
 fi
 
 git push -f origin master
@@ -36,7 +36,6 @@ if ping -c 1 google.com > /dev/null; then
   update "svn" codeblocks
 
   update "svn" jdownloader/browser
-  update "svn" jdownloader/trunk
   update "svn" jdownloader/MyJDownloaderClient
 fi
 

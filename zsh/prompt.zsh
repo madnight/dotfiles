@@ -66,17 +66,19 @@ PROMPT='$(git_super_status)%{$fg[red]%} » %{$reset_color%}'
 function insert-mode () { echo "INSERT" }
 function normal-mode () { echo "NORMAL" }
 
-function set-prompt () {
-    case ${KEYMAP} in
-      (vicmd)      VI_MODE="$(normal-mode)" ;;
-      (main|viins) VI_MODE="$(insert-mode)" ;;
-      (*)          VI_MODE="$(insert-mode)" ;;
-    esac
-    RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\") %{$fg[green]%}$(echo $VI_MODE)"
-}
+# function set-prompt () {
+#     case ${KEYMAP} in
+#       (vicmd)      VI_MODE="$(normal-mode)" ;;
+#       (main|viins) VI_MODE="$(insert-mode)" ;;
+#       (*)          VI_MODE="$(insert-mode)" ;;
+#     esac
+#     RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\") %{$fg[green]%}$(echo $VI_MODE)"
+# }
+
+RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
 
 function zle-line-init zle-keymap-select {
-    set-prompt
+    # set-prompt
     zle reset-prompt
 }
 preexec () { print -rn -- $terminfo[el]; }

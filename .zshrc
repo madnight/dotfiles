@@ -210,6 +210,9 @@ export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 export CHROME_BIN=/usr/bin/chromium
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden -g ""'
+export GCLOUD_PROJECT=coral-firefly-151914
+export GOOGLE_APPLICATION_CREDENTIALS=/home/x/.config/gcloud/application_default_credentials.json
+
 PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 NPM_PACKAGES="${HOME}/.npm-packages"
 PATH="$NPM_PACKAGES/bin:$PATH"

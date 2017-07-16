@@ -12,17 +12,15 @@ conky.config = {
 	own_window_class = 'Conky',
 	own_window_transparent = true,
 	own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
-	minimum_width = 1270,
 	minimum_height = 100,
-	maximum_width = 1200,
 	draw_shades = false,
 	draw_outline = false,
 	draw_borders = false,
 	default_color = 'white',
 	default_shade_color = 'black',
 	alignment = 'top_right',
-	gap_x = 675,
-	gap_y = 853,
+	gap_x = 300,
+	gap_y = 820,
 	double_buffer = true,
 	cpu_avg_samples = 2,
 	override_utf8_locale = false,
@@ -33,5 +31,7 @@ conky.config = {
 
 conky.text =
 [[
-	${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 18}
+${execi 600 curl -s --compressed "https://api.stackexchange.com/2.2/questions?order=desc&sort=creation&site=stackoverflow&filter=%21%29R7_Ydlui0%285xElvIXH9T.Ck" | jq -r '.[] | .[] | .[]' | head -n 18}
+${voffset 10}
+${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 18}
 ]];

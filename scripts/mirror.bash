@@ -26,6 +26,7 @@ if ping -c 1 google.com > /dev/null; then
   update "git" gnupg
   update "git" grub
   update "git" nano
+  update "git" babel-preset-php
 
   update "svn" lfs
   update "svn" filezilla

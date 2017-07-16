@@ -19,7 +19,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 # wallpaper
-feh --bg-scale groot-i-am-root-qhd.jpg
+feh --bg-scale $HOME/Pictures/xubuntu-trusty.png
 
 # x settings
 xset r rate 250 50

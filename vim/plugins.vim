@@ -145,6 +145,12 @@ Plug 'wellle/tmux-complete.vim'
 " vim plugin that provides additional text objects
 Plug 'wellle/targets.vim'
 
+" A Vim plugin for more pleasant editing on commit messages
+Plug 'rhysd/committia.vim'
+
+" keep an eye in youcompleteme seems that
+" the recompile on update might not work
+" and the plugin after that neither
 
 " #######################################
 " plugins active on trigger (lazy loaded)

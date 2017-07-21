@@ -1,12 +1,13 @@
 #!/usr/bin/env stack
 -- stack --install-ghc runghc --package turtle --package http-conduit
+
 {-# LANGUAGE OverloadedStrings #-}
 
 import Turtle
 import Network.Wreq
-import qualified Data.Text as T
 import Control.Lens
 import Data.Text.ICU.Replace
+import qualified Data.Text as T
 
 processIsRunning :: String -> IO ExitCode
 processIsRunning = flip shell empty . T.pack . ("ps x | /usr/bin/grep " ++) . grepFormat

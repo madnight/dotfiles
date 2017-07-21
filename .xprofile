@@ -16,8 +16,8 @@ elif [[ $(hostname) == 'arch' ]]; then
     bash -c 'while true; do conky -c ~/.config/conky/conkyrc && sleep 1; done &'
 fi
 
-conky -c ~/.config/conky/weather &
-conky -c ~/.config/conky/errors &
+# start conky
+stack runghc ~/scripts/start-conky.hs
 
 # backup packages list
 # zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &

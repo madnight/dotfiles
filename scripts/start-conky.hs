@@ -12,12 +12,16 @@ import Data.Text.ICU.Replace
 import System.Process (readProcess)
 import Data.String.Conversions (cs)
 
+
+shell' :: String -> String -> IO ExitCode
+shell' command  = flip shell empty . cs . (command ++)
+
 processIsRunning :: String -> IO ExitCode
-processIsRunning = flip shell empty . cs . ("ps x | /usr/bin/grep " ++) . grepFormat
+processIsRunning = shell' "ps x | /usr/bin/grep " . grepFormat
     where grepFormat = cs . replaceAll "^." "[$0]" . cs
 
 startConky ::  String -> IO ExitCode
-startConky = flip shell empty . cs . ("conky -c ~/.config/conky/" ++)
+startConky = shell' "conky -c ~/.config/conky/"
 
 conky :: String -> IO ()
 conky name = do

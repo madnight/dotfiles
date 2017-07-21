@@ -16,16 +16,16 @@ startConky ::  String -> IO ExitCode
 startConky = flip shell empty . T.pack . ("conky -c ~/.config/conky/" ++)
 
 conky :: String -> IO ()
-conky s = do
-     exit <- processIsRunning s
+conky name = do
+     exit <- processIsRunning name
      case exit of
-         ExitSuccess   -> print ("conky " ++ s ++ " already running")
-         ExitFailure n -> print =<< startConky (s ++  " &")
+         ExitSuccess   -> print ("conky " ++ name ++ " already running")
+         ExitFailure _ -> print =<< startConky (name ++  " &")
 
 hasInternet :: IO Bool
 hasInternet = do
-    r <- get "https://google.com"
-    return $ (==) 200 (r ^. responseStatus . statusCode)
+    response <- get "https://google.com"
+    return $ (==) 200 (response ^. responseStatus . statusCode)
 
 main :: IO ()
 main = do

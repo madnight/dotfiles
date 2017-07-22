@@ -1,34 +1,24 @@
 #!/usr/bin/env stack
 -- stack --install-ghc runghc turtle wreq http-conduit string-conversions
 
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ExtendedDefaultRules #-}
-
-import Turtle
 import Network.Wreq
 import Control.Lens
-import Data.Text.ICU.Replace
-import System.Process (readProcess)
-import Data.String.Conversions (cs)
+import System.Process
+import System.Exit
+import Data.List
 
-
-shell' :: String -> String -> IO ExitCode
-shell' command  = flip shell empty . cs . (command ++)
-
-processIsRunning :: String -> IO ExitCode
-processIsRunning = shell' "ps x | /usr/bin/grep " . grepFormat
-    where grepFormat = cs . replaceAll "^." "[$0]" . cs
+processIsRunning :: String -> IO Bool
+processIsRunning = (<$> readProcess "ps" ["x"] []) . isInfixOf
 
 startConky ::  String -> IO ExitCode
-startConky = shell' "conky -c ~/.config/conky/"
+startConky = system . ("conky -c ~/.config/conky/" ++)
 
 conky :: String -> IO ()
 conky name = do
      exit <- processIsRunning name
      case exit of
-         ExitSuccess   -> print ("conky " ++ name ++ " already running")
-         ExitFailure _ -> print =<< startConky (name ++  " &")
+       True  -> putStrLn ("conky " ++ name ++ " already running")
+       False -> print =<< startConky (name ++  " &")
 
 hasInternet :: IO Bool
 hasInternet = do
@@ -37,11 +27,11 @@ hasInternet = do
 
 sidebar :: IO ()
 sidebar = do
-    hostname <- readProcess "hostname" [] ""
+    hostname <- readProcess "hostname" [] []
     case hostname of
       "arch\n" -> conky "conkyrc"
       "skylake\n" -> conky "conkyrc-work"
-      _ -> echo "unkown host"
+      _ -> putStrLn "unkown host"
 
 main :: IO ()
 main = do

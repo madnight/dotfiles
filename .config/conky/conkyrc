@@ -87,7 +87,7 @@ Conn: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 count}${ali
 Total: ${totalup enp5s0} ${alignr} Total: ${totaldown enp5s0}
 ${upspeedgraph enp5s0 25,90 000000 000000 10000KiB}${alignr}${downspeedgraph enp5s0 25,90 000000 000000 25000KiB}
 Up: ${upspeedf enp5s0} kB/s  ${alignr} Down: ${color #ddaa00}${downspeedf enp5s0} kb/s$color
-     ${execi 6 /home/x/scripts/netpsstx enp5s0} pk/s  ${alignr}      ${execi 6 /home/x/scripts/netpssrx enp5s0} pk/s
+     ${execi 6 /home/x/scripts/packets-per-second enp5s0 OUT} pk/s  ${alignr}      ${execi 6 /home/x/scripts/packets-per-second enp5s0 IN} pk/s
 
 Root: ${fs_free /} $alignr ${fs_used /} / ${fs_size /}
 ${fs_bar 3 /}

@@ -1,5 +1,5 @@
 #!/usr/bin/env stack
--- stack --install-ghc runghc turtle wreq http-conduit string-conversions
+-- stack --install-ghc runghc wreq
 
 import Network.Wreq
 import Control.Lens

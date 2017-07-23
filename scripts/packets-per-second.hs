@@ -2,29 +2,39 @@
 -- stack --install-ghc runghc concurrent-extra strict
 
 import System.Environment
+import System.Directory
+import System.Exit
+import System.IO.Error
 import System.IO.Strict as Strict
 import Control.Concurrent.Thread.Delay
-import System.Directory
 import Control.Monad
+import Control.Exception.Base
+import Control.Monad.IO.Class
+import Control.Monad.Trans
+import Text.Read (readMaybe)
 
 exampleUsage = "\nexample usage: packets-per-second enp5s0 OUT\npackets-per-second eth0 IN"
 packetsOSPath i d  = "/sys/class/net/" ++ i ++ "/statistics/"++ d ++ "x_packets"
 
-error' :: String -> IO ()
-error' = error . (++ exampleUsage)
+error' :: String -> a
+error' = errorWithoutStackTrace . (++ exampleUsage)
 
 packetsPerSecond :: String -> String -> IO ()
 packetsPerSecond i d  = do
-    fileExists <- doesFileExist $ packetsOSPath i d
-    if not fileExists then
-        error' "wrong interface name"
-    else do
-        packetsT0 <- Strict.readFile $ packetsOSPath i d
-        delay 1000000 -- sleep one second
-        packetsT1 <- Strict.readFile $ packetsOSPath i d
-        let p0 = read packetsT0 :: Integer
-        let p1 = read packetsT1 :: Integer
-        print (p1 - p0)
+    let readStrictSafe = Strict.readFile (packetsOSPath i d) `catch` exceptionHandler
+    packetsT0 <- readStrictSafe
+    delay 1000000 -- sleep one second
+    packetsT1 <- readStrictSafe
+    let [x, y] = (\x -> readMaybe x :: Maybe Integer) <$> [packetsT0, packetsT1]
+    print (fromJust y - fromJust x)
+        where -- error handling
+            exceptionHandler :: IOError -> IO String
+            exceptionHandler e
+              | isDoesNotExistError e = error' "wrong interface name"
+              | isPermissionError e = error' "cannot access network interface packets information: permission denied"
+            fromJust :: Maybe a -> a
+            fromJust (Just x) = x
+            fromJust Nothing  = errorWithoutStackTrace "interface packet information malformed or non existing"
 
 direction :: String -> String -> IO ()
 direction i d = case d of
@@ -36,7 +46,7 @@ main :: IO ()
 main = do
     args <- getArgs
     case args of
+        [interface, dir] -> direction interface dir
         [] -> error' "too few arguments"
         [_] -> error' "too few arguments"
-        [interface, dir] -> direction interface dir
         _ -> error' "too many arguments"

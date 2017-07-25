@@ -148,6 +148,10 @@ Plug 'wellle/targets.vim'
 " A Vim plugin for more pleasant editing on commit messages
 Plug 'rhysd/committia.vim'
 
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
+Plug 'eagletmt/ghcmod-vim'
+
 " keep an eye in youcompleteme seems that
 " the recompile on update might not work
 " and the plugin after that neither

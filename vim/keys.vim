@@ -12,6 +12,7 @@
 "
 "
 nmap <leader>nf :NERDTreeFind<cr>
+nmap <leader>r :NERDTreeFind<cr>
 nmap <silent> I "=nr2char(getchar())<cr>P
 "This allows for change paste motion cp{motion}
 nmap <silent> cp :set opfunc=ChangePaste<CR>g@

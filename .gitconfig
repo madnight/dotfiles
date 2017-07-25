@@ -69,3 +69,6 @@
     contributors = shortlog --summary --numbered
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
+	compression = 0
+[http]
+	postBuffer = 524288000

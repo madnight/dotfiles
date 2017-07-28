@@ -48,28 +48,26 @@ daysToDate year month day = diffDays $ fromGregorian year month day
 timeDiffDays :: UTCTime -> UTCTime -> Integer
 timeDiffDays = (. utctDay) . diffDays . utctDay
 
+main :: IO (Maybe ())
 main = do
     feed <- get feedUrl
-    let dateString = "Mon, 15 May 2017 10:55:50 +0000"
-    let x = parseTimeRFC2822 dateString
     toDay <- getCurrentTime
     runMaybeT $ do
-        rfc2822time <- MaybeT . return $ parseTimeRFC2822 dateString
         x <- MaybeT . return $ feed ^? responseBody
         let datums = parseXML x
-        return datums
         root <- MaybeT . return $ findRoot datums
         let channels = map parseChannel $ findChildren (QName "channel" Nothing Nothing) root
         liftIO $ hSetEncoding stdout utf8
-        let recent = fmap (\x -> recentItem toDay (chItems x)) channels
+        let recent = fmap (\x -> recentItems toDay 100 (chItems x)) channels
         liftIO $ print $ map printItem (concat recent)
         liftIO $ putStrLn $ printChannel (head channels)
 
-isRecent :: Integer -> Integer -> Bool
-isRecent x y = x > y
-
-recentItem :: UTCTime -> [Item] -> [Item]
-recentItem today = filter (\y -> fromMaybe False $ liftA2 isRecent (liftA2 timeDiffDays (itPubDate y) (pure today)) (pure (-100)))
+recentItems :: UTCTime ->  Integer -> [Item]  -> [Item]
+recentItems today pastDays =
+  filter $ \y ->
+    case itPubDate y of
+      Nothing -> False
+      Just day  -> pastDays > timeDiffDays today day
 
 findRoot :: [Content] -> Maybe Element
 findRoot = findRoot' . onlyElems

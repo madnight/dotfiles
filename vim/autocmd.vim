@@ -27,6 +27,8 @@ augroup vimrc_autocmd
   au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
   au BufNewFile,BufRead *.coffee set filetype=coffee
 
+  au BufEnter *.hs set formatprg=xargs\ -0\ pointfree
+
   au FileType mardown set spell spelllang=en_us
   au FileType php set omnifunc=phpcomplete#CompletePHP
   au FileType mail setlocal spell spelllang=de_de,en_gb

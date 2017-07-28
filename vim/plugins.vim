@@ -219,6 +219,11 @@ Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 " a collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 
+Plug 'eagletmt/neco-ghc'
+Plug 'lukerandall/haskellmode-vim'
+Plug 'eagletmt/ghcmod-vim'
+
+
 " ################
 " disabled plugins
 " ################

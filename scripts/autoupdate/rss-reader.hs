@@ -1,3 +1,5 @@
+ {-# OPTIONS_GHC -XPackageImports #-}
+
 module Main where
 
 import Control.Monad
@@ -14,6 +16,8 @@ import Control.Monad
 import Control.Monad.Trans.Maybe
 import Control.Monad.Trans.Class
 import Control.Monad.IO.Class
+import "monad-extras" Control.Monad.Extra
+import Control.Applicative
 import Data.Time
 import Data.Text (Text)
 import Data.Time.RFC2822
@@ -23,8 +27,6 @@ import Data.Time.Clock
 import Data.List (isInfixOf, concat)
 import Data.Monoid.Textual (TextualMonoid)
 import System.IO.Unsafe
-
-import Control.Applicative
 
 feedUrl :: String
 feedUrl = "https://www.archlinux.org/feeds/news/"
@@ -40,27 +42,25 @@ data Item = Item { itTitle :: String
                  } deriving (Show)
 
 today :: IO Day
-today = fmap utctDay getCurrentTime
-
-daysToDate :: Integer -> Int -> Int -> Day -> Integer
-daysToDate year month day = diffDays $ fromGregorian year month day
+today = utctDay <$> getCurrentTime
 
 timeDiffDays :: UTCTime -> UTCTime -> Integer
 timeDiffDays = (. utctDay) . diffDays . utctDay
 
-main :: IO (Maybe ())
+main :: IO ()
 main = do
     feed <- get feedUrl
     toDay <- getCurrentTime
-    runMaybeT $ do
-        x <- MaybeT . return $ feed ^? responseBody
-        let datums = parseXML x
-        root <- MaybeT . return $ findRoot datums
-        let channels = map parseChannel $ findChildren (QName "channel" Nothing Nothing) root
-        liftIO $ hSetEncoding stdout utf8
-        let recent = fmap (\x -> recentItems toDay 100 (chItems x)) channels
-        liftIO $ print $ map printItem (concat recent)
-        liftIO $ putStrLn $ printChannel (head channels)
+    xml <- liftMaybe $ feed ^? responseBody
+    root <- liftMaybe . findRoot $ parseXML xml
+    let channels = parseChannel <$> findChildren (QName "channel" Nothing Nothing) root
+    let recent = concat $ recentItems toDay 100 . chItems <$> channels
+    let filtered = filterItemsbyString "Deprecation" recent
+    putStrLn $ printChannel (head channels)
+    print $ map printItem filtered
+
+filterItemsbyString :: String -> [Item] -> [Item]
+filterItemsbyString = filter . (. itTitle) . isInfixOf
 
 recentItems :: UTCTime ->  Integer -> [Item]  -> [Item]
 recentItems today pastDays =
@@ -76,7 +76,6 @@ findRoot = findRoot' . onlyElems
 prop :: Element -> String -> String
 prop node name = elemToString $ findChild (QName name Nothing Nothing) node
     where
-          elemToString :: Maybe Element -> String
           elemToString = maybe [] strContent
 
 parseChannel :: Element -> Channel
@@ -94,7 +93,7 @@ parseItem node = Item { itTitle = title, itLink = link, itPubDate = pubDate }
 printChannel :: Channel -> String
 printChannel channel = fullTitle ++ "\n" ++ ['=' | _ <- fullTitle] ++ "\n" ++ content
     where fullTitle = chTitle channel ++ " - " ++ chDescription channel
-          content = unlines $ map printItem (chItems channel)
+          content = unlines $ printItem <$> chItems channel
 
 printUTCTime :: Maybe UTCTime -> String
 printUTCTime time = case time of

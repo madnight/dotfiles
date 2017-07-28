@@ -2,50 +2,42 @@
 
 module Main where
 
-import Control.Monad
 import Data.List (find)
-import Data.Maybe
-import Network.HTTP
-import System.Exit
-import System.IO
 import Text.XML.Light
 import Network.Wreq
 import Control.Lens
-import Data.String.Conversions (cs)
-import Control.Monad
-import Control.Monad.Trans.Maybe
-import Control.Monad.Trans.Class
-import Control.Monad.IO.Class
-import "monad-extras" Control.Monad.Extra
 import Control.Applicative
 import Data.Time
-import Data.Text (Text)
 import Data.Time.RFC2822
-import Data.Time.LocalTime
-import Data.Time.Calendar
-import Data.Time.Clock
 import Data.List (isInfixOf, concat)
-import Data.Monoid.Textual (TextualMonoid)
-import System.IO.Unsafe
+import "monad-extras" Control.Monad.Extra
 
 feedUrl :: String
 feedUrl = "https://www.archlinux.org/feeds/news/"
 
-data Channel = Channel { chTitle :: String
-                       , chDescription :: String
-                       , chItems :: [Item]
-                       } deriving (Show)
+data Channel = Channel
+  { chTitle :: String
+  , chDescription :: String
+  , chItems :: [Item]
+  }
 
-data Item = Item { itTitle :: String
-                 , itLink :: String
-                 , itPubDate :: Maybe UTCTime
-                 } deriving (Show)
+data Item = Item
+  { itTitle :: String
+  , itLink :: String
+  , itPubDate :: Maybe UTCTime
+  }
 
-today :: IO Day
-today = utctDay <$> getCurrentTime
+instance Show Item where
+  show (Item a b c) =
+    show a ++ "  " ++
+    show b ++ "  " ++
+    show (printUTCTime c)
 
-timeDiffDays :: UTCTime -> UTCTime -> Integer
-timeDiffDays = (. utctDay) . diffDays . utctDay
+instance Show Channel where
+  show (Channel a b c) =
+    show a ++ " -  " ++
+    show b ++ " \n  " ++
+    show c
 
 main :: IO ()
 main = do
@@ -53,11 +45,18 @@ main = do
     toDay <- getCurrentTime
     xml <- liftMaybe $ feed ^? responseBody
     root <- liftMaybe . findRoot $ parseXML xml
-    let channels = parseChannel <$> findChildren (QName "channel" Nothing Nothing) root
+    let children = findChildren (qn "channel") root
+    let channels = parseChannel <$> children
     let recent = concat $ recentItems toDay 100 . chItems <$> channels
     let filtered = filterItemsbyString "Deprecation" recent
-    putStrLn $ printChannel (head channels)
-    print $ map printItem filtered
+    print channels
+    putStrLn . listToString $ filtered
+
+listToString :: [Item] -> String
+listToString = unwords . map show
+
+qn :: String -> QName
+qn n = QName n Nothing Nothing
 
 filterItemsbyString :: String -> [Item] -> [Item]
 filterItemsbyString = filter . (. itTitle) . isInfixOf
@@ -68,21 +67,20 @@ recentItems today pastDays =
     case itPubDate y of
       Nothing -> False
       Just day  -> pastDays > timeDiffDays today day
+  where
+    timeDiffDays = (. utctDay) . diffDays . utctDay
 
 findRoot :: [Content] -> Maybe Element
-findRoot = findRoot' . onlyElems
-    where findRoot' = find $ (== QName "rss" Nothing Nothing) . elName
+findRoot = find ((== qn "rss") . elName) . onlyElems
 
 prop :: Element -> String -> String
-prop node name = elemToString $ findChild (QName name Nothing Nothing) node
-    where
-          elemToString = maybe [] strContent
+prop node name = maybe [] strContent $ findChild (qn name) node
 
 parseChannel :: Element -> Channel
 parseChannel node = Channel { chTitle = title, chDescription = desc, chItems = items }
     where title = prop node "title"
           desc = prop node "description"
-          items = map parseItem $ findChildren (QName "item" Nothing Nothing) node
+          items = map parseItem $ findChildren (qn "item") node
 
 parseItem :: Element -> Item
 parseItem node = Item { itTitle = title, itLink = link, itPubDate = pubDate }
@@ -90,16 +88,8 @@ parseItem node = Item { itTitle = title, itLink = link, itPubDate = pubDate }
           link = prop node "link"
           pubDate = zonedTimeToUTC <$> parseTimeRFC2822 (prop node "pubDate")
 
-printChannel :: Channel -> String
-printChannel channel = fullTitle ++ "\n" ++ ['=' | _ <- fullTitle] ++ "\n" ++ content
-    where fullTitle = chTitle channel ++ " - " ++ chDescription channel
-          content = unlines $ printItem <$> chItems channel
-
 printUTCTime :: Maybe UTCTime -> String
-printUTCTime time = case time of
-        Just time -> formatTime defaultTimeLocale "%a %b %-e %X %Y" time
-        Nothing   -> "Unkown Timestamp"
-
-printItem :: Item -> String
-printItem x = printUTCTime (itPubDate x) ++ "  " ++  itTitle x ++ "  " ++  itLink x
-
+printUTCTime time =
+  case time of
+    Just time -> formatTime defaultTimeLocale "%a %b %-e %X %Y" time
+    Nothing   -> "Unkown Timestamp"

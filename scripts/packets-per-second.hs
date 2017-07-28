@@ -28,11 +28,9 @@ packetsPerSecond i d  = do
     let [x, y] = (\x -> readMaybe x :: Maybe Integer) <$> [packetsT0, packetsT1]
     print (fromJust y - fromJust x)
         where -- error handling
-            exceptionHandler :: IOError -> IO String
             exceptionHandler e
               | isDoesNotExistError e = error' "wrong interface name"
               | isPermissionError e = error' "cannot access network interface packets information: permission denied"
-            fromJust :: Maybe a -> a
             fromJust (Just x) = x
             fromJust Nothing  = errorWithoutStackTrace "interface packet information malformed or non existing"
 

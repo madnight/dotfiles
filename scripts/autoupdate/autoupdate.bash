@@ -19,7 +19,7 @@ else
 
     # Delete orphran packages and clean paccache
     if [ ! "$(pkg-list_true_orphans | wc -l)" == 0  ];then
-        pacman -Rns --noconfirm "$(pkg-list_true_orphans)"
+        pacman -Rns --noconfirm $(pkg-list_true_orphans)
         # remove pacman pkg cache exept the latest one
         paccache -r -k 1
     fi

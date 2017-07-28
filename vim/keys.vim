@@ -11,6 +11,12 @@
 "
 "
 "
+"
+"
+
+nmap <leader>hit :GhcModTypeInsert<CR>
+nmap <leader>htc :GhcModTypeClear<cr>
+nmap <leader>ht :GhcModType<cr>
 nmap <leader>nf :NERDTreeFind<cr>
 nmap <leader>r :NERDTreeFind<cr>
 nmap <silent> I "=nr2char(getchar())<cr>P

@@ -1,19 +1,15 @@
- {-# OPTIONS_GHC -XPackageImports #-}
+ {-# Language PackageImports #-}
 
-module Main where
+module RSSreader where
 
-import Data.List (find)
 import Text.XML.Light
 import Network.Wreq
 import Control.Lens
 import Control.Applicative
 import Data.Time
 import Data.Time.RFC2822
-import Data.List (isInfixOf, concat)
+import Data.List (isInfixOf, concat, find)
 import "monad-extras" Control.Monad.Extra
-
-feedUrl :: String
-feedUrl = "https://www.archlinux.org/feeds/news/"
 
 data Channel = Channel
   { chTitle :: String
@@ -36,21 +32,19 @@ instance Show Item where
 instance Show Channel where
   show (Channel a b c) =
     show a ++ " -  " ++
-    show b ++ " \n  " ++
+    show b ++ " \n " ++
     show c
 
-main :: IO ()
-main = do
-    feed <- get feedUrl
+getFeed :: String -> Integer -> IO [Item]
+getFeed url days = do
+    feed <- get url
     toDay <- getCurrentTime
     xml <- liftMaybe $ feed ^? responseBody
     root <- liftMaybe . findRoot $ parseXML xml
     let children = findChildren (qn "channel") root
     let channels = parseChannel <$> children
-    let recent = concat $ recentItems toDay 100 . chItems <$> channels
-    let filtered = filterItemsbyString "Deprecation" recent
-    print channels
-    putStrLn . listToString $ filtered
+    let recent = concat $ recentItems toDay days . chItems <$> channels
+    return recent
 
 listToString :: [Item] -> String
 listToString = unwords . map show
@@ -58,8 +52,8 @@ listToString = unwords . map show
 qn :: String -> QName
 qn n = QName n Nothing Nothing
 
-filterItemsbyString :: String -> [Item] -> [Item]
-filterItemsbyString = filter . (. itTitle) . isInfixOf
+filterItemsbyTitle :: String -> [Item] -> [Item]
+filterItemsbyTitle = filter . (. itTitle) . isInfixOf
 
 recentItems :: UTCTime ->  Integer -> [Item]  -> [Item]
 recentItems today pastDays =

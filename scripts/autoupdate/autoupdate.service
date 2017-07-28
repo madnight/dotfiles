@@ -2,7 +2,7 @@
 Description=Pacman Autoupdate
 
 [Service]
-ExecStart=/bin/sh /home/x/scripts/autoupdate.sh
+ExecStart=/home/x/scripts/autoupdate/autoupdate
 
 [Install]
 WantedBy=multi-user.target

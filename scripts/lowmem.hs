@@ -12,6 +12,3 @@ main = do
     let secs = (*) 1000000
     delay $ secs 10
     main
-
-
-

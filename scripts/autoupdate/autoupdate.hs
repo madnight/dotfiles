@@ -23,7 +23,7 @@ deleteOrphans = system "pacman -Rns --noconfirm $(pkg-list_true_orphans)"
 mins = (*) (60 * 1000000)
 
 main = do
-    {- delay (mins 30) -- sleep 30 mins -}
+    delay (mins 30) -- sleep 30 mins
     {- Get News from Archlinux.org -}
     feed <- getFeed "https://www.archlinux.org/feeds/news/" 8
     {- inter := interaction, intervention; requi := requires, required -}

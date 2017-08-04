@@ -75,7 +75,7 @@ function normal-mode () { echo "NORMAL" }
 #     RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\") %{$fg[green]%}$(echo $VI_MODE)"
 # }
 
-RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
+# RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
 
 function zle-line-init zle-keymap-select {
     # set-prompt

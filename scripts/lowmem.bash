@@ -13,3 +13,12 @@ do
     [ "$available" -lt "$memory" ] && \
     notify-send "Memory is running out!" "$message"
 done
+
+free <- readProcess "free" ["-m"] []
+words free
+let get x = read $ words free !! x :: Int
+let [total, used, avail] = get <$> [7, 8, 12]
+
+let warning = ("'Memory is running out " ++ (show avail) ++ " MB " ++ "left'")
+system ("notify-send " ++ warning)
+when (avail < 2000) []

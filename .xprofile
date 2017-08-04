@@ -28,7 +28,7 @@ bash -c "~/scripts/monitoring.bash" &
 bash -c "~/scripts/mirror.bash" &
 
 # low memory warning (freeze swap prevention)
-bash -c "~/scripts/lowmem.bash" &
+~/scripts/lowmem &
 
 # email client
 thunderbird &

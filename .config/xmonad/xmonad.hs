@@ -10,7 +10,7 @@ import XMonad.Layout.LayoutModifier as X
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
 import XMonad.Layout.WindowNavigation
-import XMonad.Layout.WindowNavigation
+import XMonad.Actions.FloatKeys
 import XMonad.Util.EZConfig
 import qualified XMonad.StackSet as W
 
@@ -25,10 +25,10 @@ main = xmonad $ def
     , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     } `additionalKeysP` customKeys
 
-customLayout :: ModifiedLayout Gaps
-    (ModifiedLayout Spacing
-    (ModifiedLayout WindowNavigation ResizableTall)) a
-customLayout = gaps' . spacing 8 . windowNavigation $ ResizableTall 1 (3/100) (1/2) []
+customLayout :: ModifiedLayout Gaps -- gaps between windows
+    (ModifiedLayout Spacing -- spacing between display border and windows
+    (ModifiedLayout WindowNavigation ResizableTall)) a -- additional window navigations
+customLayout = gaps' . spacing 8 . windowNavigation $ ResizableTall 2 (3/100) (1/2) []
     where gaps' = gaps [(U,45), (D,10), (R,10), (L,10)]
 
 {- wm independent sxhkd in use as keybing deamon, only xmonad specific shortcuts here -}
@@ -46,10 +46,18 @@ customKeys =
     , ("M-C-l",      sendMessage $ Swap R)     -- swap right
     , ("M-S-j",      sendMessage MirrorShrink) -- shrink down
     , ("M-S-k",      sendMessage MirrorExpand) -- expand up
-    , ("M-S-h",      sendMessage Shrink)       -- expand right
-    , ("M-S-l",      sendMessage Expand)       -- expand left
+    , ("M-S-h",      sendMessage Shrink)       -- shrink left
+    , ("M-S-l",      sendMessage Expand)       -- expand right
+    , ("M-<Left>",   floatMove (-50, 0))       -- move floating left
+    , ("M-<Right>",  floatMove (50, 0))        -- move floating right
+    , ("M-<Up>",     floatMove (0, -50))       -- move floating up
+    , ("M-<Down>",   floatMove (0, 50))        -- move floating down
     , ("M-q",        spawn "xmonad --recompile && xmonad --restart")
-    ]
+    ] ++ moveFollow
+        where floatMove = withFocused . keysMoveWindow
+              moveFollow = [("M-C-S-" ++ [k],
+                mapM_ windows [W.shift i, W.greedyView i])
+                | (i, k) <- zip (XMonad.workspaces def) (['1' .. '9'])]
 
 customManager :: ManageHook
 customManager = mconcat

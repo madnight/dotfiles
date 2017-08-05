@@ -31,7 +31,7 @@ customLayout :: ModifiedLayout Gaps -- gaps between windows
 customLayout = gaps' . spacing 8 . windowNavigation $ ResizableTall 2 (3/100) (1/2) []
     where gaps' = gaps [(U,45), (D,10), (R,10), (L,10)]
 
-{- wm independent sxhkd in use as keybing deamon, only xmonad specific shortcuts here -}
+{- wm independent defined via sxhkd keybind deamon, only xmonad specific shortcuts here -}
 customKeys :: [(String, X())]
 customKeys =
     [ ("M-<Return>", spawn "urxvt")

@@ -10,7 +10,7 @@
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 
 # start conky
-stack runghc ~/scripts/start-conky.hs
+~/scripts/start-conky &
 
 # backup packages list
 # zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &
@@ -22,10 +22,10 @@ bash -c "~/scripts/automute.sh" &
 bash -c "~/scripts/autoupdate.bash" &
 
 # monitor events
-bash -c "~/scripts/monitoring.bash" &
+~/scripts/monitoring &
 
 # sync github mirror repositories
-bash -c "~/scripts/mirror.bash" &
+~/scripts/mirror &
 
 # low memory warning (freeze swap prevention)
 ~/scripts/lowmem &
@@ -71,7 +71,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 wmname LG3D
 
 # polybar
-# while true; do SHELL=/bin/bash polybar -r top-bspwm; done &
+while true; do SHELL=/bin/bash polybar -r stock; done &
 
 # hotkey deamon
 sxhkd &

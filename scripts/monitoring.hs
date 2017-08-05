@@ -33,7 +33,7 @@ main = do
     dripcap <- isOnline "https://github.com/dripcap/dripcap/releases/download/v0.6.4/dripcap-linux-amd64.deb"
     when (not beuke) $ alert "'beuke offline'"
     when (not dripcap) $ alert "'dripcap offline'"
-    let hoursToNanoseconds hours = (hours * 60 * 60 * 1000 * 1000)
+    let hoursToNanoseconds = (*) $ 60 * 60 * 1000 * 1000
     delay $ hoursToNanoseconds 8 -- sleep 8 hours
     main
 

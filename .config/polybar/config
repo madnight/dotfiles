@@ -61,6 +61,28 @@ modules-left = apps vpn weather fs-root cputemp cpu memory
 modules-right = gputemp wired ping updates volume date time
 ; modules-left = apps vpn weather fs-root cputemp cpu-ramp
 ; modules-right = gputemp memory-bar wired updates volume date time
+;
+; [module/ewmh]
+; type = internal/xworkspaces
+; pin-workspaces = false
+; enable-click = false
+; enable-scroll = false
+; icon-0 = 1;♚
+; icon-1 = 2;♛
+; icon-2 = graphics;♜
+; icon-3 = mail;♝
+; icon-4 = web;♞
+; icon-default = ♟
+; format = <label-state>
+[module/ewmh]
+type = internal/xworkspaces
+label-active-foreground = #ffffff
+label-active-background = #3f3f3f
+label-active-underline = #fba922
+
+[bar/stock]
+inherit = bar/base
+; modules-center = ewmh
 
 [bar/top-bspwm]
 inherit = bar/base

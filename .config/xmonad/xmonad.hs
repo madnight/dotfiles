@@ -1,5 +1,3 @@
-{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, DeriveDataTypeable, TypeSynonymInstances, PatternGuards #-}
-
 import Data.List (isInfixOf)
 import XMonad
 import XMonad.Actions.FloatKeys
@@ -29,10 +27,7 @@ main = xmonad $ def
     , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     } `additionalKeysP` customKeys
 
-g :: GapSpec
-g = [(U,45), (D,10), (R,10), (L,10)]
-
-customLayout = gaps g
+customLayout = gaps [(U,45), (D,10), (R,10), (L,10)]
     . spacing 8
     . windowNavigation
     $ ResizableTall 2 (3/100) (1/2) []

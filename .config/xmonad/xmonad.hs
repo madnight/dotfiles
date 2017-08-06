@@ -37,7 +37,7 @@ customKeys :: [(String, X())]
 customKeys =
     [ ("M-<Return>", spawn "urxvt")
     , ("C-q",        kill)                     -- close window
-    , ("M-c",        broadcastMessage (SetGap 220 R) >> refresh )       -- focus down
+    , ("M-c",        conkyGap 220)             -- toggle right conky gap
     , ("M-j",        sendMessage $ Go D)       -- focus down
     , ("M-k",        sendMessage $ Go U)       -- focus up
     , ("M-h",        sendMessage $ Go L)       -- focus left
@@ -60,6 +60,7 @@ customKeys =
               moveFollow = [("M-C-S-" ++ [k],
                 mapM_ windows $ ($ i) <$> [shift, greedyView])
                 | (i, k) <- XMonad.workspaces def `zip` ['1'..'9']]
+              conkyGap g = broadcastMessage (SetGap g R) >> refresh
 
 customManager :: ManageHook
 customManager = mconcat

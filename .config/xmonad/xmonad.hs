@@ -3,6 +3,7 @@
 import Data.List (isInfixOf)
 import XMonad
 import XMonad.Actions.FloatKeys
+import XMonad.CustomGaps
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -28,51 +29,15 @@ main = xmonad $ def
     , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     } `additionalKeysP` customKeys
 
-type GapSpec = [(Direction2D,Int)]
-
 g :: GapSpec
 g = [(U,45), (D,10), (R,10), (L,10)]
 
-customLayout = example g
+customLayout = gaps g
     . spacing 8
     . windowNavigation
     $ ResizableTall 2 (3/100) (1/2) []
 
-data ExampleMsg = SetGap !Int !Direction2D    -- ^ Decrease a gap.
-  deriving (Typeable)
-
-data Example a = Example GapSpec [Direction2D]
-  deriving (Show, Read)
-
-instance Message ExampleMsg
-
-applyGaps :: Example a -> Rectangle -> Rectangle
-applyGaps gs r = foldr applyGap r (activeGaps gs)
-  where
-    applyGap (U,z) (Rectangle x y w h) = Rectangle x (y + fi z) w (h - fi z)
-    applyGap (D,z) (Rectangle x y w h) = Rectangle x y w (h - fi z)
-    applyGap (L,z) (Rectangle x y w h) = Rectangle (x + fi z) y (w - fi z) h
-    applyGap (R,z) (Rectangle x y w h) = Rectangle x y (w - fi z) h
-    activeGaps (Example conf cur) = filter ((`elem` cur) . fst) conf
-
-example g = ModifiedLayout (Example g (map fst g))
-
-instance LayoutModifier Example a where
-    modifyLayout g w r = runLayout w (applyGaps g r)
-    pureMess (Example conf cur) m
-         | Just (SetGap i d)  <- fromMessage m
-           = Just $ Example (setGap conf d (i)) cur
-         | otherwise = Nothing
-
-setGap :: GapSpec -> Direction2D -> Int -> GapSpec
-setGap gs d i = map (\(dir,j) ->
-    if (dir == d  && j /= 220)
-       then (dir, max i 0)
-       else if (dir == R)
-           then (dir, 0)
-           else (dir, j)) gs
-
-{- wm independent defined via sxhkd keybind deamon, only xmonad specific shortcuts here -}
+{- wm independent sxhkd in use as keybing deamon, only xmonad specific shortcuts here -}
 customKeys :: [(String, X())]
 customKeys =
     [ ("M-<Return>", spawn "urxvt")

@@ -1,3 +1,5 @@
+{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, DeriveDataTypeable, TypeSynonymInstances, PatternGuards #-}
+
 import Data.List (isInfixOf)
 import XMonad
 import XMonad.Actions.FloatKeys
@@ -5,14 +7,15 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Layout.Gaps
-import XMonad.Layout.LayoutModifier as X
+import XMonad.Layout.LayoutModifier
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
 import XMonad.Layout.WindowNavigation
 import XMonad.Actions.FloatKeys
+import XMonad.Util.XUtils (fi)
 import XMonad.Util.EZConfig
-import qualified XMonad.StackSet as W
+import XMonad.StackSet (greedyView, shift)
+import XMonad.Hooks.InsertPosition
 
 main :: IO ()
 main = xmonad $ def
@@ -25,17 +28,56 @@ main = xmonad $ def
     , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     } `additionalKeysP` customKeys
 
-customLayout :: ModifiedLayout Gaps -- gaps between windows
-    (ModifiedLayout Spacing -- spacing between display border and windows
-    (ModifiedLayout WindowNavigation ResizableTall)) a -- additional window navigations
-customLayout = gaps' . spacing 8 . windowNavigation $ ResizableTall 2 (3/100) (1/2) []
-    where gaps' = gaps [(U,45), (D,10), (R,10), (L,10)]
+type GapSpec = [(Direction2D,Int)]
+
+g :: GapSpec
+g = [(U,45), (D,10), (R,10), (L,10)]
+
+customLayout = example g
+    . spacing 8
+    . windowNavigation
+    $ ResizableTall 2 (3/100) (1/2) []
+
+data ExampleMsg = SetGap !Int !Direction2D    -- ^ Decrease a gap.
+  deriving (Typeable)
+
+data Example a = Example GapSpec [Direction2D]
+  deriving (Show, Read)
+
+instance Message ExampleMsg
+
+applyGaps :: Example a -> Rectangle -> Rectangle
+applyGaps gs r = foldr applyGap r (activeGaps gs)
+  where
+    applyGap (U,z) (Rectangle x y w h) = Rectangle x (y + fi z) w (h - fi z)
+    applyGap (D,z) (Rectangle x y w h) = Rectangle x y w (h - fi z)
+    applyGap (L,z) (Rectangle x y w h) = Rectangle (x + fi z) y (w - fi z) h
+    applyGap (R,z) (Rectangle x y w h) = Rectangle x y (w - fi z) h
+    activeGaps (Example conf cur) = filter ((`elem` cur) . fst) conf
+
+example g = ModifiedLayout (Example g (map fst g))
+
+instance LayoutModifier Example a where
+    modifyLayout g w r = runLayout w (applyGaps g r)
+    pureMess (Example conf cur) m
+         | Just (SetGap i d)  <- fromMessage m
+           = Just $ Example (setGap conf d (i)) cur
+         | otherwise = Nothing
+
+setGap :: GapSpec -> Direction2D -> Int -> GapSpec
+setGap gs d i = map (\(dir,j) ->
+    if (dir == d  && j /= 220)
+       then (dir, max i 0)
+       else if (dir == R)
+           then (dir, 0)
+           else (dir, j)) gs
 
 {- wm independent defined via sxhkd keybind deamon, only xmonad specific shortcuts here -}
 customKeys :: [(String, X())]
 customKeys =
     [ ("M-<Return>", spawn "urxvt")
     , ("C-q",        kill)                     -- close window
+    , ("M-c",        broadcastMessage (SetGap 220 R) >> refresh )       -- focus down
     , ("M-j",        sendMessage $ Go D)       -- focus down
     , ("M-k",        sendMessage $ Go U)       -- focus up
     , ("M-h",        sendMessage $ Go L)       -- focus left
@@ -56,16 +98,18 @@ customKeys =
     ] ++ moveFollow
         where floatMove = withFocused . keysMoveWindow
               moveFollow = [("M-C-S-" ++ [k],
-                mapM_ windows [W.shift i, W.greedyView i])
-                | (i, k) <- zip (XMonad.workspaces def) (['1' .. '9'])]
+                mapM_ windows $ ($ i) <$> [shift, greedyView])
+                | (i, k) <- XMonad.workspaces def `zip` ['1'..'9']]
 
 customManager :: ManageHook
 customManager = mconcat
-    [ isFullscreen                                --> doFullFloat
-    , className =? "Meld"                         --> doFullFloat
-    , className =? "gcolor2"                      --> doCenterFloat
-    , className =? "stalonetray"                  --> doIgnore
-    , className =? "Vlc"                          --> doShift "5"
-    , className =? "Thunderbird"                  --> doShift "3"
-    , fmap ("libreoffice"  `isInfixOf`) className --> doShift "5"
+    [ isFullscreen                               --> doFullFloat
+    , className =? "Meld"                        --> doFullFloat
+    , className =? "gcolor2"                     --> insertPosition Below Older
+    , className =? "SpeedCrunch"                 --> insertPosition End Newer
+    , className =? "stalonetray"                 --> doIgnore
+    , className =? "Conky"                       --> doIgnore
+    , className =? "Vlc"                         --> doShift "5"
+    , className =? "Thunderbird"                 --> doShift "3"
+    , ("libreoffice"  `isInfixOf`) <$> className --> doShift "5"
     ]

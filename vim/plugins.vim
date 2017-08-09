@@ -136,9 +136,6 @@ Plug 'easymotion/vim-easymotion'
 " FocusGained and FocusLost autocommand events for tmxux
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
-" kooter changes the working directory to the project root
-Plug 'airblade/vim-rooter'
-
 " autocomplete things that you see in other terminal
 Plug 'wellle/tmux-complete.vim'
 
@@ -151,6 +148,8 @@ Plug 'rhysd/committia.vim'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 Plug 'eagletmt/ghcmod-vim'
+
+Plug 'eagletmt/neco-ghc'
 
 " keep an eye in youcompleteme seems that
 " the recompile on update might not work
@@ -273,6 +272,13 @@ Plug 'eagletmt/ghcmod-vim'
 
 " distraction-free writing in Vim
 " Plug 'junegunn/goyo.vim',                       { 'on': 'Goyo' }
+
+" kooter changes the working directory to the project root
+" WARNING! this is incomptabile with tools such as linter
+" that rely on the relative path
+" Plug 'airblade/vim-rooter'
+
+
 
 call plug#end()
 

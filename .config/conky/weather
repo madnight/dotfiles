@@ -1,13 +1,11 @@
--- vi: ft=conkyrc
-
 conky.config = {
 	background = false,
 	use_xft = true,
 	font = 'lucy tewii:size=8',
-	xftalpha = 0.8,
+	xftalpha = 1.0,
 	update_interval = 2,
 	total_run_times = 0,
-	own_window = yes,
+	own_window = true,
 	own_window_type = 'desktop',
 	own_window_class = 'Conky',
 	own_window_transparent = true,
@@ -34,9 +32,9 @@ conky.text = [[
 ${voffset 10}
 ${execi 120 bitcoin-chart-cli -w 140 -h 10}
 ${voffset 10}
-${execi 120 bitcoin-chart-cli -e -w 140 -h 10}
+${execi 120 bitcoin-chart-cli --coin ETH -w 140 -h 10}
 ${voffset 10}
-${execi 120 bitcoin-chart-cli -l -w 140 -h 10}
+${execi 120 bitcoin-chart-cli --coin LTC -w 140 -h 10}
 ${voffset 10}
 ${execi 120 curl --silent http://wttr.in/Bremen?TQ | head -n -3 | tail -n -30}
 ${voffset 10}

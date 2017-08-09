@@ -1,5 +1,7 @@
+-- vi: ft=conkyrc
+
 conky.config = {
-	background = true,
+	background = false,
 	use_xft = true,
 	font = 'Gohu GohuFont:size=11',
 	update_interval = 1.0,

@@ -55,7 +55,7 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 wmname LG3D
 
 # compositor
-compton --backend glx --vsync opengl-swc &
+# compton --backend glx --vsync opengl-swc &
 
 # hide mouse when not needed
 unclutter &

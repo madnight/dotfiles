@@ -29,6 +29,9 @@ augroup vimrc_autocmd
 
   au BufEnter *.hs set formatprg=xargs\ -0\ pointfree
 
+  " auto change path to current file (most compatible behaviour)
+  au BufEnter * silent! lcd %:p:h
+
   au FileType mardown set spell spelllang=en_us
   au FileType php set omnifunc=phpcomplete#CompletePHP
   au FileType mail setlocal spell spelllang=de_de,en_gb

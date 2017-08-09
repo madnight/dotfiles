@@ -82,12 +82,16 @@ let g:ycm_semantic_triggers =  {
   \   'haskell' : ['.'],
   \ }
 
+let g:haskellmode_completion_ghc = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 "############################
 " Async Lint Engine settings
 "############################
 let g:ale_lint_on_text_changed = 0
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '--'
+
+let g:deoplete#enable_at_startup = 1
 
 "#############################
 " HardTime to break bad habits
@@ -158,4 +162,12 @@ command! -bang -nargs=* Rg
   \   <bang>0)
 
 
-let g:ghcmod_use_basedir="/home/x/.local/bin"
+let g:ghcmod_use_basedir="/home/x/Git/dotfiles/scripts/ghc/"
+
+autocmd BufRead,BufNewFile ~/.xmonad/* call s:add_xmonad_path()
+function! s:add_xmonad_path()
+  if !exists('b:ghcmod_ghc_options')
+    let b:ghcmod_ghc_options = []
+  endif
+  call add(b:ghcmod_ghc_options, '-i' . expand('~/.xmonad/XMonad'))
+endfunction

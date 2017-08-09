@@ -35,8 +35,8 @@ super + F4
     rofi -theme c64.rasi -demnu -combi-modi window,drun -show colorscheme -modi colorscheme:~/scripts/rofi-colorscheme-switch
 
 # kill window
-control + q
-    bspc node -k || kill -9 $(xdotool getactivewindow getwindowpid)
+# control + q
+#    bspc node -k || kill -9 $(xdotool getactivewindow getwindowpid)
 
 # shutdown
 control + super + q

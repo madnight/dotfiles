@@ -37,4 +37,4 @@ main :: IO ()
 main = do
     sidebar
     online <- hasInternet
-    if online then mapM_ conky ["weather", "errors"] else main
+    if online then mapM_ conky ["errors"] else main

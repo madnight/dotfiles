@@ -14,6 +14,7 @@ import XMonad.Util.XUtils (fi)
 import XMonad.Util.EZConfig
 import XMonad.StackSet (greedyView, shift)
 import XMonad.Hooks.InsertPosition
+import Control.Monad
 
 main :: IO ()
 main = xmonad $ def
@@ -26,38 +27,47 @@ main = xmonad $ def
     , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     } `additionalKeysP` customKeys
 
+customLayout :: ModifiedLayout Gaps                    -- gaps between windows
+    (ModifiedLayout Spacing                            -- spacing between display border and windows
+    (ModifiedLayout WindowNavigation ResizableTall)) a -- additional window navigations
 customLayout = gaps [(U,45), (D,10), (R,10), (L,10)]
     . spacing 8
     . windowNavigation
-    $ ResizableTall 2 (3/100) (1/2) []
+    $ ResizableTall 1 (3/100) (1/2) []
+
+{- filter windows that shouldn't be killed -}
+filterKill :: Window -> X ()
+filterKill window = do
+    windowClass <- runQuery className window
+    unless ("Chromium" `isInfixOf` windowClass) kill
 
 {- wm independent sxhkd in use as keybing deamon, only xmonad specific shortcuts here -}
 customKeys :: [(String, X())]
 customKeys =
     [ ("M-<Return>",  spawn "urxvt")
-    , ("C-q",         kill)                      -- close window
-    , ("M-c",         conkyGap 220)              -- toggle right conky gap
-    , ("M-j",         sendMessage $ Go D)        -- focus down
-    , ("M-k",         sendMessage $ Go U)        -- focus up
-    , ("M-h",         sendMessage $ Go L)        -- focus left
-    , ("M-l",         sendMessage $ Go R)        -- focus right
-    , ("M-C-h",       sendMessage $ Swap L)      -- swap left
-    , ("M-C-j",       sendMessage $ Swap D)      -- swap down
-    , ("M-C-k",       sendMessage $ Swap U)      -- swap up
-    , ("M-C-l",       sendMessage $ Swap R)      -- swap right
-    , ("M-S-j",       sendMessage MirrorShrink)  -- shrink down
-    , ("M-S-k",       sendMessage MirrorExpand)  -- expand up
-    , ("M-S-h",       sendMessage Shrink)        -- shrink left
-    , ("M-S-l",       sendMessage Expand)        -- expand right
-    {- , ("M-<Space>",   withFocused $ float)       -- float current windows -}
-    , ("M-S-<Left>",  resizeFloat (-10) 0)       -- float current windows
-    , ("M-S-<Right>", resizeFloat 10 0)       -- float current windows
-    , ("M-S-<Up>",    resizeFloat 0 10)       -- float current windows
-    , ("M-S-<Down>",  resizeFloat 0 (-10))       -- float current windows
-    , ("M-<Left>",    floatMove (-50, 0))        -- move floating left
-    , ("M-<Right>",   floatMove (50, 0))         -- move floating right
-    , ("M-<Up>",      floatMove (0, -50))        -- move floating up
-    , ("M-<Down>",    floatMove (0, 50))         -- move floating down
+    , ("C-q",         withFocused filterKill)   -- close window
+    , ("M-c",         conkyGap 220)             -- toggle right conky gap
+    , ("M-j",         sendMessage $ Go D)       -- focus down
+    , ("M-k",         sendMessage $ Go U)       -- focus up
+    , ("M-h",         sendMessage $ Go L)       -- focus left
+    , ("M-l",         sendMessage $ Go R)       -- focus right
+    , ("M-C-h",       sendMessage $ Swap L)     -- swap left
+    , ("M-C-j",       sendMessage $ Swap D)     -- swap down
+    , ("M-C-k",       sendMessage $ Swap U)     -- swap up
+    , ("M-C-l",       sendMessage $ Swap R)     -- swap right
+    , ("M-S-j",       sendMessage MirrorShrink) -- shrink down
+    , ("M-S-k",       sendMessage MirrorExpand) -- expand up
+    , ("M-S-h",       sendMessage Shrink)       -- shrink left
+    , ("M-S-l",       sendMessage Expand)       -- expand right
+    , ("M-<Space>",   withFocused float)        -- float current windows
+    , ("M-S-<Left>",  resizeFloat (-10) 0)      -- float current windows
+    , ("M-S-<Right>", resizeFloat 10 0)         -- float current windows
+    , ("M-S-<Up>",    resizeFloat 0 10)         -- float current windows
+    , ("M-S-<Down>",  resizeFloat 0 (-10))      -- float current windows
+    , ("M-<Left>",    floatMove (-50, 0))       -- move floating left
+    , ("M-<Right>",   floatMove (50, 0))        -- move floating right
+    , ("M-<Up>",      floatMove (0, -50))       -- move floating up
+    , ("M-<Down>",    floatMove (0, 50))        -- move floating down
     , ("M-q",         spawn "xmonad --recompile && xmonad --restart")
     ] ++ moveFollow
         where floatMove = withFocused . keysMoveWindow

@@ -1,6 +1,5 @@
 import Data.List (isInfixOf)
 import XMonad
-import XMonad.Actions.FloatKeys
 import XMonad.CustomGaps
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -35,32 +34,38 @@ customLayout = gaps [(U,45), (D,10), (R,10), (L,10)]
 {- wm independent sxhkd in use as keybing deamon, only xmonad specific shortcuts here -}
 customKeys :: [(String, X())]
 customKeys =
-    [ ("M-<Return>", spawn "urxvt")
-    , ("C-q",        kill)                     -- close window
-    , ("M-c",        conkyGap 220)             -- toggle right conky gap
-    , ("M-j",        sendMessage $ Go D)       -- focus down
-    , ("M-k",        sendMessage $ Go U)       -- focus up
-    , ("M-h",        sendMessage $ Go L)       -- focus left
-    , ("M-l",        sendMessage $ Go R)       -- focus right
-    , ("M-C-h",      sendMessage $ Swap L)     -- swap left
-    , ("M-C-j",      sendMessage $ Swap D)     -- swap down
-    , ("M-C-k",      sendMessage $ Swap U)     -- swap up
-    , ("M-C-l",      sendMessage $ Swap R)     -- swap right
-    , ("M-S-j",      sendMessage MirrorShrink) -- shrink down
-    , ("M-S-k",      sendMessage MirrorExpand) -- expand up
-    , ("M-S-h",      sendMessage Shrink)       -- shrink left
-    , ("M-S-l",      sendMessage Expand)       -- expand right
-    , ("M-<Left>",   floatMove (-50, 0))       -- move floating left
-    , ("M-<Right>",  floatMove (50, 0))        -- move floating right
-    , ("M-<Up>",     floatMove (0, -50))       -- move floating up
-    , ("M-<Down>",   floatMove (0, 50))        -- move floating down
-    , ("M-q",        spawn "xmonad --recompile && xmonad --restart")
+    [ ("M-<Return>",  spawn "urxvt")
+    , ("C-q",         kill)                      -- close window
+    , ("M-c",         conkyGap 220)              -- toggle right conky gap
+    , ("M-j",         sendMessage $ Go D)        -- focus down
+    , ("M-k",         sendMessage $ Go U)        -- focus up
+    , ("M-h",         sendMessage $ Go L)        -- focus left
+    , ("M-l",         sendMessage $ Go R)        -- focus right
+    , ("M-C-h",       sendMessage $ Swap L)      -- swap left
+    , ("M-C-j",       sendMessage $ Swap D)      -- swap down
+    , ("M-C-k",       sendMessage $ Swap U)      -- swap up
+    , ("M-C-l",       sendMessage $ Swap R)      -- swap right
+    , ("M-S-j",       sendMessage MirrorShrink)  -- shrink down
+    , ("M-S-k",       sendMessage MirrorExpand)  -- expand up
+    , ("M-S-h",       sendMessage Shrink)        -- shrink left
+    , ("M-S-l",       sendMessage Expand)        -- expand right
+    {- , ("M-<Space>",   withFocused $ float)       -- float current windows -}
+    , ("M-S-<Left>",  resizeFloat (-10) 0)       -- float current windows
+    , ("M-S-<Right>", resizeFloat 10 0)       -- float current windows
+    , ("M-S-<Up>",    resizeFloat 0 10)       -- float current windows
+    , ("M-S-<Down>",  resizeFloat 0 (-10))       -- float current windows
+    , ("M-<Left>",    floatMove (-50, 0))        -- move floating left
+    , ("M-<Right>",   floatMove (50, 0))         -- move floating right
+    , ("M-<Up>",      floatMove (0, -50))        -- move floating up
+    , ("M-<Down>",    floatMove (0, 50))         -- move floating down
+    , ("M-q",         spawn "xmonad --recompile && xmonad --restart")
     ] ++ moveFollow
         where floatMove = withFocused . keysMoveWindow
               moveFollow = [("M-C-S-" ++ [k],
                 mapM_ windows $ ($ i) <$> [shift, greedyView])
                 | (i, k) <- XMonad.workspaces def `zip` ['1'..'9']]
               conkyGap g = broadcastMessage (SetGap g R) >> refresh
+              resizeFloat x y = withFocused $ keysResizeWindow (x, y) (0, 0)
 
 customManager :: ManageHook
 customManager = mconcat

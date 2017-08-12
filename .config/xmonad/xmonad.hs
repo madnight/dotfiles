@@ -1,3 +1,5 @@
+{-# LANGUAGE PackageImports #-}
+
 import Data.List (isInfixOf)
 import XMonad
 import XMonad.CustomGaps
@@ -16,6 +18,7 @@ import XMonad.StackSet (greedyView, shift, RationalRect(..))
 import XMonad.Hooks.InsertPosition
 import XMonad.Util.NamedScratchpad
 import Control.Monad
+import "monad-extras" Control.Monad.Extra
 
 main :: IO ()
 main = xmonad $ def
@@ -28,7 +31,7 @@ main = xmonad $ def
     , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     } `additionalKeysP` customKeys
 
-{- press mod-shift-space for live update -}
+-- | Press mod-shift-space for live reload
 customLayout :: ModifiedLayout Gaps                    -- gaps between windows
     (ModifiedLayout Spacing                            -- spacing between display border and windows
     (ModifiedLayout WindowNavigation ResizableTall)) a -- additional window navigations
@@ -37,13 +40,17 @@ customLayout = gaps [(U,45), (D,10), (R,10), (L,10)]
     . windowNavigation
     $ ResizableTall 1 (6/100) (1/2) []
 
-{- filter windows that shouldn't be killed -}
-filterKill :: Window -> X ()
-filterKill window = do
+-- | Perform action on window that does not contain given string as window class name
+filterWindowByClass :: String -> (Window -> X ()) -> Window -> X ()
+filterWindowByClass filter action window = do
     windowClass <- runQuery className window
-    unless ("Chromium" `isInfixOf` windowClass) kill
+    unless (filter `isInfixOf` windowClass) (action window)
 
-{- wm independent sxhkd in use as keybing deamon, only xmonad specific shortcuts here -}
+-- | Filter windows that shouldn't be killed
+filterKill :: Window -> X ()
+filterKill = filterWindowByClass "Chromium" killWindow
+
+-- | WM independent sxhkd in use as keybing deamon, only xmonad specific shortcuts here -}
 customKeys :: [(String, X())]
 customKeys =
     [ ("M-<Return>",  spawn "urxvt")

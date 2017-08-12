@@ -1,7 +1,8 @@
 {-# LANGUAGE PackageImports #-}
 
 import Data.List (isInfixOf)
-import XMonad
+import XMonad hiding (manageHook, layoutHook)
+import qualified XMonad.Core as XMonad
 import XMonad.CustomGaps
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -13,7 +14,7 @@ import XMonad.Layout.Spacing
 import XMonad.Layout.WindowNavigation
 import XMonad.Actions.FloatKeys
 import XMonad.Util.XUtils (fi)
-import XMonad.Util.EZConfig
+import XMonad.Util.EZConfig hiding (additionalKeys)
 import XMonad.StackSet (greedyView, shift, RationalRect(..))
 import XMonad.Hooks.InsertPosition
 import XMonad.Util.NamedScratchpad
@@ -22,23 +23,27 @@ import "monad-extras" Control.Monad.Extra
 
 main :: IO ()
 main = xmonad $ def
-    { terminal = "urxvt"
-    , manageHook = customManager
-    , modMask = mod4Mask -- apple / win key
-    , layoutHook = customLayout
-    , focusedBorderColor = "#87AFAF"
-    , borderWidth = 2
-    , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
-    } `additionalKeysP` customKeys
+    { XMonad.terminal = "urxvt"
+    , XMonad.manageHook = manageHook
+    , XMonad.modMask = mod4Mask -- apple / win key
+    , XMonad.layoutHook = layoutHook
+    , XMonad.focusedBorderColor = "#87AFAF"
+    , XMonad.borderWidth = 2
+    , XMonad.startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
+    } `additionalKeysP` additionalKeys
 
 -- | Press mod-shift-space for live reload
-customLayout :: ModifiedLayout Gaps                    -- gaps between windows
+layoutHook :: ModifiedLayout Gaps                      -- gaps between windows
     (ModifiedLayout Spacing                            -- spacing between display border and windows
     (ModifiedLayout WindowNavigation ResizableTall)) a -- additional window navigations
-customLayout = gaps [(U,45), (D,10), (R,10), (L,10)]
+layoutHook = gaps [(U,45), (D,10), (R,10), (L,10)]
     . spacing 8
     . windowNavigation
-    $ ResizableTall 1 (6/100) (1/2) []
+    $ ResizableTall master delta frac slaves
+        where master = 1   -- number of master windows
+              delta = 0.06 -- change when resizing by Shrink, Expand, MirrorShrink, MirrorExpand
+              frac = 0.5   -- width of master
+              slaves = []  -- fraction to multiply the window height that would be given when divided equally
 
 -- | Perform action on window that does not contain given string as window class name
 filterWindowByClass :: String -> (Window -> X ()) -> Window -> X ()
@@ -51,8 +56,8 @@ filterKill :: Window -> X ()
 filterKill = filterWindowByClass "Chromium" killWindow
 
 -- | WM independent sxhkd in use as keybing deamon, only xmonad specific shortcuts here -}
-customKeys :: [(String, X())]
-customKeys =
+additionalKeys :: [(String, X())]
+additionalKeys =
     [ ("M-<Return>",  spawn "urxvt")
     , ("C-q",         withFocused filterKill)   -- close window
     , ("M-c",         conkyGap 220)             -- toggle right conky gap
@@ -95,15 +100,15 @@ scratchpads = [
         (customFloating $ RationalRect (1/6) (1/6) (2/3) (2/3))
     ]
 
-customManager :: ManageHook
-customManager = mconcat
+manageHook :: ManageHook
+manageHook = mconcat
     [ isFullscreen                               --> doFullFloat
     , className =? "Meld"                        --> doFullFloat
     , className =? "gcolor2"                     --> insertPosition Below Older
-    , className =? "SpeedCrunch"                 --> insertPosition End Newer
+    , className =? "SpeedCrunch"                 --> doCenterFloat
     , className =? "stalonetray"                 --> doIgnore
     , className =? "Conky"                       --> doIgnore
     , className =? "Vlc"                         --> doShift "5"
     , className =? "Thunderbird"                 --> doShift "3"
-    , ("libreoffice"  `isInfixOf`) <$> className --> doShift "5"
+    , ("libreoffice" `isInfixOf`) <$> className  --> doShift "5"
     ]

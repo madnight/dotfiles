@@ -74,9 +74,6 @@ XF86Launch5
     gscreenshot
 
 # Notes
-F3
-    zsh ~/scripts/bspwm/scratchpad.zsh
-
 F6
 	xset -dpms && xset s off && xset s off -dpms
 

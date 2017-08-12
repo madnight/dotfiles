@@ -76,8 +76,8 @@ gaps' g = ModifiedLayout (Gaps (map fst g) [d | ((d,_),v) <- g, v])
 
 setGap :: GapSpec -> Direction2D -> Int -> GapSpec
 setGap gs d i = map (\(dir,j) ->
-    if (dir == d  && j /= 220)
+    if dir == d  && j /= 220
        then (dir, max i 0)
-       else if (dir == R)
-           then (dir, 0)
+       else if dir == R
+           then (dir, 10)
            else (dir, j)) gs

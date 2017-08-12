@@ -12,8 +12,9 @@ import XMonad.Layout.WindowNavigation
 import XMonad.Actions.FloatKeys
 import XMonad.Util.XUtils (fi)
 import XMonad.Util.EZConfig
-import XMonad.StackSet (greedyView, shift)
+import XMonad.StackSet (greedyView, shift, RationalRect(..))
 import XMonad.Hooks.InsertPosition
+import XMonad.Util.NamedScratchpad
 import Control.Monad
 
 main :: IO ()
@@ -27,13 +28,14 @@ main = xmonad $ def
     , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     } `additionalKeysP` customKeys
 
+{- press mod-shift-space for live update -}
 customLayout :: ModifiedLayout Gaps                    -- gaps between windows
     (ModifiedLayout Spacing                            -- spacing between display border and windows
     (ModifiedLayout WindowNavigation ResizableTall)) a -- additional window navigations
 customLayout = gaps [(U,45), (D,10), (R,10), (L,10)]
     . spacing 8
     . windowNavigation
-    $ ResizableTall 1 (3/100) (1/2) []
+    $ ResizableTall 1 (6/100) (1/2) []
 
 {- filter windows that shouldn't be killed -}
 filterKill :: Window -> X ()
@@ -68,6 +70,7 @@ customKeys =
     , ("M-<Right>",   floatMove (50, 0))        -- move floating right
     , ("M-<Up>",      floatMove (0, -50))       -- move floating up
     , ("M-<Down>",    floatMove (0, 50))        -- move floating down
+    , ("<F3>",        notes)                    -- open notes in scratchpad
     , ("M-q",         spawn "xmonad --recompile && xmonad --restart")
     ] ++ moveFollow
         where floatMove = withFocused . keysMoveWindow
@@ -76,6 +79,14 @@ customKeys =
                 | (i, k) <- XMonad.workspaces def `zip` ['1'..'9']]
               conkyGap g = broadcastMessage (SetGap g R) >> refresh
               resizeFloat x y = withFocused $ keysResizeWindow (x, y) (0, 0)
+              notes = namedScratchpadAction scratchpads "notes"
+
+scratchpads :: NamedScratchpads
+scratchpads = [
+    -- run vim in urxvt with notes opened
+    NS "notes" "urxvt -e vim ~/notes" (title =? "notes (~) - VIM")
+        (customFloating $ RationalRect (1/6) (1/6) (2/3) (2/3))
+    ]
 
 customManager :: ManageHook
 customManager = mconcat

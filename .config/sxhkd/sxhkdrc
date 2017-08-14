@@ -71,7 +71,7 @@ XF86Tools
     gscreenshot
 
 XF86Launch5
-    gscreenshot
+    xfce4-screenshooter
 
 # Notes
 F6

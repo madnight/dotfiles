@@ -171,6 +171,9 @@ map <D-/> <C-_><C-_>
 map Y y$
 map <C-s> <ESC>:w<CR>
 map <S-w> <ESC>:q!<CR>
+
+map <F2> ]s
+map <F4> z=
 map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
 
 

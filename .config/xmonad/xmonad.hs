@@ -18,29 +18,39 @@ import XMonad.Util.EZConfig hiding (additionalKeys)
 import XMonad.StackSet (greedyView, shift, RationalRect(..))
 import XMonad.Hooks.InsertPosition
 import XMonad.Util.NamedScratchpad
+import XMonad.Layout.Fullscreen
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Grid
+import XMonad.Actions.RotSlaves
 import Control.Monad
 import "monad-extras" Control.Monad.Extra
 
 main :: IO ()
-main = xmonad $ def
+main = xmonad $ fullscreenSupport $ def
     { XMonad.terminal = "urxvt"
     , XMonad.manageHook = manageHook
     , XMonad.modMask = mod4Mask -- apple / win key
     , XMonad.layoutHook = layoutHook
-    , XMonad.focusedBorderColor = "#87AFAF"
-    , XMonad.borderWidth = 2
+    , XMonad.focusedBorderColor = "#4dc1b5"
+    , XMonad.normalBorderColor = "#eeeeee"
+    , XMonad.focusFollowsMouse = False
+    , XMonad.borderWidth = 3
     , XMonad.startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     } `additionalKeysP` additionalKeys
 
 -- | Press mod-shift-space for live reload
-layoutHook :: ModifiedLayout Gaps                      -- gaps between windows
-    (ModifiedLayout Spacing                            -- spacing between display border and windows
-    (ModifiedLayout WindowNavigation ResizableTall)) a -- additional window navigations
+layoutHook :: ModifiedLayout Gaps -- gaps between windows
+       (ModifiedLayout Spacing -- spacing between display border and windows
+       (ModifiedLayout WindowNavigation -- additional window navigations
+       (ModifiedLayout SmartBorder -- hide borders if fullscreen or only window
+       (Choose ResizableTall -- resizable layout
+       (Choose Full Grid))))) Window -- optionla fullsceen and grid layout
 layoutHook = gaps [(U,45), (D,10), (R,10), (L,10)]
     . spacing 8
     . windowNavigation
-    $ ResizableTall master delta frac slaves
-        where master = 1   -- number of master windows
+    . smartBorders
+    $ ResizableTall master delta frac slaves ||| Full ||| Grid
+        where master = 2   -- number of master windows
               delta = 0.06 -- change when resizing by Shrink, Expand, MirrorShrink, MirrorExpand
               frac = 0.5   -- width of master
               slaves = []  -- fraction to multiply the window height that would be given when divided equally
@@ -61,6 +71,7 @@ additionalKeys =
     [ ("M-<Return>",  spawn "urxvt")
     , ("C-q",         withFocused filterKill)   -- close window
     , ("M-c",         conkyGap 220)             -- toggle right conky gap
+    , ("M-r",         rotAllDown)               -- rotate all windows
     , ("M-j",         sendMessage $ Go D)       -- focus down
     , ("M-k",         sendMessage $ Go U)       -- focus up
     , ("M-h",         sendMessage $ Go L)       -- focus left
@@ -73,7 +84,7 @@ additionalKeys =
     , ("M-S-k",       sendMessage MirrorExpand) -- expand up
     , ("M-S-h",       sendMessage Shrink)       -- shrink left
     , ("M-S-l",       sendMessage Expand)       -- expand right
-    , ("M-<Space>",   withFocused float)        -- float current windows
+    {- , ("M-<Space>",   withFocused float)        -- float current windows -}
     , ("M-S-<Left>",  resizeFloat (-10) 0)      -- float current windows
     , ("M-S-<Right>", resizeFloat 10 0)         -- float current windows
     , ("M-S-<Up>",    resizeFloat 0 10)         -- float current windows
@@ -107,6 +118,7 @@ manageHook = mconcat
     , className =? "gcolor2"                     --> insertPosition Below Older
     , className =? "SpeedCrunch"                 --> doCenterFloat
     , className =? "stalonetray"                 --> doIgnore
+    , isFullscreen --> doFullFloat
     , className =? "Conky"                       --> doIgnore
     , className =? "Vlc"                         --> doShift "5"
     , className =? "Thunderbird"                 --> doShift "3"

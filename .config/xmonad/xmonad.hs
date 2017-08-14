@@ -44,7 +44,7 @@ layoutHook :: ModifiedLayout Gaps -- gaps between windows
        (ModifiedLayout WindowNavigation -- additional window navigations
        (ModifiedLayout SmartBorder -- hide borders if fullscreen or only window
        (Choose ResizableTall -- resizable layout
-       (Choose Full Grid))))) Window -- optionla fullsceen and grid layout
+       (Choose Full Grid))))) Window -- optional fullscreen and grid layout
 layoutHook = gaps [(U,45), (D,10), (R,10), (L,10)]
     . spacing 8
     . windowNavigation

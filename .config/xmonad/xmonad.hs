@@ -84,7 +84,6 @@ additionalKeys =
     , ("M-S-k",       sendMessage MirrorExpand) -- expand up
     , ("M-S-h",       sendMessage Shrink)       -- shrink left
     , ("M-S-l",       sendMessage Expand)       -- expand right
-    {- , ("M-<Space>",   withFocused float)        -- float current windows -}
     , ("M-S-<Left>",  resizeFloat (-10) 0)      -- float current windows
     , ("M-S-<Right>", resizeFloat 10 0)         -- float current windows
     , ("M-S-<Up>",    resizeFloat 0 10)         -- float current windows
@@ -118,7 +117,6 @@ manageHook = mconcat
     , className =? "gcolor2"                     --> insertPosition Below Older
     , className =? "SpeedCrunch"                 --> doCenterFloat
     , className =? "stalonetray"                 --> doIgnore
-    , isFullscreen --> doFullFloat
     , className =? "Conky"                       --> doIgnore
     , className =? "Vlc"                         --> doShift "5"
     , className =? "Thunderbird"                 --> doShift "3"

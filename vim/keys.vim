@@ -97,7 +97,7 @@ nnoremap <C-j> <C-w>j
 nnoremap K :Ack! '<C-r><C-w>'<cr>
 " serach Most recently used (MRU) files (native vim function [oldfiles])
 " nnoremap <C-m> :History<CR>
-nnoremap <Leader>cd :lcd %:p:h<CR>
+nnoremap <leader>cd :cd<CR>
 " nnoremap <SPACE> :<C-f>
 nnoremap <Leader>n :NERDTreeToggle<CR>
 nnoremap <C-L> :nohl<CR><C-L>

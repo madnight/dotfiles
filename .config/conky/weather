@@ -17,8 +17,8 @@ conky.config = {
 	default_color = 'white',
 	default_shade_color = 'black',
 	alignment = 'top_right',
-	gap_x = 1130,
-	gap_y = 67,
+	gap_x = 330,
+	gap_y = 40,
 	double_buffer = true,
 	cpu_avg_samples = 2,
 	override_utf8_locale = false,
@@ -31,6 +31,8 @@ conky.config = {
 conky.text = [[
 ${voffset 10}
 ${execi 120 bitcoin-chart-cli -w 140 -h 10}
+${voffset 10}
+${execi 120 bitcoin-chart-cli --coin BCH -w 140 -h 10}
 ${voffset 10}
 ${execi 120 bitcoin-chart-cli --coin ETH -w 140 -h 10}
 ${voffset 10}

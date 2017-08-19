@@ -43,13 +43,12 @@ layoutHook :: ModifiedLayout Gaps -- gaps between windows
        (ModifiedLayout Spacing -- spacing between display border and windows
        (ModifiedLayout WindowNavigation -- additional window navigations
        (ModifiedLayout SmartBorder -- hide borders if fullscreen or only window
-       (Choose ResizableTall -- resizable layout
-       (Choose Full Grid))))) Window -- optional fullscreen and grid layout
+       (Choose ResizableTall Full)))) Window -- resizable layout and optional fullscreen
 layoutHook = gaps [(U,45), (D,10), (R,10), (L,10)]
     . spacing 8
     . windowNavigation
     . smartBorders
-    $ ResizableTall master delta frac slaves ||| Full ||| Grid
+    $ ResizableTall master delta frac slaves ||| Full
         where master = 2   -- number of master windows
               delta = 0.06 -- change when resizing by Shrink, Expand, MirrorShrink, MirrorExpand
               frac = 0.5   -- width of master
@@ -119,6 +118,7 @@ manageHook = mconcat
     , className =? "stalonetray"                 --> doIgnore
     , className =? "Conky"                       --> doIgnore
     , className =? "Vlc"                         --> doShift "5"
+    , className =? "Electrum"                    --> doShift "4"
     , className =? "Thunderbird"                 --> doShift "3"
     , ("libreoffice" `isInfixOf`) <$> className  --> doShift "5"
     ]

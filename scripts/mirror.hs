@@ -1,20 +1,19 @@
 #!/usr/bin/env stack
 -- stack --install-ghc runghc wreq
 
-import Network.Wreq
-import Control.Lens
-import System.Process
-import System.Exit
-import System.Random
-import Data.List
-import Control.Monad
 import Control.Concurrent.Thread.Delay
-
+import Control.Lens
+import Control.Monad
+import Data.List
+import Network.Wreq
+import System.Exit
+import System.Process
+import System.Random
 
 isOnline :: String -> IO Bool
 isOnline url = do
     response <- get url
-    return $ (==) 200 (response ^. responseStatus . statusCode)
+    return $ 200 == response ^. responseStatus . statusCode
 
 push :: String
 push = "&& git push -f origin master"
@@ -36,14 +35,11 @@ delaySystem command = do
     delay $ secToNs rand  -- sleep random secs
     void $ system command
 
-updateSVN :: String -> IO ()
-updateSVN dir = delaySystem $ cd dir ++ svn ++ push
-
-updateGit :: String -> IO ()
-updateGit dir = delaySystem $ cd dir ++ git ++ push
+update :: String -> String -> IO ()
+update vcs dir = delaySystem $ cd dir ++ vcs ++ push
 
 gitRepos :: [String]
-gitRepos = [ "MetaGer", "scid", "sed", "gnupg", "grub", "nano", "babel-preset-php"]
+gitRepos = ["MetaGer", "scid", "sed", "gnupg", "grub", "nano", "babel-preset-php"]
 
 svnRepos :: [String]
 svnRepos = ["lfs", "filezilla", "gnuchess", "valgrind", "scidvspc", "chessx", "codeblocks"]
@@ -51,10 +47,10 @@ svnRepos = ["lfs", "filezilla", "gnuchess", "valgrind", "scidvspc", "chessx", "c
 main :: IO ()
 main = do
     online <- isOnline "https://google.com"
-    if not online then main else do
-    mapM updateGit gitRepos
-    mapM updateSVN svnRepos
-    let hoursToNanoseconds = (*) $ 60 * 60 * 1000 * 1000
-    delay $ hoursToNanoseconds 2 -- sleep 2 hours
+    unless online main
+    forM_ gitRepos $ update git
+    forM_ svnRepos $ update svn
+    let hoursToMicroseconds = (*) $ product [60, 60, 1000, 1000]
+    delay $ hoursToMicroseconds 2 -- sleep 2 hours
     main
 

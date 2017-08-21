@@ -1,50 +1,42 @@
 {-# LANGUAGE PackageImports #-}
 
+import "monad-extras" Control.Monad.Extra
+import Control.Monad
 import Data.List (isInfixOf)
+import System.IO
 import XMonad hiding (manageHook, layoutHook)
-import qualified XMonad.Core as XMonad
+import XMonad.Actions.FloatKeys
+import XMonad.Actions.RotSlaves
 import XMonad.CustomGaps
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
+import XMonad.Layout.Fullscreen
 import XMonad.Layout.LayoutModifier
+import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
 import XMonad.Layout.WindowNavigation
-import XMonad.Actions.FloatKeys
-import XMonad.Util.XUtils (fi)
-import XMonad.Util.EZConfig hiding (additionalKeys)
 import XMonad.StackSet (greedyView, shift, RationalRect(..))
+import XMonad.Util.EZConfig hiding (additionalKeys)
 import XMonad.Util.NamedScratchpad
-import XMonad.Layout.Fullscreen
-import XMonad.Layout.NoBorders
-import XMonad.Actions.RotSlaves
-import XMonad.Hooks.DynamicLog
 import XMonad.Util.Run
-import Control.Monad
-import System.IO
-import "monad-extras" Control.Monad.Extra
+import XMonad.Util.XUtils (fi)
+import qualified XMonad.Core as XMonad
 
 main :: IO ()
-main = spawnPipe "xmobar" >>= \xmobar ->
-     xmonad . ewmh . fullscreenSupport $ def
-    { XMonad.terminal = "urxvt"
+main = xmonad . ewmh . fullscreenSupport $ def
+    { XMonad.borderWidth = 2
+    , XMonad.focusFollowsMouse = False
+    , XMonad.focusedBorderColor = "#4dc1b5"
+    , XMonad.layoutHook = layoutHook
     , XMonad.manageHook = manageHook
     , XMonad.modMask = mod4Mask -- apple / win key
-    , XMonad.layoutHook = layoutHook
-    , XMonad.focusedBorderColor = "#4dc1b5"
     , XMonad.normalBorderColor = "#000000"
-    , XMonad.focusFollowsMouse = False
-    {- , logHook = dynamicLogWithPP xmobarPP -}
-    {-                     { ppOutput = hPutStrLn xmobar -}
-    {-                     , ppCurrent = xmobarColor "yellow" "" . wrap "[" "]" -}
-    {-                     , ppLayout = const mempty -}
-    {-                     , ppTitle = const mempty -}
-    {-                     , ppUrgent  = xmobarColor "red" "yellow" -}
-    {-                     } -}
-    , XMonad.borderWidth = 2
     , XMonad.startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
+    , XMonad.terminal = "urxvt"
     } `additionalKeysP` additionalKeys
 
 -- | Press mod-shift-space for live reload

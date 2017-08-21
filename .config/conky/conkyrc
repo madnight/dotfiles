@@ -101,9 +101,16 @@ ${execbar 3 echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -
 ${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
 
 # ${execpi 60 DJS=`date +%_d`; cal -n 1 | sed s/"\(^\|[^0-9]\)$DJS"'\b'/'\1${color orange}'"$DJS"'$color'/}
-Weather
-$stippled_hr
-${execi 120 curl --silent http://wttr.in/Bremen?TQ0}
+Connections
+Process $alignr Remote Host
+${color lightgrey}
+${font Ubuntu Mono:size=9}${texecpi 30 netstat -ap | grep 'ESTABLISHED' | grep -v 'chromium\|conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }'}
+
+
+
 # ${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | cut -d" " -f5- | fold -w 33 | head -n 18 }
 # $stippled_hr
+
+
+
 ]];

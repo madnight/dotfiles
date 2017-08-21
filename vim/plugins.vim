@@ -151,6 +151,13 @@ Plug 'eagletmt/ghcmod-vim'
 
 Plug 'eagletmt/neco-ghc'
 
+Plug 'romainl/vim-qf'
+
+" kooter changes the working directory to the project root
+" WARNING! this is incomptabile with tools such as linter
+" that rely on the relative path
+Plug 'airblade/vim-rooter'
+
 " keep an eye in youcompleteme seems that
 " the recompile on update might not work
 " and the plugin after that neither
@@ -272,12 +279,6 @@ Plug 'eagletmt/ghcmod-vim'
 
 " distraction-free writing in Vim
 " Plug 'junegunn/goyo.vim',                       { 'on': 'Goyo' }
-
-" kooter changes the working directory to the project root
-" WARNING! this is incomptabile with tools such as linter
-" that rely on the relative path
-" Plug 'airblade/vim-rooter'
-
 
 
 call plug#end()

@@ -16,25 +16,34 @@ import XMonad.Actions.FloatKeys
 import XMonad.Util.XUtils (fi)
 import XMonad.Util.EZConfig hiding (additionalKeys)
 import XMonad.StackSet (greedyView, shift, RationalRect(..))
-import XMonad.Hooks.InsertPosition
 import XMonad.Util.NamedScratchpad
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Grid
 import XMonad.Actions.RotSlaves
+import XMonad.Hooks.DynamicLog
+import XMonad.Util.Run
 import Control.Monad
+import System.IO
 import "monad-extras" Control.Monad.Extra
 
 main :: IO ()
-main = xmonad $ fullscreenSupport $ def
+main = spawnPipe "xmobar" >>= \xmobar ->
+     xmonad . ewmh . fullscreenSupport $ def
     { XMonad.terminal = "urxvt"
     , XMonad.manageHook = manageHook
     , XMonad.modMask = mod4Mask -- apple / win key
     , XMonad.layoutHook = layoutHook
     , XMonad.focusedBorderColor = "#4dc1b5"
-    , XMonad.normalBorderColor = "#eeeeee"
+    , XMonad.normalBorderColor = "#000000"
     , XMonad.focusFollowsMouse = False
-    , XMonad.borderWidth = 3
+    {- , logHook = dynamicLogWithPP xmobarPP -}
+    {-                     { ppOutput = hPutStrLn xmobar -}
+    {-                     , ppCurrent = xmobarColor "yellow" "" . wrap "[" "]" -}
+    {-                     , ppLayout = const mempty -}
+    {-                     , ppTitle = const mempty -}
+    {-                     , ppUrgent  = xmobarColor "red" "yellow" -}
+    {-                     } -}
+    , XMonad.borderWidth = 2
     , XMonad.startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     } `additionalKeysP` additionalKeys
 
@@ -111,14 +120,16 @@ scratchpads = [
 
 manageHook :: ManageHook
 manageHook = mconcat
-    [ isFullscreen                               --> doFullFloat
+    [ isFullscreen                               --> safeSpawn "xset -dpms" [] >> doFullFloat
+    , isDialog                                   --> doCenterFloat
     , className =? "Meld"                        --> doFullFloat
-    , className =? "gcolor2"                     --> insertPosition Below Older
-    , className =? "SpeedCrunch"                 --> doCenterFloat
+    , className =? "MPlayer"                     --> doFullFloat
+    , className =? "gcolor2"                     --> doCenterFloat
+    , className =? "SpeedCrunch"                 --> doSideFloat SE
     , className =? "stalonetray"                 --> doIgnore
     , className =? "Conky"                       --> doIgnore
-    , className =? "Vlc"                         --> doShift "5"
-    , className =? "Electrum"                    --> doShift "4"
+    , className =? "Chromium"                    --> doShift "1"
     , className =? "Thunderbird"                 --> doShift "3"
-    , ("libreoffice" `isInfixOf`) <$> className  --> doShift "5"
+    , className =? "Electrum"                    --> doShift "4"
+    , className =? "Vlc"                         --> doShift "5"
     ]

@@ -60,7 +60,7 @@ super + m
 
 # filemanager
 super + e
-    thunar
+    pcmanfm
 
 # Killall
 control + alt + x

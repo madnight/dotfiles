@@ -31,8 +31,8 @@ delaySystem :: String -> IO ()
 delaySystem command = do
     newRand <- randomIO :: IO Integer
     let rand = newRand `mod` 60
-    let secToNs = (*) $ 1000 * 1000
-    delay $ secToNs rand  -- sleep random secs
+    let secToMicroseconds = (*) $ 1000 * 1000
+    delay $ secToMicroseconds rand  -- sleep random secs
     void $ system command
 
 update :: String -> String -> IO ()
@@ -53,4 +53,3 @@ main = do
     let hoursToMicroseconds = (*) $ product [60, 60, 1000, 1000]
     delay $ hoursToMicroseconds 2 -- sleep 2 hours
     main
-

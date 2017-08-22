@@ -31,7 +31,7 @@ bash -c "~/scripts/autoupdate.bash" &
 ~/scripts/lowmem &
 
 # screenlock after 10 min
-xautolock -time 10 -locker "$HOME/scripts/lock.sh" &
+xautolock -time 10 -locker "$HOME/scripts/lock $HOME/scripts/lock.png" &
 
 # email client
 thunderbird &

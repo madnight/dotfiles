@@ -32,10 +32,9 @@ deleteOrphans = system "pacman -Rns --noconfirm $(pkg-list_true_orphans)"
 minToMicroseconds :: Integer -> Integer
 minToMicroseconds = (*) $ product [60, 1000, 1000]
 
+main :: IO ()
 main = do
-    {- Get News from Archlinux.org -}
     feed <- getFeed "https://www.archlinux.org/feeds/news/" 8
-    {- inter := interaction, intervention; requi := requires, required -}
     let keywords = ["inter", "requi", "manual"]
     let warning = flip filterItemsbyTitle feed =<< keywords
     unless (null warning) main
@@ -45,4 +44,3 @@ main = do
     when orphrans $ sequence_ [deleteOrphans, removeCache]
     delay $ minToMicroseconds 30 -- sleep 30 mins
     main
-

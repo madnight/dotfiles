@@ -144,6 +144,10 @@ set mouse=v
 set wrap
 set relativenumber
 
+" https://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
+hi OverLength ctermbg=black ctermfg=red
+match OverLength /\%81v.\+/
+
 "############
 " Typo Fixes
 "############

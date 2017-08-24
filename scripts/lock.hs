@@ -1,6 +1,6 @@
 #!/usr/bin/env stack
--- stack --install-ghc runghc wreq
---
+-- stack --install-ghc runghc
+
 import Control.Monad
 import Data.Maybe
 import System.Environment

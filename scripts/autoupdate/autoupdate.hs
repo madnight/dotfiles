@@ -11,19 +11,28 @@ import Data.List
 import Control.Monad.IO.Class
 import Control.Monad
 
-checkUpdates = null <$> readProcess "checkupdates" mempty mempty
+checkUpdates :: IO Bool
+checkUpdates = not . null <$> readProcess "checkupdates" mempty mempty
+
+systemUpdate :: IO ExitCode
 systemUpdate = system "pacman -Syu --noconfirm"
 
-kernelDownload = system "pacman -Sw linux linux-headers"
+kernelDownload :: IO ExitCode
+kernelDownload = system "pacman -Sw --noconfirm linux linux-headers"
+
+removeCache :: IO ExitCode
 removeCache = system "paccache -r -k 1"
 
-checkOrphans = null <$> readProcess "pkg-list_true_orphans" mempty mempty
+checkOrphans :: IO Bool
+checkOrphans = not . null <$> readProcess "pkg-list_true_orphans" mempty mempty
+
+deleteOrphans :: IO ExitCode
 deleteOrphans = system "pacman -Rns --noconfirm $(pkg-list_true_orphans)"
 
-mins = (*) (60 * 1000000)
+minToMicroseconds :: Integer -> Integer
+minToMicroseconds = (*) $ product [60, 1000, 1000]
 
 main = do
-    delay (mins 30) -- sleep 30 mins
     {- Get News from Archlinux.org -}
     feed <- getFeed "https://www.archlinux.org/feeds/news/" 8
     {- inter := interaction, intervention; requi := requires, required -}
@@ -32,7 +41,8 @@ main = do
     unless (null warning) main
     updates <- checkUpdates
     orphrans <- checkOrphans
-    when updates $ mapM_ id [systemUpdate, kernelDownload]
-    when orphrans $ mapM_ id [deleteOrphans, removeCache]
+    when updates $ sequence_ [systemUpdate, kernelDownload]
+    when orphrans $ sequence_ [deleteOrphans, removeCache]
+    delay $ minToMicroseconds 30 -- sleep 30 mins
     main
 

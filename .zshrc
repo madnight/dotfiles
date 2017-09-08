@@ -45,7 +45,7 @@ DEFAULT_USER="x"
 
 bindkey -e
 autoload -Uz compinit && compinit
-autoload -Uz promptinit && promptinit
+# autoload -Uz promptinit && promptinit
 autoload -Uz colors && colors
 setopt AUTO_CD
 setopt CORRECT
@@ -234,6 +234,8 @@ unsetopt HUP
 [[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
+
+[ -n "$TMUX" ] && export TERM=screen-256color
 
 
 if [ $commands[fasd] ]; then # check if fasd is installed

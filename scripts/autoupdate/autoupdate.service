@@ -1,8 +1,12 @@
 [Unit]
 Description=Pacman Autoupdate
+Wants=network-online.target
+After=network-online.target
 
 [Service]
 ExecStart=/home/x/scripts/autoupdate/autoupdate
+Restart=always
+RestartSec=30
 
 [Install]
 WantedBy=multi-user.target

@@ -143,6 +143,7 @@ set mouse=v
 " soft wrap
 set wrap
 set relativenumber
+set cc=80
 
 " https://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
 hi OverLength ctermbg=black ctermfg=red

@@ -6,7 +6,7 @@ Arch setup
 | Software | Choice | Note
 | ------------- |:-------------:|-------------|
 | Shell | zsh | with extensive git prompt
-| Window Manager | bspwm | i3-gaps is also configured
+| Window Manager | xmonad | bspwm and i3-gaps also configured
 | Terminal      | urxvt | considering alacritty
 | Multiplexer | tmux | tmux-resurrect for persistent sessions
 | Editor      | vim | plus many (lazy) loaded plugs
@@ -15,7 +15,7 @@ Arch setup
 | Browser | chromium | firefox as alternative
 | Chat | weechat | plus weeslack plugin
 | Mail | thunderbird | mutt as alternative
-| Monitoring | conky | system stats and systemd errors
+| Monitoring | conky | system stats and systemd error
 | Compositor | compton | avoid tearing
 | Video/Music | vlc | mplayer as alternative
 | File Finder | fzf + ripgrep | ripgrep is the fastest grep

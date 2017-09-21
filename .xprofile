@@ -39,6 +39,9 @@ thunderbird &
 # notification deamon
 dunst &
 
+# start irc
+hexchat &
+
 # web browser
 # chromium &
 

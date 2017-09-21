@@ -27,6 +27,8 @@ augroup vimrc_autocmd
   au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
   au BufNewFile,BufRead *.coffee set filetype=coffee
 
+  au Filetype *.js setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
   au BufEnter *.hs set formatprg=xargs\ -0\ pointfree
 
   " auto change path to current file (most compatible behaviour)
@@ -49,6 +51,8 @@ augroup vimrc_autocmd
   au CursorHoldI * call ale#Lint()
   au InsertLeave * call ale#Lint()
   au TextChanged * call ale#Lint()
+  au BufDelete * if len(filter(range(1, bufnr('$')), '! empty(bufname(v:val)) && buflisted(v:val)')) == 1 | quit | endif
+
 
   au VimResized * wincmd =
 

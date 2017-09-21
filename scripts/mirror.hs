@@ -39,10 +39,14 @@ update :: String -> String -> IO ()
 update vcs dir = delaySystem $ cd dir ++ vcs ++ push
 
 gitRepos :: [String]
-gitRepos = ["MetaGer", "scid", "sed", "gnupg", "grub", "nano", "babel-preset-php"]
+gitRepos =
+    ["MetaGer", "scid", "sed", "gnupg", "gitter",
+    "grub", "nano", "babel-preset-php"]
 
 svnRepos :: [String]
-svnRepos = ["lfs", "filezilla", "gnuchess", "valgrind", "scidvspc", "chessx", "codeblocks"]
+svnRepos =
+    ["lfs", "filezilla", "gnuchess", "valgrind",
+    "scidvspc", "chessx", "codeblocks"]
 
 main :: IO ()
 main = do

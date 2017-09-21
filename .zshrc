@@ -218,7 +218,7 @@ NPM_PACKAGES="${HOME}/.npm-packages"
 PATH="$NPM_PACKAGES/bin:$PATH"
 PATH="$NPM_PACKAGES/bin:$PATH"
 PATH="$PATH:$HOME/.local/bin"
-export GHC_PACKAGE_PATH=/home/x/.stack/global-project/.stack-work/install/x86_64-linux-nopie/lts-8.23/8.0.2/pkgdb:/home/x/.stack/snapshots/x86_64-linux-nopie/lts-8.23/8.0.2/pkgdb:/home/x/.stack/programs/x86_64-linux/ghc-nopie-8.0.2/lib/ghc-8.0.2/package.conf.d:/home/x/.stack/snapshots/x86_64-linux-nopie/lts-9.0/8.0.2/pkgdb
+# export GHC_PACKAGE_PATH=/home/x/.stack/global-project/.stack-work/install/x86_64-linux-nopie/lts-8.23/8.0.2/pkgdb:/home/x/.stack/snapshots/x86_64-linux-nopie/lts-8.23/8.0.2/pkgdb:/home/x/.stack/programs/x86_64-linux/ghc-nopie-8.0.2/lib/ghc-8.0.2/package.conf.d:/home/x/.stack/snapshots/x86_64-linux-nopie/lts-9.0/8.0.2/pkgdb
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH
 unset GREP_OPTIONS

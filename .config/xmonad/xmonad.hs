@@ -7,7 +7,7 @@ import System.IO
 import XMonad hiding (manageHook, layoutHook)
 import XMonad.Actions.FloatKeys
 import XMonad.Actions.RotSlaves
-import XMonad.CustomGaps
+import CustomGaps
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -105,8 +105,7 @@ additionalKeys =
 
 scratchpads :: NamedScratchpads
 scratchpads = [
-    -- run vim in urxvt with notes opened
-    NS "notes" "urxvt -e vim ~/notes" (title =? "notes (~) - VIM")
+    NS "notes" "gvim ~/notes" (title =? "notes (~) - GVIM")
         (customFloating $ RationalRect (1/6) (1/6) (2/3) (2/3))
     ]
 
@@ -116,12 +115,13 @@ manageHook = mconcat
     , isDialog                                   --> doCenterFloat
     , className =? "Meld"                        --> doFullFloat
     , className =? "MPlayer"                     --> doFullFloat
-    , className =? "gcolor2"                     --> doCenterFloat
+    , className =? "gcolor2"                     --> doSideFloat SE
     , className =? "SpeedCrunch"                 --> doSideFloat SE
     , className =? "stalonetray"                 --> doIgnore
     , className =? "Conky"                       --> doIgnore
     , className =? "Chromium"                    --> doShift "1"
     , className =? "Thunderbird"                 --> doShift "3"
-    , className =? "Electrum"                    --> doShift "4"
-    , className =? "Vlc"                         --> doShift "5"
+    , className =? "Vlc"                         --> doShift "4"
+    , className =? "Hexchat"                     --> doShift "5"
+    , className =? "Electrum"                    --> doShift "6"
     ]

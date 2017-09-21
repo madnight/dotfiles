@@ -1,6 +1,6 @@
 {-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, DeriveDataTypeable, TypeSynonymInstances, PatternGuards #-}
 
-module XMonad.CustomGaps ( Direction2D(..), Gaps,
+module CustomGaps ( Direction2D(..), Gaps,
                           GapSpec, gaps, gaps', GapMessage(..)
                           ) where
 

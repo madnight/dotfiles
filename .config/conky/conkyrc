@@ -100,11 +100,12 @@ Audio: $alignr ${exec amixer -c 0 get Master | grep 'Mono: Playback' | awk '{pri
 ${execbar 3 echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' | tr -d '%')}
 ${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
 
-# ${execpi 60 DJS=`date +%_d`; cal -n 1 | sed s/"\(^\|[^0-9]\)$DJS"'\b'/'\1${color orange}'"$DJS"'$color'/}
+${execpi 6000 DJS=`date +%_d`; StarDiviner=date +%-d; cal -n 1 | sed s/"\(^\|[^0-9]\)$DJS"'\b'/'\1${color orange}'"$DJS"'$color'/ | sed 's/\r//g;s/^/ /g;s/^/\$\{goto 40\}/;s/\<'"$StarDiviner"'\>/${color1}&${color0}/'}
+
 Connections
+$stippled_hr
 Process $alignr Remote Host
-${color lightgrey}
-${font Ubuntu Mono:size=9}${texecpi 30 netstat -ap | grep 'ESTABLISHED' | grep -v 'chromium\|conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }'}
+${color lightgrey} ${font Ubuntu Mono:size=9}${texecpi 30 netstat -ap | grep 'ESTABLISHED' | grep -v 'chromium\|conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }'}
 
 
 

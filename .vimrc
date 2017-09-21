@@ -30,8 +30,6 @@ source ~/.private_vimrc
 " Basic vim settings
 "###################
 set shell=/bin/bash
-" The width of a TAB is set to 4.
-set tabstop=4
 " Indents will have a width of 4
 set shiftwidth=4
 " Sets the number of columns for a TAB
@@ -76,7 +74,8 @@ set noshowcmd
 set timeoutlen=1000 ttimeoutlen=0
 " old regex engine is much faster
 set re=1
-set lazyredraw
+" lazy redraw + tmux => rendering glitches
+set nolazyredraw
 set nocursorcolumn
 set nocursorline
 set background=dark

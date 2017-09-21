@@ -6,10 +6,6 @@ import Data.Maybe
 import System.Environment
 import System.Process
 
-parseArgs :: Maybe a -> a
-parseArgs Nothing  = errorWithoutStackTrace "missing arg: lock picture"
-parseArgs (Just x) = x
-
 main :: IO ()
 main = do
     args <- getArgs
@@ -25,3 +21,5 @@ main = do
     cmd "i3lock" ["-i",  tmp]
     where
         cmd = (void .) . rawSystem
+        parseArgs Nothing  = errorWithoutStackTrace "missing arg: lock picture"
+        parseArgs (Just x) = x

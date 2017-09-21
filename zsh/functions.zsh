@@ -355,7 +355,7 @@ function syn() {
 }
 
 # tex compile and clean up command
-function tex() {
+function cleantex() {
     pdf=$(echo $1 | sed 's/tex/pdf/g')
     log=$(echo $1 | sed 's/tex/log/g')
     out=$(echo $1 | sed 's/tex/out/g')
@@ -372,7 +372,6 @@ function tex() {
     tdo=$(echo $1 | sed 's/tex/tdo/g')
     rm $log; rm $out; rm $aux; rm $toc; rm $lof; rm $lot;
     rm $bbl; rm $blg; rm $dvi; rm $fdb; rm $fls; rm $ps; rm $tdo;
-    pdflatex $1;
 }
 
 function texnonstop() {
@@ -477,10 +476,6 @@ gdb_get_backtrace() {
         --quiet \
         -ex "thread apply all bt full" \
         -ex "quit"
-}
-
-pdf() {
-    evince "$@" &
 }
 
 # screen recoding to webm best uploaded at http://webmshare.com/ (gyfact cuts at 15 sec)

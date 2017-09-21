@@ -1,15 +1,25 @@
-{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, DeriveDataTypeable, TypeSynonymInstances, PatternGuards #-}
+{-# LANGUAGE
+   FlexibleInstances,
+   MultiParamTypeClasses,
+   DeriveDataTypeable,
+   TypeSynonymInstances,
+   PatternGuards #-}
 
-module CustomGaps ( Direction2D(..), Gaps,
-                          GapSpec, gaps, gaps', GapMessage(..)
-                          ) where
+module CustomGaps
+  (
+    Direction2D(..)
+  , Gaps
+  , GapSpec
+  , gaps
+  , GapMessage(..)
+  ) where
 
+import Data.List (delete)
+import Graphics.X11 (Rectangle(..))
 import XMonad.Core
 import XMonad.Layout.LayoutModifier
 import XMonad.Util.Types (Direction2D(..))
 import XMonad.Util.XUtils (fi)
-import Graphics.X11 (Rectangle(..))
-import Data.List (delete)
 
 type GapSpec = [(Direction2D,Int)]
 
@@ -62,7 +72,8 @@ toggleGap conf cur d | d `elem` cur            = delete d cur
                      | otherwise               = cur
 
 incGap :: GapSpec -> Direction2D -> Int -> GapSpec
-incGap gs d i = map (\(dir,j) -> if dir == d then (dir,max (j+i) 0) else (dir,j)) gs
+incGap gs d i = map (\(dir,j) ->
+  if dir == d then (dir,max (j+i) 0) else (dir,j)) gs
 
 gaps :: GapSpec
      -> l a

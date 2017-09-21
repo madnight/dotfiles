@@ -1,20 +1,17 @@
 #!/usr/bin/env stack
 -- stack --install-ghc runghc wreq
 
-import Network.Wreq
-import Control.Lens
-import System.Process
-import System.Exit
-import Data.List
-import Control.Monad
 import Control.Concurrent.Thread.Delay
+import Control.Lens
+import Control.Monad
+import Data.List
+import Network.Wreq
+import System.Exit
+import System.Process
 
 email ::  String -> IO ()
 email content =
-    void . system
-    $ "echo '' | mutt -s "
-    ++ content
-    ++ " fabianbeuke@gmail.com"
+    void . system $ "echo '' | mutt -s " ++ content ++ " fabianbeuke@gmail.com"
 
 notify ::  String -> IO ()
 notify = void . system . ("notify-send -t 5000 'Warning!' " ++)
@@ -38,7 +35,6 @@ main = do
         \releases/download/v0.6.4/dripcap-linux-amd64.deb"
     unless beuke $ alert "'beuke offline'"
     unless dripcap $ alert "'dripcap offline'"
-    let hoursToNanoseconds = (*) $ 60 * 60 * 1000 * 1000
-    delay $ hoursToNanoseconds 8 -- sleep 8 hours
+    let hours = (*) $ 60 * 60 * 1000 * 1000
+    delay $ hours 8 -- sleep 8 hours
     main
-

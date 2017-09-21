@@ -115,7 +115,7 @@ scratchpads = [
 
 manageHook :: ManageHook
 manageHook = mconcat
-    [ isFullscreen               --> disableDMPS
+    [ isFullscreen               --> disableDPMS
     , isDialog                   --> doCenterFloat
     , className =? "Meld"        --> doFullFloat
     , className =? "MPlayer"     --> doFullFloat

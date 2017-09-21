@@ -2,14 +2,14 @@
 
 module RSSreader where
 
-import Text.XML.Light
-import Network.Wreq
-import Control.Lens
+import "monad-extras" Control.Monad.Extra
 import Control.Applicative
+import Control.Lens
+import Data.List (isInfixOf, concat, find)
 import Data.Time
 import Data.Time.RFC2822
-import Data.List (isInfixOf, concat, find)
-import "monad-extras" Control.Monad.Extra
+import Network.Wreq
+import Text.XML.Light
 
 data Channel = Channel
   { chTitle :: String
@@ -71,7 +71,10 @@ prop :: Element -> String -> String
 prop node name = maybe [] strContent $ findChild (qn name) node
 
 parseChannel :: Element -> Channel
-parseChannel node = Channel { chTitle = title, chDescription = desc, chItems = items }
+parseChannel node = Channel { chTitle = title
+                            , chDescription = desc
+                            , chItems = items
+                            }
     where title = prop node "title"
           desc = prop node "description"
           items = map parseItem $ findChildren (qn "item") node

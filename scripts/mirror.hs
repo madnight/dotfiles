@@ -13,7 +13,7 @@ import System.Random
 isOnline :: String -> IO Bool
 isOnline url = do
     response <- get url
-    return $ 200 == response ^. responseStatus . statusCode
+    pure $ 200 == response ^. responseStatus . statusCode
 
 push :: String
 push = "&& git push -f origin master"
@@ -31,8 +31,8 @@ delaySystem :: String -> IO ()
 delaySystem command = do
     newRand <- randomIO :: IO Integer
     let rand = newRand `mod` 60
-    let secToMicroseconds = (*) $ 1000 * 1000
-    delay $ secToMicroseconds rand  -- sleep random secs
+    let seconds = (*) $ 1000 * 1000
+    delay $ seconds rand  -- ^ sleep random seconds to avoid api rate limit
     void $ system command
 
 update :: String -> String -> IO ()
@@ -54,6 +54,6 @@ main = do
     unless online main
     forM_ gitRepos $ update git
     forM_ svnRepos $ update svn
-    let hoursToMicroseconds = (*) $ product [60, 60, 1000, 1000]
-    delay $ hoursToMicroseconds 2 -- sleep 2 hours
+    let hours = (*) $ product [60, 60, 1000, 1000]
+    delay $ hours 2 -- sleep 2 hours
     main

@@ -1,11 +1,11 @@
 #!/usr/bin/env stack
 -- stack --install-ghc runghc wreq
 
-import Network.Wreq
 import Control.Lens
-import System.Process
-import System.Exit
 import Data.List
+import Network.Wreq
+import System.Exit
+import System.Process
 
 processIsRunning :: String -> IO Bool
 processIsRunning = (<$> readProcess "ps" ["x"] []) . isInfixOf

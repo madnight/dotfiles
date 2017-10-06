@@ -6,13 +6,8 @@
  "       | .__/|_|\__,_|\__, |_|_| |_|___/  \___\___/|_| |_|_|
  "       |_|            |___/
  "
-
+ "
 let g:tmux_resizer_no_mappings = 1
-
-nnoremap <silent> {Left-mapping} :TmuxResizeLeft<cr>
-nnoremap <silent> {Down-Mapping} :TmuxResizeDown<cr>
-nnoremap <silent> {Up-Mapping} :TmuxResizeUp<cr>
-nnoremap <silent> {Right-Mapping} :TmuxResizeRight<cr>
 
 "################
 " Latex settings
@@ -36,7 +31,6 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#branch#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
-
 
 "####################
 " Tmux Line settings
@@ -64,26 +58,32 @@ let g:NERDTrimTrailingWhitespace = 1
 "########################
 " YouCompleteMe settings
 "########################
-let g:ycm_server_python_interpreter = '/usr/bin/python2'
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-  \             're!\[.*\]\s'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-  \   'ruby' : ['.', '::'],
-  \   'lua' : ['.', ':'],
-  \   'erlang' : [':'],
-  \   'haskell' : ['.'],
-  \ }
+" autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+" let g:ycm_semantic_triggers = {'haskell' : ['.']}
+" let g:necoghc_use_stack = 1
+" let g:necoghc_enable_detailed_browse = 1
 
+" let g:ycm_server_python_interpreter = '/usr/bin/python2'
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_autoclose_preview_window_after_insertion = 1
+" let g:ycm_semantic_triggers =  {
+"   \   'c' : ['->', '.'],
+"   \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+"   \             're!\[.*\]\s'],
+"   \   'ocaml' : ['.', '#'],
+"   \   'cpp,objcpp' : ['->', '.', '::'],
+"   \   'perl' : ['->'],
+"   \   'php' : ['->', '::'],
+"   \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+"   \   'ruby' : ['.', '::'],
+"   \   'lua' : ['.', ':'],
+"   \   'erlang' : [':'],
+"   \   'haskell' : ['.'],
+"   \ }
+
+" Disable haskell-vim omnifunc
 let g:haskellmode_completion_ghc = 1
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
 "############################
 " Async Lint Engine settings
 "############################
@@ -91,7 +91,7 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '--'
 
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 
 "#############################
 " HardTime to break bad habits
@@ -127,7 +127,13 @@ let php_htmlInStrings = 1
 
 let Tlist_Use_Right_Window = 1
 
-let g:acp_enableAtStartup = 0
+" Enable omni completion.
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " add jsx syntax highlights for .js files
 let g:jsx_ext_required = 0
@@ -140,18 +146,14 @@ let g:tmux_navigator_no_mappings = 1
 let g:winresizer_horiz_resize = 1
 let g:vim_markdown_preview_github=1
 
-let g:UltiSnipsExpandTrigger="<C-l>"
+" let g:UltiSnipsExpandTrigger="<C-l>"
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-"   \   <bang>0)
-"
-"
-" let g:sneak#s_next = 1
-"
+   \   <bang>0)
 
 " Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
 command! -bang -nargs=* Rg
@@ -162,8 +164,6 @@ command! -bang -nargs=* Rg
   \   <bang>0)
 
 
-let g:ghcmod_use_basedir="/home/x/Git/dotfiles/scripts/ghc/"
-
 autocmd BufRead,BufNewFile ~/.xmonad/* call s:add_xmonad_path()
 function! s:add_xmonad_path()
   if !exists('b:ghcmod_ghc_options')
@@ -171,3 +171,10 @@ function! s:add_xmonad_path()
   endif
   call add(b:ghcmod_ghc_options, '-i' . expand('~/.xmonad/XMonad'))
 endfunction
+
+let g:haskell_indent_disable=1
+let g:ale_linters = {
+\   'haskell': ['hlint', 'ghc-mod', 'hdevtools', 'stack_build', 'stack_ghc'],
+\}
+
+" let g:completor_auto_trigger = 1

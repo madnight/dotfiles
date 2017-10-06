@@ -35,17 +35,17 @@ augroup vimrc_autocmd
   au BufEnter * silent! lcd %:p:h
 
   au FileType mardown set spell spelllang=en_us
-  au FileType php set omnifunc=phpcomplete#CompletePHP
-  au FileType mail setlocal spell spelllang=de_de,en_gb
-  au FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-  au FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-  au FileType ruby,eruby let g:rubycomplete_rails = 1
-  au FileType ruby set omnifunc=rubycomplete#Complete
-  au FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  au FileType python setlocal omnifunc=pythoncomplete#Complete
-  au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  " au FileType php set omnifunc=phpcomplete#CompletePHP
+  " au FileType mail setlocal spell spelllang=de_de,en_gb
+  " au FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+  " au FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+  " au FileType ruby,eruby let g:rubycomplete_rails = 1
+  " au FileType ruby set omnifunc=rubycomplete#Complete
+  " au FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  " au FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  " au FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  " au FileType python setlocal omnifunc=pythoncomplete#Complete
+  " au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
   au CursorHold * call ale#Lint()
   au CursorHoldI * call ale#Lint()
@@ -66,6 +66,14 @@ augroup vimrc_autocmd
   " au VimEnter * NERDTree
 augroup END
 
+autocmd BufRead,BufNewFile ~/.xmonad/* call s:add_xmonad_path()
+function! s:add_xmonad_path()
+  if !exists('b:ghcmod_ghc_options')
+    let b:ghcmod_ghc_options = []
+  endif
+  call add(b:ghcmod_ghc_options, '-i' . expand('~/.xmonad/lib'))
+endfunction
+
 " ask to auto create directory and file if not exsistent on save
 augroup vimrc-auto-mkdir
   autocmd!
@@ -79,9 +87,11 @@ augroup vimrc-auto-mkdir
   endfunction
 augroup END
 
-augroup load_us_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'vim-snippets', 'tmux-complete.vim')
-                     \| autocmd! load_us_ycm
-augroup END
+" augroup load_us_ycm
+  " autocmd!
+  " autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe', 'vim-snippets', 'tmux-complete.vim')
+                     " \| autocmd! load_us_ycm
+" augroup END
 
+" i want always be able to edit the files
+:autocmd BufWinEnter * setlocal modifiable

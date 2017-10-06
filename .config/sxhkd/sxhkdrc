@@ -58,7 +58,7 @@ control + y
 super + m
     wmctrl -i -r $(xdotool getactivewindow) -e 0,0,0,1920,1025
 
-# filemanager
+# figure out why e does not work and check if l does
 super + e
     pcmanfm
 

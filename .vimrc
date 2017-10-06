@@ -5,7 +5,6 @@
 "        \ V /| | | | | | | | (_| (_) | | | |  _| | (_| |
 "         \_/ |_|_| |_| |_|  \___\___/|_| |_|_| |_|\__, |
 "                                                  |___/
-
 filetype plugin indent on
 syntax on
 let mapleader="\,"
@@ -18,7 +17,7 @@ endif
 "##########################
 " Load plugins and configs
 "##########################
-source ~/vim/functions.vim
+" source ~/vim/functions.vim
 source ~/vim/plugins.vim
 source ~/vim/gvim.vim
 source ~/vim/autocmd.vim
@@ -73,7 +72,7 @@ set noruler
 set noshowcmd
 set timeoutlen=1000 ttimeoutlen=0
 " old regex engine is much faster
-set re=1
+" set re=1
 " lazy redraw + tmux => rendering glitches
 set nolazyredraw
 set nocursorcolumn
@@ -112,11 +111,11 @@ set esckeys
 " case insensitive searching
 set ignorecase
 " but become case sensitive if you type uppercase characters
-set smartcase
+" set smartcase
 " smart auto indenting
-set smartindent
+" set smartindent
 " smart tab handling for indenting
-set smarttab
+" set smarttab
 " change the way backslashes are used in search patterns
 set magic
 " Allow backspacing over everything in insert mode
@@ -143,6 +142,7 @@ set mouse=v
 set wrap
 set relativenumber
 set cc=80
+set complete=.,w,b,u,t
 
 " https://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
 hi OverLength ctermbg=black ctermfg=red
@@ -172,3 +172,19 @@ syntax sync minlines=200
 " move syntax enable to the bottom of vimrc to avoid syntax detection issues
 syntax on
 filetype plugin indent on
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

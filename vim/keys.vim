@@ -6,14 +6,6 @@
 "        |_|\_\___|\__, |___/
 "                  |___/
 
-
-" unmap <Enter>
-"
-"
-"
-"
-"
-
 nmap <leader>hit :GhcModTypeInsert<CR>
 nmap <leader>htc :GhcModTypeClear<cr>
 nmap <leader>ht :GhcModType<cr>
@@ -117,10 +109,10 @@ nnoremap <silent> <ESC>k :TmuxNavigateDown<cr>
 nnoremap <silent> <ESC>j :TmuxNavigateUp<cr>
 nnoremap <silent> <ESC>\ :TmuxNavigatePrevious<cr>
 
-map <silent> <ESC>H :vertical resize +5<cr>
-map <silent> <ESC>L :vertical resize -5<cr>
-map <silent> <ESC>J :resize +5<cr>
-map <silent> <ESC>K :resize -5<cr>
+nnoremap <silent> <ESC>H :TmuxResizeLeft<cr>
+nnoremap <silent> <ESC>L :TmuxResizeDown<cr>
+nnoremap <silent> <ESC>J :TmuxResizeUp<cr>
+nnoremap <silent> <ESC>K :TmuxResizeRight<cr>
 
 noremap <Leader>a :Ack <cword><cr>
 noremap <Leader>ack :Ack 
@@ -175,7 +167,6 @@ map <S-w> <ESC>:q!<CR>
 map <F2> ]s
 map <F4> z=
 map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
-
 
 nnoremap ,i i_<Esc>r
 imap jj <Esc><Esc>

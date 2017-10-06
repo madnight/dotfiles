@@ -137,7 +137,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " autocomplete things that you see in other terminal
-Plug 'wellle/tmux-complete.vim'
+" Plug 'wellle/tmux-complete.vim'
 
 " vim plugin that provides additional text objects
 Plug 'wellle/targets.vim'
@@ -145,18 +145,41 @@ Plug 'wellle/targets.vim'
 " A Vim plugin for more pleasant editing on commit messages
 Plug 'rhysd/committia.vim'
 
+" Interactive command execution in Vim.
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
-Plug 'eagletmt/ghcmod-vim'
+" Plug 'romainl/vim-qf'
+
+" Plug 'ervandew/supertab'
+
+" Rename the current file in the vim buffer + retain relative path.
+Plug 'danro/rename.vim'
 
 Plug 'eagletmt/neco-ghc'
 
-Plug 'romainl/vim-qf'
+
+" Plug 'Shougo/neocomplete.vim'
 
 " kooter changes the working directory to the project root
-" WARNING! this is incomptabile with tools such as linter
+" WuARNING! this is incomptabile with tools such as linter
 " that rely on the relative path
+"
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.py
+  endif
+endfunction
+
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'airblade/vim-rooter'
+
+" async completion
+" Plug 'maralla/completor.vim'
+
+" Plug 'vim-scripts/AutoComplPop'
+" "as
+
+" Plug 'ajh17/VimCompletesMe'
 
 " keep an eye in youcompleteme seems that
 " the recompile on update might not work
@@ -170,7 +193,7 @@ Plug 'airblade/vim-rooter'
 Plug 'benmills/vimux',                          { 'on': 'VimuxRunCommand' }
 
 " a code-completion engine for Vim
-Plug 'Valloric/YouCompleteMe',                  { 'on': [], 'do': function('BuildYCM') }
+" Plug 'Valloric/YouCompleteMe',                  { 'on': [], 'do': function('BuildYCM') }
 
 " an ack.vim alternative mimics Ctrl-Shift-F (search with context)
 Plug 'dyng/ctrlsf.vim',                         { 'on': 'CtrlSF' }
@@ -225,8 +248,11 @@ Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 " a collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 
-Plug 'eagletmt/neco-ghc'
-Plug 'lukerandall/haskellmode-vim'
+" A completion plugin for Haskell, using ghc-mod
+" Plug 'eagletmt/neco-ghc'
+
+" Plug 'lukerandall/haskellmode-vim'
+
 Plug 'eagletmt/ghcmod-vim'
 
 

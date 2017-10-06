@@ -47,7 +47,6 @@ URxvt*scrollWithBuffer:     true
 URxvt*scrollTtyKeypress:    true
 urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:Hasklig\ Nerd\ Font\ Regular:size=12:antialias=true:hinting=true
 urxvt.perl-ext-common:      default -searchable-scrollback,matcher,keyboard-select,clipboard
-urxvt.keysym.C-x:           perl:keyboard-select:activate
 urxvt.keysym.M-u:           perl:url-select:select_next
 urxvt.keysym.C-b:           perl:clipboard:paste_escaped
 urxvt.matcher.button:       1

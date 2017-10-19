@@ -148,6 +148,8 @@ set complete=.,w,b,u,t
 hi OverLength ctermbg=black ctermfg=red
 match OverLength /\%81v.\+/
 
+set cc=80
+
 "############
 " Typo Fixes
 "############

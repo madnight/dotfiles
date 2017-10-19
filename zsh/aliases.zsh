@@ -4,6 +4,7 @@ alias -g X='| xclip'
 alias -g NS='| sort -n'
 alias -g NUL="> /dev/null 2>&1"
 alias -g PIPE='|'
+alias gcm='git checkout master'
 alias .....='cd ../../../..'
 alias ....='cd ../../..'
 alias ...='cd ../..'

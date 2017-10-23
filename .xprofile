@@ -6,8 +6,15 @@
  #       /_/\_\ .__/|_|  \___/|_| |_|_|\___|
  #            |_|
 
+
+
+# sxhkd /home/beuke/Git/dotfiles/.config/sxhkdrc-bspwm
 # clear download folder
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
+
+if [[ $(hostname) == 'skylake' ]]; then
+    xrandr --output HDMI1 --primary --left-of eDP1
+fi
 
 # start conky
 ~/scripts/start-conky &

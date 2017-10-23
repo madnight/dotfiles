@@ -2,7 +2,7 @@ import Control.Monad
 import CustomGaps
 import Data.List (isInfixOf)
 import System.IO
-import XMonad hiding (manageHook, layoutHook)
+import XMonad hiding (manageHook, layoutHook, workspaces)
 import XMonad.Actions.FloatKeys
 import XMonad.Actions.RotSlaves
 import XMonad.Hooks.DynamicLog
@@ -16,16 +16,19 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Spacing
 import XMonad.Layout.WindowNavigation
-import XMonad.StackSet (greedyView, shift, RationalRect(..))
+import XMonad.Layout.IndependentScreens
+import XMonad.StackSet (greedyView, view, shift, RationalRect(..))
 import XMonad.Util.EZConfig hiding (additionalKeys)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.XUtils (fi)
 import qualified XMonad.Core as XMonad
+import XMonad.Layout.IndependentScreens
 
 main :: IO ()
-main = xmonad . ewmh . fullscreenSupport $ def
-    { XMonad.borderWidth = 2
+main = xmonad . ewmh . fullscreenSupport $ conf
+
+conf = def { XMonad.borderWidth = 2
     , XMonad.focusFollowsMouse = False
     , XMonad.focusedBorderColor = "#4dc1b5"
     , XMonad.layoutHook = layoutHook
@@ -34,15 +37,20 @@ main = xmonad . ewmh . fullscreenSupport $ def
     , XMonad.normalBorderColor = "#000000"
     , XMonad.startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
     , XMonad.terminal = "urxvt"
+    , XMonad.workspaces = workspaces
     } `additionalKeysP` additionalKeys
 
+
+workspaces :: [PhysicalWorkspace]
+workspaces = withScreens 2 ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
 -- | Press mod-shift-space for live reload
-layoutHook :: ModifiedLayout Gaps             -- ^ gaps between windows
-             (ModifiedLayout Spacing          -- ^ gaps between display border
-             (ModifiedLayout WindowNavigation -- ^ additional window navigations
-             (ModifiedLayout SmartBorder      -- ^ hide borders if fullscreen
-             (Choose ResizableTall Full))))   -- ^ resizable layout fullscreen
-             Window
+{- layoutHook :: ModifiedLayout Gaps             -- ^ gaps between windows -}
+             {- (ModifiedLayout Spacing          -- ^ gaps between display border -}
+             {- (ModifiedLayout WindowNavigation -- ^ additional window navigations -}
+             {- (ModifiedLayout SmartBorder      -- ^ hide borders if fullscreen -}
+             {- (Choose ResizableTall Full))))   -- ^ resizable layout fullscreen -}
+             {- Window -}
 layoutHook =
     gaps [(U,45), (D,10), (R,10), (L,10)]
     . spacing 8
@@ -98,11 +106,16 @@ additionalKeys =
     , ("M-<Down>",    floatMove (0, 50))        -- ^ move floating down
     , ("<F3>",        notes)                    -- ^ open notes in scratchpad
     , ("M-q",         spawn "xmonad --recompile && xmonad --restart")
-    ] ++ moveFollow
+    ] ++ moveFollow ++
+        [
+          ("M" ++ k, windows $ f i)
+               | (i, k) <- zip (workspaces) ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+               , (f, m) <- [(view, 0), (shift, shiftMask)]
+        ]
         where floatMove = withFocused . keysMoveWindow
               moveFollow = [("M-C-S-" ++ [k],
-                mapM_ windows $ ($ i) <$> [shift, greedyView])
-                | (i, k) <- XMonad.workspaces def `zip` ['1'..'9']]
+                mapM_ (windows  ) $ ($ (i)) <$> [(onCurrentScreen shift), (onCurrentScreen view)])
+                | (i, k) <- (workspaces' conf) `zip` ['1'..'9']]
               conkyGap g = broadcastMessage (SetGap g R) >> refresh
               notes = namedScratchpadAction scratchpads "notes"
 

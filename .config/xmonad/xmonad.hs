@@ -106,19 +106,25 @@ additionalKeys =
     , ("M-<Down>",    floatMove (0, 50))        -- ^ move floating down
     , ("<F3>",        notes)                    -- ^ open notes in scratchpad
     , ("M-q",         spawn "xmonad --recompile && xmonad --restart")
-    ] ++ moveFollow ++
+    ] ++
         [
-          ("M" ++ k, windows $ f i)
-               | (i, k) <- zip (workspaces) ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
-               , (f, m) <- [(view, 0), (shift, shiftMask)]
+          ("M-" ++ [key], action tag)
+               | (tag, key) <- zip workspaces "123456789"
+               , (m, action) <- [("", windows . view)]
         ]
         where floatMove = withFocused . keysMoveWindow
-              moveFollow = [("M-C-S-" ++ [k],
-                mapM_ (windows  ) $ ($ (i)) <$> [(onCurrentScreen shift), (onCurrentScreen view)])
-                | (i, k) <- (workspaces' conf) `zip` ['1'..'9']]
+              {- moveFollow = [("M-C-S-" ++ [k], -}
+                {- mapM_ (windows  ) $ ($ (i)) <$> [(onCurrentScreen shift), (onCurrentScreen view)]) -}
+                {- | (i, k) <- (workspaces' conf) `zip` ['1'..'9']] -}
               conkyGap g = broadcastMessage (SetGap g R) >> refresh
               notes = namedScratchpadAction scratchpads "notes"
 
+ 
+    {- [ (otherModMasks ++ "M-" ++ [key], action tag) -}
+      {- | (tag, key)  <- zip myWorkspaces "123456789" -}
+      {- , (otherModMasks, action) <- [ ("", windows . W.view) -- was W.greedyView -}
+                                      {- , ("S-", windows . W.shift)] -}
+{- k   ] -}
 -- | Spawn GVIM as notepad
 scratchpads :: NamedScratchpads
 scratchpads = [

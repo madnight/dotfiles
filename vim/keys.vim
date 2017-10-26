@@ -6,6 +6,10 @@
 "        |_|\_\___|\__, |___/
 "                  |___/
 
+
+
+nmap <leader>ch1 :set ch=1<CR>
+nmap <leader>ch20 :set ch=20<CR>
 nmap <leader>hit :GhcModTypeInsert<CR>
 nmap <leader>htc :GhcModTypeClear<cr>
 nmap <leader>ht :GhcModType<cr>

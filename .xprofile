@@ -9,9 +9,6 @@
 # clear download folder
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 
-# start conky
-~/scripts/start-conky &
-
 # backup packages list
 # zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &
 
@@ -36,6 +33,8 @@ bash -c "~/scripts/autoupdate.bash" &
 # email client
 thunderbird &
 
+urxvt -e tmux &
+
 # notification deamon
 dunst &
 
@@ -55,7 +54,6 @@ xrdb ~/.Xdefaults
 xrdb ~/.Xresources
 # xmodmap ~/.Xmodmap
 setxkbmap de
-
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 wmname LG3D
@@ -81,6 +79,7 @@ sleep 10 && while true; do SHELL=/bin/bash polybar -r stock; done &
 
 # hotkey deamon
 sxhkd &
+sxhkd -c /home/x/Git/dotfiles/.config/sxhkd/sxhkdrc-bspwm & 
 
 [ ! -s ~/.config/mpd/pid ] && echo mpd &
 
@@ -93,3 +92,8 @@ xset fp rehash &
 
 # speeeeed!
 xset r rate 150 50
+
+# start conky
+~/scripts/start-conky &
+
+

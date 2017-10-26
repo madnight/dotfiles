@@ -16,7 +16,7 @@ augroup vimrc
 augroup END
 
 augroup CLClear
-  au! ColorScheme * hi clear CursorLine
+  " au! ColorScheme * hi clear CursorLine
 augroup END
 
 augroup vimrc_autocmd
@@ -47,10 +47,10 @@ augroup vimrc_autocmd
   " au FileType python setlocal omnifunc=pythoncomplete#Complete
   " au FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-  au CursorHold * call ale#Lint()
-  au CursorHoldI * call ale#Lint()
-  au InsertLeave * call ale#Lint()
-  au TextChanged * call ale#Lint()
+  " au CursorHold * call ale#Lint()
+  " au CursorHoldI * call ale#Lint()
+  " au InsertLeave * call ale#Lint()
+  " au TextChanged * call ale#Lint()
   au BufDelete * if len(filter(range(1, bufnr('$')), '! empty(bufname(v:val)) && buflisted(v:val)')) == 1 | quit | endif
 
 

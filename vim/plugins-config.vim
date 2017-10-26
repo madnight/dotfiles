@@ -17,6 +17,8 @@ let g:Tex_CompileRule_pdf = 'latexmk -pdf'
 let g:LatexBox_latexmk_options = "-pvc -pdfps"
 let g:LatexBox_latexmk_preview_continuously = 1
 let g:LatexBox_latexmk_async = 1
+" performance optimization
+let g:vimtex_motion_matchparen = 0
 
 "##################
 " Airline settings
@@ -147,6 +149,13 @@ let g:winresizer_horiz_resize = 1
 let g:vim_markdown_preview_github=1
 
 " let g:UltiSnipsExpandTrigger="<C-l>"
+
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!{.git,node_modules,vendor}/*" '
+
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(

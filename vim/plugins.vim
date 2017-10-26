@@ -1,4 +1,6 @@
 
+
+
  "              _             _
  "        _ __ | |_   _  __ _(_)_ __  ___
  "       | '_ \| | | | |/ _` | | '_ \/ __|
@@ -17,7 +19,7 @@ call plug#begin()
 Plug 'editorconfig/editorconfig-vim'
 
 " Peekaboo extends " @ normal mode and <CTRL-R> insert mode see the contents of the registers
-Plug 'junegunn/vim-peekaboo'
+" Plug 'junegunn/vim-peekaboo'
 
 " incsearch.vim incrementally highlights ALL pattern matches
 Plug 'haya14busa/incsearch.vim'
@@ -92,7 +94,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'w0ng/vim-hybrid'
 
 " syntastic replacement that uses background threads for syntax check
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 " miscellaneous auto-load vim scripts
 Plug 'xolox/vim-misc'

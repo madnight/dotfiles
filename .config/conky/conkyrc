@@ -63,14 +63,14 @@ Mem: $alignr $mem/$memmax
 ${membar 5}
 
 Cpu usage $alignr Pid     Cpu%   Mem%
-${color #ddaa00}${lua_parse pad ${top name 1}} $alignr ${top pid 1} ${top cpu 1} ${top mem 1}$color
-${lua_parse pad ${top name 2}} $alignr ${top pid 2} ${top cpu 2} ${top mem 2}
-${lua_parse pad ${top name 3}} $alignr ${top pid 3} ${top cpu 3} ${top mem 3}
+${color #ddaa00}${lua_parse pad ${top name 1}} $alignr ${top pid 1} ${top cpu 1} ${top mem_res 1}$color
+${lua_parse pad ${top name 2}} $alignr ${top pid 2} ${top cpu 2} ${top mem_res 2}
+${lua_parse pad ${top name 3}} $alignr ${top pid 3} ${top cpu 3} ${top mem_res 3}
 
 Mem usage$color
-${color #ddaa00}${lua_parse pad ${top_mem name 1}} $alignr ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}$color
-${lua_parse pad ${top_mem name 2}} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
-${lua_parse pad ${top_mem name 3}} $alignr ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem 3}
+${color #ddaa00}${lua_parse pad ${top_mem name 1}} $alignr ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem_res 1}$color
+${lua_parse pad ${top_mem name 2}} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem_res 2}
+${lua_parse pad ${top_mem name 3}} $alignr ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem_res 3}
 
 Coretemp: ${color #ddaa00}$alignr ${execi 9 sensors | grep CPUTIN | cut -c18-19}C$color
 # GPU: ${color #ddaa00}$alignr ${execi 8 nvidia-settings -q [gpu:0]/GPUCoreTemp | grep '):' | awk '{print $4}' | sed 's/\.//'}C$color

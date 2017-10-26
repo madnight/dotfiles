@@ -17,13 +17,24 @@ endif
 "##########################
 " Load plugins and configs
 "##########################
-" source ~/vim/functions.vim
+source ~/vim/functions.vim
 source ~/vim/plugins.vim
 source ~/vim/gvim.vim
 source ~/vim/autocmd.vim
 source ~/vim/keys.vim
 source ~/vim/plugins-config.vim
 source ~/.private_vimrc
+
+function! s:Highlight_Matching_Pair()
+endfunction
+
+function! s:FindMatchingPair()
+endfunction
+
+function! s:Find_Matching_Pair()
+endfunction
+
+
 
 "###################
 " Basic vim settings

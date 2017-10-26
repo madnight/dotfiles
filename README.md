@@ -6,7 +6,7 @@ Arch setup
 | Software | Choice | Note
 | ------------- |:-------------:|-------------|
 | Shell | [zsh](https://wiki.archlinux.org/index.php/zsh) | with extensive git prompt
-| Window Manager | [xmonad](https://wiki.archlinux.org/index.php/xmonad) | bspwm and i3-gaps also configured
+| Window Manager | [bspwm](https://wiki.archlinux.org/index.php/bspwm) | xmonad and i3-gaps also configured
 | Terminal      | [urxvt](https://wiki.archlinux.org/index.php/Rxvt-unicode) | considering alacritty
 | Multiplexer | [tmux](https://wiki.archlinux.org/index.php/tmux) | tmux-resurrect for persistent sessions
 | Editor      | [vim](https://wiki.archlinux.org/index.php/vim) | plus many (lazy) loaded plugs

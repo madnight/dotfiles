@@ -2,6 +2,10 @@
 # bspwm hotkeys
 ###############
 
+# kill window
+control + q
+    bspc node -k || kill -9 $(xdotool getactivewindow getwindowpid)
+
 # quit bspwm normally
 super + alt + Escape
     zenity --question --text="Quit bspwm?" && bspc quit
@@ -59,6 +63,9 @@ super + @space
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
 	{bspc desktop -f, bash ~/scripts/bspwm/switch-move.bash} ^{1-9,0}
+
+super + {_,shift + }{0}
+	{bspc desktop -f, bash ~/scripts/bspwm/switch-move.bash} 0
 
 # focus the node in the given direction
 super + {_,alt + }{h,j,k,l}

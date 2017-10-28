@@ -47,7 +47,8 @@ font-5 = fixed:pixelsize=10
 font-6 = unifont:fontformat=truetype:size=6:heavy;-2
 font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
-font-9 = UbuntuMono Nerd Font:pixelsize=10;2
+font-9 = UbuntuMono Nerd Font:pixelsize=12;2
+font-10 = UbuntuMono Nerd Font:pixelsize=14;5
 modules-left = apps vpn weather fs-root cputemp cpu memory
 modules-right = bitcoin gputemp wired ping updates volume date time
 
@@ -76,14 +77,17 @@ label-empty = %icon%
 ; label-occupied-padding = 2
 ; label-empty-padding = 2
 ; label-focused-padding = 2
-icon-0 =0;  
+; icon-0 =0;%{T2} %{T-}
+icon-0 =0;
 icon-1 =1;  
 icon-2 =2;  
 icon-3 =3;  
 icon-4 =4;  
 icon-5 =5;  
 icon-6 =6;  
-
+icon-7 =7;%{T7}   %{T-}
+icon-8 =8;%{T10} %{T-}
+icon-9 =9;%{T11} %{T-}
 
 [bar/stock]
 inherit = bar/base

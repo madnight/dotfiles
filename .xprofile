@@ -33,7 +33,7 @@ bash -c "~/scripts/autoupdate.bash" &
 # email client
 thunderbird &
 
-urxvt -e tmux &
+# urxvt -e tmux &
 
 # notification deamon
 dunst &

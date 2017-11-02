@@ -85,17 +85,18 @@ icon-3 =3;  
 icon-4 =4;  
 icon-5 =5;  
 icon-6 =6;  
-icon-7 =7;%{T7}   %{T-}
-icon-8 =8;%{T10} %{T-}
-icon-9 =9;%{T11} %{T-}
+; icon-7 =7;%{T7}   %{T-}
+; icon-8 =8;%{T10} %{T-}
+; icon-9 =9;%{T11} %{T-}
 
 [bar/stock]
 inherit = bar/base
+monitor = ${env:MONITOR:DVI-I-1}
 modules-center = workspaces
 
 [bar/top-bspwm]
 inherit = bar/base
-monitor = ${env:MONITOR:fallback-value}
+monitor = ${env:MONITOR:DVI-I-1}
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm

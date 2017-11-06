@@ -89,6 +89,8 @@ sleep 10 && while true; do SHELL=/bin/bash polybar -r stock; done &
 # hotkey deamon
 sxhkd &
 
+sxhkd /home/beuke/sxhkdrc &
+
 [ ! -s ~/.config/mpd/pid ] && echo mpd &
 
 xset +fp ~/.fonts/tamzen-font/bdf &

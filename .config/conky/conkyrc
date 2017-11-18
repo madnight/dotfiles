@@ -1,38 +1,39 @@
 -- vi: ft=conkyrc
 
 conky.config = {
-	background = false,
-	use_xft = true,
-	font = 'Gohu GohuFont:size=8',
-	update_interval = 1.0,
-	total_run_times = 0,
-	own_window = true,
-	own_window_class = 'Conky',
-	own_window_transparent = true,
-	double_buffer = true,
-	minimum_width = 100,
-	minimum_height = 5,
-	maximum_width = 200,
-	draw_shades = false,
-	draw_outline = false,
-	draw_borders = false,
-	draw_graph_borders = true,
-	default_color = 'white',
-	default_shade_color = 'black',
-	alignment = 'top_right',
-	gap_x = 19,
-	gap_y = 50,
-	cpu_avg_samples = 2,
-	override_utf8_locale = false,
-	uppercase = false,
-	text_buffer_size = 16000,
-	format_human_readable = true,
-	top_name_width = 12,
-	default_color = '#cccccc',
-	default_bar_width = 200,
-	default_bar_height = 5,
-	lua_load = '~/.config/conky/conky.lua',
-	lua_draw_hook_post = 'main',
+    background = false,
+    use_xft = true,
+    font = 'Gohu GohuFont:size=8',
+    update_interval = 1.0,
+    total_run_times = 0,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'override',
+    own_window_transparent = true,
+    double_buffer = true,
+    minimum_width = 100,
+    minimum_height = 5,
+    maximum_width = 200,
+    draw_shades = false,
+    draw_outline = false,
+    draw_borders = false,
+    draw_graph_borders = true,
+    default_color = 'white',
+    default_shade_color = 'black',
+    alignment = 'top_right',
+    gap_x = 19,
+    gap_y = 50,
+    cpu_avg_samples = 2,
+    override_utf8_locale = false,
+    uppercase = false,
+    text_buffer_size = 16000,
+    format_human_readable = true,
+    top_name_width = 12,
+    default_color = '#cccccc',
+    default_bar_width = 200,
+    default_bar_height = 5,
+    lua_load = '~/.config/conky/conky.lua',
+    lua_draw_hook_post = 'main',
 };
 
 conky.text = [[
@@ -107,11 +108,7 @@ $stippled_hr
 Process $alignr Remote Host
 ${color lightgrey} ${font Ubuntu Mono:size=9}${texecpi 30 netstat -ap | grep 'ESTABLISHED' | grep -v 'chromium\|conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }'}
 
-
-
 # ${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | cut -d" " -f5- | fold -w 33 | head -n 18 }
 # $stippled_hr
-
-
 
 ]];

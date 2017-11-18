@@ -175,6 +175,9 @@ endfunction
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'airblade/vim-rooter'
 
+
+Plug 'ternjs/tern_for_vim'
+
 " async completion
 " Plug 'maralla/completor.vim'
 

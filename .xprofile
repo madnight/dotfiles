@@ -36,7 +36,7 @@ thunderbird &
 # urxvt -e tmux &
 
 # notification deamon
-dunst &
+# dunst &
 
 # start irc
 hexchat &

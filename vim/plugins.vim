@@ -94,7 +94,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'w0ng/vim-hybrid'
 
 " syntastic replacement that uses background threads for syntax check
-" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 
 " miscellaneous auto-load vim scripts
 Plug 'xolox/vim-misc'

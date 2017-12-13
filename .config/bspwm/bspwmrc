@@ -29,7 +29,7 @@ if [[ $(hostname) == 'skylake' ]]; then
     	bspc config -m $monitor left_padding   0
     	bspc config -m $monitor bottom_padding 0
     	bspc config -m $monitor border_width   0
-    	bspc config -m $monitor window_gap     0
+    	bspc config -m $monitor window_gap     10
 	done
     sh $HOME/.screenlayout/1.sh
     export MONITOR=HDMI1 && SHELL=/bin/bash polybar -r top-bspwm-work &
@@ -39,9 +39,6 @@ if [[ $(hostname) == 'arch' ]]; then
     xrandr --output DVI-1 --primary --left-of DVI-0
     bspc monitor DVI-1 -d 1 2 3 4 5
     bspc monitor DVI-0 -d 6 7 8 9 0
-    # bspc monitor $(bspc query -M | sed -n 1p) -d 1 2 3 4 4
-    # bspc monitor $(bspc query -M | sed -n 2p) -d 6 7 8 9 0
-
     bspc config -m DVI-0 border_width   0
     bspc config -m DVI-0 top_padding    0
     bspc config -m DVI-0 right_padding  0
@@ -49,15 +46,6 @@ if [[ $(hostname) == 'arch' ]]; then
     bspc config -m DVI-0 bottom_padding 0
     bspc config -m DVI-0 border_width   0
     bspc config -m DVI-0 window_gap     0
-
-    # bspc config -m $(bspc query -M | sed -n 2p) border_width   0
-    # bspc config -m $(bspc query -M | sed -n 2p) top_padding    0
-    # bspc config -m $(bspc query -M | sed -n 2p) right_padding  0
-    # bspc config -m $(bspc query -M | sed -n 2p) left_padding   0
-    # bspc config -m $(bspc query -M | sed -n 2p) bottom_padding 0
-    # bspc config -m $(bspc query -M | sed -n 2p) border_width   0
-    # bspc config -m $(bspc query -M | sed -n 2p) window_gap     0
-
     export MONITOR=DVI-1 && SHELL=/bin/bash polybar -r top-bspwm &
 fi
 

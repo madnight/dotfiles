@@ -21,23 +21,23 @@ if [[ $(hostname) == 'skylake' ]]; then
     bspc monitor HDMI1 -d 4 5 6 7
     bspc monitor eDP1 -d 1 2 3
     bspc monitor DVI-I-1-1 -d 8 9 0
-	xrandr | /usr/bin/grep \ connected | awk {'print $1'} | /usr/bin/grep -v HDMI
-	for monitor in $(xrandr | /usr/bin/grep \ connected | awk {'print $1'} | /usr/bin/grep -v HDMI); do
-		bspc config -m $monitor top_padding    8
-    	bspc config -m $monitor top_padding    0
-    	bspc config -m $monitor right_padding  0
-    	bspc config -m $monitor left_padding   0
-    	bspc config -m $monitor bottom_padding 0
-    	bspc config -m $monitor border_width   0
-    	bspc config -m $monitor window_gap     10
-	done
+    SECONDARYS=$(xrandr | /usr/bin/grep \ connected | awk {'print $1'} | /usr/bin/grep -v HDMI)
+    for monitor in $SECONDARYS; do
+      options=(top_padding right_padding left_padding bottom_padding border_width)
+      for option in "${options[@]}"; do
+        bspc config -m $monitor $options 0
+      done
+       bspc config -m $monitor window_gap 10
+    done
     sh $HOME/.screenlayout/1.sh
     export MONITOR=HDMI1 && SHELL=/bin/bash polybar -r top-bspwm-work &
 fi
 
 if [[ $(hostname) == 'arch' ]]; then
+    PRIMARY=$(xrandr | grep \ connected | /usr/bin/grep -v 1920x1080 | awk {'print $1'})
+    SECONDARYS=$(xrandr | grep \ connected | /usr/bin/grep -v 1680x1050 | awk {'print $1'})
     xrandr --output DVI-1 --primary --left-of DVI-0
-    bspc monitor DVI-1 -d 1 2 3 4 5
+    bspc monitor $PRIMARY -d 1 2 3 4 5
     bspc monitor DVI-0 -d 6 7 8 9 0
     bspc config -m DVI-0 border_width   0
     bspc config -m DVI-0 top_padding    0

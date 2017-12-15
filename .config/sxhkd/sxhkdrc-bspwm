@@ -60,6 +60,9 @@ super + @space
 # focus/swap
 ############
 
+super + b
+    bspc node --swap last
+
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
 	{bspc desktop -f, bash ~/scripts/bspwm/switch-move.bash} ^{1-9,0}
@@ -68,7 +71,7 @@ super + {_,shift + }{0}
 	{bspc desktop -f, bash ~/scripts/bspwm/switch-move.bash} 0
 
 # focus the node in the given direction
-super + {_,alt + }{h,j,k,l}
+super + {_,ctrl + }{h,j,k,l}
     bspc node -{f,s} {west,south,north,east}.local
 
 # focus the node for the given path jump
@@ -88,8 +91,8 @@ alt + space
 	bspc monitor -f next
 
 # focus the last node/desktop
-super + {grave,Tab}
-    bspc {node,desktop} -f last
+super + Tab
+    bspc monitor -f last
 
 # focus the older or newer node in the focus history
 super + {o,i}
@@ -106,7 +109,7 @@ super + {o,i}
 ###########
 
 # preselect the direction
-super + ctrl + {h,j,k,l}
+super + alt + {h,j,k,l}
     bspc node -p {west,south,north,east}
 
 # preselect the ratio

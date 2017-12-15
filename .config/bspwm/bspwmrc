@@ -24,10 +24,8 @@ if [[ $(hostname) == 'skylake' ]]; then
     SECONDARYS=$(xrandr | /usr/bin/grep \ connected | awk {'print $1'} | /usr/bin/grep -v HDMI)
     for monitor in $SECONDARYS; do
       options=(top_padding right_padding left_padding bottom_padding border_width)
-      for option in "${options[@]}"; do
-        bspc config -m $monitor $options 0
-      done
-       bspc config -m $monitor window_gap 10
+      for option in "${options[@]}"; do bspc config -m $monitor $options 0; done
+      bspc config -m $monitor window_gap 10
     done
     sh $HOME/.screenlayout/1.sh
     export MONITOR=HDMI1 && SHELL=/bin/bash polybar -r top-bspwm-work &

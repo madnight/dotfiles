@@ -65,10 +65,14 @@ super + b
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
-	{bspc desktop -f, bash ~/scripts/bspwm/switch-move.bash} ^{1-9,0}
+    {bspc desktop -f, bash -c 'bspc node -d "$0" && bspc desktop -f "$0"'} ^{1-9,0}
 
 super + {_,shift + }{0}
-	{bspc desktop -f, bash ~/scripts/bspwm/switch-move.bash} 0
+    {bspc desktop -f, bash -c 'bspc node -d "$0" && bspc desktop -f "$0"'} 0
+
+# swap desktops
+super + d
+    bspc desktop -s last && bspc desktop -f last
 
 # focus the node in the given direction
 super + {_,ctrl + }{h,j,k,l}
@@ -113,8 +117,11 @@ super + alt + {h,j,k,l}
     bspc node -p {west,south,north,east}
 
 # preselect the ratio
-super + ctrl + {1-9}
+super + alt + ctrl + {1-9}
     bspc node -o 0.{1-9}
+
+super + ctrl + {1-9}
+    bspc desktop -a {1-9}
 
 # cancel the preselection for the focused node
 super + ctrl + space

@@ -60,15 +60,24 @@ super + @space
 # focus/swap
 ############
 
+super + r
+   bspc node @/ -R 90
+
 super + b
-    bspc node --swap last
+   bspc node @/ -E
 
-# focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-    {bspc desktop -f, bash -c 'bspc node -d "$0" && bspc desktop -f "$0"'} ^{1-9,0}
+# send to the given desktop
+super + shift + {1-9}
+    id=$(bspc query -N -n); \
+    bspc node -d '^{1-9}'; \
+    bspc node -f ${id}
 
-super + {_,shift + }{0}
-    {bspc desktop -f, bash -c 'bspc node -d "$0" && bspc desktop -f "$0"'} 0
+# focus given desktop
+super + {1-9}
+    bspc desktop -f '^{1-9}'
+
+# super + {_,shift + }{0}
+    # {bspc desktop -f, bash -c 'bspc node -d "$0" && bspc desktop -f "$0"'} 0
 
 # swap desktops
 super + d

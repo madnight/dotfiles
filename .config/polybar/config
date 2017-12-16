@@ -42,15 +42,15 @@ font-0 = lucy tewii:pixelsize=8;1
 font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;3
 font-2 = Hasklig Nerd Font:pixelsize=13;3
 font-3 = UbuntuMono Nerd Font:pixelsize=14;4
-font-4 = UbuntuMono Nerd Font:pixelsize=12;5
-font-5 = fixed:pixelsize=10
+font-4 = UbuntuMono Nerd Font:pixelsize=12;3
+font-5 = fixed:pixelsize=10;
 font-6 = unifont:fontformat=truetype:size=6:heavy;-2
 font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
 font-9 = UbuntuMono Nerd Font:pixelsize=12;2
 font-10 = UbuntuMono Nerd Font:pixelsize=14;5
-modules-left = apps vpn weather fs-root cputemp cpu memory
-modules-right = bitcoin gputemp wired ping updates volume date time
+modules-left = apps vpn weather fs-root cputemp gputemp cpu memory
+modules-right = cardano bitcoin wired ping updates volume date time
 
 [module/workspaces]
 type = internal/xworkspaces
@@ -369,14 +369,14 @@ type = custom/script
 exec-if = sensors
 exec =  sensors | grep CPUTIN | cut -c18-19
 format-prefix = "%{T4} %{T-}"
-format-suffix = "°C"
+format-suffix = "°C CPU"
 
 [module/gputemp]
 type = custom/script
 exec-if = sensors
-exec =  nvidia-settings -q [gpu:0]/GPUCoreTemp | grep '):' | awk '{print $4}' | sed 's/\.//'
-format-prefix = "GPU %{T4} %{T-}"
-format-suffix = "°C "
+exec = nvidia-settings -q all | grep GPUCore | grep Attribute | head -n 1 | awk '{print $4}' | sed 's/\.//'
+format-prefix = "%{T4} %{T-}"
+format-suffix = "°C GPU"
 
 [module/apps]
 type = custom/menu
@@ -410,6 +410,12 @@ exec = python $HOME/scripts/weather
 type = custom/script
 interval = 60
 format = <label>
-format-prefix = "%{T12} %{T-}"
-format-suffix = " $"
+format-prefix = "BTC $"
 exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD" | jq -r '.USD | floor'
+
+[module/cardano]
+type = custom/script
+interval = 60
+format = <label>
+format-prefix = "ADA $"
+exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=ADA&tsyms=USD" | jq -r '.USD'

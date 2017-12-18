@@ -27,6 +27,8 @@ if [[ $(hostname) == 'skylake' ]]; then
       for option in "${options[@]}"; do bspc config -m $monitor $options 0; done
       bspc config -m $monitor window_gap 10
     done
+    # conky pad
+    bspc config -m DVI-I-1-1 right_padding 210
     sh $HOME/.screenlayout/1.sh
     export MONITOR=HDMI1 && SHELL=/bin/bash polybar -r top-bspwm-work &
 fi

@@ -1,5 +1,11 @@
 #!/usr/bin/env stack
--- stack --install-ghc runghc concurrent-extra strict
+
+{-
+stack --install-ghc runghc
+    --package concurrent-extra
+    --package strict
+    --package mtl
+-}
 
 import Control.Concurrent.Thread.Delay
 import Control.Exception.Base

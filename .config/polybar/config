@@ -104,8 +104,8 @@ wm-restack = bspwm
 
 [bar/top-bspwm-work]
 inherit = bar/top-bspwm
-modules-left = apps vpn fs-root cputemp cpu memory
-modules-right = cardano bitcoin wired-work ping updates volume date time
+modules-left = apps vpn fs-root cputemp cpu memory iota monero cardano
+modules-right = bitcoin ethereum ripple wired-work ping updates volume date time
 
 [bar/top-i3]
 inherit = bar/base
@@ -419,3 +419,31 @@ interval = 60
 format = <label>
 format-prefix = "ADA $"
 exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=ADA&tsyms=USD" | jq -r '.USD'
+
+[module/ripple]
+type = custom/script
+interval = 60
+format = <label>
+format-prefix = "XRP $"
+exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=USD" | jq -r '.USD'
+
+[module/iota]
+type = custom/script
+interval = 60
+format = <label>
+format-prefix = "IOT $"
+exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=IOT&tsyms=USD" | jq -r '.USD'
+
+[module/monero]
+type = custom/script
+interval = 60
+format = <label>
+format-prefix = "XMR $"
+exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD" | jq -r '.USD'
+
+[module/ethereum]
+type = custom/script
+interval = 60
+format = <label>
+format-prefix = "ETH $"
+exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD" | jq -r '.USD'

@@ -1,0 +1,100 @@
+conky.config = {
+     background = false,
+     font = 'GohuFont:size=11',
+     update_interval = 1.0,
+     total_run_times = 0,
+     own_window = true,
+     own_window_type = 'desktop',
+     own_window_class = 'Conky',
+     own_window_transparent = true,
+     own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+     double_buffer = true,
+     minimum_width = 100,
+     minimum_height = 5,
+     maximum_width = 200,
+     draw_shades = false,
+     draw_outline = false,
+     draw_borders = false,
+     draw_graph_borders = true,
+     default_color = 'white',
+     default_shade_color = 'black',
+     alignment = 'top_right',
+     gap_x = 10,
+     gap_y = 10,
+     cpu_avg_samples = 2,
+     override_utf8_locale = false,
+     uppercase = false,
+     text_buffer_size = 16000,
+     format_human_readable = true,
+     top_name_width = 12,
+     default_color = '#cccccc',
+     default_bar_width = 200,
+     default_bar_height = 5,
+};
+
+conky.text = [[
+$stippled_hr
+Kernel: $alignr $kernel ($machine)
+Uptime: $alignr $uptime
+Packages: $alignr ${execi 180 pacman -Q | wc -l} (${execi 180 yaourt --stats | grep "Real space used" | awk '{print $6}'})
+Updates: $alignr ${execi 180 checkupdates | wc -l} | ${execi 180 yaourt -Qua | wc -l}
+$stippled_hr
+${cpubar cpu1 3}${alignr}${cpu cpu1}%
+${cpubar cpu2 3}${alignr}${cpu cpu2}%
+${cpubar cpu3 3}${alignr}${cpu cpu3}%
+${cpubar cpu4 3}${alignr}${cpu cpu4}%
+# ${cpubar cpu5 3}${alignr}${cpu cpu5}%
+# ${cpubar cpu6 3}${alignr}${cpu cpu6}%
+# ${cpubar cpu7 3}${alignr}${cpu cpu7}%
+# ${cpubar cpu8 3}${alignr}${cpu cpu8}%
+${cpugraph 20}
+Load: $alignr $loadavg
+Processes: $alignr $processes
+Running: $alignr $running_processes
+
+Cpu: ${alignr}  ${color #ddaa00} ${cpu cpu0}%$color
+${cpubar 5}
+Mem: $alignr $mem/$memmax
+${membar 5}
+
+Cpu usage $alignr Pid     Cpu%   Mem%
+${color #ddaa00}${lua_parse pad ${top name 1}} $alignr ${top pid 1} ${top cpu 1} ${top mem 1}$color
+${lua_parse pad ${top name 2}} $alignr ${top pid 2} ${top cpu 2} ${top mem 2}
+${lua_parse pad ${top name 3}} $alignr ${top pid 3} ${top cpu 3} ${top mem 3}
+
+Mem usage$color
+${color #ddaa00}${lua_parse pad ${top_mem name 1}} $alignr ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}$color
+${lua_parse pad ${top_mem name 2}} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
+${lua_parse pad ${top_mem name 3}} $alignr ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem 3}
+
+Coretemp: ${color #ddaa00}$alignr ${execi 9 sensors | grep Physical | cut -c18-19}C$color
+# GPU: ${color #ddaa00}$alignr ${execi 8 nvidia-settings -q [gpu:0]/GPUCoreTemp | grep '):' | awk '{print $4}' | sed 's/\.//'}C$color
+
+Network
+$stippled_hr
+Ip: $alignr${execi 20 curl -s https://4.ifcfg.me }
+Dns: $alignr${execi 180 cat /etc/resolv.conf | grep nameserver | awk '{print $2}' | head -n 1}
+Ping: ${color #ddaa00}${alignr}${execi 10 ping -c 2 8.8.8.8 | sed -n '2,2p' |cut -c47-50}ms$color
+Conn: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 count}${alignr}/${tcp_portmon 1 65535 count}
+#${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
+#${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1#}
+
+Total: ${totalup wlp1s0} ${alignr} Total: ${totaldown wlp1s0}
+${upspeedgraph wlp1s0 25,90 000000 000000 10000KiB}${alignr}${downspeedgraph enp5s0 25,90 000000 000000 25000KiB}
+Up: ${upspeedf wlp1s0} kB/s  ${alignr} Down: ${color #ddaa00}${downspeedf enp5s0} kb/s$color
+     ${execi 6 $HOME/scripts/packets-per-second wlp1s0 OUT} pk/s  ${alignr}      ${execi 6 $HOME/scripts/packets-per-second wlp1s0 IN} pk/s
+
+Root: ${fs_free /} $alignr ${fs_used /} / ${fs_size /}
+${fs_bar 3 /}
+I/O Read: $alignr $diskio_read
+I/O Write: $alignr $diskio_write
+
+Audio: $alignr ${exec amixer -c 0 get Master | grep 'Mono: Playback' | awk '{print $6}' | sed -e 's/[][]//g'}
+${execbar 3 echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' | tr -d '%')}
+${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
+
+Syslog
+$stippled_hr
+${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | cut -d" " -f5- | fold -w 33 | head -n 18 }
+$stippled_hr
+]];

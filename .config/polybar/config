@@ -368,14 +368,14 @@ label-padding = 1
 type = custom/script
 exec-if = sensors
 exec =  sensors | grep CPUTIN | cut -c18-19
-format-prefix = "%{T4} %{T-}"
+format-prefix = "%{T4}%{T-} "
 format-suffix = "°C CPU"
 
 [module/gputemp]
 type = custom/script
 exec-if = sensors
 exec = nvidia-settings -q all | grep GPUCore | grep Attribute | head -n 1 | awk '{print $4}' | sed 's/\.//'
-format-prefix = "%{T4} %{T-}"
+format-prefix = "%{T4}%{T-} "
 format-suffix = "°C GPU"
 
 [module/apps]

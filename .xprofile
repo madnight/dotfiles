@@ -12,9 +12,6 @@ bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 # backup packages list
 # zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &
 
-WP=$HOME/Pictures/xubuntu-trusty.jpg
-feh --bg-scale $WP $WP $WP
-
 # automute while afk
 bash -c "~/scripts/automute.sh" &
 

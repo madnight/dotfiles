@@ -51,7 +51,7 @@ augroup vimrc_autocmd
   " au CursorHoldI * call ale#Lint()
   " au InsertLeave * call ale#Lint()
   " au TextChanged * call ale#Lint()
-  au BufDelete * if len(filter(range(1, bufnr('$')), '! empty(bufname(v:val)) && buflisted(v:val)')) == 1 | quit | endif
+  " au BufDelete * if len(filter(range(1, bufnr('$')), '! empty(bufname(v:val)) && buflisted(v:val)')) == 1 | quit | endif
 
 
   au VimResized * wincmd =

@@ -3,13 +3,14 @@
 conky.config = {
     background = false,
     use_xft = true,
-    font = 'Gohu GohuFont:size=8',
+    font = 'Gohu GohuFont:size=11',
     update_interval = 1.0,
     total_run_times = 0,
     own_window = false,
-    own_window_class = 'y',
+    own_window_class = 'Conky',
     own_window_type = 'override',
     own_window_transparent = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
     double_buffer = true,
     minimum_width = 100,
     minimum_height = 5,
@@ -20,9 +21,9 @@ conky.config = {
     draw_graph_borders = true,
     default_color = 'white',
     default_shade_color = 'black',
-    alignment = 'top_right',
-    gap_x = 19,
-    gap_y = 50,
+    alignment = 'top_left',
+    gap_x = 1470,
+    gap_y = 20,
     cpu_avg_samples = 2,
     override_utf8_locale = false,
     uppercase = false,
@@ -37,12 +38,10 @@ conky.config = {
 };
 
 conky.text = [[
-$stippled_hr
 Kernel: $alignr $kernel ($machine)
 Uptime: $alignr $uptime
 Packages: $alignr ${execi 180 pacman -Q | wc -l} (${execi 180 yaourt --stats | grep "Real space used" | awk '{print $6}'})
 Updates: $alignr ${execi 180 checkupdates | wc -l} | ${execi 180 yaourt -Qua | wc -l}
-$stippled_hr
 
 ${voffset 150}
 # ${cpubar cpu1 3}${alignr}${cpu cpu1}%
@@ -72,23 +71,14 @@ Mem usage$color
 ${color #ddaa00}${lua_parse pad ${top_mem name 1}} $alignr ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem_res 1}$color
 ${lua_parse pad ${top_mem name 2}} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem_res 2}
 ${lua_parse pad ${top_mem name 3}} $alignr ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem_res 3}
-
-Coretemp: ${color #ddaa00}$alignr ${execi 9 sensors | grep CPUTIN | cut -c18-19}C$color
+# Coretemp: ${color #ddaa00}$alignr ${execi 9 sensors | grep CPUTIN | cut -c18-19}C$color
 # GPU: ${color #ddaa00}$alignr ${execi 8 nvidia-settings -q [gpu:0]/GPUCoreTemp | grep '):' | awk '{print $4}' | sed 's/\.//'}C$color
 
-Network
-$stippled_hr
-Ip: $alignr${execi 20 curl -s https://4.ifcfg.me }
-Dns: $alignr${execi 180 cat /etc/resolv.conf | grep nameserver | awk '{print $2}' | head -n 1}
-Ping: ${color #ddaa00}${alignr}${execi 10 ping -c 2 8.8.8.8 | sed -n '2,2p' |cut -c47-50}ms$color
-Conn: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 count}${alignr}/${tcp_portmon 1 65535 count}
-#${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
-#${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1#}
+Audio: $alignr ${exec amixer -c 0 get Master | grep 'Mono: Playback' | awk '{print $6}' | sed -e 's/[][]//g'}
+${execbar 3 echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' | tr -d '%')}
+${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
 
-Total: ${totalup enp5s0} ${alignr} Total: ${totaldown enp5s0}
-${upspeedgraph enp5s0 25,90 000000 000000 10000KiB}${alignr}${downspeedgraph enp5s0 25,90 000000 000000 25000KiB}
-Up: ${upspeedf enp5s0} kB/s  ${alignr} Down: ${color #ddaa00}${downspeedf enp5s0} kb/s$color
-     ${execi 6 /home/x/scripts/packets-per-second enp5s0 OUT} pk/s  ${alignr}      ${execi 6 /home/x/scripts/packets-per-second enp5s0 IN} pk/s
+Filesystem $stippled_hr
 
 Root: ${fs_free /} $alignr ${fs_used /} / ${fs_size /}
 ${fs_bar 3 /}
@@ -97,18 +87,29 @@ ${fs_bar 3 /home/datadisk}
 I/O Read: $alignr $diskio_read
 I/O Write: $alignr $diskio_write
 
-Audio: $alignr ${exec amixer -c 0 get Master | grep 'Mono: Playback' | awk '{print $6}' | sed -e 's/[][]//g'}
-${execbar 3 echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' | tr -d '%')}
-${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
 
 # ${execpi 6000 DJS=`date +%_d`; StarDiviner=date +%-d; cal -n 1 | sed s/"\(^\|[^0-9]\)$DJS"'\b'/'\1${color orange}'"$DJS"'$color'/ | sed 's/\r//g;s/^/ /g;s/^/\$\{goto 40\}/;s/\<'"$StarDiviner"'\>/${color1}&${color0}/'}
+Network $stippled_hr
 
-Connections
-$stippled_hr
+Ip: $alignr${execi 20 curl -s https://4.ifcfg.me }
+Dns: $alignr${execi 180 cat /etc/resolv.conf | grep nameserver | awk '{print $2}' | head -n 1}
+Ping: ${color #ddaa00}${alignr}${execi 10 ping -c 2 8.8.8.8 | sed -n '2,2p' |cut -c47-50}ms$color
+Connections: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 count}${alignr}/${tcp_portmon 1 65535 count}
+#${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
+#${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1#}
+
+Total: ${totalup enp5s0} ${alignr} Total: ${totaldown enp5s0}
+${upspeedgraph enp5s0 25,90 000000 000000 10000KiB}${alignr}${downspeedgraph enp5s0 25,90 000000 000000 25000KiB}
+Up: ${upspeedf enp5s0} kB/s  ${alignr} Down: ${color #ddaa00}${downspeedf enp5s0} kb/s$color
+Pps: ${execi 6 /home/x/scripts/packets-per-second enp5s0 OUT} pk/s  ${alignr}      ${execi 6 /home/x/scripts/packets-per-second enp5s0 IN} pk/s
+
 Process $alignr Remote Host
-${color lightgrey} ${font Ubuntu Mono:size=9}${texecpi 30 netstat -ap | grep 'ESTABLISHED' | grep -v 'chromium\|conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }'}
+${color lightgrey} ${font Ubuntu Mono:size=9}${texecpi 10 netstat -ap | grep 'ESTABLISHED' | grep -v 'conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }' | sort | uniq -w 20 }$color $font
 
-# ${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | cut -d" " -f5- | fold -w 33 | head -n 18 }
-# $stippled_hr
+
+Syslog $stippled_hr
+
+# ${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | cut -d" " -f5- | fold -w 39 | head -n 18 }
+${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | tac | cut -d" " -f5- | fold -w 36 -s | head -n 10 }
 
 ]];

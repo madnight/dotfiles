@@ -2,7 +2,7 @@
 --                                 conky_grey.lua
 --
 --  author  : SLK
---  version : v2010562101
+--  version : v20349062101
 --  license : Distributed under the terms of GNU GPL version 2 or later
 --
 --==============================================================================
@@ -15,10 +15,10 @@ require 'cairo'
 gauge = {
 {
     name='cpu',                    arg='cpu1',                  max_value=100,
-    x=105,                          y=155,
+    x=3490,                          y=150,
     graph_radius=24,
     graph_thickness=5,
-    graph_start_angle=155,
+    graph_start_angle=150,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.2,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.7,
@@ -36,10 +36,10 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu2',                  max_value=100,
-    x=105,                          y=155,
+    x=3490,                          y=150,
     graph_radius=30,
     graph_thickness=5,
-    graph_start_angle=155,
+    graph_start_angle=150,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.2,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.7,
@@ -57,10 +57,10 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu3',                  max_value=100,
-    x=105,                          y=155,
+    x=3490,                          y=150,
     graph_radius=36,
     graph_thickness=5,
-    graph_start_angle=155,
+    graph_start_angle=150,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.2,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.7,
@@ -78,10 +78,10 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu4',                  max_value=100,
-    x=105,                          y=155,
+    x=3490,                          y=150,
     graph_radius=42,
     graph_thickness=5,
-    graph_start_angle=155,
+    graph_start_angle=150,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.2,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.7,
@@ -99,10 +99,10 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu5',                  max_value=100,
-    x=105,                          y=155,
+    x=3490,                          y=150,
     graph_radius=48,
     graph_thickness=5,
-    graph_start_angle=155,
+    graph_start_angle=150,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.2,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.7,
@@ -120,10 +120,10 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu6',                  max_value=100,
-    x=105,                          y=155,
+    x=3490,                          y=150,
     graph_radius=54,
     graph_thickness=5,
-    graph_start_angle=155,
+    graph_start_angle=150,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.2,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.7,
@@ -141,10 +141,10 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu7',                  max_value=100,
-    x=105,                          y=155,
+    x=3490,                          y=150,
     graph_radius=60,
     graph_thickness=5,
-    graph_start_angle=155,
+    graph_start_angle=150,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.2,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.7,
@@ -162,10 +162,10 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu8',                  max_value=100,
-    x=105,                          y=155,
+    x=3490,                          y=150,
     graph_radius=66,
     graph_thickness=5,
-    graph_start_angle=155,
+    graph_start_angle=150,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.2,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.7,
@@ -353,7 +353,7 @@ function draw_gauge_ring(display, data, value)
     cairo_set_source_rgba (display, rgb_to_r_g_b(caption_fg_colour, caption_fg_alpha))
     cairo_move_to (display, x + tox + 5, y + toy + 1)
     -- bad hack but not enough time !
-    if graph_start_angle < 105 then
+    if graph_start_angle < 3490 then
         cairo_move_to (display, x + tox - 30, y + toy + 1)
     end
     cairo_show_text (display, caption)

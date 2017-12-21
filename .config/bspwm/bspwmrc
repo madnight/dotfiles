@@ -21,7 +21,7 @@ if [[ $(hostname) == 'skylake' ]]; then
     bspc monitor HDMI1 -d 4 5 6 7
     bspc monitor eDP1 -d 1 2 3
     bspc monitor DVI-I-1-1 -d 8 9 0
-    SECONDARYS=$(xrandr | /usr/bin/grep \ connected | awk {'print $1'} | /usr/bin/grep -v HDMI)
+    SECONDARYS=$(xrandr | grep \ connected | awk {'print $1'} | grep -v HDMI)
     for monitor in $SECONDARYS; do
       options=(top_padding right_padding left_padding bottom_padding border_width)
       for option in "${options[@]}"; do bspc config -m $monitor $options 0; done
@@ -33,19 +33,32 @@ if [[ $(hostname) == 'skylake' ]]; then
 fi
 
 if [[ $(hostname) == 'arch' ]]; then
-    PRIMARY=$(xrandr | grep \ connected | /usr/bin/grep -v 1920x1080 | awk {'print $1'})
+    # set the screen layout
+    sh $HOME/.screenlayout/1.sh
 
-    SECONDARYS=$(xrandr | grep \ connected | /usr/bin/grep -v 1680x1050 | awk {'print $1'})
-	for monitor in $SECONDARYS; do
+    # asign names to the monitors depending on their resolution and position
+    PRIMARY=$(xrandr | grep \ connected | grep 1920x1080 | awk {'print $1'})
+    LEFT=$(xrandr | grep \ connected | grep 1680x1050+0 | awk {'print $1'})
+    RIGHT=$(xrandr | grep \ connected | grep 1680x1050 | grep -v 1680x1050+0 | awk {'print $1'})
+
+    SECONDARYS=$(xrandr | grep \ connected | grep 1680x1050 | awk {'print $1'})
+    for monitor in $SECONDARYS; do
       options=(top_padding right_padding left_padding bottom_padding border_width)
       for option in "${options[@]}"; do bspc config -m $monitor $options 0; done
       bspc config -m $monitor window_gap 10
     done
 
-    xrandr --output DVI-1 --primary --left-of DVI-0
-    bspc monitor $PRIMARY -d 1 2 3 4 5
-    bspc monitor DVI-0 -d 6 7 8 9 0
-    export MONITOR=DVI-1 && SHELL=/bin/bash polybar -r top-bspwm &
+    # primary monitor
+    bspc monitor $PRIMARY -d 4 5 6
+    bspc config -m $PRIMARY top_padding 45
+    export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm &
+
+    # left monitor
+    bspc monitor $LEFT -d 1 2 3
+
+    # right monitor
+    bspc monitor $RIGHT -d 7 8 9
+
 fi
 
 # Visual options

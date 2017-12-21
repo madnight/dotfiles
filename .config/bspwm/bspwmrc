@@ -59,6 +59,10 @@ if [[ $(hostname) == 'arch' ]]; then
     # right monitor
     bspc monitor $RIGHT -d 7 8 9
 
+    # wallpaper
+    WP=$HOME/Pictures/xubuntu-trusty.png
+    # set wallpaper on three monitors
+    feh --bg-scale $WP $WP $WP
 fi
 
 # Visual options

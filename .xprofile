@@ -31,7 +31,7 @@ bash -c "~/scripts/autoupdate.bash" &
 # xautolock -time 10 -locker "$HOME/scripts/lock $HOME/scripts/lock.png" &
 
 # email client
-thunderbird &
+# thunderbird &
 
 # urxvt -e tmux &
 
@@ -39,7 +39,7 @@ thunderbird &
 # dunst &
 
 # start irc
-hexchat &
+# hexchat &
 
 # web browser
 # chromium &
@@ -95,6 +95,4 @@ xset r rate 150 50
 
 # ~/scripts/start-conky &
 # start conky
-conky -c ~/.config/conky/conkyrc
-
-
+conky -c ~/.config/conky/conkyrc &

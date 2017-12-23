@@ -55,6 +55,7 @@ if [[ $(hostname) == 'arch' ]]; then
 
     # left monitor
     bspc monitor $LEFT -d 1 2 3
+    bspc config -m $LEFT left_padding 210
 
     # right monitor
     bspc monitor $RIGHT -d 7 8 9

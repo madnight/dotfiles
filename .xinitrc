@@ -19,9 +19,9 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 # wallpaper
-WP=$HOME/Pictures/xubuntu-trusty.png
+# WP=$HOME/Pictures/xubuntu-trusty.png
 # set wallpaper on three monitors
-feh --bg-scale $WP $WP $WP
+# feh --bg-scale $WP $WP $WP
 
 # x settings
 xset r rate 250 50

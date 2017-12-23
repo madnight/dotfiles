@@ -49,8 +49,8 @@ font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
 font-9 = UbuntuMono Nerd Font:pixelsize=12;2
 font-10 = UbuntuMono Nerd Font:pixelsize=14;5
-modules-left = apps vpn weather fs-root cputemp gputemp cpu memory
-modules-right = cardano bitcoin wired ping updates volume date time
+modules-left = apps vpn weather fs-root cputemp gputemp cpu memory iota monero cardano
+modules-right = bitcoin ethereum ripple wired ping updates volume date time
 
 [module/workspaces]
 type = internal/xworkspaces
@@ -410,7 +410,7 @@ interval = 600
 format = <label>
 format-prefix = " "
 exec-if = ping -c 1 google.com > /dev/null
-exec = python $HOME/scripts/weather
+exec = python $HOME/scripts/weather | grep -v Traceback
 
 [module/bitcoin]
 type = custom/script

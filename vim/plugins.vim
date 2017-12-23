@@ -159,6 +159,10 @@ Plug 'danro/rename.vim'
 
 Plug 'eagletmt/neco-ghc'
 
+Plug 'wincent/terminus'
+
+
+
 
 " Plug 'Shougo/neocomplete.vim'
 

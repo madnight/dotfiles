@@ -98,7 +98,7 @@ F8
     playerctl play-pause
 
 F7
-    vlc ~/Radio/jamfm.m3u
+    vlc --intf dummy ~/Radio/jamfm.m3u
 
 F9
-    vlc ~/Radio/bbcradio1.pls
+    vlc --intf dummy ~/Radio/bbcradio1.pls

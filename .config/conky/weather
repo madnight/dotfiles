@@ -5,21 +5,25 @@ conky.config = {
 	use_xft = true,
 	font = 'lucy tewii:size=8',
 	xftalpha = 1.0,
-	update_interval = 2,
+	update_interval = 5,
 	total_run_times = 0,
 	own_window = true,
-	own_window_class = 'Conky',
-	own_window_transparent = true,
-	maximum_width = 1200,
+    own_window_type = 'override',
+    own_window_class = 'Conky',
+    own_window_transparent = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    double_buffer = true,
 	draw_shades = false,
 	draw_outline = false,
 	draw_borders = false,
 	default_color = 'white',
 	default_shade_color = 'black',
-	alignment = 'top_right',
-	gap_x = 330,
-	gap_y = 40,
-	double_buffer = true,
+    maximum_width = 500,
+	minimum_width = 100,
+    minimum_height = 5,
+	alignment = 'top_left',
+	gap_x = -2500,
+	gap_y = 10,
 	cpu_avg_samples = 2,
 	override_utf8_locale = false,
 	text_buffer_size = 16384,
@@ -27,18 +31,19 @@ conky.config = {
 	default_color = '#cccccc',
 };
 
-
 conky.text = [[
 ${voffset 10}
-${execi 120 bitcoin-chart-cli -w 140 -h 10}
-${voffset 10}
-${execi 120 bitcoin-chart-cli --coin BCH -w 140 -h 10}
-${voffset 10}
-${execi 120 bitcoin-chart-cli --coin ETH -w 140 -h 10}
-${voffset 10}
-${execi 120 bitcoin-chart-cli --coin XRP -w 140 -h 10}
-${voffset 10}
-${execi 120 bitcoin-chart-cli --coin IOT -w 140 -h 10}
-${voffset 10}
-${execi 120 bitcoin-chart-cli --coin XMR -w 140 -h 10}
+${execi 600 bitcoin-chart-cli -d 7 -w 70 -h 8}
+${voffset 5}
+${execi 600 bitcoin-chart-cli --coin ETH -d 7 -w 70 -h 8}
+${voffset 5}
+${execi 600 bitcoin-chart-cli --coin XRP -d 7 -w 70 -h 8}
+${voffset 5}
+${execi 600 bitcoin-chart-cli --coin IOT -d 7 -w 70 -h 8}
+${voffset 5}
+${execi 600 bitcoin-chart-cli --coin XMR -d 7 -w 70 -h 8}
+${voffset 5}
+${execi 600 bitcoin-chart-cli --coin XVG -d 7 -w 70 -h 8}
+${voffset 5}
+${execi 600 bitcoin-chart-cli --coin ADA -d 7 -w 70 -h 8}
 ]];

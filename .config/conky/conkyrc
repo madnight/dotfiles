@@ -104,7 +104,7 @@ Up: ${upspeedf enp5s0} kB/s  ${alignr} Down: ${color #ddaa00}${downspeedf enp5s0
 Pps: ${execi 6 /home/x/scripts/packets-per-second enp5s0 OUT} pk/s  ${alignr}      ${execi 6 /home/x/scripts/packets-per-second enp5s0 IN} pk/s
 
 Process $alignr Remote Host
-${color lightgrey} ${font Ubuntu Mono:size=9}${texecpi 10 netstat -ap | grep 'ESTABLISHED' | grep -v 'conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }' | sort | uniq -w 20 }$color $font
+${color lightgrey}${font Ubuntu Mono:size=9}${texecpi 10 netstat -ap | grep 'ESTABLISHED' | grep -v 'conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }' | sort | uniq -w 20 }$color $font
 
 
 Syslog $stippled_hr

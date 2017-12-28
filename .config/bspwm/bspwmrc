@@ -8,12 +8,15 @@
 
 bspc config border_width 3
 bspc config window_gap  10
+bspc config pointer_follows_monitor true
+bspc config pointer_follows_focus true
 
 # some extra top space for bar
-bspc config top_padding    45
+bspc config top_padding    0
 bspc config right_padding  8
 bspc config left_padding   8
-bspc config bottom_padding 8
+bspc config bottom_padding 0
+
 
 if [[ $(hostname) == 'skylake' ]]; then
     xrandr --setprovideroutputsource 1 0 && xrandr --auto
@@ -41,12 +44,12 @@ if [[ $(hostname) == 'arch' ]]; then
     LEFT=$(xrandr | grep \ connected | grep 1680x1050+0 | awk {'print $1'})
     RIGHT=$(xrandr | grep \ connected | grep 1680x1050 | grep -v 1680x1050+0 | awk {'print $1'})
 
-    SECONDARYS=$(xrandr | grep \ connected | grep 1680x1050 | awk {'print $1'})
-    for monitor in $SECONDARYS; do
-      options=(top_padding right_padding left_padding bottom_padding border_width)
-      for option in "${options[@]}"; do bspc config -m $monitor $options 0; done
-      bspc config -m $monitor window_gap 10
-    done
+    # SECONDARYS=$(xrandr | grep \ connected | grep 1680x1050 | awk {'print $1'})
+    # for monitor in $SECONDARYS; do
+      # options=(top_padding right_padding left_padding bottom_padding border_width)
+      # for option in "${options[@]}"; do bspc config -m $monitor $options 0; done
+      # bspc config -m $monitor window_gap 10
+    # done
 
     # primary monitor
     bspc monitor $PRIMARY -d 4 5 6
@@ -55,7 +58,7 @@ if [[ $(hostname) == 'arch' ]]; then
 
     # left monitor
     bspc monitor $LEFT -d 1 2 3
-    bspc config -m $LEFT left_padding 210
+    bspc config -m $LEFT left_padding 210 # conky pad
 
     # right monitor
     bspc monitor $RIGHT -d 7 8 9

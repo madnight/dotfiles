@@ -35,13 +35,13 @@ source ~/.xprofile &
 
 # sync primary clipboard and GTK clipboard
 autocutsel -fork &
-autocutsel -selection PRIMARY -fork &
+autocutsel -selection PRIMARY -fork
 
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 
 # keyring deamon
 dbus-update-activation-environment --systemd DISPLAY
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh) &
 export SSH_AUTH_SOCK
 
 bspwm

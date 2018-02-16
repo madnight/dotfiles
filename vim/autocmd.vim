@@ -27,7 +27,7 @@ augroup vimrc_autocmd
   au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
   au BufNewFile,BufRead *.coffee set filetype=coffee
 
-  au Filetype *.js setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+  au Filetype *.js setlocal expandtab tabstop=1 shiftwidth=4 softtabstop=4
 
   au BufEnter *.hs set formatprg=xargs\ -0\ pointfree
 

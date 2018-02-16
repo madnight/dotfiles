@@ -73,6 +73,12 @@ XF86Tools
 XF86Launch5
     xfce4-screenshooter
 
+XF86Launch6
+    speedcrunch
+
+XF86Launch7
+    gcolor2
+
 # Notes
 F6
 	xset -dpms && xset s off && xset s off -dpms

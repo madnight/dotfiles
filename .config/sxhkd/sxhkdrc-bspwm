@@ -66,11 +66,15 @@ super + r
 super + b
    bspc node @/ -E
 
-# send to the given desktop
+# send to the given desktop with focus
 super + shift + {1-9}
     id=$(bspc query -N -n); \
     bspc node -d '^{1-9}'; \
     bspc node -f ${id}
+
+# send to the given desktop without focus
+super + alt + {1-9}
+    bspc node -d '^{1-9}'
 
 # focus given desktop
 super + {1-9}

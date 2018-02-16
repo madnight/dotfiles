@@ -71,12 +71,31 @@ Mem usage$color
 ${color #ddaa00}${lua_parse pad ${top_mem name 1}} $alignr ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem_res 1}$color
 ${lua_parse pad ${top_mem name 2}} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem_res 2}
 ${lua_parse pad ${top_mem name 3}} $alignr ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem_res 3}
+# I/O usage
+# ${lua_parse pad ${top_io name 1}} $alignr ${top_io pid 1} ${top_io io_read 1} ${top_io io_write 1}
 # Coretemp: ${color #ddaa00}$alignr ${execi 9 sensors | grep CPUTIN | cut -c18-19}C$color
 # GPU: ${color #ddaa00}$alignr ${execi 8 nvidia-settings -q [gpu:0]/GPUCoreTemp | grep '):' | awk '{print $4}' | sed 's/\.//'}C$color
 
+# host: $nodename | #
+# kernel: $sysname $kernel | #
+# uptime: $uptime | #
+# cpu0: ${cpu cpu0}% | #
+# cpu1: ${cpu cpu1}% | #
+# cpu2: ${cpu cpu2}% | #
+# cpu3: ${cpu cpu3}% | #
+# cpu4: ${cpu cpu4}% | #
+# memory: ${mem}/${memmax}B | #
+# swap: ${swap}/${swapmax}B | }
 Audio: $alignr ${exec amixer -c 0 get Master | grep 'Mono: Playback' | awk '{print $6}' | sed -e 's/[][]//g'}
 ${execbar 3 echo $(amixer -c 0 get Master | grep Mono: | awk '{print $4}' | tr -d ']' | tr -d '[' | tr -d '%')}
-${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
+
+# ${rss http://www.archlinux.org/feeds/news/ 10 item_title 0}
+# ${scroll left 34 10 #
+# ${rss http://www.spiegel.de/index.rss 10 item_titles 5} | #
+# ${rss http://www.spiegel.de/netzwelt/index.rss 10 item_titles 5} | #
+# ${rss https://rss.golem.de/rss.php?feed=RSS1.0 10 item_titles 5} | #
+# ${rss https://news.ycombinator.com/rss 10 item_titles 5} | #
+# | }
 
 Filesystem $stippled_hr
 

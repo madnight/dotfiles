@@ -49,8 +49,8 @@ font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
 font-9 = UbuntuMono Nerd Font:pixelsize=12;2
 font-10 = UbuntuMono Nerd Font:pixelsize=14;5
-modules-left = apps vpn weather fs-root cputemp gputemp cpu memory cardano ripple
-modules-right = bitcoin ethereum cardano wired ping updates volume date time
+modules-left = apps vpn weather fs-root cputemp gputemp cpu memory ripple
+modules-right = bitcoin ethereum cap wired ping updates volume date time utc
 
 [module/workspaces]
 type = internal/xworkspaces
@@ -425,12 +425,12 @@ exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD"
 [module/cardano]
 inherit = module/crypto
 format-prefix = "ADA $"
-exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=ADA&tsyms=USD" | jq -r '.USD'
+exec = printf "%.2g\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=ADA&tsyms=USD" | jq -r '.USD')
 
 [module/ripple]
 inherit = module/crypto
 format-prefix = "XRP $"
-exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=USD" | jq -r '.USD'
+exec =  printf "%.2g\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=USD" | jq -r '.USD')
 
 [module/iota]
 inherit = module/crypto
@@ -450,4 +450,24 @@ exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD"
 [module/ethereum]
 inherit = module/crypto
 format-prefix = "ETH $"
-exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD" | jq -r '.USD'
+exec = printf "%.0f\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD" | jq -r '.USD')
+
+[module/cap]
+inherit = module/crypto
+format-prefix = "CAP $"
+exec = numfmt --to=si $(curl -s "https://api.coinmarketcap.com/v1/global/" | jq -r '.total_market_cap_usd') | sed 's/G/B/g'
+
+[module/usdt]
+inherit = module/crypto
+format-prefix = "USDT $"
+exec = printf "%.3g\n" $(curl -s "https://api.coinmarketcap.com/v1/ticker/tether/" | jq -r '.[0] | .price_usd')
+
+[module/utc]
+type = custom/script
+format = <label>
+format-prefix = "UTC "
+exec = date --utc '+%H:%M'
+
+
+
+

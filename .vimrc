@@ -20,10 +20,10 @@ endif
 source ~/vim/functions.vim
 source ~/vim/plugins.vim
 source ~/vim/gvim.vim
-source ~/vim/autocmd.vim
 source ~/vim/keys.vim
 source ~/vim/plugins-config.vim
 source ~/.private_vimrc
+source ~/vim/autocmd.vim
 
 function! s:Highlight_Matching_Pair()
 endfunction
@@ -172,11 +172,6 @@ command! WS w !sudo tee %
 " Colortheme
 "############
 colorscheme hybrid
-hi clear CursorLine
-hi clear SpellBad
-hi LineNr ctermfg=DarkGrey
-hi SpellBad cterm=underline ctermfg=red
-hi LineNr guibg=#1D1F21
 
 syntax sync minlines=200
 
@@ -184,18 +179,9 @@ syntax sync minlines=200
 syntax on
 filetype plugin indent on
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+" should be the last lines
+highlight LineNr ctermfg=DarkGrey
+hi clear CursorLine
+hi clear SpellBad
+hi SpellBad cterm=underline ctermfg=red
+hi LineNr guibg=#1D1F21

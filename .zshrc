@@ -217,6 +217,7 @@ PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 NPM_PACKAGES="${HOME}/.npm-packages"
 PATH="$NPM_PACKAGES/bin:$PATH"
 PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH
 unset GREP_OPTIONS

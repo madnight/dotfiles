@@ -95,5 +95,11 @@ xset r rate 150 50
 
 # ~/scripts/start-conky &
 # start conky
-conky -c ~/.config/conky/conkyrc &
-conky -c ~/.config/conky/weather &
+while true; do conky -c ~/.config/conky/conkyrc; done &
+
+if [[ $(hostname) == 'arch' ]]; then
+    conky -c ~/.config/conky/weather-syslog &
+    conky -c ~/.config/conky/charts01 &
+    conky -c ~/.config/conky/charts02 &
+    conky -c ~/.config/conky/ticker &
+fi

@@ -7,7 +7,7 @@
 "                  |___/
 
 
-
+imap <TAB> <SPACE><SPACE><SPACE><SPACE>
 nmap <leader>ch1 :set ch=1<CR>
 nmap <leader>ch20 :set ch=20<CR>
 nmap <leader>hit :GhcModTypeInsert<CR>

@@ -13,19 +13,29 @@ bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 # zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &
 
 # automute while afk
-bash -c "~/scripts/automute.sh" &
+if ! ps aux | egrep [a]utomute ; then
+    bash -c "~/scripts/automute.sh" &
+fi
 
 # autoupdate system (pacman / yaourt)
-bash -c "~/scripts/autoupdate.bash" &
+if ! ps aux | egrep [a]update ; then
+    bash -c "~/scripts/autoupdate.bash" &
+fi
 
 # monitor events
-~/scripts/monitoring &
+if ! ps aux | egrep [m]onitoring ; then
+    ~/scripts/monitoring &
+fi
 
 # sync github mirror repositories
-~/scripts/mirror &
+if ! ps aux | egrep [m]irror ; then
+	~/scripts/mirror &
+fi
 
 # low memory warning (freeze swap prevention)
-~/scripts/lowmem &
+if ! ps aux | egrep [l]owmem ; then
+	~/scripts/lowmem &
+fi
 
 # screenlock after 10 min
 # xautolock -time 10 -locker "$HOME/scripts/lock $HOME/scripts/lock.png" &
@@ -45,10 +55,14 @@ bash -c "~/scripts/autoupdate.bash" &
 # chromium &
 
 # sound
-pulseaudio --start &
+if ! ps aux | egrep [p]pulseaudio ; then
+    pulseaudio --start &
+fi
 
 # reduce monitor brigthness at night
-redshift &
+if ! ps aux | egrep [r]edshift ; then
+    redshift &
+fi
 
 xrdb ~/.Xdefaults
 xrdb ~/.Xresources
@@ -75,11 +89,16 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 wmname LG3D
 
 # polybar
-sleep 10 && while true; do SHELL=/bin/bash polybar -r stock; done &
+# ps aux | egrep [p]olybar || sleep 10 && while true; do SHELL=/bin/bash polybar -r stock; done &
 
 # hotkey deamon
-sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc &
-sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc-bspwm &
+if ! ps aux | grep [s]xhkdrc ; then
+    sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc &
+fi
+
+if ! ps aux | grep [s]xhkd | grep bspwm ; then
+    sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc-bspwm &
+fi
 
 [ ! -s ~/.config/mpd/pid ] && echo mpd &
 
@@ -95,11 +114,26 @@ xset r rate 150 50
 
 # ~/scripts/start-conky &
 # start conky
-while true; do conky -c ~/.config/conky/conkyrc; done &
+
+if ! ps aux | grep [c]onky | grep conkyrc ; then
+    while true; do conky -c ~/.config/conky/conkyrc; done &
+fi
+
 
 if [[ $(hostname) == 'arch' ]]; then
-    conky -c ~/.config/conky/weather-syslog &
-    conky -c ~/.config/conky/charts01 &
-    conky -c ~/.config/conky/charts02 &
-    conky -c ~/.config/conky/ticker &
+    if ! ps aux | grep [c]onky | grep weather ; then
+        conky -c ~/.config/conky/weather-syslog &
+    fi
+
+    if ! ps aux | grep [c]onky | grep charts01 ; then
+        conky -c ~/.config/conky/charts01 &
+    fi
+
+    if ! ps aux | grep [c]onky | grep charts02 ; then
+        conky -c ~/.config/conky/charts02 &
+    fi
+
+    if ! ps aux | grep [c]onky | grep ticker ; then
+        conky -c ~/.config/conky/ticker &
+    fi
 fi

@@ -137,3 +137,8 @@ if [[ $(hostname) == 'arch' ]]; then
         conky -c ~/.config/conky/ticker &
     fi
 fi
+
+sleep 5 && sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc-bspwm &
+sleep 5 && sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc &
+
+

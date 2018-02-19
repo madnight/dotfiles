@@ -118,7 +118,7 @@ Plug 'tweekmonster/fzf-filemru'
 Plug 'townk/vim-autoclose'
 
 " preview colours in source code while editing
-Plug 'ap/vim-css-color'
+" Plug 'ap/vim-css-color'
 
 " shows a git diff in the 'gutter' (sign column)
 Plug 'airblade/vim-gitgutter'

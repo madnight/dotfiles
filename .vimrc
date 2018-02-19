@@ -179,9 +179,35 @@ syntax sync minlines=200
 syntax on
 filetype plugin indent on
 
+
 " should be the last lines
 highlight LineNr ctermfg=DarkGrey
 hi clear CursorLine
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 hi LineNr guibg=#1D1F21
+
+function! g:FuckThatMatchParen ()
+    if exists(":NoMatchParen")
+        :NoMatchParen
+    endif
+endfunction
+
+augroup plugin_initialize
+    autocmd!
+    autocmd VimEnter * call FuckThatMatchParen()
+augroup END
+
+
+
+
+
+
+
+
+
+
+
+
+
+

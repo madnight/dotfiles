@@ -26,6 +26,7 @@ augroup vimrc_autocmd
   au BufNewFile,BufRead,BufEnter *.yml set syntax=yaml
   au BufRead,BufNewFile,BufEnter *mutt* set filetype=mail
   au BufNewFile,BufRead *.coffee set filetype=coffee
+  au BufNewFile,BufRead *.conf set ft=apache
 
   au Filetype *.js setlocal expandtab tabstop=1 shiftwidth=4 softtabstop=4
 

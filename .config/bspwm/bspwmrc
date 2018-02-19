@@ -21,17 +21,31 @@ bspc config bottom_padding 0
 if [[ $(hostname) == 'skylake' ]]; then
     xrandr --setprovideroutputsource 1 0 && xrandr --auto
     xrandr --output HDMI1 --primary --left-of eDP1
-    bspc monitor HDMI1 -d 4 5 6 7
-    bspc monitor eDP1 -d 1 2 3
-    bspc monitor DVI-I-1-1 -d 8 9 0
-    SECONDARYS=$(xrandr | grep \ connected | awk {'print $1'} | grep -v HDMI)
-    for monitor in $SECONDARYS; do
-      options=(top_padding right_padding left_padding bottom_padding border_width)
-      for option in "${options[@]}"; do bspc config -m $monitor $options 0; done
-      bspc config -m $monitor window_gap 10
-    done
 
+    # set the screen layout
     sh $HOME/.screenlayout/1.sh
+
+    export PRIMARY=$(xrandr | grep \ connected | grep HDMI| awk {'print $1'})
+    LEFT=$(xrandr | grep \ connected | grep eDP| awk {'print $1'})
+    RIGHT=$(xrandr | grep \ connected | grep DVI | awk {'print $1'})
+
+    # primary monitor
+    bspc monitor $PRIMARY -d 4 5 6
+    bspc config -m $PRIMARY top_padding 45
+    export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r bspwm &
+
+    # left monitor
+    bspc monitor $LEFT -d 1 2 3
+    # bspc config -m $RIGHT left_padding 210 # conky pad
+
+    # right monitor
+    bspc monitor $RIGHT -d 7 8 9
+
+    # wallpaper
+    WP=$HOME/Pictures/xubuntu-trusty.png
+    # set wallpaper on three monitors
+    feh --bg-scale $WP $WP $WP
+
     export MONITOR=HDMI1 && SHELL=/bin/bash polybar -r top-bspwm-work &
 fi
 
@@ -58,7 +72,7 @@ if [[ $(hostname) == 'arch' ]]; then
 
     # left monitor
     bspc monitor $LEFT -d 1 2 3
-    bspc config -m $LEFT left_padding 210 # conky pad
+    bspc config -m $LEFT right_padding 210 # conky pad
 	bspc config -m $LEFT bottom_padding 17 # bitcoin ticker pad
 
     # right monitor
@@ -105,6 +119,7 @@ bspc rule -a File-roller      pseudo_tiled=on
 bspc rule -a Transmission-gtk pseudo_tiled=on
 
 # floating rules
+bspc rule -a SpeedCrunch state=floating center=false rectangle=800x800+0+300
 bspc rule -a feh                 state=floating manage=off
 bspc rule -a SpeedCrunch         state=floating focus=on rectangle=400x400+1250+650 center=false
 bspc rule -a Gcolor2             state=floating focus=on rectangle=400x400+1250+650 center=false

@@ -50,3 +50,4 @@ bspwm
 # i3
 # xmonad
 
+    # set the screen layout

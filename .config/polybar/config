@@ -92,7 +92,7 @@ icon-9 =9;  9
 
 [bar/stock]
 inherit = bar/base
-monitor = ${env:MONITOR:DVI-I-1}
+monitor = ${env:MONITOR:HDMI1}
 modules-center = workspaces
 
 [bar/top-bspwm]
@@ -104,9 +104,15 @@ modules-center = bspwm
 wm-restack = bspwm
 
 [bar/top-bspwm-work]
-inherit = bar/top-bspwm
+inherit = bar/base
+monitor = ${env:MONITOR:HDMI1}
 modules-left = apps vpn fs-root cputemp cpu memory iota monero cardano
 modules-right = bitcoin ethereum ripple wired-work ping updates volume date time
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+modules-center = bspwm
+wm-restack = bspwm
+
 
 [bar/top-i3]
 inherit = bar/base

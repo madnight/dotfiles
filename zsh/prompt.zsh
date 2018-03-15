@@ -3,6 +3,7 @@ ZSH_COMMAND_START=0
 typeset -gF SECONDS
 
 function preexec {
+    print -rn -- $terminfo[el];
     ZSH_COMMAND_START=${ZSH_COMMAND_START:-$SECONDS}
 }
 
@@ -54,7 +55,6 @@ function zle-line-init zle-keymap-select {
     # set-prompt
     zle reset-prompt
 }
-preexec () { print -rn -- $terminfo[el]; }
 
 zle -N zle-line-init
 zle -N zle-keymap-select

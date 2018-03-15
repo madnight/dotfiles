@@ -1,10 +1,10 @@
 [colors]
 # special
-foreground      = #bea492
-foreground_bold = #bea492
-cursor          = #bea492
-background      = #181512
-highlight       = #181512
+foreground      = #e8e1e1
+foreground_bold = #e8e1e1
+cursor          = #e8e1e1
+background      = #181715
+highlight       = #181715
 
 # black
 color0  = #332d29

@@ -87,6 +87,8 @@ Plug 'vim-airline/vim-airline'
 " easy tmux navigation
 Plug 'christoomey/vim-tmux-navigator'
 
+Plug 'madnight/vim-tmux-resizer'
+
 " vim status line themes
 Plug 'vim-airline/vim-airline-themes'
 

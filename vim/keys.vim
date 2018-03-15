@@ -87,6 +87,7 @@ nnoremap <Leader>q :q<cr>
 nnoremap <Leader>wq :wq<cr>
 nnoremap <Leader>bd :bd<cr>
 nnoremap <Leader>vl :VimuxInterruptRunner<cr>:VimuxRunLastCommand<cr>
+nnoremap ´ :VimuxRunLastCommand<cr>
 nnoremap <Leader>vk :VimuxInterruptRunner<cr>
 nnoremap K :Ack! '<C-r><C-w>'<cr>
 nnoremap <C-j> <C-w>j

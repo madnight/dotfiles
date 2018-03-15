@@ -119,26 +119,12 @@ if ! ps aux | grep [c]onky | grep conkyrc ; then
     while true; do conky -c ~/.config/conky/conkyrc; done &
 fi
 
-
-if [[ $(hostname) == 'arch' ]]; then
-    if ! ps aux | grep [c]onky | grep weather ; then
-        conky -c ~/.config/conky/weather-syslog &
-    fi
-
-    if ! ps aux | grep [c]onky | grep charts01 ; then
-        conky -c ~/.config/conky/charts01 &
-    fi
-
-    if ! ps aux | grep [c]onky | grep charts02 ; then
-        conky -c ~/.config/conky/charts02 &
-    fi
-
-    if ! ps aux | grep [c]onky | grep ticker ; then
-        conky -c ~/.config/conky/ticker &
-    fi
-fi
-
-sleep 5 && sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc-bspwm &
-sleep 5 && sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc &
-
-
+# if [[ $(hostname) == 'arch' ]]; then
+#     if ! ps aux | grep [c]onky; then
+#         conky -c /home/x/.config/conky/conkyrc &
+#         conky -c ~/.config/conky/weather-syslog &
+#         conky -c ~/.config/conky/charts01 &
+#         conky -c ~/.config/conky/charts02 &
+#         conky -c ~/.config/conky/ticker &
+#     fi
+# fi

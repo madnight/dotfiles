@@ -51,8 +51,8 @@ F1
     bash ~/scripts/lock.sh
 
 # resize window
-control + y
-    wmctrl -i -r $(xdotool getactivewindow) -e 0,130,110,1480,880
+#control + y
+#    wmctrl -i -r $(xdotool getactivewindow) -e 0,130,110,1480,880
 
 # window maximize
 super + m

@@ -6,17 +6,17 @@
 #		 /_/\_\_|_| |_|_|\__|_|  \___|
 
 
-# if [ -d /etc/X11/xinit/xinitrc.d ] ; then
+if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 # it executes the *.sh files in /etc/X11/xinit/xinitrc.d/
 # which currently contains a systemd owned file (50-systemd-user.sh)
 # that makes the right call to dbus-update-activation-environment.
 # This is better than calling dbus-.. manually,
 # as it will be updated if other dbus stuff changes...
-        # for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-                # [ -x "$f" ] && . "$f"
-        # done
-        # unset f
-# fi
+        for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+                [ -x "$f" ] && . "$f"
+        done
+        unset f
+fi
 
 # wallpaper
 # WP=$HOME/Pictures/xubuntu-trusty.png

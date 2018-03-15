@@ -70,7 +70,7 @@ fi
 
 if [ $term = xterm ]; then
     # change xterm cursor to steady bar
-    echo -e -n "\x1b[\x36 q"
+    # echo -e -n "\x1b[\x36 q"
     # fix <C-h> combo in xterm (it sends erase otherwise)
     stty erase '^?'
 fi

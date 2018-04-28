@@ -118,7 +118,7 @@ Connections: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 coun
 #${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1#}
 
 Total: ${totalup enp5s0} ${alignr} Total: ${totaldown enp5s0}
-${upspeedgraph enp5s0 25,90 000000 000000 10000KiB}${alignr}${downspeedgraph enp5s0 25,90 000000 000000 25000KiB}
+${upspeedgraph enp5s0 25,90 000000 000000 8000KiB}${alignr}${downspeedgraph enp5s0 25,90 000000 000000 6000KiB}
 Up: ${upspeedf enp5s0} kB/s  ${alignr} Down: ${color #ddaa00}${downspeedf enp5s0} kb/s$color
 Pps: ${execi 6 /home/x/scripts/packets-per-second enp5s0 OUT} pk/s  ${alignr}      ${execi 6 /home/x/scripts/packets-per-second enp5s0 IN} pk/s
 

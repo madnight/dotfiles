@@ -110,9 +110,9 @@ xset r rate 150 50
 # ~/scripts/start-conky &
 # start conky
 
-if ! ps aux | grep [c]onky | grep conkyrc ; then
+# if ! ps aux | grep [c]onky | grep conkyrc ; then
     while true; do conky -c ~/.config/conky/conkyrc; done &
-fi
+# fi
 
 # if [[ $(hostname) == 'arch' ]]; then
 #     if ! ps aux | grep [c]onky; then

@@ -10,6 +10,25 @@
 Xcursor.theme: DMZ-White
 URxvt.scrollBar: false
 URxvt.intensityStyles: false
+xterm*foreground: #D8D8D8
+xterm*background: #181715
+
+! ##############
+! xterm settings
+! ##############
+xterm*font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+xterm*metaSendsEscape: true
+! xterm*font: -*-terminus-*-*-*-*-20-*-*-*-*-*-*-*
+xterm*blodFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
+xterm*saveLines:            0
+xterm*geometry:             80x24-500+400
+xterm*allowBoldFonts:       true
+xterm*utf8:                 true
+xterm*termName:             xterm-256color
+xterm*VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
+xterm.scaleHeight: 0.9
+
+
 
 ! erosion theme by earsplit
 *.foreground:   #e8e1e1

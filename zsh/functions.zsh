@@ -74,6 +74,8 @@ cpstat () { tar cf - "$1" | pv | (cd "$2";tar xf -) }
 
 dls () { echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`; }
 
+parentProcess () { ps -p "$1" -o ppid= }
+
 # some funny git stuff
 yodacommit() { git commit -m "$(fortune)" }
 yoda() { git add -u && git commit && git push; }

@@ -10,7 +10,7 @@
 Xcursor.theme: DMZ-White
 URxvt.scrollBar: false
 URxvt.intensityStyles: false
-xterm*foreground: #D8D8D8
+xterm*foreground: #c5c8c6
 xterm*background: #181715
 
 ! ##############

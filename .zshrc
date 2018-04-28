@@ -6,7 +6,6 @@
  #       /___|___/_| |_|  \___\___/|_| |_|_| |_|\__, |
  #                                              |___/
 
-
 START=$(date +%s.%N)
 
 # If not running interactively, don't do anything
@@ -42,8 +41,6 @@ zstyle ':completion:*' rehash true
 # fish like syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-
-
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=1000000
@@ -67,19 +64,8 @@ term="$(ps -f -p $(cat /proc/$(echo $$)/stat | cut -d \  -f 4) | tail -1 | sed '
 #############################
 # terminal specific settings
 #############################
-
-if [ $term = urxvt ] || [ $term = xterm ]; then
-    # set fg color
- #   echo -ne "\033]10;#DBBCBC\007"
-fi
-
-# if [ $term = xterm ]; then
-    # change xterm cursor to steady bar
-    # echo -e -n "\x1b[\x36 q"
-    # fix <C-h> combo in xterm (it sends erase otherwise)
-    stty erase '^?'
-# fi
-#
+# fix <C-h> combo in xterm (it sends erase otherwise)
+stty erase '^?'
 
 ##############
 # Keybindings
@@ -202,8 +188,6 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ########################
 # ENVIORNMENT variables
 ########################
-
-
 export ARCHFLAGS="-arch x86_64"
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
@@ -236,10 +220,6 @@ unsetopt HUP
 #################################
 # source additional zsh settings
 #################################
-
-
-
-
 # private aliases and functions suchs as backup
 [[ -e ~/.zshrc_priv ]] && source ~/.zshrc_priv
 # import prompt, aliases and functions
@@ -247,23 +227,7 @@ unsetopt HUP
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
 
-
 [ -n "$TMUX" ] && export TERM=screen-256color
-
-
-
-# if [ $commands[fasd] ]; then # check if fasd is installed
-#   fasd_cache="$HOME/.fasd-init-cache"
-#   if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-#     fasd --init auto >| "$fasd_cache"
-#   fi
-#   source "$fasd_cache"
-#   unset fasd_cache
-
-#   alias v="f -e $EDITOR"
-#   alias o='a -e open_command'
-# fi
-
 
 globalias() {
    zle _expand_alias
@@ -283,3 +247,5 @@ if (( $ZSHRC_PERF > 0.15)); then
   echo "\033[0;31mperformance warning!"
   echo ".zshrc startup time" $ZSHRC_PERF "seconds"
 fi
+
+echo -e -n "\x1b[\x34 q" # changes to steady underline

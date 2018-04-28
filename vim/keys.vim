@@ -116,8 +116,8 @@ nnoremap <silent> <ESC>\ :TmuxNavigatePrevious<cr>
 
 nnoremap <silent> <ESC>H :TmuxResizeLeft<cr>
 nnoremap <silent> <ESC>L :TmuxResizeRight<cr>
-nnoremap <silent> <ESC>J :TmuxResizeUp<cr>:TmuxResizeUp<cr>
-nnoremap <silent> <ESC>K :TmuxResizeDown<cr>:TmuxResizeDown<cr>
+nnoremap <silent> <ESC>J :TmuxResizeDown<cr>:TmuxResizeDown<cr>
+nnoremap <silent> <ESC>K :TmuxResizeUp<cr>:TmuxResizeUp<cr>
 
 noremap <Leader>a :Ack <cword><cr>
 " the space after ACK here is intentional

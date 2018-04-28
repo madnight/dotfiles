@@ -49,8 +49,8 @@ font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
 font-9 = UbuntuMono Nerd Font:pixelsize=12;2
 font-10 = UbuntuMono Nerd Font:pixelsize=14;5
-modules-left = apps vpn weather fs-root cputemp gputemp cpu memory ripple
-modules-right = bitcoin ethereum cap wired ping updates volume date time utc
+modules-left = apps vpn weather fs-root cputemp gputemp cpu memory ripple ethereum
+modules-right = bitcoin cap wired ping updates volume date time utc
 
 [module/workspaces]
 type = internal/xworkspaces

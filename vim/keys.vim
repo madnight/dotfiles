@@ -115,11 +115,12 @@ nnoremap <silent> <ESC>j :TmuxNavigateUp<cr>
 nnoremap <silent> <ESC>\ :TmuxNavigatePrevious<cr>
 
 nnoremap <silent> <ESC>H :TmuxResizeLeft<cr>
-nnoremap <silent> <ESC>L :TmuxResizeDown<cr>
-nnoremap <silent> <ESC>J :TmuxResizeUp<cr>
-nnoremap <silent> <ESC>K :TmuxResizeRight<cr>
+nnoremap <silent> <ESC>L :TmuxResizeRight<cr>
+nnoremap <silent> <ESC>J :TmuxResizeUp<cr>:TmuxResizeUp<cr>
+nnoremap <silent> <ESC>K :TmuxResizeDown<cr>:TmuxResizeDown<cr>
 
 noremap <Leader>a :Ack <cword><cr>
+" the space after ACK here is intentional
 noremap <Leader>ack :Ack 
 noremap <C-X> :bd<CR>
 noremap <silent> <c-up> :call SwapUp()<CR>

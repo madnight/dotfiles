@@ -123,3 +123,5 @@ xset r rate 150 50
 #         conky -c ~/.config/conky/ticker &
 #     fi
 # fi
+
+urxvt &

@@ -248,4 +248,5 @@ if (( $ZSHRC_PERF > 0.15)); then
   echo ".zshrc startup time" $ZSHRC_PERF "seconds"
 fi
 
-echo -e -n "\x1b[\x34 q" # changes to steady underline
+# echo -e -n "\x1b[\x34 q" # changes to steady underline
+echo -e -n "\x1b[\x32 q"

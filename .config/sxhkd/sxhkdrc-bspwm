@@ -27,14 +27,14 @@ super + shift + r
     # bspc node -s biggest
 
 # resize window to watch conky
-super + c
-    zsh ~/scripts/bspwm/toggle-conky-padding.zsh right
+# super + c
+    # zsh ~/scripts/bspwm/toggle-conky-padding.zsh right
 
-super + x
-    zsh ~/scripts/bspwm/toggle-conky-padding.zsh left
+# super + x
+    # zsh ~/scripts/bspwm/toggle-conky-padding.zsh left
 
-super + v
-    zsh ~/scripts/bspwm/toggle-conky-padding.zsh down
+# super + v
+    # zsh ~/scripts/bspwm/toggle-conky-padding.zsh down
 
 #############
 # state/flags

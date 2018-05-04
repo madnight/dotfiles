@@ -28,7 +28,17 @@ augroup vimrc_autocmd
   au BufNewFile,BufRead *.coffee set filetype=coffee
   au BufNewFile,BufRead *.conf set ft=apache
 
-  au Filetype *.js setlocal expandtab tabstop=1 shiftwidth=4 softtabstop=4
+  au FileType javascript setlocal expandtab shiftwidth=4 tabstop=4
+  au Filetype *.js setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+  au Filetype *.jsx setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
 
   au BufEnter *.hs set formatprg=xargs\ -0\ pointfree
 

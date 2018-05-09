@@ -15,6 +15,7 @@ alias agentcurl='curl -H \"User-Agent: Mozilla/5.0 (Windows; U; MSIE 6.0; Window
 alias apps='thunar /usr/share/applications/'
 alias archey3='ufetch'
 alias archey='ufetch'
+alias aur="yay --answerclean A --answeredit n"
 alias aurf='yaourt --force --noconfirm'
 alias aurpk='yaourt -G'
 alias c='clear'

@@ -45,7 +45,7 @@ killport() { lsof -i tcp:8080 | grep LISTEN | awk '{print $2}' | xargs kill; }
 
 cd() { builtin cd $1 && ls; }
 
-aur() { yaourt --noconfirm --color "$@"}
+# aur() { yaourt --noconfirm --color "$@"}
 aurless() { yaourt --noconfirm --color $1 | less -r }
 
 facd() { cd $(locate -i $1 | head -n 1); }

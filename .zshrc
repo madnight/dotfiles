@@ -37,6 +37,9 @@ zstyle ':completion:*' menu select
 # find new installed binarys and offer completion
 zstyle ':completion:*' rehash true
 
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
 
 # fish like syntax highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

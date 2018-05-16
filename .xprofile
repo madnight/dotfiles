@@ -124,4 +124,7 @@ xset r rate 150 50
 #     fi
 # fi
 
+# autolock screen after n mins
+xautolock -time 1 -locker "$HOME/scripts/lock.sh" &
+
 urxvt &

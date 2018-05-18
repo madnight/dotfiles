@@ -92,8 +92,8 @@ wmname LG3D
 # ps aux | egrep [p]olybar || sleep 10 && while true; do SHELL=/bin/bash polybar -r stock; done &
 
 # hotkey deamon
-(sleep 10 && sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc) &
-(sleep 11 && sxhkd -c $HOME/Git/dotfiles/.config/sxhkd/sxhkdrc-bspwm) &
+sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
+sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
 
 [ ! -s ~/.config/mpd/pid ] && echo mpd &
 

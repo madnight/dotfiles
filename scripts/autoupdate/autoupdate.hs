@@ -21,7 +21,7 @@ kernelDownload :: IO ExitCode
 kernelDownload = system "pacman -Sw --noconfirm linux linux-headers"
 
 removeCache :: IO ExitCode
-removeCache = system "paccache -r -k 1"
+removeCache = system "paccache -r -k 0"
 
 checkOrphans :: IO Bool
 checkOrphans = not . null <$> readProcess "pkg-list_true_orphans" [] []

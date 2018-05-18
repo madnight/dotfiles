@@ -97,7 +97,7 @@ modules-center = workspaces
 
 [bar/top-bspwm]
 inherit = bar/base
-; monitor = ${env:MONITOR:DVI-I-2}
+monitor = ${env:MONITOR:HDMI-1}
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm

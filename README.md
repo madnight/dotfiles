@@ -20,5 +20,3 @@
 
 
 <br>![Alt text](https://raw.github.com/madnight/dotfiles/master/screenshot.png "SCREENSHOT")
-
-See also: [madnight/dotfiles-mobile](https://github.com/madnight/dotfiles-mobile)

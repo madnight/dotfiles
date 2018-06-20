@@ -4,8 +4,7 @@ dist: trusty
 before_script: chmod 0777 ./test.sh
 
 before_install:
- - echo "deb http://archive.ubuntu.com/ubuntu/ wily universe" | sudo tee -a /etc/apt/sources.list
- - sudo apt-get update -qq
+ - sudo apt-get update
  - sudo apt-get install -y shellcheck cloc
 
 script:

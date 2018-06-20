@@ -9,11 +9,10 @@ addons:
       - debian-sid    # Grab shellcheck from the Debian repo (o_O)
     packages:
       - shellcheck
-      - cloc
 
 script:
   - bash -c 'shopt -s globstar; shellcheck **/*.{sh,bash}'
-  - cloc .
+  # - cloc .
 
 matrix:
   fast_finish: true

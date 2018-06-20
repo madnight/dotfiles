@@ -80,6 +80,16 @@ parentProcess () { ps -p "$1" -o ppid= }
 yodacommit() { git commit -m "$(fortune)" }
 yoda() { git add -u && git commit && git push; }
 
+
+dockerprune() {
+    docker stop $(docker ps -a -q)
+    sudo docker system prune -a -f;
+    docker rm -vf $(docker ps -aq);
+    docker rmi -f $(docker images -aq);
+    docker volume prune -f;
+    # sudo rm -rf /var/lib/docker/overlay2;
+}
+
 # systemd shortcuts
 start() { sudo systemctl start $1.service; sudo systemctl status $1.service; }
 stop() { sudo systemctl stop $1.service; sudo systemctl status $1.service; }

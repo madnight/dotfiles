@@ -37,6 +37,13 @@ if ! ps aux | egrep [l]owmem ; then
 	~/scripts/lowmem &
 fi
 
+# low space warning
+if ! ps aux | egrep [l]owmem ; then
+	~/scripts/lowspace &
+fi
+
+
+
 # screenlock after 10 min
 # xautolock -time 10 -locker "$HOME/scripts/lock $HOME/scripts/lock.png" &
 

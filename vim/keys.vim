@@ -24,6 +24,7 @@ function! ChangePaste(type, ...)
 endfunction
 
 noremap <Leader>sen :set spell spelllang=en_us<cr>
+noremap <Leader>gen :set spell spelllang=de_de<cr>
 
 function LightTheme()
     :silent exec "! sed -i 's/hybrid/Tomorrow/g' ~/.vim-theme-swtich"

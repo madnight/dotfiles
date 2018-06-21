@@ -15,6 +15,12 @@ augroup vimrc
         \ endif
 augroup END
 
+augroup numbertoggle
+  au!
+  au BufEnter,FocusGained,InsertLeave * set relativenumber
+  au BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+
 augroup CLClear
   " au! ColorScheme * hi clear CursorLine
 augroup END

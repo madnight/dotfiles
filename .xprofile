@@ -24,17 +24,17 @@ fi
 
 # monitor events
 if ! ps aux | egrep [m]onitoring ; then
-    ~/scripts/monitoring &
+    [ -f ~/scripts/monitoring  ] && ~/scripts/monitoring  &
 fi
 
 # sync github mirror repositories
 if ! ps aux | egrep [m]irror ; then
-	~/scripts/mirror &
+    [ -f ~/scripts/mirror ] && ~/scripts/mirror &
 fi
 
 # low memory warning (freeze swap prevention)
 if ! ps aux | egrep [l]owmem ; then
-	~/scripts/lowmem &
+    [ -f ~/scripts/lowmem ] && ~/scripts/lowmem &
 fi
 
 # low space warning
@@ -43,9 +43,6 @@ if ! ps aux | egrep [l]owmem ; then
 fi
 
 
-
-# screenlock after 10 min
-# xautolock -time 10 -locker "$HOME/scripts/lock $HOME/scripts/lock.png" &
 
 # email client
 # thunderbird &
@@ -68,7 +65,7 @@ fi
 
 # reduce monitor brigthness at night
 if ! ps aux | egrep [r]edshift ; then
-    redshift &
+    which redshift && redshift &
 fi
 
 xrdb ~/.Xdefaults
@@ -83,7 +80,9 @@ wmname LG3D
 # compton --backend glx --vsync opengl-swc &
 
 # hide mouse when not needed
-unclutter &
+if ! ps aux | egrep [u]nclutter; then
+    which unclutter && unclutter &
+fi
 
 # java WM tweaks
 export _JAVA_OPTIONS='-Dsun.java2d.opengl=true'
@@ -99,10 +98,10 @@ wmname LG3D
 # ps aux | egrep [p]olybar || sleep 10 && while true; do SHELL=/bin/bash polybar -r stock; done &
 
 # hotkey deamon
-sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
-sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
-
-[ ! -s ~/.config/mpd/pid ] && echo mpd &
+if ! ps aux | egrep [s]xhkd ; then
+    which sxhkd && sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
+    which sxhkd && sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
+fi
 
 xset +fp ~/.fonts/tamzen-font/bdf &
 xset fp rehash &
@@ -118,7 +117,7 @@ xset r rate 150 50
 # start conky
 
 # if ! ps aux | grep [c]onky | grep conkyrc ; then
-(sleep 20 && while true; do conky -c ~/.config/conky/conkyrc; done) &
+# (sleep 20 && while true; do conky -c ~/.config/conky/conkyrc; done) &
 # fi
 
 # if [[ $(hostname) == 'arch' ]]; then
@@ -132,6 +131,8 @@ xset r rate 150 50
 # fi
 
 # autolock screen after n mins
-xautolock -time 5 -locker "$HOME/scripts/lock.sh" &
+if ! ps aux | egrep [x]autolock ; then
+    which xautlock && xautolock -time 5 -locker "$HOME/scripts/lock.sh" &
+fi
 
-urxvt &
+which urxvt && urxvt &

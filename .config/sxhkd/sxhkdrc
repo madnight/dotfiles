@@ -50,10 +50,6 @@ control + super + r
 F1
     bash ~/scripts/lock.sh
 
-# lock screen
-super + l
-    bash ~/scripts/lock.sh
-
 # resize window
 #control + y
 #    wmctrl -i -r $(xdotool getactivewindow) -e 0,130,110,1480,880

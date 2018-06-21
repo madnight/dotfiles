@@ -253,3 +253,5 @@ fi
 
 # echo -e -n "\x1b[\x34 q" # changes to steady underline
 echo -e -n "\x1b[\x32 q"
+
+eval "$(direnv hook zsh)"

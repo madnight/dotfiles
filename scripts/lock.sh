@@ -28,5 +28,4 @@ i3lock -i "$tmpbg"           \
 --ring-width=10              \
 --screen=1                   \
 --radius=300                 \
---show-failed-attempts       \
 --wrongtext=""

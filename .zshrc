@@ -36,7 +36,6 @@ zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\
 zstyle ':completion:*' menu select
 # find new installed binarys and offer completion
 zstyle ':completion:*' rehash true
-
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
@@ -56,7 +55,7 @@ autoload -Uz colors && colors
 
 setopt AUTO_CD
 setopt CORRECT
-setopt PROMPT_SUBST
+# setopt PROMPT_SUBST
 setopt append_history
 setopt share_history
 setopt hist_verify
@@ -232,13 +231,13 @@ unsetopt HUP
 
 [ -n "$TMUX" ] && export TERM=screen-256color
 
-globalias() {
-   zle _expand_alias
-   zle expand-word
-   zle self-insert
-}
-zle -N globalias
-bindkey -M viins " " globalias
+# globalias() {
+#    zle _expand_alias
+#    zle expand-word
+#    zle self-insert
+# }
+# zle -N globalias
+# bindkey -M viins " " globalias
 
 source ~/Git/zsh-git-prompt/zshrc.sh
 

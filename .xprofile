@@ -38,8 +38,8 @@ if ! ps aux | egrep [l]owmem ; then
 fi
 
 # low space warning
-if ! ps aux | egrep [l]owmem ; then
-	~/scripts/lowspace &
+if ! ps aux | egrep [l]owspace ; then
+    [ -f ~/scripts/lowspace ] && ~/scripts/lowspace &
 fi
 
 

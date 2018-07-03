@@ -31,6 +31,10 @@ super + p
 super + F2
     rofi -demnu -combi-modi drun,window -show combi -modi combi
 
+# dmenu
+super + F3
+    rofi -demnu -combi-modi drun,window -show combi -modi combi
+
 super + F4
     rofi -theme c64.rasi -demnu -combi-modi window,drun -show colorscheme -modi colorscheme:~/scripts/rofi-colorscheme-switch
 

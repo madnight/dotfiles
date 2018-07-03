@@ -42,8 +42,6 @@ if ! ps aux | egrep [l]owspace ; then
     [ -f ~/scripts/lowspace ] && ~/scripts/lowspace &
 fi
 
-
-
 # email client
 # thunderbird &
 
@@ -65,7 +63,7 @@ fi
 
 # reduce monitor brigthness at night
 if ! ps aux | egrep [r]edshift ; then
-    which redshift && redshift &
+    which redshift > /dev/null && redshift &
 fi
 
 xrdb ~/.Xdefaults
@@ -81,7 +79,7 @@ wmname LG3D
 
 # hide mouse when not needed
 if ! ps aux | egrep [u]nclutter; then
-    which unclutter && unclutter &
+    which unclutter > /dev/null && unclutter &
 fi
 
 # java WM tweaks
@@ -99,8 +97,8 @@ wmname LG3D
 
 # hotkey deamon
 if ! ps aux | egrep [s]xhkd ; then
-    which sxhkd && sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
-    which sxhkd && sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
+    which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
+    which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
 fi
 
 xset +fp ~/.fonts/tamzen-font/bdf &
@@ -132,7 +130,7 @@ xset r rate 150 50
 
 # autolock screen after n mins
 if ! ps aux | egrep [x]autolock ; then
-    which xautlock && xautolock -time 5 -locker "$HOME/scripts/lock.sh" &
+    which xautlock > /dev/null && xautolock -time 5 -locker "$HOME/scripts/lock.sh" &
 fi
 
-which urxvt && urxvt &
+which urxvt > /dev/null && urxvt &

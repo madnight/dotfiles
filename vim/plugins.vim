@@ -104,6 +104,9 @@ Plug 'w0rp/ale'
 " miscellaneous auto-load vim scripts
 Plug 'xolox/vim-misc'
 
+" easy note taking in vim
+Plug 'xolox/vim-notes'
+
 " comment out stuff via shortcut
 Plug 'scrooloose/nerdcommenter'
 

@@ -254,3 +254,10 @@ fi
 echo -e -n "\x1b[\x32 q"
 
 eval "$(direnv hook zsh)"
+#
+# ~/.bash_profile
+#
+# [[ -f ~/.bashrc ]] && . ~/.bashrc
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+  . $HOME/.nix-profile/etc/profile.d/nix.sh;
+fi

@@ -96,8 +96,8 @@ F12
     amixer set Master 1%+ || pulseaudio-ctl up 1
 
 # Volume mute
-F10
-    amixer set Master toggle && espeak -v+f4 'sound activated'
+# F10
+#     amixer set Master toggle && espeak -v+f4 'sound activated'
 
 # Player pause
 F8

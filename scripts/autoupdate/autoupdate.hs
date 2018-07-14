@@ -1,5 +1,13 @@
 #!/usr/bin/env stack
--- stack --install-ghc runghc concurrent-extra strict
+{-
+stack --install-ghc runghc
+      --package concurrent-extra
+      --package monad-extras
+      --package lens
+      --package wreq
+      --package timerep
+      --package xml
+-}
 
 module Main where
 

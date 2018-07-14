@@ -9,6 +9,9 @@ stack --install-ghc runghc
       --package xml
 -}
 
+-- compile
+-- nix-shell --run 'ghc autoupdate.hs'
+
 module Main where
 
 import Control.Concurrent.Thread.Delay
@@ -42,10 +45,15 @@ minutes = (*) $ product [60, 1000, 1000]
 
 main :: IO ()
 main = do
+    print "checking upstream feed ..."
     feed <- getFeed "https://www.archlinux.org/feeds/news/" 8
     let keywords = ["inter", "requi", "manual"]
     let warning = flip filterItemsbyTitle feed =<< keywords
-    unless (null warning) main
+    unless (null warning) $ do
+        print "Warning! Found update that requires user intervention"
+        delay (minutes 30)
+        main
+    print "updating ..."
     updates <- checkUpdates
     orphrans <- checkOrphans
     when updates $ sequence_ [systemUpdate, kernelDownload]

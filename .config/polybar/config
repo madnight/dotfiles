@@ -49,7 +49,7 @@ font-7 = siji:pixelsize=10
 font-8 = FontAwesome:pixelsize=9;0
 font-9 = UbuntuMono Nerd Font:pixelsize=12;2
 font-10 = UbuntuMono Nerd Font:pixelsize=14;5
-modules-left = apps vpn weather fs-root cputemp gputemp cpu memory ripple ethereum
+modules-left = apps novpn vpn weather fs-root cputemp gputemp cpu memory ripple ethereum
 modules-right = bitcoin cap wired ping updates volume date time utc
 
 [module/workspaces]
@@ -370,10 +370,18 @@ format-prefix = 
 
 [module/vpn]
 type = custom/script
-exec = curl -s https://4.ifcfg.me/country
+exec = curl -s ipinfo.io | jq -r .'region' || curl -s https://get.geojs.io/v1/ip/geo.json | jq -r '.country'
 exec-if = pgrep -x openvpn
 interval = 5
 label =  %output%
+label-padding = 1
+
+[module/novpn]
+type = custom/script
+exec = curl -s ipinfo.io | jq -r .'region' || curl -s https://get.geojs.io/v1/ip/geo.json | jq -r '.country'
+exec-if = ! pgrep -x openvpn
+interval = 5
+label =  %output%
 label-padding = 1
 
 [module/cputemp]

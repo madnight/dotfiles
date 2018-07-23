@@ -34,6 +34,7 @@ error="%{$fg[red]%}%(?..%? )"
 right=("$git" "$error" "$timing" "$vi_mode_prompt_info"  )
 
 GIT_PROMPT_EXECUTABLE="haskell"
+# GIT_PROMPT_EXECUTABLE="python"
 
 # Default values for the appearance of the prompt. Configure at will.
 ZSH_THEME_GIT_PROMPT_PREFIX="("
@@ -49,14 +50,12 @@ ZSH_THEME_GIT_PROMPT_UNTRACKED="%{|u%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
 
 PROMPT='$(git_super_status)%{$fg[red]%} » %{$reset_color%}'
+# PROMPT='%{$fg[red]%} » %{$reset_color%}'
 RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
 
 function zle-line-init zle-keymap-select {
-    # set-prompt
     zle reset-prompt
 }
 
 zle -N zle-line-init
 zle -N zle-keymap-select
-
-echo -e -n "\x1b[\x34 q" # changes to steady underline

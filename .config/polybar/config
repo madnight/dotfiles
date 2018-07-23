@@ -217,7 +217,7 @@ inherit = module/wm
 
 [module/ping]
 type = custom/script
-exec = ping -c 2 8.8.8.8 | sed -n '2,2p' |cut -c47-50
+exec = ping -c 2 8.8.8.8 | sed -n '2,2p' | awk '{print $7}' | sed 's/time=//g'
 exec-if = ping -c 1 google.com > /dev/null
 interval = 5
 label  = %output% ms
@@ -360,27 +360,19 @@ exec-if = ! checkupdates | wc -l | grep -q 0
 interval = 10
 label  =  %output%
 
-[module/ip]
-type = custom/script
-exec = curl -s https://4.ifcfg.me
-interval = 5
-label  = %output%
-label-padding= 1
-format-prefix = 
-
 [module/vpn]
 type = custom/script
-exec = curl -s ipinfo.io | jq -r .'region' || curl -s https://get.geojs.io/v1/ip/geo.json | jq -r '.country'
+exec = curl -s http://195.201.103.59:4001/json/ | jq -r '.country_name' || curl -s ipinfo.io | jq -r .'region' || curl -s https://get.geojs.io/v1/ip/geo.json | jq -r '.country'
 exec-if = pgrep -x openvpn
-interval = 5
+interval = 60
 label =  %output%
 label-padding = 1
 
 [module/novpn]
 type = custom/script
-exec = curl -s ipinfo.io | jq -r .'region' || curl -s https://get.geojs.io/v1/ip/geo.json | jq -r '.country'
+exec = curl -s http://195.201.103.59:4001/json/ | jq -r '.country_name' || curl -s ipinfo.io | jq -r .'region' || curl -s https://get.geojs.io/v1/ip/geo.json | jq -r '.country'
 exec-if = ! pgrep -x openvpn
-interval = 5
+interval = 60
 label =  %output%
 label-padding = 1
 

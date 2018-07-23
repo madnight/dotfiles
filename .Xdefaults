@@ -11,7 +11,7 @@
 ! ##############
 urxvt.buffered:             false
 urxvt*saveLines:            999
-urxvt.letterSpace:          -1
+urxvt.letterSpace:          0
 urxvt.cursorUnderline:      false
 urxvt.cursorBlink:          false
 urxvt.urgentOnBell:         true

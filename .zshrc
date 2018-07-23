@@ -226,6 +226,8 @@ unsetopt HUP
 [[ -e ~/.zshrc_priv ]] && source ~/.zshrc_priv
 # import prompt, aliases and functions
 [[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
+[[ -e ~/Git/zsh-git-prompt-madnight/zshrc.sh ]] && source ~/Git/zsh-git-prompt-madnight/zshrc.sh
+
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
 
@@ -239,7 +241,6 @@ unsetopt HUP
 # zle -N globalias
 # bindkey -M viins " " globalias
 
-source ~/Git/zsh-git-prompt/zshrc.sh
 
 # xrdb $HOME/.Xdefaults
 #
@@ -261,3 +262,6 @@ eval "$(direnv hook zsh)"
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
   . $HOME/.nix-profile/etc/profile.d/nix.sh;
 fi
+
+xrdb ~/.Xresources
+# echo -e -n "\x1b[\x34 q" # changes to steady underline

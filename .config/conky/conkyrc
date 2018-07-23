@@ -112,7 +112,7 @@ Network $stippled_hr
 
 Ip: $alignr${execi 20 curl -s https://4.ifcfg.me }
 Dns: $alignr${execi 180 cat /etc/resolv.conf | grep nameserver | awk '{print $2}' | head -n 1}
-Ping: ${color #ddaa00}${alignr}${execi 10 ping -c 2 8.8.8.8 | sed -n '2,2p' |cut -c47-50}ms$color
+Ping: ${color #ddaa00}${alignr}${execi 10 ping -c 2 8.8.8.8 | sed -n '2,2p' | awk '{print $7}' | sed 's/time=//g'}ms$color
 Connections: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 count}${alignr}/${tcp_portmon 1 65535 count}
 #${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
 #${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1#}

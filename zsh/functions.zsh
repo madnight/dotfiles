@@ -567,6 +567,16 @@ fkill() {
   fi
 }
 
+ghc-shell() {
+  nix-shell -p "haskellPackages.ghcWithPackages (ps: with ps; [ $* ])"
+}
+
+ghci-with() {
+  nix-shell \
+    -p "haskellPackages.ghcWithPackages (ps: with ps; [ $* ])" \
+    --run ghci
+}
+
 # cd into the directory of the selected file
 fcd() {
    local file

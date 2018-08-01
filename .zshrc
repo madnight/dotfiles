@@ -208,6 +208,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export FZF_DEFAULT_COMMAND='rg --files --hidden -g ""'
 export GCLOUD_PROJECT=coral-firefly-151914
 export GOOGLE_APPLICATION_CREDENTIALS=/home/x/.config/gcloud/application_default_credentials.json
+export WEECHAT_HOME=$HOME/.config/weechat
 
 NPM_PACKAGES="${HOME}/.npm-packages"
 PATH="$NPM_PACKAGES/bin:$PATH"

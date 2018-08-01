@@ -33,8 +33,6 @@ conky.config = {
     default_color = '#cccccc',
     default_bar_width = 200,
     default_bar_height = 5,
-    lua_load = '~/.config/conky/conky.lua',
-    lua_draw_hook_post = 'main',
 };
 
 conky.text = [[
@@ -43,16 +41,16 @@ Uptime: $alignr $uptime
 Packages: $alignr ${execi 180 pacman -Q | wc -l} (${execi 180 yaourt --stats | grep "Real space used" | awk '{print $6}'})
 Updates: $alignr ${execi 180 checkupdates | wc -l} | ${execi 180 yaourt -Qua | wc -l}
 
-${voffset 150}
-# ${cpubar cpu1 3}${alignr}${cpu cpu1}%
-# ${cpubar cpu2 3}${alignr}${cpu cpu2}%
-# ${cpubar cpu3 3}${alignr}${cpu cpu3}%
-# ${cpubar cpu4 3}${alignr}${cpu cpu4}%
-# ${cpubar cpu5 3}${alignr}${cpu cpu5}%
-# ${cpubar cpu6 3}${alignr}${cpu cpu6}%
-# ${cpubar cpu7 3}${alignr}${cpu cpu7}%
-# ${cpubar cpu8 3}${alignr}${cpu cpu8}%
-${cpugraph 20}
+Cores:
+0 ${cpubar cpu1 4,185}${alignr}${cpu cpu1}%${voffset -1}
+1 ${cpubar cpu2 4,185}${alignr}${cpu cpu2}%${voffset -1}
+2 ${cpubar cpu3 4,185}${alignr}${cpu cpu3}%${voffset -1}
+3 ${cpubar cpu4 4,185}${alignr}${cpu cpu4}%${voffset -1}
+4 ${cpubar cpu5 4,185}${alignr}${cpu cpu5}%${voffset -1}
+5 ${cpubar cpu6 4,185}${alignr}${cpu cpu6}%${voffset -1}
+6 ${cpubar cpu7 4,185}${alignr}${cpu cpu7}%${voffset -1}
+7 ${cpubar cpu8 4,185}${alignr}${cpu cpu8}%${voffset 10}
+# ${cpugraph 20}
 Load: $alignr $loadavg
 Processes: $alignr $processes
 Running: $alignr $running_processes
@@ -63,14 +61,14 @@ Mem: $alignr $mem/$memmax
 ${membar 5}
 
 Cpu usage $alignr Pid     Cpu%   Mem%
-${color #ddaa00}${lua_parse pad ${top name 1}} $alignr ${top pid 1} ${top cpu 1} ${top mem_res 1}$color
-${lua_parse pad ${top name 2}} $alignr ${top pid 2} ${top cpu 2} ${top mem_res 2}
-${lua_parse pad ${top name 3}} $alignr ${top pid 3} ${top cpu 3} ${top mem_res 3}
+${color #ddaa00}${top name 1} $alignr ${top pid 1} ${top cpu 1} ${top mem_res 1}$color
+${top name 2} $alignr ${top pid 2} ${top cpu 2} ${top mem_res 2}
+${top name 3} $alignr ${top pid 3} ${top cpu 3} ${top mem_res 3}
 
 Mem usage$color
-${color #ddaa00}${lua_parse pad ${top_mem name 1}} $alignr ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem_res 1}$color
-${lua_parse pad ${top_mem name 2}} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem_res 2}
-${lua_parse pad ${top_mem name 3}} $alignr ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem_res 3}
+${color #ddaa00}${top_mem name 1} $alignr ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem_res 1}$color
+${top_mem name 2} $alignr ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem_res 2}
+${top_mem name 3} $alignr ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem_res 3}
 # I/O usage
 # ${lua_parse pad ${top_io name 1}} $alignr ${top_io pid 1} ${top_io io_read 1} ${top_io io_write 1}
 # Coretemp: ${color #ddaa00}$alignr ${execi 9 sensors | grep CPUTIN | cut -c18-19}C$color
@@ -110,9 +108,9 @@ I/O Write: $alignr $diskio_write
 # ${execpi 6000 DJS=`date +%_d`; StarDiviner=date +%-d; cal -n 1 | sed s/"\(^\|[^0-9]\)$DJS"'\b'/'\1${color orange}'"$DJS"'$color'/ | sed 's/\r//g;s/^/ /g;s/^/\$\{goto 40\}/;s/\<'"$StarDiviner"'\>/${color1}&${color0}/'}
 Network $stippled_hr
 
-Ip: $alignr${execi 20 curl -s https://4.ifcfg.me }
+Ip: $alignr${execi 60 curl -s http://195.201.103.59:4001/json/ | jq -r '.ip' }
 Dns: $alignr${execi 180 cat /etc/resolv.conf | grep nameserver | awk '{print $2}' | head -n 1}
-Ping: ${color #ddaa00}${alignr}${execi 10 ping -c 2 8.8.8.8 | sed -n '2,2p' | awk '{print $7}' | sed 's/time=//g'}ms$color
+Ping: ${color #ddaa00}${alignr}${execi 20 ping -c 2 8.8.8.8 | sed -n '2,2p' | awk '{print $7}' | sed 's/time=//g'}ms$color
 Connections: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 count}${alignr}/${tcp_portmon 1 65535 count}
 #${tcp_portmon 1 32767 rhost 0} ${alignr} ${tcp_portmon 1 32767 lservice 0}
 #${tcp_portmon 32768 61000 rhost 1} ${alignr} ${tcp_portmon 32768 61000 rservice 1#}
@@ -120,15 +118,15 @@ Connections: $alignr ${tcp_portmon 1 32767 count}/${tcp_portmon 32768 61000 coun
 Total: ${totalup enp5s0} ${alignr} Total: ${totaldown enp5s0}
 ${upspeedgraph enp5s0 25,90 000000 000000 8000KiB}${alignr}${downspeedgraph enp5s0 25,90 000000 000000 6000KiB}
 Up: ${upspeedf enp5s0} kB/s  ${alignr} Down: ${color #ddaa00}${downspeedf enp5s0} kb/s$color
-Pps: ${execi 6 /home/x/scripts/packets-per-second enp5s0 OUT} pk/s  ${alignr}      ${execi 6 /home/x/scripts/packets-per-second enp5s0 IN} pk/s
+Pps: ${execi 10 /home/x/scripts/packets-per-second enp5s0 OUT} pk/s  ${alignr}      ${execi 10 /home/x/scripts/packets-per-second enp5s0 IN} pk/s
 
 Process $alignr Remote Host
-${color lightgrey}${font Ubuntu Mono:size=9}${texecpi 10 netstat -ap | grep 'ESTABLISHED' | grep -v 'conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }' | sort | uniq -w 20 }$color $font
+${color lightgrey}${font Ubuntu Mono:size=9}${texecpi 20 netstat -ap 2>/dev/null | grep 'ESTABLISHED' | grep -v 'conky\|localdo' | awk '{ printf("%-14s $alignr %5s\n",$7,$5) }' | sort | uniq -w 20 }$color $font
 
 
 Syslog $stippled_hr
 
 # ${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | cut -d" " -f5- | fold -w 39 | head -n 18 }
-${execi 10 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | tac | cut -d" " -f5- | fold -w 36 -s | head -n 10 }
+${execi 30 journalctl -p 4 --since yesterday --no-pager | uniq -f 4 | grep -v '^\ ' | tail -n 6 | tac | cut -d" " -f5- | fold -w 36 -s | head -n 10 }
 
 ]];

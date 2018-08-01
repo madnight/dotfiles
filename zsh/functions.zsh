@@ -90,6 +90,12 @@ dockerprune() {
     # sudo rm -rf /var/lib/docker/overlay2;
 }
 
+nixprune() {
+   nix-env --delete-generations 14d
+   nix-store --gc
+   nix-collect-garbage -d
+}
+
 # systemd shortcuts
 start() { sudo systemctl start $1.service; sudo systemctl status $1.service; }
 stop() { sudo systemctl stop $1.service; sudo systemctl status $1.service; }

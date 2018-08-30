@@ -168,7 +168,6 @@ map b <Plug>CamelCaseMotion_b
 map e <Plug>CamelCaseMotion_e
 map <D-/> <C-_><C-_>
 map Y y$
-map <C-s> <ESC>:w<CR>
 map <S-w> <ESC>:q!<CR>
 
 map <F2> ]s
@@ -177,7 +176,7 @@ map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
 
 nnoremap ,i i_<Esc>r
 imap jj <Esc><Esc>
-imap <C-s> <ESC>:w<CR>
+map <C-s> <ESC>:w<CR>:VimuxInterruptRunner<cr>:VimuxRunLastCommand<cr>
 imap <C-g> <Plug>IMAP_JumpForward
 
 vnoremap K :<C-u>call <sid>VisualAck()<cr>

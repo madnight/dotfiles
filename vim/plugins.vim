@@ -81,6 +81,9 @@ Plug 'tpope/vim-surround'
 " add useful extra commands
 Plug 'tpope/vim-unimpaired'
 
+" add useful extra commands for search and replace such as case sensitive rep
+Plug 'tpope/vim-abolish'
+
 " vim status line
 Plug 'vim-airline/vim-airline'
 

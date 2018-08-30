@@ -113,11 +113,11 @@ xset fp rehash &
 # speeeeed!
 xset r rate 150 50
 
-# ~/scripts/start-conky &
+~/scripts/start-conky &
 # start conky
 
 # if ! ps aux | grep [c]onky | grep conkyrc ; then
-# (sleep 20 && while true; do conky -c ~/.config/conky/conkyrc; done) &
+    # (sleep 20 && while true; do conky -c ~/.config/conky/conkyrc; done) &
 # fi
 
 # if [[ $(hostname) == 'arch' ]]; then

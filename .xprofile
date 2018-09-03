@@ -133,4 +133,6 @@ if ! ps aux | egrep [x]autolock ; then
     which xautlock > /dev/null && xautolock -time 5 -locker "$HOME/scripts/lock.sh" &
 fi
 
+sh ~/scripts/luxa.sh &
+
 which urxvt > /dev/null && urxvt &

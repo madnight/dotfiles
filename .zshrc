@@ -227,7 +227,7 @@ unsetopt HUP
 [[ -e ~/.zshrc_priv ]] && source ~/.zshrc_priv
 # import prompt, aliases and functions
 [[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
-[[ -e ~/Git/zsh-git-prompt-madnight/zshrc.sh ]] && source ~/Git/zsh-git-prompt-madnight/zshrc.sh
+[[ -e ~/Git/zsh-git-prompt/zshrc.sh ]] && source ~/Git/zsh-git-prompt/zshrc.sh
 
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
@@ -266,3 +266,4 @@ fi
 
 xrdb ~/.Xresources
 # echo -e -n "\x1b[\x34 q" # changes to steady underline
+if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi

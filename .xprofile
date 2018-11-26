@@ -9,6 +9,10 @@
 # clear download folder
 bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
 
+chromium --disable-gpu --profile-directory='Profile 1' &
+
+slack &
+
 # backup packages list
 # zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &
 
@@ -101,6 +105,8 @@ if ! ps aux | egrep [s]xhkd ; then
     which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
 fi
 
+which uxterm > /dev/null && zsh -c "uxterm" &
+
 xset +fp ~/.fonts/tamzen-font/bdf &
 xset fp rehash &
 
@@ -111,7 +117,8 @@ xset fp rehash &
 # speeeeed!
 xset r rate 150 50
 
-~/scripts/start-conky &
+
+# ~/scripts/start-conky &
 # start conky
 
 # if ! ps aux | grep [c]onky | grep conkyrc ; then
@@ -135,4 +142,5 @@ fi
 
 sh ~/scripts/luxa.sh &
 
-which urxvt > /dev/null && urxvt &
+
+

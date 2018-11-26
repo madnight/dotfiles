@@ -33,7 +33,7 @@ local timing='$(printf "%%{$fg[cyan]%%}%.2f%%f" "$ZSH_COMMAND_TIME")'
 error="%{$fg[red]%}%(?..%? )"
 right=("$git" "$error" "$timing" "$vi_mode_prompt_info"  )
 
-GIT_PROMPT_EXECUTABLE="haskell"
+# GIT_PROMPT_EXECUTABLE="haskell"
 # GIT_PROMPT_EXECUTABLE="python"
 
 # Default values for the appearance of the prompt. Configure at will.

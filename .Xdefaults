@@ -33,7 +33,7 @@ URxvt*scrollTtyOutput:      false
 URxvt*scrollWithBuffer:     true
 ! scroll back to the bottom on keypress
 URxvt*scrollTtyKeypress:    true
-urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*,xft:Hasklig\ Nerd\ Font\ Regular:size=12:antialias=true:hinting=true
+urxvt.font:                 xft:Hasklig\ Nerd\ Font\ Regular:size=12:antialias=true:hinting=true
 urxvt.perl-ext-common:      default -searchable-scrollback,matcher,keyboard-select,clipboard
 urxvt.keysym.M-u:           perl:url-select:select_next
 urxvt.keysym.C-b:           perl:clipboard:paste_escaped

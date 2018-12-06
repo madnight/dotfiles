@@ -113,6 +113,26 @@ scroll-down = bspwm-deskprev
 modules-center = bspwm
 wm-restack = bspwm
 
+[bar/top-bspwm-thinkpad]
+inherit = bar/base
+monitor = ${env:MONITOR:HDMI1}
+modules-left = apps vpn fs-root cputemp cpu memory iota monero cardano
+modules-right = bitcoin ethereum ripple wired-work ping updates volume date time
+scroll-up = bspwm-desknext
+scroll-down = bspwm-deskprev
+modules-center = bspwm
+wm-restack = bspwm
+font-0 = Gohu Gohufont:pixelsize=14;1
+height = 25
+padding-left = 0
+padding-right = 1
+module-margin-left = 1
+module-margin-right = 2
+width = 100%
+radius = 0.0
+offset-x = 0
+offset-y = 0
+
 
 [bar/top-i3]
 inherit = bar/base

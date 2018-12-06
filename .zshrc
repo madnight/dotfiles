@@ -184,7 +184,7 @@ source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # https://github.com/zsh-users/zsh-autosuggestions
 # fish like autosuggestions
 #
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
 ########################
@@ -223,11 +223,23 @@ unsetopt HUP
 #################################
 # source additional zsh settings
 #################################
+
 # private aliases and functions suchs as backup
-[[ -e ~/.zshrc_priv ]] && source ~/.zshrc_priv
+[[ -e ~/.zshrc_priv ]] && \
+source ~/.zshrc_priv
+
 # import prompt, aliases and functions
-[[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
-[[ -e ~/Git/zsh-git-prompt/zshrc.sh ]] && source ~/Git/zsh-git-prompt/zshrc.sh
+[[ -e ~/zsh/prompt.zsh ]] && \
+source ~/zsh/prompt.zsh
+
+[[ -e ~/Git/zsh-git-prompt/zshrc.sh ]] && \
+source ~/Git/zsh-git-prompt/zshrc.sh
+
+[[ -e /usr/lib/zsh-git-prompt/zshrc.sh ]] && \
+source /usr/lib/zsh-git-prompt/zshrc.sh
+
+# [[ -e /usr/lib/zsh-git-prompt/gitstatus.py ]] && \
+# source /usr/lib/zsh-git-prompt/gitstatus.py
 
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh

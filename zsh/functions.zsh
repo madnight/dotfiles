@@ -360,19 +360,6 @@ function repeat() {
     done
 }
 
-# synonyme search
-function syn() {
-    BROWSER="/usr/bin/lynx -source"
-    WEBSITE="http://thesaurus.reference.com/search?q=$1"
-    HTML2TEXT="/usr/bin/html2text -style compact"
-    if test $1; then
-        lynx -source 'http://www.thesaurus.com/browse/'"$1"'?s=' | html2text
-    else
-        echo "Usage: $0 word"
-        exit 1
-    fi
-}
-
 # tex compile and clean up command
 function cleantex() {
     pdf=$(echo $1 | sed 's/tex/pdf/g')

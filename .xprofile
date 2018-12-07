@@ -44,6 +44,10 @@ if ! ps aux | egrep [l]owspace ; then
     [ -f ~/scripts/lowspace ] && ~/scripts/lowspace &
 fi
 
+if [[ $(hostname) == 'thinkpad' ]]; then
+    compton &
+fi
+
 # email client
 # thunderbird &
 

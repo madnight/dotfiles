@@ -71,14 +71,6 @@ label-occupied = %icon%
 label-unfocused = %icon%
 label-visible = %icon%
 label-empty = %icon%
-; label-mode-padding = 2
-; label-padding = 2
-; label-dimmend-padding = 2
-; label-urgent-padding = 2
-; label-occupied-padding = 2
-; label-empty-padding = 2
-; label-focused-padding = 2
-; icon-0 =0;%{T2} %{T-}
 icon-0 =0;
 icon-1 =1;  1
 icon-2 =2;  2
@@ -116,23 +108,19 @@ wm-restack = bspwm
 [bar/top-bspwm-thinkpad]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps vpn fs-root cputemp cpu memory iota monero cardano
-modules-right = bitcoin ethereum ripple wired-work ping updates volume date time
+modules-left = apps vpn fs-root cpu memory wifi weather
+modules-right = bitcoin wired-work ping updates volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
 wm-restack = bspwm
-font-0 = Gohu Gohufont:pixelsize=14;1
+font-0 = GohuFont Nerd Font:pixelsize=11;1
+; font-0 = Gohu GohuFont:pixelsize=14;1
 height = 25
-padding-left = 0
-padding-right = 1
-module-margin-left = 1
-module-margin-right = 2
 width = 100%
 radius = 0.0
 offset-x = 0
 offset-y = 0
-
 
 [bar/top-i3]
 inherit = bar/base
@@ -150,9 +138,30 @@ exec = ~/.config/polybar/redshift.sh
 
 [module/kernel]
 type = custom/script
-exec = uname -r
+exec = uname -r | cut -d- -f1
 tail = false
 interval = 1024
+
+[module/wifi]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+format-packetloss = <animation-packetloss> <label-connected>
+label-connected = %{F#666} %{F-} %downspeed:4%
+label-disconnected = not connected
+ramp-signal-0 = 1
+ramp-signal-1 = 2
+ramp-signal-2 = 3
+ramp-signal-3 = 4
+ramp-signal-4 = 5
+ramp-signal-5 = 6
+animation-packetloss-0 = ⚠
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 📶
+animation-packetloss-1-foreground = #000000
+animation-packetloss-framerate = 500
 
 [module/wired]
 type = internal/network
@@ -170,20 +179,21 @@ interface = wlp1s0
 
 [module/fs-root]
 type = internal/fs
-interval = 25
+interval = 3
 mount-0 = /
-label-mounted =  %free%
+label-mounted = %{F#666}SSD%{F-} %free%
 
 [module/volume]
 type = internal/volume
 format-volume = <label-volume> <bar-volume>
 label-volume = 
-format-muted-prefix = ""
+format-muted-prefix = "%{F#666}%{F-}"
 label-muted = " muted"
 bar-volume-width = 8
 bar-volume-gradient = false
 bar-volume-indicator = |
 bar-volume-indicator-font = 2
+bar-volume-indicator-foreground = #666
 bar-volume-fill = ━
 bar-volume-fill-font = 2
 bar-volume-empty = ─
@@ -221,15 +231,15 @@ label-occupied-padding = 1
 label-empty-padding = 1
 label-focused-padding = 1
 ws-icon-0 =0;
-ws-icon-1 =1;%{T5}<1%{T-}
-ws-icon-2 =2;%{T5}<2%{T-}
-ws-icon-3 =3;%{T5}<3%{T-}
+ws-icon-1 =1;%{T5}1%{T-}
+ws-icon-2 =2;%{T5}2%{T-}
+ws-icon-3 =3;%{T5}3%{T-}
 ws-icon-4 =4;%{T5}4%{T-}
 ws-icon-5 =5;%{T5}5%{T-}
 ws-icon-6 =6;%{T5}6%{T-}
-ws-icon-7 =7;%{T5}7>%{T-}
-ws-icon-8 =8;%{T5}8>%{T-}
-ws-icon-9 =9;%{T5}9>%{T-}
+ws-icon-7 =7;%{T5}7%{T-}
+ws-icon-8 =8;%{T5}8%{T-}
+ws-icon-9 =9;%{T5}9%{T-}
 
 [module/i3]
 type = internal/i3
@@ -240,9 +250,10 @@ type = custom/script
 exec = ping -c 2 8.8.8.8 | sed -n '2,2p' | awk '{print $7}' | sed 's/time=//g'
 exec-if = ping -c 1 google.com > /dev/null
 interval = 5
-label  = %output% ms
-label-padding= 1
-format-prefix = 
+label = %output% ms
+label-padding-left = 1
+format-prefix = 
+format-prefix-foreground = #666
 
 [module/bspwm]
 type = internal/bspwm
@@ -251,8 +262,9 @@ inherit = module/wm
 [module/cpu]
 type = internal/cpu
 interval = 3
-label = %{T9}%{T-}%percentage:3%%
-format = <label>
+label = %percentage:3%%
+format-prefix = "CPU"
+format-prefix-foreground = #666
 
 [module/cpu-ramp]
 type = internal/cpu
@@ -283,7 +295,9 @@ ramp-coreload-7-foreground = #ff5555
 type = internal/memory
 interval = 3
 format = <label>
-label = %{T5}%{T-} %gb_used%
+label = %gb_used%
+format-prefix = "MEM  "
+format-prefix-foreground = #666
 
 [module/memory-bar]
 type = internal/memory
@@ -301,15 +315,11 @@ bar-used-empty-foreground = #525252
 
 [module/battery]
 type = internal/battery
-full-at = 100
-battery = BAT1
 adapter = ACAD
-poll-interval = 5
-format-charging = <animation-charging> <label-charging>
-format-charging-padding = 2
-format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-padding = 2
-format-full = <ramp-capacity> <label-full>
+poll-interval = 2
+format-charging = %{F#666}<animation-charging>%{F-} <label-charging>
+format-discharging = %{F#666}<ramp-capacity>%{F-} <label-discharging>
+format-full = %{F#666}<ramp-capacity>%{F-} <label-full>
 label-charging = %percentage%%
 label-discharging = %percentage%%
 label-full = %percentage%%
@@ -323,7 +333,7 @@ animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-framerate = 500
+animation-charging-framerate = 1000
 
 [module/xwindow]
 type = internal/xwindow
@@ -332,12 +342,12 @@ label-foreground = #bbb
 
 [module/date]
 type = internal/date
-label = %{T8}%{T-} %date%
+label = %{F#666} %{F-}%date%
 date = %a %d %b %Y
 
 [module/time]
 type = internal/date
-label =  %time%
+label = %{F#666} %{F-}%time%
 time = %H:%M
 
 [module/powermenu]
@@ -424,19 +434,21 @@ menu-2-0 = Gimp
 menu-2-0-exec = gimp &
 menu-2-1 = Scrot
 menu-2-1-exec = scrot &
-label-open = 
+label-open =
 label-open-padding-left = 1
 label-close-padding = 1
 label-close = x
 label-separator = |
 
+
 [module/weather]
 type = custom/script
 interval = 600
 format = <label>
-format-prefix = " "
+format-prefix = "%{F#666} %{F-}"
 exec-if = ping -c 1 google.com > /dev/null
-exec = python $HOME/scripts/weather | grep -v Traceback
+; exec = python $HOME/scripts/weather | grep -v Traceback
+exec = $HOME/scripts/weather.bash
 
 [module/crypto]
 type = custom/script
@@ -445,17 +457,17 @@ format = <label>
 
 [module/bitcoin]
 inherit = module/crypto
-format-prefix = "BTC $"
+format-prefix = "%{F#666}%{F-} $"
 exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD" | jq -r '.USD | floor'
 
 [module/cardano]
 inherit = module/crypto
-format-prefix = "ADA $"
+format-prefix = "%{F#666}ADA%{F-} $"
 exec = printf "%.2g\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=ADA&tsyms=USD" | jq -r '.USD')
 
 [module/ripple]
 inherit = module/crypto
-format-prefix = "XRP $"
+format-prefix = "%{F#666}XRP%{F-} $"
 exec =  printf "%.2g\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=USD" | jq -r '.USD')
 
 [module/iota]
@@ -475,7 +487,7 @@ exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD"
 
 [module/ethereum]
 inherit = module/crypto
-format-prefix = "ETH $"
+format-prefix = "%{F#666}XRP%{F-} $"
 exec = printf "%.0f\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD" | jq -r '.USD')
 
 [module/cap]

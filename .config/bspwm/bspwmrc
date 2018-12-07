@@ -85,9 +85,9 @@ if [[ $(hostname) == 'arch' ]]; then
 fi
 
 if [[ $(hostname) == 'thinkpad' ]]; then
-    PRIMARY=$(xrandr | grep \ connected | grep 1920x1080 | awk {'print $1'})
+    PRIMARY=$(xrandr | grep \ connected | awk {'print $1'})
     export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm-thinkpad &
-    bspc monitor -d I II III IV V VI VII VIII IX X
+    bspc monitor -d 1 2 3 4 5 6 7 8 9 0
     bspc config border_width 3
     bspc config window_gap  0
     bspc config pointer_follows_monitor true
@@ -147,6 +147,12 @@ if [[ $(hostname) == 'skylake' ]] || [[ $(hostname) == 'arch' ]]; then
     bspc rule -a Gscreenshot         state=floating focus=on rectangle=344x396+1250+650 center=false
     bspc rule -a Xfce4-screenshooter state=floating focus=on rectangle=400x400+1250+650 center=false
 fi
+
+if [[ $(hostname) == 'thinkpad' ]]; then
+    bspc rule -a Chromium         desktop=1
+fi
+
+
 
 bspc rule -a sxiv                state=floating center=true
 bspc rule -a xfontsel            state=floating center=true focus=on

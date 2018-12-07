@@ -76,6 +76,7 @@ alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
 alias hash='sha256sum'
+alias halt="sudo systemctl halt"
 alias sha256='sha256sum'
 alias i='sudo pacman -S'
 alias ifind='pagrep'

@@ -22,6 +22,9 @@ fi
 # WP=$HOME/Pictures/xubuntu-trusty.png
 # set wallpaper on three monitors
 # feh --bg-scale $WP $WP $WP
+if [[ $(hostname) == 'thinkpad' ]]; then
+    feh --bg-scale /home/x/Pictures/hollywood.jpg
+fi
 
 # x settings
 xset r rate 250 50

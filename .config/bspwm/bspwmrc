@@ -153,7 +153,6 @@ if [[ $(hostname) == 'thinkpad' ]]; then
 fi
 
 
-
 bspc rule -a sxiv                state=floating center=true
 bspc rule -a xfontsel            state=floating center=true focus=on
 bspc rule -a lxappearance        state=floating center=true focus=on

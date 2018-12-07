@@ -100,7 +100,7 @@ wm-restack = bspwm
 [bar/top-bspwm-thinkpad]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps vpn fs-root cpu memory wifi weather
+modules-left = apps fs-root cpu memory wifi vpn weather
 modules-right = bitcoin wired-work ping updates volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
@@ -387,8 +387,7 @@ type = custom/script
 exec = curl -s http://195.201.103.59:4001/json/ | jq -r '.country_name' || curl -s ipinfo.io | jq -r .'region' || curl -s https://get.geojs.io/v1/ip/geo.json | jq -r '.country'
 exec-if = pgrep -x openvpn
 interval = 60
-label =  %output%
-label-padding = 1
+label = %{F#666}VPN%{F-} %output%
 
 [module/novpn]
 type = custom/script

@@ -40,17 +40,9 @@ separator = %{F#525252}|%{F-}
 fixed-center = true
 font-0 = lucy tewii:pixelsize=8;1
 font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;3
-font-2 = Hasklig Nerd Font:pixelsize=13;3
-font-3 = UbuntuMono Nerd Font:pixelsize=14;4
-font-4 = UbuntuMono Nerd Font:pixelsize=12;3
-font-5 = fixed:pixelsize=10;
-font-6 = unifont:fontformat=truetype:size=6:heavy;-2
-font-7 = siji:pixelsize=10
-font-8 = FontAwesome:pixelsize=9;0
-font-9 = UbuntuMono Nerd Font:pixelsize=12;2
-font-10 = UbuntuMono Nerd Font:pixelsize=14;5
+font-2 = UbuntuMono Nerd Font:pixelsize=11;3
 modules-left = apps novpn vpn weather fs-root cputemp gputemp cpu memory ripple ethereum
-modules-right = bitcoin cap wired ping updates volume date time utc
+modules-right = bitcoin cap wired ping updates volume date time
 
 [module/workspaces]
 type = internal/xworkspaces
@@ -169,7 +161,7 @@ interface = enp5s0
 interval = 3.0
 ping-interval = 3
 accumulate-stats = true
-label-connected =  %downspeed:9%  %upspeed:9%
+label-connected = %{F#666} %{F-}%downspeed:9% %{F#666} %{F-}%upspeed:9%
 format-disconnected = <label-disconnected>
 label-disconnected = not connected
 
@@ -181,12 +173,12 @@ interface = wlp1s0
 type = internal/fs
 interval = 3
 mount-0 = /
-label-mounted = %{F#666}SSD%{F-} %free%
+label-mounted = %{F#666}SSD%{F-} %free%
 
 [module/volume]
 type = internal/volume
 format-volume = <label-volume> <bar-volume>
-label-volume = 
+label-volume = %{F#666} %{F-}
 format-muted-prefix = "%{F#666}%{F-}"
 label-muted = " muted"
 bar-volume-width = 8
@@ -388,7 +380,7 @@ type = custom/script
 exec = checkupdates | wc -l
 exec-if = ! checkupdates | wc -l | grep -q 0
 interval = 10
-label  =  %output%
+label  = %{F#666} %{F-}%output%
 
 [module/vpn]
 type = custom/script
@@ -410,8 +402,8 @@ label-padding = 1
 type = custom/script
 exec-if = sensors
 exec =  sensors | grep CPUTIN | cut -c18-19
-format-prefix = "%{T4}%{T-} "
-format-suffix = "°C CPU"
+format-prefix = "%{F#666}CPU%{F-} "
+format-suffix = "°C"
 
 [module/gputemp]
 type = custom/script
@@ -447,8 +439,8 @@ interval = 600
 format = <label>
 format-prefix = "%{F#666} %{F-}"
 exec-if = ping -c 1 google.com > /dev/null
-; exec = python $HOME/scripts/weather | grep -v Traceback
-exec = $HOME/scripts/weather.bash
+exec = python $HOME/scripts/weather.py | grep -v Traceback
+; exec = $HOME/scripts/weather.bash
 
 [module/crypto]
 type = custom/script
@@ -487,12 +479,12 @@ exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD"
 
 [module/ethereum]
 inherit = module/crypto
-format-prefix = "%{F#666}XRP%{F-} $"
+format-prefix = "%{F#666}ETH%{F-} $"
 exec = printf "%.0f\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD" | jq -r '.USD')
 
 [module/cap]
 inherit = module/crypto
-format-prefix = "CAP $"
+format-prefix = "%{F#666}CAP%{F-} $"
 exec = numfmt --to=si $(curl -s "https://api.coinmarketcap.com/v1/global/" | jq -r '.total_market_cap_usd') | sed 's/G/B/g'
 
 [module/usdt]

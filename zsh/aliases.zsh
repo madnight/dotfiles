@@ -26,7 +26,6 @@ alias cat='bat'
 alias chgrp='chgrp --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chown='chown --preserve-root'
-alias chromium="chromium --disable-gpu --profile-directory='Profile 1'"
 alias cls='echo -ne "\033c"'
 alias conn='netstat -Wat | grep ESTABLISHED'
 alias copy='rsync -avh -progress'

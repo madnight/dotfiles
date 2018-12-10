@@ -144,5 +144,11 @@ fi
 
 sh ~/scripts/luxa.sh &
 
+# hotkey deamon
+if ! ps aux | egrep [s]xhkd ; then
+    which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
+    which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
+fi
+
 
 

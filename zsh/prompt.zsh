@@ -49,8 +49,13 @@ ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="%{|u%G%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
 
-PROMPT='$(git_super_status)%{$fg[red]%} » %{$reset_color%}'
-# PROMPT='%{$fg[red]%} » %{$reset_color%}'
+super_status() {
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        git_super_status
+    fi
+}
+
+PROMPT='$(super_status)%{$fg[red]%} » %{$reset_color%}'
 RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
 
 function zle-line-init zle-keymap-select {

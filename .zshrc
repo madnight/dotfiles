@@ -248,14 +248,8 @@ source ~/.zshrc_priv
 
 # import prompt, aliases and functions
 
-[[ -e ~/Git/zsh-git-prompt/zshrc.sh ]] && \
-source ~/Git/zsh-git-prompt/zshrc.sh
-
 [[ -e /usr/lib/zsh-git-prompt/zshrc.sh ]] && \
 source /usr/lib/zsh-git-prompt/zshrc.sh
-
-# [[ -e /usr/lib/zsh-git-prompt/gitstatus.py ]] && \
-# source /usr/lib/zsh-git-prompt/gitstatus.py
 
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
@@ -263,17 +257,7 @@ source /usr/lib/zsh-git-prompt/zshrc.sh
 
 [ -n "$TMUX" ] && export TERM=screen-256color
 
-# globalias() {
-#    zle _expand_alias
-#    zle expand-word
-#    zle self-insert
-# }
-# zle -N globalias
-# bindkey -M viins " " globalias
-
-
 # xrdb $HOME/.Xdefaults
-#
 END=$(date +%s.%N)
 ZSHRC_PERF=$(printf %.2f $(echo "$END - $START" | bc))
 if (( $ZSHRC_PERF > 0.15)); then

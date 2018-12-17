@@ -52,6 +52,7 @@ bindkey -e
 
 autoload -Uz compinit && compinit
 autoload -Uz colors && colors
+# autoload -Uz promptinit && promptinit && prompt spaceship
 
 setopt AUTO_CD
 setopt CORRECT
@@ -238,8 +239,6 @@ unsetopt HUP
 source ~/.zshrc_priv
 
 # import prompt, aliases and functions
-[[ -e ~/zsh/prompt.zsh ]] && \
-source ~/zsh/prompt.zsh
 
 [[ -e ~/Git/zsh-git-prompt/zshrc.sh ]] && \
 source ~/Git/zsh-git-prompt/zshrc.sh
@@ -252,6 +251,7 @@ source /usr/lib/zsh-git-prompt/zshrc.sh
 
 [[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
 [[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
+[[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
 
 [ -n "$TMUX" ] && export TERM=screen-256color
 

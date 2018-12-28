@@ -173,9 +173,18 @@ zle -N rationalise-dot
 bindkey . rationalise-dot
 
 
+
 # command not found hook: https://wiki.archlinux.org/index.php/Pkgfile
-[[ -e /usr/share/doc/pkgfile/command-not-found.zsh ]] &&
-source /usr/share/doc/pkgfile/command-not-found.zsh
+if [ -e /usr/share/doc/pkgfile/command-not-found.zsh ]; then
+    source /usr/share/doc/pkgfile/command-not-found.zsh
+else
+    echo "installing pkgfile"
+    echo "sudo pacman -S pkgfile"
+    sudo pacman -S pkgfile
+    echo "sudo pkgfile -u"
+    sudo pkgfile -u
+fi
+
 
 # colorize command if valid e.g. ls (green) asd123 (red)
 [[ -e ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&

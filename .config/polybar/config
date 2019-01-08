@@ -24,10 +24,10 @@ bordercolor = #333
 tray-offset-x = 898
 tray-maxsize = 22
 tray-transparent = false
-padding-left = 0
+padding-left = 1
 padding-right = 1
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 width = 98%
 radius = 10.0
 offset-x = 20
@@ -100,13 +100,14 @@ wm-restack = bspwm
 [bar/top-bspwm-thinkpad]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps fs-root cpu memory updates wifi weather
-modules-right = bitcoin vpn ping volume battery date time
+modules-left = apps fs-root cpu mem wifi weather
+modules-right = thinkpadtemp cpufreq vpn ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
 wm-restack = bspwm
 font-0 = GohuFont Nerd Font:pixelsize=11;1
+; font-0 = dina:pixelsize=11;1
 ; font-0 = Gohu GohuFont:pixelsize=14;1
 height = 25
 width = 100%
@@ -141,7 +142,7 @@ interval = 3.0
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>
 format-packetloss = <animation-packetloss> <label-connected>
-label-connected = %{F#666} %{F-} %downspeed:4%
+label-connected = %{F#666} %{F-}%downspeed:4%
 label-disconnected = not connected
 ramp-signal-0 = 1
 ramp-signal-1 = 2
@@ -178,12 +179,12 @@ label-mounted = %{F#666}SSD%{F-} %free%
 [module/volume]
 type = internal/volume
 format-volume = <label-volume> <bar-volume>
-label-volume = %{F#666} %{F-}
+label-volume = %{F#666}%{F-}
 format-muted-prefix = "%{F#666}%{F-}"
 label-muted = " muted"
 bar-volume-width = 8
 bar-volume-gradient = false
-bar-volume-indicator = |
+bar-volume-indicator =
 bar-volume-indicator-font = 2
 bar-volume-indicator-foreground = #666
 bar-volume-fill = ━
@@ -239,7 +240,7 @@ inherit = module/wm
 
 [module/ping]
 type = custom/script
-exec = ping -c 2 8.8.8.8 | sed -n '2,2p' | awk '{print $7}' | sed 's/time=//g'
+exec = ping -c 2 8.8.8.8 | sed -n '2,2p' | awk '{print $7}' | sed 's/time=//g' | jq 'floor'
 exec-if = ping -c 1 google.com > /dev/null
 interval = 5
 label = %output% ms
@@ -291,6 +292,14 @@ label = %gb_used%
 format-prefix = "MEM  "
 format-prefix-foreground = #666
 
+[module/mem]
+type = custom/script
+exec = free -m | sed -n 2p | awk '{print $3}' | jq './1000' | xargs printf "%.*f\n" 1
+format-prefix = "MEM "
+format-suffix = " GB"
+format-prefix-foreground = #666
+interval = 3
+
 [module/memory-bar]
 type = internal/memory
 format = <label> <bar-used>
@@ -335,7 +344,7 @@ label-foreground = #bbb
 [module/date]
 type = internal/date
 label = %{F#666} %{F-}%date%
-date = %a %d %b %Y
+date = %a %d %b %y
 
 [module/time]
 type = internal/date
@@ -378,8 +387,8 @@ menu-2-0-padding-right = 3
 [module/updates]
 type = custom/script
 exec = checkupdates | wc -l
-exec-if = ! checkupdates | wc -l | grep -q 0
-interval = 10
+exec-if = ping -c 1 google.com > /dev/null
+interval = 60
 label  = %{F#666}%{F-} %output%
 
 [module/vpn]
@@ -404,6 +413,19 @@ exec =  sensors | grep CPUTIN | cut -c18-19
 format-prefix = "%{F#666}CPU%{F-} "
 format-suffix = "°C"
 
+[module/thinkpadtemp]
+type = custom/script
+exec-if = sensors
+exec =  sensors | grep temp1 | awk '{print $2}' | cut -c 2-5 | jq 'floor'
+format-prefix = "%{F#666}CPU%{F-} "
+format-suffix = "°C"
+
+[module/cpufreq]
+type = custom/script
+exec-if = lscpu
+exec =  lscpu | grep CPU\ MHz | awk '{print $3}' | jq 'floor' | jq './1000' | xargs printf "%.*f\n" 1
+format-prefix = "%{F#666}GHz%{F-} "
+
 [module/gputemp]
 type = custom/script
 exec-if = sensors
@@ -426,7 +448,7 @@ menu-2-0-exec = gimp &
 menu-2-1 = Scrot
 menu-2-1-exec = scrot &
 label-open =
-label-open-padding-left = 1
+label-open-padding-left = 0
 label-close-padding = 1
 label-close = x
 label-separator = |

@@ -32,6 +32,8 @@ xset +fp ~/.fonts
 xset +fp /usr/share/fonts/local
 xset fp rehash
 
+setxkbmap de
+
 # disable terminal bell
 xset -b
 

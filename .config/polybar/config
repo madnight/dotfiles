@@ -2,7 +2,7 @@
 
 [global/wm]
 margin-bottom = 20
-margin-top = 0
+Omargin-top = 0
 
 [colors]
 background = ${xrdb:color0:#222}
@@ -90,7 +90,7 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps novpn vpn fs-root cputemp cpu memory iota monero cardano
+modules-left = apps vpn fs-root cputemp cpu memory cardano weather
 modules-right = bitcoin ethereum ripple wired-work ping updates volume date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev

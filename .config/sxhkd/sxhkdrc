@@ -28,7 +28,7 @@ super + p
     tor-browser-en
 
 # dmenu
-super + F2
+F2
     rofi -demnu -combi-modi drun,window -show combi -modi combi
 
 # dmenu

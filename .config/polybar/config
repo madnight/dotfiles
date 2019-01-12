@@ -177,7 +177,7 @@ mount-0 = /
 label-mounted = %{F#666}SSD%{F-} %free%
 
 [module/volume]
-type = internal/volume
+type = internal/alsa
 format-volume = <label-volume> <bar-volume>
 label-volume = %{F#666}%{F-}
 format-muted-prefix = "%{F#666}%{F-}"

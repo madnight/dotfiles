@@ -58,13 +58,6 @@ if [[ $(hostname) == 'arch' ]]; then
     LEFT=$(xrandr | grep \ connected | grep 1680x1050+0 | awk {'print $1'})
     RIGHT=$(xrandr | grep \ connected | grep 1680x1050 | grep -v 1680x1050+0 | awk {'print $1'})
 
-    # SECONDARYS=$(xrandr | grep \ connected | grep 1680x1050 | awk {'print $1'})
-    # for monitor in $SECONDARYS; do
-      # options=(top_padding right_padding left_padding bottom_padding border_width)
-      # for option in "${options[@]}"; do bspc config -m $monitor $options 0; done
-      # bspc config -m $monitor window_gap 10
-    # done
-
     # primary monitor
     bspc monitor $PRIMARY -d 4 5 6
     bspc config -m $PRIMARY top_padding 45
@@ -72,8 +65,6 @@ if [[ $(hostname) == 'arch' ]]; then
 
     # left monitor
     bspc monitor $LEFT -d 1 2 3
-    bspc config -m $LEFT left_padding 210 # conky pad
-    bspc config -m $LEFT bottom_padding 17 # bitcoin ticker pad
 
     # right monitor
     bspc monitor $RIGHT -d 7 8 9
@@ -85,18 +76,39 @@ if [[ $(hostname) == 'arch' ]]; then
 fi
 
 if [[ $(hostname) == 'thinkpad' ]]; then
-    PRIMARY=$(xrandr | grep \ connected | awk {'print $1'})
-    export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm-thinkpad &
-    bspc monitor -d 1 2 3 4 5 6 7 8 9 0
-    bspc config border_width 3
-    bspc config window_gap  0
-    bspc config pointer_follows_monitor true
-    bspc config pointer_follows_focus true
-    # some extra top space for bar
-    bspc config top_padding    25
+
+    bspc config top_padding    0
     bspc config right_padding  0
     bspc config left_padding   0
     bspc config bottom_padding 0
+    bspc config window_gap  0
+
+    if [[ $(bspc query -M | wc -l) == 1 ]]; then
+         PRIMARY=$(xrandr | grep \ connected | awk {'print $1'})
+         bspc config top_padding 22
+         export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm-thinkpad &
+         bspc monitor -d 1 2 3 4 5 5 7 8 9 0
+    else
+        PRIMARY=$(xrandr | grep \ connected | grep 1920x1080 | awk {'print $1'})
+        LEFT=$(xrandr | grep \ connected | grep 1680x1050+0 | awk {'print $1'})
+        RIGHT=$(xrandr | grep \ connected | grep VGA | awk {'print $1'})
+
+        export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm-thinkpad &
+
+        bspc monitor $PRIMARY -d 4 5 6
+        bspc config -m $PRIMARY top_padding 25
+
+        # left monitor
+        bspc monitor $LEFT -d 1 2 3
+
+        # right monitor
+        bspc monitor $RIGHT -d 7 8 9
+
+        bspc config border_width 3
+        bspc config pointer_follows_monitor true
+        bspc config pointer_follows_focus true
+    # some extra top space for bar
+    fi
 fi
 
 

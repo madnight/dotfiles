@@ -90,7 +90,7 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps vpn fs-root cputemp cpu memory iota monero cardano
+modules-left = apps novpn vpn fs-root cputemp cpu memory iota monero cardano
 modules-right = bitcoin ethereum ripple wired-work ping updates volume date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
@@ -100,7 +100,7 @@ wm-restack = bspwm
 [bar/top-bspwm-thinkpad]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps fs-root cpu mem wifi weather vpn
+modules-left = apps fs-root cpu mem wifi weather novpn vpn
 modules-right = thinkpadtemp cpufreq ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
@@ -394,15 +394,16 @@ label  = %{F#666}%{F-} %output%
 [module/vpn]
 type = custom/script
 exec = geo -g | sed -n 1p
+exec-if = [ "$(geo -g | sed -n 1p)" != "Germany" ]
 interval = 60
 label = %{F#666}%{F-} %output%
 
 [module/novpn]
 type = custom/script
-exec-if = ! pgrep -x openvpn
+exec = geo -g | sed -n 1p
+exec-if = [ "$(geo -g | sed -n 1p)" == "Germany" ]
 interval = 60
-label =  %output%
-label-padding = 1
+label = %{F#666}%{F-} %output%
 
 [module/cputemp]
 type = custom/script

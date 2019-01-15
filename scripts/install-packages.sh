@@ -1,4 +1,8 @@
 packagelist=(
+arandr
+bat
+compton
+exa
 ca-certificates
 pygmentize
 ufetch

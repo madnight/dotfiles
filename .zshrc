@@ -186,6 +186,14 @@ else
     sudo pkgfile -u
 fi
 
+array=( geo-bash iputils pkgfile )
+for package in "${array[@]}"
+do
+    if ! pacman -Qs $package > /dev/null ; then
+        yay $package
+    fi
+done
+
 
 # colorize command if valid e.g. ls (green) asd123 (red)
 [[ -e ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&

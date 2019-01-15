@@ -25,8 +25,8 @@ if [[ $(hostname) == 'skylake' ]]; then
     # set the screen layout
     sh $HOME/.screenlayout/1.sh
 
-    export PRIMARY=$(xrandr | grep \ connected | grep HDMI| awk {'print $1'})
-    LEFT=$(xrandr | grep \ connected | grep eDP| awk {'print $1'})
+    PRIMARY=$(xrandr | grep \ connected | grep HDMI | awk {'print $1'})
+    LEFT=$(xrandr | grep \ connected | grep eDP | awk {'print $1'})
     RIGHT=$(xrandr | grep \ connected | grep DVI | awk {'print $1'})
 
     # primary monitor
@@ -36,10 +36,19 @@ if [[ $(hostname) == 'skylake' ]]; then
 
     # left monitor
     bspc monitor $LEFT -d 1 2 3
+    bspc config -m $LEFT top_padding    0
+    bspc config -m $LEFT right_padding  0
+    bspc config -m $LEFT left_padding   0
+    bspc config -m $LEFT bottom_padding 0
+
     # bspc config -m $RIGHT left_padding 210 # conky pad
 
     # right monitor
     bspc monitor $RIGHT -d 7 8 9
+    bspc config -m $RIGHT top_padding    0
+    bspc config -m $RIGHT right_padding  0
+    bspc config -m $RIGHT left_padding   0
+    bspc config -m $RIGHT bottom_padding 0
 
     # wallpaper
     WP=$HOME/Pictures/xubuntu-trusty.png

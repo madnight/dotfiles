@@ -41,8 +41,14 @@ fi
 
 # low space warning
 if ! ps aux | egrep [l]owspace ; then
-    [ -f ~/scripts/lowspace ] && ~/scripts/lowspace &
+    [ -f ~/scripts/lowspace.bash ] && ~/scripts/lowspace.bash &
 fi
+
+# kernel update warning
+if ! ps aux | egrep [k]ernelupdate ; then
+    [ -f ~/scripts/kernelupdate.sh ] && ~/scripts/kernelupdate.sh &
+fi
+
 
 if [[ $(hostname) == 'thinkpad' ]]; then
     compton &
@@ -105,6 +111,11 @@ wmname LG3D
 if ! ps aux | egrep [s]xhkd ; then
     which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
     which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
+fi
+
+
+if [ -e $HOME/scripts/thinkdock.sh ]; then
+    (while true; do bash $HOME/scripts/thinkdock.sh; done) &
 fi
 
 # which uxterm > /dev/null && zsh -c "uxterm" &

@@ -41,6 +41,7 @@ fixed-center = true
 font-0 = lucy tewii:pixelsize=8;1
 font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;3
 font-2 = UbuntuMono Nerd Font:pixelsize=11;3
+font-3 = DroidSansMono Nerd Font:pixelsize=11;3
 modules-left = apps novpn vpn weather fs-root cputemp gputemp cpu memory ripple ethereum
 modules-right = bitcoin cap wired ping updates volume date time
 
@@ -90,8 +91,8 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps vpn fs-root cputemp cpu memory cardano weather
-modules-right = bitcoin ethereum ripple wired-work ping updates volume date time
+modules-left = apps fs-root cpu mem wifi weather novpn vpn cardano
+modules-right = bitcoin ethereum ripple wired-work uptime thinkpadtemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm

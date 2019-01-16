@@ -52,6 +52,9 @@ fi
 
 if [[ $(hostname) == 'thinkpad' ]]; then
     compton &
+    if [ -e $HOME/scripts/thinkdock.sh ]; then
+        $HOME/scripts/thinkdock.sh &
+    fi
 fi
 
 # email client
@@ -117,9 +120,6 @@ if ! pgrep xautolock ; then
     xautolock -time 15 -locker "i3lock-fancy"
 fi
 
-if [ -e $HOME/scripts/thinkdock.sh ]; then
-    (while true; do bash $HOME/scripts/thinkdock.sh; done) &
-fi
 
 # which uxterm > /dev/null && zsh -c "uxterm" &
 

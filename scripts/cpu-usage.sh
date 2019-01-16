@@ -1,1 +1,1 @@
-awk '/cpu/ {usage=($2+$4)*100/($2+$4+$5)} END {printf "%0.0f%s\n", usage, "%"}' /proc/stat
+top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{printf "%2.0f%\n",100 - $1"%"}'

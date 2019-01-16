@@ -407,10 +407,11 @@ label = %{F#666}%{F-} %output%
 
 [module/uptime]
 type = custom/script
-exec = uptime --pretty | sed 's/up //' | sed 's/\ weeks\?,/w/' | sed 's/\ days\?,/d/' | sed 's/\ hours\?,\?/h/' | awk '{print $1}'
+exec = uptime --pretty | awk '{print $2}'
 exec-if = [[ "$(uptime --pretty)" == *"days"* ]]
 interval = 60
 label = %{F#666}UP%{F-} %output%
+format-suffix = "d"
 
 [module/cputemp]
 type = custom/script

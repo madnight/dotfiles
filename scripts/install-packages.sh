@@ -100,10 +100,6 @@ gst-plugins-good
 gst-plugins-ugly
 gstreamer
 gstreamer-vaapi
-gstreamer0.10-bad
-gstreamer0.10-bad-plugins
-gstreamer0.10-base-plugins
-gstreamer0.10-ffmpeg
 gv
 gvfs-afc
 gvfs-google
@@ -215,17 +211,14 @@ sxhkd
 tamsyn-font
 tamzen-font-git
 tar
-terminess-powerline-font-git
 terminus-font
 termite
 thunar
 tig
 tk
 tmux
-tor-browser-en
+tor-browser
 trayer
-ttf-adobe-fonts
-ttf-chromeos-fonts
 ttf-consolas-powerline
 ttf-droid
 ttf-google-fonts-git
@@ -277,6 +270,6 @@ for package in "${packagelist[@]}"
 do
     if ! pacman -Qs $package > /dev/null ; then
         echo -ne "\nINSTALL $package\n"
-        sudo pacman -S $package || yay $package
+        sudo pacman --noconfirm -S $package || yay $package
     fi
 done

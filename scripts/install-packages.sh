@@ -7,8 +7,6 @@ ca-certificates
 pygmentize
 ufetch
 xorg-font-utils
-xorg-server-utils
-xorg-utils
 pulseaudio-alsa
 hsetroot
 stress
@@ -21,7 +19,6 @@ diff-so-fancy
 geo-bash
 powerline
 unclutter
-urxvt-perls
 autocutsel
 gcolor2
 lsb-release
@@ -36,7 +33,6 @@ siji-git
 xcb-util-xrm
 gohufont
 gvfs-smb
-i3lock-color-git
 ncdu
 zsh-syntax-highlighting
 pkgfile
@@ -85,7 +81,6 @@ autoconf
 python-virtualenv
 numix-gtk-theme
 grive
-wsta
 iptables
 gawk
 speedcrunch
@@ -118,7 +113,6 @@ nm-connection-editor
 bat
 ttf-ms-fonts
 gcr
-gstreamer0.10-base
 aspell-de
 thunar
 pulseaudio
@@ -132,7 +126,6 @@ weechat
 nmap
 vim
 ffmpeg
-ttf-vista-fonts
 xscreensaver
 binutils
 cmake
@@ -145,11 +138,13 @@ docker
 ghc
 chromium
 ttf-google-fonts-git
+lynx
 )
 
 for package in "${packagelist[@]}"
 do
     if ! pacman -Qs $package > /dev/null ; then
-        yay $package
+        echo -ne "\nINSTALL $package\n"
+        sudo pacman -S $package || yay $package
     fi
 done

@@ -114,6 +114,7 @@ hunspell
 hunspell-de
 hunspell-en_US
 hwinfo
+i3lock-fancy
 iana-etc
 icdiff
 iftop

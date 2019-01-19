@@ -113,6 +113,9 @@ if ! ps aux | egrep [s]xhkd ; then
     which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
 fi
 
+if ! pgrep xautolock ; then
+    xautolock -time 15 -locker "i3lock-fancy"
+fi
 
 if [ -e $HOME/scripts/thinkdock.sh ]; then
     (while true; do bash $HOME/scripts/thinkdock.sh; done) &

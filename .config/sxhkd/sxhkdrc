@@ -28,8 +28,15 @@ super + p
     tor-browser-en
 
 # dmenu
-F2
+super + F2
     rofi -demnu -combi-modi drun,window -show combi -modi combi
+
+
+super + F8
+    xbacklight -dec 10%
+
+super + F9
+    xbacklight -inc 10%
 
 # dmenu
 super + F3

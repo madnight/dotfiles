@@ -16,10 +16,10 @@ xterm*background: #181715
 ! ##############
 ! xterm settings
 ! ##############
-xterm*font: -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+xterm*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+xterm*blodFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
 xterm*metaSendsEscape: true
 ! xterm*font: -*-terminus-*-*-*-*-20-*-*-*-*-*-*-*
-xterm*blodFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
 xterm*saveLines:            1000
 xterm*geometry:             80x24-500+400
 xterm*allowBoldFonts:       true

@@ -19,13 +19,19 @@ fi
 # prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
 [[ $- == *i* ]] && stty -ixon
 
+function source_if_exist()
+{
+    if [[ -r $1 ]]; then
+        source $1
+    fi
+}
+
 ##########################
 # Autocompletion settings
 ##########################
 
 # remove the trailing slash (usefull in ln)
 zstyle ':completion:*' squeeze-slashes true
-# completion cache
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 # activate color-completion
@@ -39,9 +45,9 @@ zstyle ':completion:*' rehash true
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
-
 # fish like syntax highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source_if_exist \
+    /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 HISTFILE=~/.histfile
 HISTSIZE=100000
@@ -52,7 +58,6 @@ bindkey -e
 
 autoload -Uz compinit && compinit
 autoload -Uz colors && colors
-# autoload -Uz promptinit && promptinit && prompt spaceship
 
 setopt AUTO_CD
 setopt CORRECT
@@ -73,7 +78,6 @@ stty erase '^?'
 ##############
 # Keybindings
 ##############
-
 bindkey -v
 bindkey '^P' vi-cmd-mode
 bindkey '^N' down-history
@@ -97,7 +101,6 @@ bindkey '^^m' autosuggest-execute
 #################################
 # make zsh vi behave more like vi
 #################################
-
 
 # Don't use vi mode in backward delete word/char because it cannot delete
 # characters on the left of position you were in insert mode.
@@ -134,7 +137,6 @@ bindkey -M viins "\e0" vi-beginning-of-line
 bindkey -M viins "\e$" vi-end-of-line
 bindkey -M viins "\ej" down-history
 bindkey -M viins "\ek" up-history
-
 bindkey -M viins '^H'  backward-delete-char
 bindkey -M vicmd '^H'  backward-delete-char
 bindkey -M viins '^?'  backward-delete-char
@@ -150,7 +152,6 @@ zle-keymap-select () {
     echo -ne "\033[4 q"
   fi
 }
-
 
 zle -N zle-keymap-select
 
@@ -173,37 +174,11 @@ rationalise-dot() {
 zle -N rationalise-dot
 bindkey . rationalise-dot
 
-
-
 # command not found hook: https://wiki.archlinux.org/index.php/Pkgfile
-if [ -e /usr/share/doc/pkgfile/command-not-found.zsh ]; then
-    source /usr/share/doc/pkgfile/command-not-found.zsh
-else
-    echo "installing pkgfile"
-    echo "sudo pacman -S pkgfile"
-    sudo pacman -S pkgfile
-    echo "sudo pkgfile -u"
-    sudo pkgfile -u
-fi
-
-array=( geo-bash iputils pkgfile )
-for package in "${array[@]}"
-do
-    if ! pacman -Qs $package > /dev/null ; then
-        yay $package
-    fi
-done
-
+source_if_exist /usr/share/doc/pkgfile/command-not-found.zsh
 
 # colorize command if valid e.g. ls (green) asd123 (red)
-[[ -e ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
-source ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# https://github.com/zsh-users/zsh-autosuggestions
-# fish like autosuggestions
-#
-# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
+source_if_exist ~/scripts/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ########################
 # ENVIORNMENT variables
@@ -227,11 +202,10 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden -g ""'
 export GCLOUD_PROJECT=coral-firefly-151914
 export GOOGLE_APPLICATION_CREDENTIALS=/home/x/.config/gcloud/application_default_credentials.json
 export WEECHAT_HOME=$HOME/.config/weechat
-
-NPM_PACKAGES="${HOME}/.npm-packages"
-PATH="$NPM_PACKAGES/bin:$PATH"
-PATH="$PATH:$HOME/.local/bin"
-PATH="$PATH:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
+export NPM_PACKAGES="${HOME}/.npm-packages"
+export PATH="$NPM_PACKAGES/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH
@@ -242,22 +216,15 @@ unsetopt HUP
 # source additional zsh settings
 #################################
 
-# private aliases and functions suchs as backup
-[[ -e ~/.zshrc_priv ]] && \
-source ~/.zshrc_priv
-
 # import prompt, aliases and functions
-
-[[ -e /usr/lib/zsh-git-prompt/zshrc.sh ]] && \
-source /usr/lib/zsh-git-prompt/zshrc.sh
-
-[[ -e ~/zsh/aliases.zsh ]] && source ~/zsh/aliases.zsh
-[[ -e ~/zsh/functions.zsh ]] && source ~/zsh/functions.zsh
-[[ -e ~/zsh/prompt.zsh ]] && source ~/zsh/prompt.zsh
+source_if_exist ~/zsh/keybindings.zsh
+source_if_exist ~/zsh/aliases.zsh
+source_if_exist ~/zsh/functions.zsh
+source_if_exist ~/zsh/prompt.zsh
 
 [ -n "$TMUX" ] && export TERM=screen-256color
 
-# xrdb $HOME/.Xdefaults
+# Performance Warning
 END=$(date +%s.%N)
 ZSHRC_PERF=$(printf %.2f $(echo "$END - $START" | bc))
 if (( $ZSHRC_PERF > 0.15)); then
@@ -265,18 +232,8 @@ if (( $ZSHRC_PERF > 0.15)); then
   echo ".zshrc startup time" $ZSHRC_PERF "seconds"
 fi
 
-# echo -e -n "\x1b[\x34 q" # changes to steady underline
-echo -e -n "\x1b[\x32 q"
-
 eval "$(direnv hook zsh)"
-#
-# ~/.bash_profile
-#
-# [[ -f ~/.bashrc ]] && . ~/.bashrc
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-  . $HOME/.nix-profile/etc/profile.d/nix.sh;
-fi
 
-xrdb ~/.Xresources
-# echo -e -n "\x1b[\x34 q" # changes to steady underline
-if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
+source_if_exist $HOME/.nix-profile/etc/profile.d/nix.sh;
+
+# xrdb ~/.Xresources

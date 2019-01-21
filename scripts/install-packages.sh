@@ -264,6 +264,7 @@ zenity
 zip
 zsh
 zsh-pure-prompt
+zsh-git-prompt
 zsh-syntax-highlighting
 )
 

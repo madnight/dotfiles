@@ -1,3 +1,5 @@
+source_if_exist /usr/lib/zsh-git-prompt/zshrc.sh
+
 #show shell execution time needed on right prompt
 ZSH_COMMAND_START=0
 typeset -gF SECONDS

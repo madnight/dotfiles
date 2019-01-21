@@ -6,27 +6,42 @@
  #       /_/\_\ .__/|_|  \___/|_| |_|_|\___|
  #            |_|
 
+# load xdefaults
+[[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
+[[ -e ~/.Xresources ]] && xrdb ~/.Xresources
+
+setxkbmap de
+
+xset +fp ~/.fonts/tamzen-font/bdf &
+xset fp rehash &
+xset r rate 150 50
+
+# java WM tweaks
+export _JAVA_OPTIONS='-Dsun.java2d.opengl=true'
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+function exist_and_not_running()
+{
+    if ! pgrep $1 > /dev/null; then
+        if which $1 > /dev/null; then
+            $@ &
+        fi
+    fi
+}
+
+# hotkey deamon
+exist_and_not_running sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
+exist_and_not_running sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
+
+exist_and_not_running wmname LG3D
+exist_and_not_running chromium
+
 # clear download folder
-bash -c "mv ~/Downloads/* mv ~/Downloads/old" &
-
-chromium &
-
-# backup packages list
-# zsh -c "pacman -Qqe >! ~/Git/dotfiles/scripts/backup/pkglist.txt" &
+mv ~/Downloads/* mv ~/Downloads/old &> /dev/null
 
 # automute while afk
-if ! ps aux | egrep [a]utomute ; then
-    bash -c "~/scripts/automute.sh" &
-fi
-
-# autoupdate system (pacman / yaourt)
-if ! ps aux | egrep [a]update ; then
-    bash -c "~/scripts/autoupdate.bash" &
-fi
-
-# monitor events
-if ! ps aux | egrep [m]onitoring ; then
-    [ -f ~/scripts/monitoring  ] && ~/scripts/monitoring  &
+if ! ps aux | egrep [a]utomute &> /dev/null; then
+    [ -f ~/scripts/automute.bash ] && ~/scripts/automute.bash &
 fi
 
 # sync github mirror repositories
@@ -45,10 +60,9 @@ if ! ps aux | egrep [l]owspace ; then
 fi
 
 # kernel update warning
-if ! ps aux | egrep [k]ernelupdate ; then
+if ! pgrep kernelupdate > /dev/null ; then
     [ -f ~/scripts/kernelupdate.sh ] && ~/scripts/kernelupdate.sh &
 fi
-
 
 if [[ $(hostname) == 'thinkpad' ]]; then
     compton &
@@ -57,112 +71,13 @@ if [[ $(hostname) == 'thinkpad' ]]; then
     fi
 fi
 
-# email client
-# thunderbird &
-
-# urxvt -e tmux &
-
-# notification deamon
-# dunst &
-
-# start irc
-# hexchat &
-
-# web browser
-# chromium &
-
-# sound
-if ! ps aux | egrep [p]pulseaudio ; then
-    pulseaudio --start &
-fi
+exist_and_not_running pulseaudio --start
 
 # reduce monitor brigthness at night
-if ! ps aux | egrep [r]edshift ; then
-    which redshift > /dev/null && redshift &
-fi
-
-xrdb ~/.Xdefaults
-xrdb ~/.Xresources
-# xmodmap ~/.Xmodmap
-setxkbmap de
-
-export _JAVA_AWT_WM_NONREPARENTING=1
-wmname LG3D
-
-# compositor
-# compton --backend glx --vsync opengl-swc &
+exist_and_not_running redshift
 
 # hide mouse when not needed
-if ! ps aux | egrep [u]nclutter; then
-    which unclutter > /dev/null && unclutter &
-fi
-
-# java WM tweaks
-export _JAVA_OPTIONS='-Dsun.java2d.opengl=true'
-
-# This may solve a rendering issue of Java GUIs occurring in
-# window managers like awesome or dwm or bspwm
-# This works because the JVM contains a hard-coded
-# list of known, non-re-parenting window managers.
-export _JAVA_AWT_WM_NONREPARENTING=1
-wmname LG3D
-
-# polybar
-# ps aux | egrep [p]olybar || sleep 10 && while true; do SHELL=/bin/bash polybar -r stock; done &
-
-# hotkey deamon
-if ! ps aux | egrep [s]xhkd ; then
-    which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
-    which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
-fi
-
-if ! pgrep xautolock ; then
-    xautolock -time 15 -locker "i3lock-fancy"
-fi
-
-
-# which uxterm > /dev/null && zsh -c "uxterm" &
-
-xset +fp ~/.fonts/tamzen-font/bdf &
-xset fp rehash &
-
-# load xdefaults
-[[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
-[[ -e ~/.Xresources ]] && xrdb ~/.Xresources
-
-# speeeeed!
-xset r rate 150 50
-
-
-# ~/scripts/start-conky &
-# start conky
-
-# if ! ps aux | grep [c]onky | grep conkyrc ; then
-    # (sleep 20 && while true; do conky -c ~/.config/conky/conkyrc; done) &
-# fi
-
-# if [[ $(hostname) == 'arch' ]]; then
-#     if ! ps aux | grep [c]onky; then
-#         conky -c /home/x/.config/conky/conkyrc &
-#         conky -c ~/.config/conky/weather-syslog &
-#         conky -c ~/.config/conky/charts01 &
-#         conky -c ~/.config/conky/charts02 &
-#         conky -c ~/.config/conky/ticker &
-#     fi
-# fi
+exist_and_not_running unclutter
 
 # autolock screen after n mins
-if ! ps aux | egrep [x]autolock ; then
-    which xautlock > /dev/null && xautolock -time 5 -locker "$HOME/scripts/lock.sh" &
-fi
-
-sh ~/scripts/luxa.sh &
-
-# hotkey deamon
-if ! ps aux | egrep [s]xhkd ; then
-    which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
-    which sxhkd > /dev/null && sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
-fi
-
-
-
+exist_and_not_running xautolock -time 15 -locker "$HOME/scripts/lock.sh"

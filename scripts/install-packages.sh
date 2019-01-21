@@ -239,6 +239,7 @@ vim-spell-de
 vim-spell-en
 vlc
 vnstat
+wmname
 weechat
 wget
 which

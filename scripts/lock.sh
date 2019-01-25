@@ -27,5 +27,9 @@ i3lock -i "$tmpbg"           \
 --bshlcolor=#00DBF1ff        \
 --ring-width=10              \
 --screen=1                   \
---radius=300                 \
---wrongtext=""
+--radius=130                 \
+--wrongtext=""               \
+--veriftext=""               \
+--noinputtext=""             \
+--locktext=""                \
+--lockfailedtext=""

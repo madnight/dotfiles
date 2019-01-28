@@ -11,6 +11,7 @@
 [[ -e ~/.Xresources ]] && xrdb ~/.Xresources
 
 setxkbmap de
+setxkbmap -option caps:none
 
 xset +fp ~/.fonts/tamzen-font/bdf &
 xset fp rehash &

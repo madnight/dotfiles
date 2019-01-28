@@ -12,8 +12,10 @@ START=$(date +%s.%N)
 [[ $- != *i* ]] && return
 
 # auto startx if display is not set
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+if [[ ! -f /tmp/autologin ]] && [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+    touch /tmp/autologin
     exec startx
+    logout
 fi
 
 # prevent C-s form freezing the term / unfreeze terminal on abnormal exit state

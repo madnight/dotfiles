@@ -16,7 +16,7 @@ cleanup() {
     for monitor in $(bspc query -M); do
         bspc monitor $monitor -d ""
     done
-    killall polybar > /dev/null
+    killall polybar > /dev/null || true
 }
 
 reinit() {
@@ -69,7 +69,7 @@ thinkpad() {
     bspc monitor -d 1 2 3 4 5 6 7 8 9
     bspc wm --adopt-orphans
 
-    bspc config top_padding   22
+    bspc config top_padding   21
     bspc config window_gap     0
     bspc config right_padding  0
     bspc config left_padding   0

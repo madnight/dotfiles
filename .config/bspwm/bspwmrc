@@ -40,6 +40,7 @@ if [[ $(hostname) == 'skylake' ]]; then
     bspc config -m $LEFT right_padding  0
     bspc config -m $LEFT left_padding   0
     bspc config -m $LEFT bottom_padding 0
+    bspc config -m $LEFT window_gap     0
 
     # bspc config -m $RIGHT left_padding 210 # conky pad
 
@@ -49,6 +50,7 @@ if [[ $(hostname) == 'skylake' ]]; then
     bspc config -m $RIGHT right_padding  0
     bspc config -m $RIGHT left_padding   0
     bspc config -m $RIGHT bottom_padding 0
+    bspc config -m $RIGHT window_gap     0
 
     # wallpaper
     WP=$HOME/Pictures/xubuntu-trusty.png

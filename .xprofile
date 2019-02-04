@@ -30,10 +30,6 @@ function exist_and_not_running()
     fi
 }
 
-# hotkey deamon
-exist_and_not_running sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
-exist_and_not_running sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
-
 exist_and_not_running wmname LG3D
 exist_and_not_running chromium
 
@@ -82,3 +78,9 @@ exist_and_not_running unclutter
 
 # autolock screen after n mins
 exist_and_not_running xautolock -time 15 -locker "$HOME/scripts/lock.sh"
+
+# hotkey deamon
+killall sxhkd || true
+sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
+sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
+

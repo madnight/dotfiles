@@ -14,7 +14,8 @@ endif
 if has("gui_running")
   map <leader>r :NERDTreeFind<cr>
 
-  set guifont=Tamzen\ for\ Powerline\ 14
+  " set guifont=Gohu\ Font\ Nerd\ 11
+  set guifont=Monospace
 
   colorscheme base16-tomorrow-night
 

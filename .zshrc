@@ -13,12 +13,13 @@ START=$(date +%s.%N)
 
 # auto startx if display is not set
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    for sd_cmd in systemctl systemd-analyze systemd-run; do
-        alias $sd_cmd='DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus" '$sd_cmd
-    done
     exec startx
     logout
 fi
+
+for sd_cmd in systemctl systemd-analyze systemd-run; do
+     alias $sd_cmd='DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus" '$sd_cmd
+done
 
 # prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
 [[ $- == *i* ]] && stty -ixon

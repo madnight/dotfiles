@@ -3,6 +3,7 @@ abiword
 ack
 adobe-source-code-pro-fonts
 alsa-utils
+ananicy-git
 arandr
 archey3
 aria2
@@ -106,6 +107,7 @@ gvfs-google
 gvfs-smb
 gvim
 gzip
+hd-idle
 hdparm
 hsetroot
 htop
@@ -173,6 +175,7 @@ ntp
 numix-gtk-theme
 openssh
 openvpn
+profile-sync-daemon
 pacutils
 parallel
 parcellite
@@ -187,6 +190,7 @@ playerctl
 polybar
 powerline
 pptpclient
+preload
 pulseaudio
 pulseaudio-alsa
 pulseaudio-ctl
@@ -203,6 +207,7 @@ ristretto
 rofi
 rsync
 rxvt-unicode
+schedtool
 scrot
 siji-git
 speedcrunch
@@ -214,6 +219,7 @@ tamzen-font-git
 tar
 terminus-font
 termite
+thermald
 thunar
 tig
 tk
@@ -239,12 +245,12 @@ vim-spell-de
 vim-spell-en
 vlc
 vnstat
-wmname
 weechat
 wget
 which
 whois
 wireshark-cli
+wmname
 wpa_supplicant
 xautolock
 xcb-util-xrm
@@ -264,8 +270,8 @@ zathura
 zenity
 zip
 zsh
-zsh-pure-prompt
 zsh-git-prompt
+zsh-pure-prompt
 zsh-syntax-highlighting
 )
 

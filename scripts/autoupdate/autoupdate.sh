@@ -1,10 +1,7 @@
 #!/bin/bash
 
-while sleep 30m
-do
-
 # Get News from Archlinux.org
-news=$(python /home/x/scripts/archnews -d 8)
+news=$(python $HOME/scripts/autoupdate/archnews.py -d 8)
 
 # inter := interaction, intervention; requi := requires, required
 if [[ "$news" == *inter* || "$news" == *requi*  || "$news" == *manual* ]]; then
@@ -14,7 +11,7 @@ else
     if [ ! "$(checkupdates | wc -l)" == 0  ]; then
         pacman -Syu --noconfirm
         # download kernel and headers /wo install <- later on shutdown
-        pacman -Sw linux linux-headers
+        pacman -Sw linux linux-headers linux-lts linux-lts-headers
     fi
 
     # Delete orphran packages and clean paccache
@@ -24,5 +21,3 @@ else
         paccache -r -k 0
     fi
 fi
-
-done

@@ -1,0 +1,2 @@
+START=yes
+DAEMON_ARGS="-q -b 1 -s 1"

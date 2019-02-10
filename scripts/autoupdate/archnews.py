@@ -18,18 +18,12 @@ parser.add_argument(
   help='Show titles between now and the given date.'
 )
 
-# Convert time struct objects to datetime objects.
 def ts_to_dt(ts):
   return datetime.datetime.fromtimestamp(time.mktime(ts))
 
-# Main function to print out titles.
 def main(args=None):
   args = parser.parse_args(args)
-
-  # Load the feed.
   feed = feedparser.parse(FEED_URL)
-
-  # Get the current time.
   now = datetime.datetime.now()
 
   if args.since:
@@ -39,17 +33,11 @@ def main(args=None):
   else:
     cutoff = datetime.timedelta(days=args.days)
 
-  # Find all entries not older than the cutoff.
   for entry in feed.entries:
     ts = entry.published_parsed
     dt = ts_to_dt(ts)
     if (now - dt) <= cutoff:
       print(entry.title)
 
-# Run the main function when invoked as a script.
-# This will catch keyboard interrupts (ctrl+c) and broken pipe errors.
 if __name__ == '__main__':
-  try:
     main()
-  except (KeyboardInterrupt, BrokenPipeError):
-    pass

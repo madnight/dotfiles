@@ -282,3 +282,5 @@ do
         sudo pacman --noconfirm -S $package || yay $package
     fi
 done
+
+# systemctl enable hd-idle

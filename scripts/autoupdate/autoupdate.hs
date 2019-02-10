@@ -1,15 +1,3 @@
-{-
-runghc
-      --package concurrent-extra
-      --package lens
-      --package wreq
-      --package timerep
-      --package xml
--}
-
--- compile
--- nix-shell --run 'ghc autoupdate.hs'
-
 module Main where
 
 import Control.Monad

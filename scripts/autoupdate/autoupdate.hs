@@ -13,17 +13,17 @@ kernelDownload = system "pacman -Sw --noconfirm linux linux-headers linux-lts \
 removeCache = system "paccache -r -k 0"
 checkOrphans = not . null <$> readProcess "pkg-list_true_orphans" [] []
 deleteOrphans = system "pacman -Rns --noconfirm $(pkg-list_true_orphans)"
-getFeed = readProcess "python" ["archnews.py", "-d", "16"] []
+getFeed = readProcess "python" ["/home/x/Git/dotfiles/scripts/autoupdate/archnews.py", "-d", "16"] []
 
 main :: IO ()
 main = do
-    print "checking upstream feed ..."
+    putStrLn "checking upstream feed ..."
     feed <- getFeed
     let keywords = ["intervention", "require", "manual"]
     when (or $ (flip isInfixOf feed) <$> keywords) $ do
-        print "Updates found that require manual user intervention"
+        putStrLn "Updates found that require manual user intervention"
         exitSuccess
-    print "updating ..."
+    putStrLn "updating ..."
     updates <- checkUpdates
     orphrans <- checkOrphans
     when updates $ sequence_ [systemUpdate, kernelDownload]

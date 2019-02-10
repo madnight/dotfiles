@@ -102,7 +102,7 @@ wm-restack = bspwm
 inherit = bar/base
 monitor = ${env:MONITOR:LVDS1}
 modules-left = apps fs-root cpu mem wifi weather novpn vpn
-modules-right = uptime thinkpadtemp updates ping volume battery date time
+modules-right = uptime fanspeed thinkpadtemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
@@ -405,6 +405,13 @@ exec = geo -g | sed -n 1p
 exec-if = [ "$(geo -g | sed -n 1p)" == "Germany" ]
 interval = 60
 label = %{F#666}%{F-} %output%
+
+[module/fanspeed]
+type = custom/script
+exec = cat /proc/acpi/ibm/fan | grep speed: | awk '{print $2}'
+exec-if = [[ -f /proc/acpi/ibm/fan ]]
+interval = 60
+label = %{F#666}FAN%{F-} %output%
 
 [module/uptime]
 type = custom/script

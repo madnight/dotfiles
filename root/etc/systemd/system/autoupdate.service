@@ -4,9 +4,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart=/home/x/scripts/autoupdate/autoupdate
-Restart=always
-RestartSec=30
+ExecStart=runghc /home/x/scripts/autoupdate/autoupdate.hs
 
 [Install]
 WantedBy=multi-user.target

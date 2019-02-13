@@ -1,0 +1,14 @@
+[Unit]
+Description=Restart hd-idle
+After=suspend.target
+After=hibernate.target
+After=hybrid-sleep.target
+
+[Service]
+Type=simple
+ExecStart=/bin/systemctl --no-block restart hd-idle
+
+[Install]
+WantedBy=suspend.target
+WantedBy=hibernate.target
+WantedBy=hybrid-sleep.target

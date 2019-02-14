@@ -6,7 +6,8 @@ After=hybrid-sleep.target
 
 [Service]
 Type=simple
-ExecStart=/bin/systemctl --no-block restart hd-idle
+ExecStartPre=/bin/sleep 1
+ExecStart=/usr/bin/systemctl restart hd-idle.service
 
 [Install]
 WantedBy=suspend.target

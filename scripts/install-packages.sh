@@ -273,6 +273,7 @@ zsh
 zsh-git-prompt
 zsh-pure-prompt
 zsh-syntax-highlighting
+hostsblock
 )
 
 for package in "${packagelist[@]}"

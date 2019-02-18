@@ -91,8 +91,8 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps fs-root cpu mem wifi weather novpn vpn cardano
-modules-right = bitcoin ethereum ripple wired-work uptime thinkpadtemp updates ping volume battery date time
+modules-left = apps fs-root cpu mem wifi weather novpn vpn
+modules-right = bitcoin wired-work uptime thinkpadtemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
@@ -431,7 +431,7 @@ format-suffix = "°C"
 [module/thinkpadtemp]
 type = custom/script
 exec-if = sensors
-exec =  sensors | grep temp1 | awk '{print $2}' | cut -c 2-5 | jq 'floor'
+exec =  sensors | grep temp1 | awk '{print $2}' | sed -e "s/+//" | sed 's/\..*$//'
 format-prefix = "%{F#666}CPU%{F-} "
 format-suffix = "°C"
 
@@ -488,51 +488,13 @@ inherit = module/crypto
 format-prefix = "%{F#666}%{F-} $"
 exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD" | jq -r '.USD | floor'
 
-[module/cardano]
-inherit = module/crypto
-format-prefix = "%{F#666}ADA%{F-} $"
-exec = printf "%.2g\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=ADA&tsyms=USD" | jq -r '.USD')
-
-[module/ripple]
-inherit = module/crypto
-format-prefix = "%{F#666}XRP%{F-} $"
-exec =  printf "%.2g\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=XRP&tsyms=USD" | jq -r '.USD')
-
-[module/iota]
-inherit = module/crypto
-format-prefix = "IOT $"
-exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=IOT&tsyms=USD" | jq -r '.USD'
-
-[module/verge]
-inherit = module/crypto
-format-prefix = "XVG $"
-exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=XVG&tsyms=USD" | jq -r '.USD'
-
-[module/monero]
-inherit = module/crypto
-format-prefix = "XMR $"
-exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=XMR&tsyms=USD" | jq -r '.USD'
-
-[module/ethereum]
-inherit = module/crypto
-format-prefix = "%{F#666}ETH%{F-} $"
-exec = printf "%.0f\n" $(curl -s "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD" | jq -r '.USD')
-
 [module/cap]
 inherit = module/crypto
 format-prefix = "%{F#666}CAP%{F-} $"
 exec = numfmt --to=si $(curl -s "https://api.coinmarketcap.com/v1/global/" | jq -r '.total_market_cap_usd') | sed 's/G/B/g'
-
-[module/usdt]
-inherit = module/crypto
-format-prefix = "USDT $"
-exec = printf "%.3g\n" $(curl -s "https://api.coinmarketcap.com/v1/ticker/tether/" | jq -r '.[0] | .price_usd')
 
 [module/utc]
 type = custom/script
 format = <label>
 format-prefix = "UTC "
 exec = date --utc '+%H:%M'
-
-
-

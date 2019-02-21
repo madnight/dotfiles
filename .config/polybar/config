@@ -91,7 +91,7 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps fs-root cpu mem wifi weather novpn vpn
+modules-left = apps fs-root cpu mem wifi weather novpn vpn downspeed upspeed
 modules-right = bitcoin wired-work uptime thinkpadtemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
@@ -391,6 +391,20 @@ exec = checkupdates | wc -l
 exec-if = ping -c 1 google.com > /dev/null && [[ $(checkupdates | wc -l) -gt 0 ]]
 interval = 60
 label  = %{F#666}%{F-} %output%
+
+[module/downspeed]
+type = custom/script
+exec = speed-test -j | jq -r '.download | floor'
+exec-if = ping -c 1 google.com > /dev/null
+interval = 90
+label  = %{F#666}DOWN%{F-} %output% Mbps
+
+[module/upspeed]
+type = custom/script
+exec = speed-test -j | jq -r '.upload | floor'
+exec-if = ping -c 1 google.com > /dev/null
+interval = 110
+label  = %{F#666}UP%{F-} %output% Mbps
 
 [module/vpn]
 type = custom/script

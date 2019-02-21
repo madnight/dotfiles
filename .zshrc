@@ -121,8 +121,8 @@ unsetopt HUP
 
 # import prompt, aliases and functions
 source_if_exist ~/zsh/keybindings.zsh
-source_if_exist ~/zsh/aliases.zsh
 source_if_exist ~/zsh/functions.zsh
+source_if_exist ~/zsh/aliases.zsh
 source_if_exist ~/zsh/prompt.zsh
 
 [ -n "$TMUX" ] && export TERM=screen-256color
@@ -140,3 +140,4 @@ eval "$(direnv hook zsh)"
 source_if_exist $HOME/.nix-profile/etc/profile.d/nix.sh;
 
 # xrdb ~/.Xresources
+#

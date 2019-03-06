@@ -429,8 +429,8 @@ label = %{F#666}FAN%{F-} %output%
 
 [module/uptime]
 type = custom/script
-exec = uptime --pretty | awk '{print $2}'
-exec-if = [[ "$(uptime --pretty)" == *"days"* ]]
+exec = uptime | awk '{print $3}'
+exec-if = [[ "$(uptime)" == *"days"* ]]
 interval = 60
 label = %{F#666}UP%{F-} %output%
 format-suffix = "d"

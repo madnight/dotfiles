@@ -396,14 +396,14 @@ label  = %{F#666}%{F-} %output%
 
 [module/downspeed]
 type = custom/script
-exec = speed-test -j | jq -r '.download | floor'
+exec = speed-test -j | jq -r '.download | floor' | grep -v error
 exec-if = ping -c 1 google.com > /dev/null
 interval = 700
 label  = %{F#666}%{F-} %output% M
 
 [module/upspeed]
 type = custom/script
-exec = speed-test -j | jq -r '.upload | floor'
+exec = speed-test -j | jq -r '.upload | floor' | grep -v error
 exec-if = ping -c 1 google.com > /dev/null
 interval = 110
 label  = %{F#666}%{F-} %output% M

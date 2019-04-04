@@ -36,8 +36,8 @@ dock() {
     bspc wm --adopt-orphans
 
     PRIMARY=$(xrandr | grep \ connected | grep 1920x1080 | awk {'print $1'})
-    LEFT=$(xrandr | grep \ connected | grep 1680x1050+0 | awk {'print $1'})
-    RIGHT=$(xrandr | grep \ connected | grep VGA | awk {'print $1'})
+    RIGHT=$(xrandr | grep \ connected | grep 1680x1050+0 | awk {'print $1'})
+    LEFT=$(xrandr | grep \ connected | grep VGA | awk {'print $1'})
 
     bspc config top_padding    0
 

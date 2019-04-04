@@ -21,6 +21,15 @@ for sd_cmd in systemctl systemd-analyze systemd-run; do
      alias $sd_cmd='DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus" '$sd_cmd
 done
 
+function exist_and_not_running()
+{
+    if ! pgrep $1 > /dev/null; then
+        if which $1 > /dev/null; then
+            $@ &
+        fi
+    fi
+}
+
 # prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
 [[ $- == *i* ]] && stty -ixon
 
@@ -138,6 +147,15 @@ fi
 eval "$(direnv hook zsh)"
 
 source_if_exist $HOME/.nix-profile/etc/profile.d/nix.sh;
+
+# hotkey deamon
+if ! pgrep sxhkd > /dev/null; then
+    if which sxhkd > /dev/null; then
+        sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
+        sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
+    fi
+fi
+
 
 # xrdb ~/.Xresources
 #

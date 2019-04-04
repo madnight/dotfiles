@@ -43,7 +43,7 @@ font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;3
 font-2 = UbuntuMono Nerd Font:pixelsize=11;3
 font-3 = DroidSansMono Nerd Font:pixelsize=11;3
 modules-left = apps novpn vpn weather fs-root cputemp gputemp cpu memory ripple ethereum
-modules-right = bitcoin cap wired ping updates volume date time
+modules-right = google bitcoin cap wired ping updates volume date time
 
 [module/workspaces]
 type = internal/xworkspaces
@@ -92,7 +92,7 @@ wm-restack = bspwm
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
 modules-left = apps fs-root cpu mem wifi weather novpn vpn downspeed upspeed
-modules-right = bitcoin wired-work uptime thinkpadtemp updates ping volume battery date time
+modules-right = google bitcoin wired-work uptime thinkpadtemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
@@ -494,13 +494,18 @@ exec = python $HOME/scripts/weather.py | grep -v Traceback
 
 [module/crypto]
 type = custom/script
-interval = 60
+interval = 120
 format = <label>
 
 [module/bitcoin]
 inherit = module/crypto
 format-prefix = "%{F#666}%{F-} $"
 exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD" | jq -r '.USD | floor'
+
+[module/google]
+inherit = module/crypto
+format-prefix = "%{F#666}G%{F-} $"
+exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=GOOGL&apikey=OIDXILNW2URMOD4S" |  jq '.[]."05. price" | tonumber | floor'
 
 [module/cap]
 inherit = module/crypto

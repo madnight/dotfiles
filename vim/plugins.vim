@@ -198,6 +198,8 @@ Plug 'ternjs/tern_for_vim'
 
 " Plug 'ajh17/VimCompletesMe'
 
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+
 " keep an eye in youcompleteme seems that
 " the recompile on update might not work
 " and the plugin after that neither

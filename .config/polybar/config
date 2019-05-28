@@ -43,7 +43,7 @@ font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;3
 font-2 = UbuntuMono Nerd Font:pixelsize=11;3
 font-3 = DroidSansMono Nerd Font:pixelsize=11;3
 modules-left = apps novpn vpn weather fs-root cputemp gputemp cpu memory ripple ethereum
-modules-right = google bitcoin cap wired ping updates volume date time
+modules-right = apple microsoft google bitcoin cap wired ping updates volume date time
 
 [module/workspaces]
 type = internal/xworkspaces
@@ -91,12 +91,14 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps fs-root cpu mem wifi weather novpn vpn downspeed upspeed
+modules-left = apps fs-root cpu mem wifi weather novpn vpn downspeed upspeed apple microsoft qqq
 modules-right = google bitcoin wired-work uptime thinkpadtemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
 wm-restack = bspwm
+; font-0 = GohuFont Nerd Font:pixelsize=11;1
+font-0 = dina:pixelsize=11;1
 
 [bar/top-bspwm-thinkpad]
 inherit = bar/base
@@ -500,12 +502,29 @@ format = <label>
 [module/bitcoin]
 inherit = module/crypto
 format-prefix = "%{F#666}%{F-} $"
-exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD" | jq -r '.USD | floor'
+exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD" | jq -r '.USD | floor' 2> /dev/null
 
 [module/google]
 inherit = module/crypto
 format-prefix = "%{F#666}G%{F-} $"
-exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=GOOGL&apikey=OIDXILNW2URMOD4S" |  jq '.[]."05. price" | tonumber | floor'
+exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=GOOGL&apikey=OIDXILNW2URMOD4S" |  jq '.[]."05. price" | tonumber | floor' 2> /dev/null
+
+[module/qqq]
+inherit = module/crypto
+format-prefix = "%{F#666}Q%{F-} $"
+exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=QQQ&apikey=OIDXILNW2URMOD4S" |  jq '.[]."05. price" | tonumber | floor' 2> /dev/null
+
+[module/apple]
+inherit = module/crypto
+format-prefix = "%{F#666}A%{F-} $"
+exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=OIDXILNW2URMOD4S" |  jq '.[]."05. price" | tonumber | floor' 2> /dev/null
+
+[module/microsoft]
+inherit = module/crypto
+format-prefix = "%{F#666}M%{F-} $"
+format-suffix = "%"
+exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=OIDXILNW2URMOD4S" |  jq -r '.[] | (."05. price" | tonumber | floor | tostring) + ";" + ((."10. change percent" | sub("%";"") | tonumber | .*100.0 + 0.5| floor / 100.0 | tostring ) )' 2> /dev/null
+
 
 [module/cap]
 inherit = module/crypto

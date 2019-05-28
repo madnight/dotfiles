@@ -65,6 +65,8 @@ vmap gx <Plug>(openbrowser-smart-search)
 
 nnoremap <C-p> :FilesMru --tiebreak=end<cr>
 nnoremap <Leader>lb :e#<cr>
+
+nnoremap <Leader>rg :Rg<cr>
 " nnoremap <C-I> i <ESC>r
 
 " o insert line below

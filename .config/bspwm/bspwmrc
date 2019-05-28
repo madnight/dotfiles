@@ -150,7 +150,7 @@ bspc rule -a Firefox	      desktop=1 focus=on
 bspc rule -a Slack            desktop=1
 bspc rule -a Chromium         desktop=4
 bspc rule -a UXterm           desktop=9 focus=on
-bspc rule -a Thunderbird      desktop=3
+bspc rule -a Thunderbird      desktop=6
 bspc rule -a Hexchat	      desktop=5
 bspc rule -a Vlc              desktop=4
 

@@ -184,7 +184,7 @@ function! BuildYCM(info)
   endif
 endfunction
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'airblade/vim-rooter'
 
 
@@ -230,7 +230,7 @@ Plug 'junegunn/gv.vim',                         { 'on': 'GV' }
 Plug 'joonty/vdebug',                           { 'on': 'VdebugStart' }
 
 " in file text string search of current dir with super fast rg
-Plug 'mileszs/ack.vim',                         { 'on': 'Ack' }
+" Plug 'mileszs/ack.vim',                         { 'on': 'Ack' }
 
 " show mru (most recently used) files
 Plug 'vim-scripts/mru.vim',                     { 'on': 'Mru' }
@@ -327,5 +327,3 @@ Plug 'eagletmt/ghcmod-vim'
 
 
 call plug#end()
-
-

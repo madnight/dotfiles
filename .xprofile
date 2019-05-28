@@ -6,6 +6,16 @@
  #       /_/\_\ .__/|_|  \___/|_| |_|_|\___|
  #            |_|
 
+
+# hotkey deamon
+if ! pgrep sxhkd > /dev/null; then
+    if which sxhkd > /dev/null; then
+        sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
+        sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
+    fi
+fi
+
+
 # load xdefaults
 [[ -e ~/.Xdefaults ]] && xrdb ~/.Xdefaults
 [[ -e ~/.Xresources ]] && xrdb ~/.Xresources

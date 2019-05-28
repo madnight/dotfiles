@@ -22,7 +22,6 @@ source ~/vim/plugins.vim
 source ~/vim/gvim.vim
 source ~/vim/keys.vim
 source ~/vim/plugins-config.vim
-source ~/.private_vimrc
 source ~/vim/autocmd.vim
 
 function! s:Highlight_Matching_Pair()

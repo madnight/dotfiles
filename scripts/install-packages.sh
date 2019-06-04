@@ -233,6 +233,7 @@ ttf-liberation
 ttf-ms-fonts
 ttf-nerd-fonts-symbols
 ufetch
+un-apple-keyboard
 unclutter
 unrar
 urxvt

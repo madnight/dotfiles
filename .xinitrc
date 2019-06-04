@@ -26,6 +26,10 @@ if [[ $(hostname) == 'thinkpad' ]]; then
     feh --bg-scale /home/x/Pictures/hollywood.jpg
 fi
 
+if [[ $(hostname) == 't480s' ]]; then
+    feh --bg-scale /home/x/pictures/rocket_launch.jpg /home/x/pictures/sunset.jpg /home/x/pictures/hollywood.jpg
+fi
+
 # x settings
 xset r rate 250 50
 xset +fp ~/.fonts

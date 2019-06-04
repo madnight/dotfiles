@@ -18,9 +18,6 @@ call plug#begin()
 " editorconfig define consistent coding styles in different editors
 Plug 'editorconfig/editorconfig-vim'
 
-" Peekaboo extends " @ normal mode and <CTRL-R> insert mode see the contents of the registers
-" Plug 'junegunn/vim-peekaboo'
-
 " incsearch.vim incrementally highlights ALL pattern matches
 Plug 'haya14busa/incsearch.vim'
 
@@ -57,12 +54,6 @@ Plug 'matze/vim-move'
 " global replace
 Plug 'skwp/greplace.vim'
 
-" ctags generator
-Plug 'szw/vim-tags'
-
-" select increasingly greater region of text
-Plug 'terryma/vim-expand-region'
-
 " vim sugar for the UNIX shell commands that need it the most
 Plug 'tpope/vim-eunuch'
 
@@ -90,6 +81,7 @@ Plug 'vim-airline/vim-airline'
 " easy tmux navigation
 Plug 'christoomey/vim-tmux-navigator'
 
+" vim tmux resize integration
 Plug 'madnight/vim-tmux-resizer'
 
 " vim status line themes
@@ -103,9 +95,6 @@ Plug 'w0rp/ale'
 
 " miscellaneous auto-load vim scripts
 Plug 'xolox/vim-misc'
-
-" easy note taking in vim
-Plug 'xolox/vim-notes'
 
 " comment out stuff via shortcut
 Plug 'scrooloose/nerdcommenter'
@@ -125,9 +114,6 @@ Plug 'tweekmonster/fzf-filemru'
 " autoclose brackets
 Plug 'townk/vim-autoclose'
 
-" preview colours in source code while editing
-" Plug 'ap/vim-css-color'
-
 " shows a git diff in the 'gutter' (sign column)
 Plug 'airblade/vim-gitgutter'
 
@@ -146,9 +132,6 @@ Plug 'easymotion/vim-easymotion'
 " FocusGained and FocusLost autocommand events for tmxux
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
-" autocomplete things that you see in other terminal
-" Plug 'wellle/tmux-complete.vim'
-
 " vim plugin that provides additional text objects
 Plug 'wellle/targets.vim'
 
@@ -156,84 +139,41 @@ Plug 'wellle/targets.vim'
 Plug 'rhysd/committia.vim'
 
 " Interactive command execution in Vim.
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-
-" Plug 'romainl/vim-qf'
-
-" Plug 'ervandew/supertab'
+Plug 'jhougo/vimproc.vim', {'do' : 'make'}
 
 " Rename the current file in the vim buffer + retain relative path.
 Plug 'danro/rename.vim'
 
-Plug 'eagletmt/neco-ghc'
-
-Plug 'wincent/terminus'
-
-
-
-
-" Plug 'Shougo/neocomplete.vim'
-
-" kooter changes the working directory to the project root
-" WuARNING! this is incomptabile with tools such as linter
-" that rely on the relative path
-"
-function! BuildYCM(info)
-  if a:info.status == 'installed' || a:info.force
-    !./install.py
-  endif
-endfunction
-
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Changes Vim working directory to project root
 Plug 'airblade/vim-rooter'
 
-
-Plug 'ternjs/tern_for_vim'
-
-" async completion
-" Plug 'maralla/completor.vim'
-
-" Plug 'vim-scripts/AutoComplPop'
-" "as
-
-" Plug 'ajh17/VimCompletesMe'
-
+" Intellisense engine for vim8 & neovim, full language server protocol support
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-
-" keep an eye in youcompleteme seems that
-" the recompile on update might not work
-" and the plugin after that neither
 
 " #######################################
 " plugins active on trigger (lazy loaded)
 " #######################################
 
+
+" function! BuildYCM(info)
+"   if a:info.status == 'installed' || a:info.force
+"     !./install.py
+"   endif
+" endfunction
+
+
 " vim plugin to interact with tmux
 Plug 'benmills/vimux',                          { 'on': 'VimuxRunCommand' }
+
+" keep an eye in youcompleteme seems that
+" the recompile on update might not work
+" and the plugin after that neither
 
 " a code-completion engine for Vim
 " Plug 'Valloric/YouCompleteMe',                  { 'on': [], 'do': function('BuildYCM') }
 
-" an ack.vim alternative mimics Ctrl-Shift-F (search with context)
-Plug 'dyng/ctrlsf.vim',                         { 'on': 'CtrlSF' }
-
-" gitk for vim
-Plug 'gregsexton/gitv',                         { 'on': 'Gitv' }
-
-" improved nerdtree side panel (more ide like)
-Plug 'jistr/vim-nerdtree-tabs',                 { 'on': 'NERDTreeToggle' }
-
-" lightweight gitv (if gitv is too slow)
-Plug 'junegunn/gv.vim',                         { 'on': 'GV' }
-
 " debugger for php, python and other languages
 Plug 'joonty/vdebug',                           { 'on': 'VdebugStart' }
-
-" in file text string search of current dir with super fast rg
-" Plug 'mileszs/ack.vim',                         { 'on': 'Ack' }
-
-" show mru (most recently used) files
-Plug 'vim-scripts/mru.vim',                     { 'on': 'Mru' }
 
 " delete all the buffers except the current buffer :Bonly
 Plug 'schickling/vim-bufonly',                  { 'on': 'Bonly' }
@@ -253,9 +193,6 @@ Plug 'vim-scripts/a.vim',                       { 'on': 'A'}
 " nerdtree git support
 Plug 'Xuyuanp/nerdtree-git-plugin',             { 'on':  'NERDTreeToggle' }
 
-" search on google
-Plug 'szw/vim-g',                               { 'on': 'Google' }
-
 " be able to write files with sudo right
 Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
@@ -266,14 +203,6 @@ Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
 " a collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
-
-" A completion plugin for Haskell, using ghc-mod
-" Plug 'eagletmt/neco-ghc'
-
-" Plug 'lukerandall/haskellmode-vim'
-
-Plug 'eagletmt/ghcmod-vim'
-
 
 " ################
 " disabled plugins
@@ -287,43 +216,5 @@ Plug 'eagletmt/ghcmod-vim'
 
 " ide like tagbar that lists all function of a class / file
 " Plug 'majutsushi/tagbar', {'on' : 'LdTagbar'} // disabled performance reasons
-
-" Plug 'nixprime/cpsm' // does only work with vim python support
-
-" generate fancy tmux status lines (airline like)
-" Plug 'edkolev/tmuxline.vim'
-
-" dont need this plugin anymore, due to tmux like window resizing
-" resizer mode ctrl-e
-" Plug 'simeji/winresizer',                       { 'on': 'WinResizerStartResize' }
-
-" its faster for me to switch windows with a fews keystrokes
-" cvim / vimium like window choosing by hinting
-" Plug 't9md/vim-choosewin',                      { 'on': 'ChooseWin' }
-
-" strange beahaviour
-" pasting in Vim with indentation adjusted to destination context.
-" Plug 'sickill/vim-pasta'
-
-" True Sublime Text style multiple selections for Vim
-" i might remove this plugins due to vims native feature of search, replace
-" and dot repeat + cgn feature
-" Plug 'terryma/vim-multiple-cursors'
-
-" open url in browser
-" Plug 'tyru/open-browser.vim'
-
-" hardtime helps you break that annoying habit vimmers have
-" Plug 'takac/vim-hardtime'
-
-" Track the engine.
-" Plug 'SirVer/ultisnips',                        { 'on': [] }
-
-" Snippets are separated from the engine. Add this if you want them:
-" Plug 'honza/vim-snippets',                      { 'on': [] }
-
-" distraction-free writing in Vim
-" Plug 'junegunn/goyo.vim',                       { 'on': 'Goyo' }
-
 
 call plug#end()

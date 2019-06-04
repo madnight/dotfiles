@@ -91,5 +91,9 @@ if [[ $(hostname) == 'skylake' ]]; then
     exist_and_not_running slack
 fi
 
+if [[ $(hostname) == 't480s' ]]; then
+    exist_and_not_running slack
+fi
+
 # autolock screen after n mins
 exist_and_not_running xautolock -time 15 -locker "runghc $HOME/scripts/lock.hs"

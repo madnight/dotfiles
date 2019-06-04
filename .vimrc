@@ -10,7 +10,6 @@ syntax on
 let mapleader="\,"
 
 if &compatible
-" use vim-defaults instead of vi-defaults
   set nocompatible
 endif
 
@@ -33,128 +32,77 @@ endfunction
 function! s:Find_Matching_Pair()
 endfunction
 
-
-
 "###################
 " Basic vim settings
 "###################
-set shell=/bin/bash
-" Indents will have a width of 4
-set shiftwidth=4
-" Sets the number of columns for a TAB
-set softtabstop=4
-" Expand TABs to spaces
-set expandtab
-set smartindent
-set list listchars=tab:»-,trail:·,extends:»,precedes:«
-set grepprg=rg\ --color\ never\ --line-number\ --no-heading
-set wildmode=longest,list,full
-set wildmenu
-set hidden
-set cursorline
-" case insensitive searching
-set ignorecase
-" but become case sensitive if you type uppercase characters
-set smartcase
+set background=dark
 set backspace=indent,eol,start
-set nostartofline
-set ruler
+set bs=indent,eol,start
+set cc=80
 set clipboard=unnamedplus
-set confirm
-set encoding=utf-8
-set t_vb=
-set mouse=a
-set notimeout ttimeout ttimeoutlen=200
-set pastetoggle=<F11>
-set formatoptions=l
-set lbr
-set nofoldenable
-" disable folds for diffs
-set diffopt+=context:99999
-set invnumber
-set t_Co=256
-set term=xterm-256color
-set noswapfile
-set nocompatible
-set laststatus=2
 set cmdheight=1
-set noruler
-set noshowcmd
-set timeoutlen=1000 ttimeoutlen=0
-" old regex engine is much faster
-" set re=1
-" lazy redraw + tmux => rendering glitches
-set nolazyredraw
+set complete=.,w,b,u,t
+set confirm
+set cursorline
+set diffopt+=context:99999
+set encoding=utf-8
+set esckeys
+set expandtab
+set fileformat=unix
+set formatoptions=l
+set grepprg=rg\ --color\ never\ --line-number\ --no-heading
+set hidden
+set history=50
+set ignorecase
+set invnumber
+set laststatus=2
+set lbr
+set list listchars=tab:»-,trail:·,extends:»,precedes:«
+set magic
+set matchpairs+=<:>
+set matchtime=2
+set mouse=a
+set mouse=v
+set nobackup
+set nocompatible
 set nocursorcolumn
 set nocursorline
-set background=dark
-set nuw=1
-set updatetime=1000
-set wildignore+=*/.git/*,*/tmp/*,*.swp,*.so,*.zip,*/node_modules
-" dont wrap lines
+set nofoldenable
+set nolazyredraw
+set noruler
+set noshowcmd
+set nostartofline
+set noswapfile
+set notimeout ttimeout ttimeoutlen=200
 set nowrap
-" 2 lines above/below cursor when scrolling
-set scrolloff=2
-" show line numbers
 set number
-" show matching bracket (briefly jump)
-set showmatch
-" show mode in status bar (insert/replace/...)
-set showmode
-" show typed command in status bar
-set showcmd
-" show cursor position in status bar
-set ruler
-" show file in titlebar
-set title
-" completion with menu
-set wildmenu
-set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
-" use 2 lines for the status bar
-set laststatus=2
-" show matching bracket for 0.2 seconds
-set matchtime=2
-" specially for html
-set matchpairs+=<:>
-" map missed escape sequences (enables keypad keys)
-set esckeys
-" case insensitive searching
-set ignorecase
-" but become case sensitive if you type uppercase characters
-" set smartcase
-" smart auto indenting
-" set smartindent
-" smart tab handling for indenting
-" set smarttab
-" change the way backslashes are used in search patterns
-set magic
-" Allow backspacing over everything in insert mode
-set bs=indent,eol,start
-" number of spaces a tab counts for
-set tabstop=4
-" spaces for autoindents
-set shiftwidth=4
-" file mode is unix
-set fileformat=unix
-" get a dialog when :q, :w, or :wq fails
-set confirm
-" no backup~ files.
-set nobackup
-" remember copy registers after quitting in the .viminfo file -- 20 jump links, regs up to 500 lines'
-set viminfo='20,\"500
-" remember undo after quitting
-set hidden
-" keep 50 lines of command history
-set history=50
-" use mouse in visual mode (not normal,insert,command,help mode
-set mouse=v
-" soft wrap
-set wrap
+set nuw=1
+set pastetoggle=<F11>
 set relativenumber
-set cc=80
-set complete=.,w,b,u,t
+set ruler
+set scrolloff=2
+set shell=/bin/bash
+set shiftwidth=4
+set showcmd
+set showmatch
+set showmode
+set smartcase
+set smartindent
+set softtabstop=4
+set t_Co=256
+set t_vb=
+set tabstop=4
+set term=xterm-256color
+set timeoutlen=1000 ttimeoutlen=0
+set title
+set updatetime=1000
+set viminfo='20,\"500
+set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
+set wildignore+=*/.git/*,*/tmp/*,*.swp,*.so,*.zip,*/node_modules
+set wildmenu
+set wildmode=longest,list,full
+set wrap
 
-" https://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
 hi OverLength ctermbg=black ctermfg=red
 match OverLength /\%81v.\+/
 
@@ -178,7 +126,6 @@ syntax sync minlines=200
 syntax on
 filetype plugin indent on
 
-
 " should be the last lines
 highlight LineNr ctermfg=DarkGrey
 hi clear CursorLine
@@ -196,12 +143,3 @@ augroup plugin_initialize
     autocmd!
     autocmd VimEnter * call FuckThatMatchParen()
 augroup END
-
-
-filetype plugin indent on
-" show existing tab with 4 spaces width
-set tabstop=4
-" when indenting with '>', use 4 spaces width
-set shiftwidth=4
-" On pressing tab, insert 4 spaces
-set expandtab

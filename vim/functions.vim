@@ -41,19 +41,3 @@ fun! QuitPrompt()
       let choice = confirm("Close?", "&yes\n&no", 1)
       if choice == 1 | wq | endif
 endfun
-
-function! s:VisualAck()
-  let temp = @"
-  normal! gvy
-  let escaped_pattern = escape(@", "[]().*")
-  let @" = temp
-  execute "Ack! '" . escaped_pattern . "'"
-endfunction
-
-function! BuildYCM(info)
-  if a:info.status == 'installed' || a:info.force
-    !./install.py
-  endif
-endfunction
-
-

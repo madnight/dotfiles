@@ -17,6 +17,7 @@ let g:Tex_CompileRule_pdf = 'latexmk -pdf'
 let g:LatexBox_latexmk_options = "-pvc -pdfps"
 let g:LatexBox_latexmk_preview_continuously = 1
 let g:LatexBox_latexmk_async = 1
+
 " performance optimization
 let g:vimtex_motion_matchparen = 0
 
@@ -29,6 +30,7 @@ let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#buffer_min_count =2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+
 " performance optimization
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#branch#enabled = 0
@@ -50,38 +52,15 @@ let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
 let g:NERDTreeWinSize = 40
+
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
+
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
+
 " Add your own custom formats or override the defaults
 let g:NERDTrimTrailingWhitespace = 1
-
-"########################
-" YouCompleteMe settings
-"########################
-" autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-" let g:ycm_semantic_triggers = {'haskell' : ['.']}
-" let g:necoghc_use_stack = 1
-" let g:necoghc_enable_detailed_browse = 1
-
-" let g:ycm_server_python_interpreter = '/usr/bin/python2'
-" let g:ycm_autoclose_preview_window_after_completion = 1
-" let g:ycm_autoclose_preview_window_after_insertion = 1
-" let g:ycm_semantic_triggers =  {
-"   \   'c' : ['->', '.'],
-"   \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
-"   \             're!\[.*\]\s'],
-"   \   'ocaml' : ['.', '#'],
-"   \   'cpp,objcpp' : ['->', '.', '::'],
-"   \   'perl' : ['->'],
-"   \   'php' : ['->', '::'],
-"   \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-"   \   'ruby' : ['.', '::'],
-"   \   'lua' : ['.', ':'],
-"   \   'erlang' : [':'],
-"   \   'haskell' : ['.'],
-"   \ }
 
 " Disable haskell-vim omnifunc
 let g:haskellmode_completion_ghc = 1
@@ -92,8 +71,6 @@ let g:haskellmode_completion_ghc = 1
 let g:ale_lint_on_text_changed = 0
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '--'
-
-" let g:deoplete#enable_at_startup = 1
 
 "#############################
 " HardTime to break bad habits
@@ -129,14 +106,6 @@ let php_htmlInStrings = 1
 
 let Tlist_Use_Right_Window = 1
 
-" Enable omni completion.
-" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
 " add jsx syntax highlights for .js files
 let g:jsx_ext_required = 0
 
@@ -147,8 +116,6 @@ let g:tmux_navigator_no_mappings = 1
 
 let g:winresizer_horiz_resize = 1
 let g:vim_markdown_preview_github=1
-
-" let g:UltiSnipsExpandTrigger="<C-l>"
 
 let g:rg_command = '
   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
@@ -182,8 +149,7 @@ function! s:add_xmonad_path()
 endfunction
 
 let g:haskell_indent_disable=1
+
 let g:ale_linters = {
 \   'haskell': ['hlint', 'ghc-mod', 'hdevtools', 'stack_build', 'stack_ghc'],
 \}
-
-" let g:completor_auto_trigger = 1

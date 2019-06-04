@@ -1,6 +1,5 @@
 rangerShow() { BUFFER="ranger"; zle accept-line; }
 zle -N rangerShow
-# bindkey '^F' rangerShow
 
 zle -N fzd{,}
 bindkey '^F' fzd
@@ -29,57 +28,38 @@ bindkey '^[.'      cdParentKey
 bindkey '^[,'      cdUndoKey
 
 # one-liners
-grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2"; }
-
-killall() { ps -ef | grep $1 | grep -v grep | awk '{print $2}' | xargs kill -9; }
-
-statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
-
-cl() { cd $1 && pwd && ls; }
-
-duplicates() { sort $1 | uniq -cd }
-
-github() { chromium "https://github.com/search?q=$1"; }
-
-killport() { lsof -i tcp:8080 | grep LISTEN | awk '{print $2}' | xargs kill; }
-
-cd() { builtin cd $1 && ls; }
-
-# aur() { yaourt --noconfirm --color "$@"}
-aurless() { yaourt --noconfirm --color $1 | less -r }
-
-facd() { cd $(locate -i $1 | head -n 1); }
-
-fan() { nano $(locate -i $1 | head -n 1); }
-
-sfan() { sudo vim $(fa $1 | head -n 1); }
-
-maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
-
-makezip() { zip -r "${1%%/}.zip" "$1" ; }
-
-pkgfiler() { pacman -Ql $1 | grep bin; }
-
-f() { find $(pwd) | grep $1; }
-
-h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi }
-
-clip() { echo "$@" | xclip; }
-
-mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
-
 256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
-
+aurless() { yaourt --noconfirm --color $1 | less -r }
+cd() { builtin cd $1 && ls; }
+cl() { cd $1 && pwd && ls; }
+clip() { echo "$@" | xclip; }
 cpstat () { tar cf - "$1" | pv | (cd "$2";tar xf -) }
-
+disabled() { sudo systemctl disable $1.service;  }
 dls () { echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`; }
-
+duplicates() { sort $1 | uniq -cd }
+enabled() { cd /usr/lib/systemd/system; sudo systemctl enable $1.service;  }
+f() { find $(pwd) | grep $1; }
+facd() { cd $(locate -i $1 | head -n 1); }
+fan() { nano $(locate -i $1 | head -n 1); }
+github() { chromium "https://github.com/search?q=$1"; }
+grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2"; }
+h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi }
+killall() { ps -ef | grep $1 | grep -v grep | awk '{print $2}' | xargs kill -9; }
+killport() { lsof -i tcp:8080 | grep LISTEN | awk '{print $2}' | xargs kill; }
+maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
+makezip() { zip -r "${1%%/}.zip" "$1" ; }
+mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
+pagrep() { rg "$1" }
 parentProcess () { ps -p "$1" -o ppid= }
-
-# some funny git stuff
-yodacommit() { git commit -m "$(fortune)" }
+pkgfiler() { pacman -Ql $1 | grep bin; }
+restart() { sudo systemctl restart $1.service; sudo systemctl status $1.service; }
+sfan() { sudo vim $(fa $1 | head -n 1); }
+start() { sudo systemctl start $1.service; sudo systemctl status $1.service; }
+status() { sudo systemctl status $1.service; }
+statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
+stop() { sudo systemctl stop $1.service; sudo systemctl status $1.service; }
 yoda() { git add -u && git commit && git push; }
-
+yodacommit() { git commit -m "$(fortune)" }
 
 dockerprune() {
     docker stop $(docker ps -a -q)
@@ -96,13 +76,6 @@ nixprune() {
    nix-collect-garbage -d
 }
 
-# systemd shortcuts
-start() { sudo systemctl start $1.service; sudo systemctl status $1.service; }
-stop() { sudo systemctl stop $1.service; sudo systemctl status $1.service; }
-restart() { sudo systemctl restart $1.service; sudo systemctl status $1.service; }
-status() { sudo systemctl status $1.service; }
-enabled() { cd /usr/lib/systemd/system; sudo systemctl enable $1.service;  }
-disabled() { sudo systemctl disable $1.service;  }
 user_commands=(
 list-units is-active status show help list-unit-files
 is-enabled list-jobs show-environment cat)
@@ -169,12 +142,6 @@ leo()
 }
 
 
-pagrep()
-{
-    #[[ -z "$1"  ]] && echo 'Define a grep string and try again' && return 1
-    #find $(pwd) -type f | parallel -k -j150% -n 1000 -m grep -H -n "$1" {}
-    rg "$1"
-}
 
 man()
 {
@@ -295,53 +262,6 @@ done
 echo;
 }
 
-# config shortucts
-conf() {
-    case $1 in
-        dict)          	vim ~/.conky/dict;;
-        weather)       	vim ~/.conky/conky_weather/weather_5days;;
-        wiki)           vim ~/.conky/wiki;;
-        irc)            vim ~/.conky/irc;;
-        grey)           vim ~/.conky/conkyrc;;
-        mail)           vim ~/.conky/mail;;
-        hc)             vim ~/.config/herbstluftwm/autostart;;
-        compton)        vim ~/.config/compton.conf;;
-        autostart)      vim ~/.config/herbstluftwm/autostart;;
-        log)   	        vim ~/.conky/log;;
-        news)           vim ~/.conky/news;;
-        i3)             vim ~/.i3/config;;
-        status)         vim ~/.i3status.conf;;
-        vim)            vim ~/.vimrc;;
-        res)            vim ~/.Xresources && xrdb ~/.Xresources;;
-        def)            vim ~/.Xdefaults && xrdb ~/.Xdefaults;;
-        ncm)            vim ~/.ncmpcpp/config;;
-        mutt)           vim ~/.mutt/muttrc;;
-        x)              vim ~/.xinitrc;;
-        termite)        vim ~/.config/termite/config;;
-        *)              echo "Unknown application: $1";;
-    esac
-}
-
-
-# conky shortcuts
-conk() {
-    case $1 in
-        dict)          	conky -c ~/.conky/dict &;;
-        mail)          	conky -c ~/.conky/mail &;;
-        weather)       	conky -c ~/.conky/conky_weather/weather_5days &;;
-        wiki)           conky -c ~/.conky/wiki &;;
-        grey)           conky -c ~/.conky/conkyrc &;;
-        irc)            conky -c ~/.conky/irc &;;
-        log)            conky -c ~/.conky/log &;;
-        news)           conky -c ~/.conky/news &;;
-        *)              echo "Unknown application: $1";;
-    esac
-}
-
-# check if a website use HSTS (HTTP Strict Transport Security)
-hsts() {
-curl -s -D- $1 | grep Strict
-}
 
 orphans() {
     if [[ ! -n $(pacman -Qdt) ]]; then
@@ -407,31 +327,6 @@ printcolors() {
     done
 }
 
-ix() {
-    local opts
-    local OPTIND
-    [ -f "$HOME/.netrc" ] && opts='-n'
-    while getopts ":hd:i:n:" x; do
-        case $x in
-            h) echo "ix [-d ID] [-i ID] [-n N] [opts]"; return;;
-            d) $echo curl $opts -X DELETE ix.io/$OPTARG; return;;
-            i) opts="$opts -X PUT"; local id="$OPTARG";;
-            n) opts="$opts -F read:1=$OPTARG";;
-        esac
-    done
-    shift $(($OPTIND - 1))
-    [ -t 0 ] && {
-    local filename="$1"
-    shift
-    [ "$filename" ] && {
-    curl $opts -F f:1=@"$filename" $* ix.io/$id
-    return
-}
-echo "^C to cancel, ^D to send."
-  }
-  curl $opts -F f:1='<-' $* ix.io/$id
-}
-
 function countdown(){
    date1=$((`date +%s` + $1));
    while [ "$date1" -ge `date +%s` ]; do
@@ -456,18 +351,6 @@ function cd() {
     builtin cd "${new_directory}" && ls
 }
 
-function ende() {
- google-translate en de "$*"
-}
-
-function deen() {
- google-translate de en "$*"
-}
-
-function randtranslate() {
- a=$(fortune) && echo $a && ende $a
-}
-
 findbin() {
     find -type f -executable -exec file -i '{}' \; | grep 'charset=binary'
 }
@@ -486,46 +369,10 @@ gdb_get_backtrace() {
 
 # screen recoding to webm best uploaded at http://webmshare.com/ (gyfact cuts at 15 sec)
 record () {
-    # $1 resolution
-    # $2 offset x
-    # $3 offset y
-    # $4 output
-    # example
+    # $1 resolution $2 offset x $3 offset y $4 output example:
     # ffmpeg -f x11grab -s 1024x768 -i :0.0+10,100 -c:v libvpx -crf 12 -b:v 500K ouput.webm
     ffmpeg -f x11grab -s $1 -i :0.0+$2,$3 -c:v libvpx -crf 12 -b:v 500K $4
     # open with firefox output.webm
-}
-
-dockerchrome(){
-	local args=$*
-	# one day remove /etc/hosts bind mount when effing
-	# overlay support inotify, such bullshit
-	docker run -d \
-		--memory 3gb \
-		-v /etc/localtime:/etc/localtime:ro \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-e "DISPLAY=unix${DISPLAY}" \
-		-v "${HOME}/Downloads:/root/Downloads" \
-		-v "${HOME}/Pictures:/root/Pictures" \
-		-v "${HOME}/Torrents:/root/Torrents" \
-		-v "${HOME}/.chrome:/data" \
-		-v /dev/shm:/dev/shm \
-		-v /etc/hosts:/etc/hosts \
-		--device /dev/snd \
-		--device /dev/dri \
-		--device /dev/vga_arbiter \
-		--device /dev/usb \
-		--device /dev/bus/usb \
-		--group-add audio \
-		--group-add video \
-		jess/chrome --user-data-dir=/data \
-		--proxy-server="$proxy" \
-		--host-resolver-rules="$map" "$args"
-
-}
-
-function calct() {
-    awk "BEGIN{ print $* }" ;
 }
 
 # Get a 42 chars password: generate-password 42

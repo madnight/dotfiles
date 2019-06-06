@@ -62,7 +62,6 @@ if ! pgrep kernelupdate > /dev/null ; then
 fi
 
 if [[ $(hostname) == 'thinkpad' ]]; then
-    compton &
     if [ -e $HOME/scripts/thinkdock.sh ]; then
         bash $HOME/scripts/thinkdock.sh &
     fi

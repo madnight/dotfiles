@@ -348,7 +348,7 @@ function cd() {
     if [ $# -eq 0 ]; then
         new_directory=${HOME};
     fi;
-    builtin cd "${new_directory}" && ls
+    builtin cd "${new_directory}" && exa
 }
 
 findbin() {

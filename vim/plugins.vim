@@ -197,6 +197,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin',             { 'on':  'NERDTreeToggle' }
 Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
 
+" Plug 'edkolev/tmuxline.vim',                   { 'on': 'Tmuxline' }
+
 " #########################################
 " language specific plugins (lazy loaded)
 " #########################################

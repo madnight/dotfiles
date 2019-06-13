@@ -142,7 +142,9 @@ noremap <Leader>gb :Gblame<cr>
 
 nmap <Leader>cw <ESC>
 nmap <Leader>s <Plug>(easymotion-overwin-f)
-nmap <C-f> <Plug>(easymotion-overwin-f)
+
+nmap <C-f> :Rg<cr>
+
 nmap <Leader>rv <ESC>:so ~/.vimrc<CR>
 nmap <Leader>pi <ESC>:PlugInstall<CR>
 nmap <Leader>v <ESC>:so ~/.vimrc<CR>

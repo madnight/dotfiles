@@ -31,9 +31,6 @@ super + p
 super + @F2
     rofi -demnu -combi-modi drun,window -show combi -modi combi
 
-super + l
-    rofi -demnu -combi-modi drun,window -show combi -modi combi
-
 super + @F8
     xbacklight -dec 10%
 

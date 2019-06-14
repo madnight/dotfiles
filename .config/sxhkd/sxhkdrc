@@ -127,3 +127,110 @@ F7
 
 F9
     vlc --intf dummy ~/Radio/bbcradio1.pls
+
+
+########################
+# wm dependent hotkeys
+########################
+
+# kill window
+control + q
+    bspc node -k || kill -9 $(xdotool getactivewindow getwindowpid)
+
+#############
+# state/flags
+#############
+
+# toggle fullscreen
+super + f
+    bspc node -t fullscreen || bspc node -t tiled
+
+# toggle floating
+super + @space
+    bspc node -t floating || bspc node -t tiled
+
+############
+# focus/swap
+############
+
+super + r
+   bspc node @/ -R 90
+
+# send to the given desktop with focus
+super + shift + {1-9}
+    id=$(bspc query -N -n); \
+    bspc node -d '^{1-9}'; \
+    bspc node -f ${id}
+
+# send to the given desktop without focus
+super + alt + {1-9}
+    bspc node -d '^{1-9}'
+
+# focus given desktop
+super + {1-9}
+    bspc desktop -f '^{1-9}'
+
+# swap desktops
+super + d
+    bspc desktop -s last && bspc desktop -f last
+
+# focus the node in the given direction
+super + {_,ctrl + }{h,j,k,l}
+    bspc node -{f,s} {west,south,north,east}.local
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+    bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous node in the current desktop
+super + {_,shift + } Tab
+    bspc node -f {next,prev}.local
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+    bspc desktop -f {prev,next}.local
+
+# switch monitor
+alt + space
+    bspc monitor -f next
+
+# focus the last node/desktop
+super + Tab
+    bspc monitor -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+    bspc wm -h off; \
+    bspc node {older,newer} -f; \
+    bspc wm -h on
+
+###########
+# preselect
+###########
+
+# preselect the direction
+super + alt + {h,j,k,l}
+    bspc node -p {west,south,north,east}
+
+super + ctrl + {1-9}
+    bspc desktop -a {1-9}
+
+#############
+# move/resize
+#############
+
+super + shift + h
+    bspc node -z left -80 0 || bspc node -z right -80 0
+
+super + shift + j
+    bspc node -z bottom 0 80 || bspc node -z top 0 80
+
+super + shift + k
+    bspc node -z top 0 -80 || bspc node -z bottom 0 -80
+
+super + shift + l
+    bspc node -z right 80 0 || bspc node -z left 80 0
+
+# move a floating window
+super + {Left,Down,Up,Right}
+    bspc node -v {-20 0,0 20,0 -20,20 0}

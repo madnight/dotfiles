@@ -17,48 +17,9 @@ bspc config right_padding  8
 bspc config left_padding   8
 bspc config bottom_padding 0
 
-
-if [[ $(hostname) == 'skylake' ]]; then
-    xrandr --setprovideroutputsource 1 0 && xrandr --auto
-    xrandr --output HDMI1 --primary --left-of eDP1
-
-    # set the screen layout
-    sh $HOME/.screenlayout/1.sh
-
-    PRIMARY=$(xrandr | grep \ connected | grep HDMI | awk {'print $1'})
-    LEFT=$(xrandr | grep \ connected | grep eDP | awk {'print $1'})
-    RIGHT=$(xrandr | grep \ connected | grep DVI | awk {'print $1'})
-
-    # primary monitor
-    bspc monitor $PRIMARY -d 4 5 6
-    bspc config -m $PRIMARY top_padding 45
-    export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r bspwm &
-
-    # left monitor
-    bspc monitor $LEFT -d 1 2 3
-    bspc config -m $LEFT top_padding    0
-    bspc config -m $LEFT right_padding  0
-    bspc config -m $LEFT left_padding   0
-    bspc config -m $LEFT bottom_padding 0
-    bspc config -m $LEFT window_gap     0
-
-    # bspc config -m $RIGHT left_padding 210 # conky pad
-
-    # right monitor
-    bspc monitor $RIGHT -d 7 8 9
-    bspc config -m $RIGHT top_padding    0
-    bspc config -m $RIGHT right_padding  0
-    bspc config -m $RIGHT left_padding   0
-    bspc config -m $RIGHT bottom_padding 0
-    bspc config -m $RIGHT window_gap     0
-
-    # wallpaper
-    WP=$HOME/Pictures/xubuntu-trusty.png
-    # set wallpaper on three monitors
-    feh --bg-scale $WP $WP $WP
-
-    export MONITOR=HDMI1 && SHELL=/bin/bash polybar -r top-bspwm-work &
-fi
+bspc config remove_disabled_monitor true
+bspc config remove_unplugged_monitor true
+bspc config merge_overlapping_monitors true
 
 if [[ $(hostname) == 'arch' ]]; then
     RIGHT=$(xrandr | grep \ connected | grep 1680x1050 | grep -v 1680x1050+0 | awk {'print $1'})
@@ -91,37 +52,51 @@ if [[ $(hostname) == 't480s' ]]; then
     # set the screen layout
     sh $HOME/.screenlayout/t480s-work.sh
 
-    PRIMARY=$(xrandr | grep \ connected | grep DP | grep -v eDP | awk {'print $1'})
+    RIGHT=$(xrandr | grep \ connected | grep DP | grep -v eDP | awk {'print $1'})
+    PRIMARY=$(xrandr | grep \ connected | grep HDMI | awk {'print $1'})
     LEFT=$(xrandr | grep \ connected | grep eDP | awk {'print $1'})
-    RIGHT=$(xrandr | grep \ connected | grep HDMI | awk {'print $1'})
 
-    bspc monitor $PRIMARY -d 4 5 6
-    bspc config -m $PRIMARY top_padding 45
+    if [[ $(xrandr | grep \ connected | wc -l) -lt 2 ]]; then
 
-    # left monitor
-    bspc monitor $LEFT -d 1 2 3
-    bspc config -m $LEFT top_padding    0
-    bspc config -m $LEFT right_padding  0
-    bspc config -m $LEFT left_padding   0
-    bspc config -m $LEFT bottom_padding 0
-    bspc config -m $LEFT window_gap     0
+        export MONITOR=$LEFT && SHELL=/bin/bash polybar -r top-bspwm-work &
+        bspc monitor $LEFT -d 1 2 3 4 5 6 7 8 9
+        bspc config -m $LEFT top_padding 45
+        bspc config -m $LEFT right_padding  0
+        bspc config -m $LEFT left_padding   0
+        bspc config -m $LEFT bottom_padding 0
+        bspc config -m $LEFT window_gap     0
 
-    # bspc config -m $RIGHT left_padding 210 # conky pad
+    else
 
-    # right monitor
-    bspc monitor $RIGHT -d 7 8 9
-    bspc config -m $RIGHT top_padding    0
-    bspc config -m $RIGHT right_padding  0
-    bspc config -m $RIGHT left_padding   0
-    bspc config -m $RIGHT bottom_padding 0
-    bspc config -m $RIGHT window_gap     0
+        bspc monitor $PRIMARY -d 4 5 6
+        bspc config -m $PRIMARY top_padding 45
 
-    # wallpaper
-    # WP=$HOME/Pictures/xubuntu-trusty.png
-    # set wallpaper on three monitors
-    # feh --bg-scale $WP $WP $WP
+        # left monitor
+        bspc monitor $LEFT -d 1 2 3
+        bspc config -m $LEFT top_padding    0
+        bspc config -m $LEFT right_padding  0
+        bspc config -m $LEFT left_padding   0
+        bspc config -m $LEFT bottom_padding 0
+        bspc config -m $LEFT window_gap     0
 
-    export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm-work &
+        # bspc config -m $RIGHT left_padding 210 # conky pad
+
+        # right monitor
+        bspc monitor $RIGHT -d 7 8 9
+        bspc config -m $RIGHT top_padding    0
+        bspc config -m $RIGHT right_padding  0
+        bspc config -m $RIGHT left_padding   0
+        bspc config -m $RIGHT bottom_padding 0
+        bspc config -m $RIGHT window_gap     0
+
+        # wallpaper
+        # WP=$HOME/Pictures/xubuntu-trusty.png
+        # set wallpaper on three monitors
+        # feh --bg-scale $WP $WP $WP
+
+        export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm-work &
+
+    fi
 fi
 
 if [[ $(hostname) == 'thinkpad' ]]; then

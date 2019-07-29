@@ -139,7 +139,7 @@ Plug 'wellle/targets.vim'
 Plug 'rhysd/committia.vim'
 
 " Interactive command execution in Vim.
-Plug 'jhougo/vimproc.vim', {'do' : 'make'}
+Plug 'shougo/vimproc.vim', {'do' : 'make'}
 
 " Rename the current file in the vim buffer + retain relative path.
 Plug 'danro/rename.vim'

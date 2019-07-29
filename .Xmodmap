@@ -6,9 +6,19 @@
 !       /_/\_\_| |_| |_|\___/ \__,_|_| |_| |_|\__,_| .__/
 !                                                  |_|
 
+clear control
+clear mod4
 clear Lock
 
-keycode 66 =  Mode_switch
+! this will make Caps Lock to act as Esc
+keycode 66 = Escape NoSymbol Escape
+
+add mod4 = Super_L
+add control = Control_L
+add control = Control_R
+
+keycode  94 = dead_circumflex degree dead_circumflex degree notsign notsign notsign
+keycode  49 = less greater less greater bar brokenbar bar
 
 keycode 43 = h H Left Left
 keycode 44 = j J Down Down

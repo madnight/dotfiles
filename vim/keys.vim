@@ -180,7 +180,8 @@ map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
 
 nnoremap ,i i_<Esc>r
 imap jj <Esc><Esc>
-map <C-s> <ESC>:w<CR>:VimuxInterruptRunner<cr>:VimuxRunLastCommand<cr>
+map <C-s> <ESC>:w<CR>
+map <C-@> <ESC>:w<CR>:VimuxInterruptRunner<cr>:VimuxRunLastCommand<cr>
 imap <C-g> <Plug>IMAP_JumpForward
 
 vnoremap K :<C-u>call <sid>VisualAck()<cr>
@@ -191,6 +192,9 @@ cnoremap <silent> wq<cr> call QuitPrompt()<cr>
 cnoremap <silent> x<cr> call QuitPrompt()<cr>
 
 inoremap jk <ESC>
+
+silent inoremap <silent> <Tab> <C-n>
+silent inoremap <silent> <S-Tab> <C-p>
 
 vmap ^ $
 

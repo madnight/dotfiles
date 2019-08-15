@@ -394,7 +394,6 @@ exec-if = ping -c 1 google.com > /dev/null && [[ $(checkupdates | wc -l) -gt 0 ]
 interval = 600
 label  = %{F#666}%{F-} %output%
 
-<<<<<<< HEAD
 [module/downspeed]
 type = custom/script
 exec = speed-test -j | jq -r '.download | floor' | grep -v error
@@ -409,8 +408,6 @@ exec-if = ping -c 1 google.com > /dev/null
 interval = 110
 label  = %{F#666}%{F-} %output% M
 
-=======
->>>>>>> update dots
 [module/vpn]
 type = custom/script
 exec = geo -g | sed -n 1p | cut -c 1-3
@@ -510,24 +507,23 @@ exec = curl -s "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD"
 [module/google]
 inherit = module/crypto
 format-prefix = "%{F#666}G%{F-} $"
-exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=GOOGL&apikey=OIDXILNW2URMOD4S" |  jq '.[]."05. price" | tonumber | floor' 2> /dev/null
+exec = curl -s "https://cloud.iexapis.com/stable/stock/googl/quote?token=pk_64fdeb84e42e4d239b3e87ab58d76e09" | jq -r '.latestPrice | tonumber | floor' 2> /dev/null
 
 [module/qqq]
 inherit = module/crypto
 format-prefix = "%{F#666}Q%{F-} $"
-exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=QQQ&apikey=OIDXILNW2URMOD4S" |  jq '.[]."05. price" | tonumber | floor' 2> /dev/null
+exec = curl -s "https://cloud.iexapis.com/stable/stock/QQQ/quote?token=pk_64fdeb84e42e4d239b3e87ab58d76e09" | jq -r '.latestPrice | tonumber | floor' 2> /dev/null
 
 [module/apple]
 inherit = module/crypto
 format-prefix = "%{F#666}A%{F-} $"
-exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=OIDXILNW2URMOD4S" |  jq '.[]."05. price" | tonumber | floor' 2> /dev/null
+exec = curl -s "https://cloud.iexapis.com/stable/stock/AAPL/quote?token=pk_64fdeb84e42e4d239b3e87ab58d76e09" | jq -r '.latestPrice | tonumber | floor' 2> /dev/null
 
 [module/microsoft]
 inherit = module/crypto
 format-prefix = "%{F#666}M%{F-} $"
 format-suffix = "%"
-exec = curl -s "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=OIDXILNW2URMOD4S" |  jq -r '.[] | (."05. price" | tonumber | floor | tostring) + ";" + ((."10. change percent" | sub("%";"") | tonumber | .*100.0 + 0.5| floor / 100.0 | tostring ) )' 2> /dev/null
-
+exec = "curl -s "https://cloud.iexapis.com/stable/stock/msft/quote?token=pk_64fdeb84e42e4d239b3e87ab58d76e09" |  jq -r '(.latestPrice | tonumber | floor | tostring) + ";" + ((.changePercent  | tonumber | .*10000.0 + 0.5|floor/100.0 | tostring ) )'"
 
 [module/cap]
 inherit = module/crypto

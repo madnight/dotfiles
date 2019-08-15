@@ -10,8 +10,7 @@ clear control
 clear mod4
 clear Lock
 
-! this will make Caps Lock to act as Esc
-keycode 66 = Escape NoSymbol Escape
+keycode 66 = Mode_switch
 
 add mod4 = Super_L
 add control = Control_L

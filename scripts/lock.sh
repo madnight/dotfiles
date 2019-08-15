@@ -5,31 +5,18 @@ tmpbg='/tmp/screen.png'
 
 (( $# )) && { icon=$1; }
 
+rm "$tmpbg"
 scrot "$tmpbg"
 convert "$tmpbg" -scale 10% -scale 1000% "$tmpbg"
-convert "$tmpbg" "$icon" -gravity center -composite -matte "$tmpbg"
 
-i3lock -i "$tmpbg"           \
-# --insidevercolor=#ffffff00   \
-# --ringvercolor=#0000bb00     \
-# --insidewrongcolor=#CF42C100 \
-# --ringwrongcolor=#CF42C1ff   \
-# --insidecolor=#eeeeee00      \
-# --ringcolor=#00000000        \
-# --linecolor=#D648C3aa        \
-# --separatorcolor=#ffffffff   \
-# --verifcolor=#ffffffaa       \
-# --wrongcolor=#CF42C1ff       \
-# --timecolor=#ee00e0ee        \
-# --datecolor=#ee00e0ee        \
-# --layoutcolor=#000000ff      \
-# --keyhlcolor=#00DBF1ff       \
-# --bshlcolor=#00DBF1ff        \
-# --ring-width=10              \
-# --screen=1                   \
-# --radius=300                 \
-# --wrongtext=""               \
-# --veriftext=""               \
-# --noinputtext=""             \
-# --locktext=""                \
---lockfailedtext=""
+OFFSET_X=$(identify $icon | awk '{ print $3 }' | awk -F'x' '{print $1}')
+OFFSET_Y=$(identify $icon | awk '{ print $3 }' | awk -F'x' '{print $2}')
+
+for mon in $(xrandr | grep connected | grep -v disconnected | sed s/primary// | awk '{ print $3 }' )
+do
+    X=$(echo $mon | awk -F'+' '{print $1, $2, $3}' | awk -F'x' '{print $1, $2, $3}' | awk '{print (($1/2)+$3)}')
+    Y=$(echo $mon | awk -F'+' '{print $1, $2, $3}' | awk -F'x' '{print $1, $2, $3}' | awk '{print ($2/2)+$4}')
+    convert "$tmpbg" "$icon" -geometry +$(($X-($OFFSET_X/2)))+$(($Y-($OFFSET_Y/2))) -composite -matte "$tmpbg"
+done
+
+i3lock -i "$tmpbg"

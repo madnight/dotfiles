@@ -41,7 +41,7 @@ function exist_and_not_running()
 }
 
 exist_and_not_running wmname LG3D
-exist_and_not_running chromium
+exist_and_not_running chromium --force-dark-mode
 
 # clear download folder
 mv ~/Downloads/* mv ~/Downloads/old &> /dev/null

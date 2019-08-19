@@ -11,12 +11,9 @@ convert "$tmpbg" -scale 10% -scale 1000% "$tmpbg"
 
 OFFSET_X=$(identify $icon | awk '{ print $3 }' | awk -F'x' '{print $1}')
 OFFSET_Y=$(identify $icon | awk '{ print $3 }' | awk -F'x' '{print $2}')
-
-for mon in $(xrandr | grep connected | grep -v disconnected | sed s/primary// | awk '{ print $3 }' )
-do
-    X=$(echo $mon | awk -F'+' '{print $1, $2, $3}' | awk -F'x' '{print $1, $2, $3}' | awk '{print (($1/2)+$3)}')
-    Y=$(echo $mon | awk -F'+' '{print $1, $2, $3}' | awk -F'x' '{print $1, $2, $3}' | awk '{print ($2/2)+$4}')
-    convert "$tmpbg" "$icon" -geometry +$(($X-($OFFSET_X/2)))+$(($Y-($OFFSET_Y/2))) -composite -matte "$tmpbg"
-done
+mon=$(xrandr | grep primary | grep connected | grep -v disconnected | sed s/primary// | awk '{ print $3 }' )
+X=$(echo $mon | awk -F'+' '{print $1, $2, $3}' | awk -F'x' '{print $1, $2, $3}' | awk '{print (($1/2)+$3)}')
+Y=$(echo $mon | awk -F'+' '{print $1, $2, $3}' | awk -F'x' '{print $1, $2, $3}' | awk '{print ($2/2)+$4}')
+convert "$tmpbg" "$icon" -geometry +$(($X-($OFFSET_X/2)))+$(($Y-($OFFSET_Y/2))) -composite -matte "$tmpbg"
 
 i3lock -i "$tmpbg"

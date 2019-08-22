@@ -10,8 +10,16 @@ monitors = get_monitors()
 
 with mss.mss() as sct:
 
-    root_w = sum(map(lambda x: x.width, monitors))
-    root_h = max(map(lambda x: x.height, monitors))
+    # calc x11 root window dimensions
+    max_x = max(map(lambda x: x.x, monitors))
+    mon_max_x = list(filter(lambda x: x.x == max_x, monitors))
+    mon_max_width = max(map(lambda x: x.width, mon_max_x))
+    root_w = max_x + mon_max_width
+
+    max_y = max(map(lambda y: y.y, monitors))
+    mon_max_y = list(filter(lambda y: y.y == max_y, monitors))
+    mon_max_height = max(map(lambda y: y.height, mon_max_y))
+    root_h = max_y + mon_max_height
 
     # take screenshot
     monitor = {"top": 0, "left": 0, "width": root_w, "height": root_h}

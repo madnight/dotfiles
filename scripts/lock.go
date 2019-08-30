@@ -2,37 +2,55 @@ package main
 
 import (
     "github.com/vova616/screenshot"
+    "github.com/BurntSushi/xgb"
+    "github.com/BurntSushi/xgb/xinerama"
     "github.com/disintegration/gift"
     "image/png"
     "image"
     "os"
+    "strconv"
     "bytes"
     "os/exec"
 )
 
 func main() {
 
-    lockChan := make(chan image.Image)
-
     // read lock icon file
+    iconChan := make(chan image.Image)
     go func() {
-        fdLock, _ := os.Open("/home/x/scripts/lock.png")
+        fdLock, _ := os.Open(os.Args[1])
+        defer fdLock.Close()
         pngLock, _ := png.Decode(fdLock)
-        lockChan <- image.Image(pngLock)
+        iconChan <- image.Image(pngLock)
     }()
 
-    // make screenshot
-    raw_root, _ := screenshot.CaptureScreen()
+    // get primary monitor's position and resolution
+    primaryChan := make(chan xinerama.ScreenInfo)
+    go func() {
+        c, _ := xgb.NewConn()
+        xinerama.Init(c)
+        reply, _ := xinerama.QueryScreens(c).Reply()
+        c.Close()
+        primaryChan <- reply.ScreenInfo[0]
+    }()
 
-    // pixelate
+    // take screenshot and pixelate
+    raw_root, _ := screenshot.CaptureScreen()
     gift.New(gift.Pixelate(10)).Draw(raw_root, raw_root)
 
-    // paste lock onto screenshot
-    gift.New().DrawAt(raw_root, <-lockChan, image.Pt(600, 400), gift.OverOperator)
+    // wait for lock icon and primary display info
+    primary := <-primaryChan
+    icon := <-iconChan
 
-    os.Exit(0)
+    // paste lock onto screenshot
+    posX := int(primary.XOrg) + int(primary.Width/2)  - (icon.Bounds().Max.X/2)
+    posY := int(primary.YOrg) + int(primary.Height/2) - (icon.Bounds().Max.Y/2)
+    gift.New().DrawAt(raw_root, icon, image.Pt(posX, posY), gift.OverOperator)
+
     // run i3lock with raw byte buffer as stdin
-    i3 := exec.Command("i3lock", "--raw", "1920x1080:rgbx", "-i", "/dev/stdin")
+    format := strconv.Itoa(raw_root.Bounds().Dx()) + "x" +
+              strconv.Itoa(raw_root.Bounds().Dy()) + ":rgbx"
+    i3 := exec.Command( "i3lock", "--raw", format, "-i", "/dev/stdin")
     i3.Stdin = bytes.NewBuffer([]byte(raw_root.Pix))
     i3.Run()
 }

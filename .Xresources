@@ -32,6 +32,10 @@ xterm*termName:             xterm-256color
 xterm*VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
 xterm.scaleHeight: 0.9
 
+urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+urxvt.boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
+urxvt.perl-ext-common:      default -searchable-scrollback,matcher,keyboard-select,clipboard
+
 
 
 ! erosion theme by earsplit

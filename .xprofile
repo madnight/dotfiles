@@ -85,7 +85,7 @@ exist_and_not_running redshift
 # hide mouse when not needed
 exist_and_not_running unclutter
 
-exist_and_not_running thunderbird
+# exist_and_not_running thunderbird
 
 if [[ $(hostname) == 'skylake' ]]; then
     exist_and_not_running slack

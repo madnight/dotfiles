@@ -59,9 +59,9 @@ if [[ $(hostname) == 't480s' ]]; then
 
     if [[ $(xrandr | grep \ connected | wc -l) -lt 2 ]]; then
 
-        export MONITOR=$INTERNAL && SHELL=/bin/bash polybar -r top-bspwm-work &
+        export MONITOR=$INTERNAL && SHELL=/bin/bash polybar -r top-bspwm-thinkpad &
         bspc monitor $INTERNAL -d 1 2 3 4 5 6 7 8 9
-        bspc config -m $INTERNAL top_padding 45
+        bspc config -m $INTERNAL top_padding 22
         bspc config -m $INTERNAL right_padding  0
         bspc config -m $INTERNAL left_padding   0
         bspc config -m $INTERNAL bottom_padding 0

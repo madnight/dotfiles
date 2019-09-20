@@ -95,19 +95,18 @@ wm-restack = bspwm
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
 modules-left = apps fs-root cpu mem wifi weather novpn vpn apple microsoft qqq
-modules-right = google bitcoin wired uptime thinkpadtemp updates ping volume battery date time
+modules-right = google bitcoin wired uptime cputemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
 wm-restack = bspwm
-; font-0 = GohuFont Nerd Font:pixelsize=11;1
 font-0 = dina:pixelsize=11;1
 
 [bar/top-bspwm-thinkpad]
 inherit = bar/base
 monitor = ${env:MONITOR:LVDS1}
 modules-left = apps fs-root cpu mem weather novpn vpn bitcoin
-modules-right = wired wifi uptime thinkpadtemp updates ping volume battery date time
+modules-right = google wired wifi uptime thinkpadtemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
@@ -440,7 +439,7 @@ format-suffix = "d"
 [module/cputemp]
 type = custom/script
 exec-if = sensors
-exec =  sensors | grep CPUTIN | cut -c18-19
+exec =  sensors | grep "Package id 0" | awk '{print $4}' | sed -e "s/+//" | sed 's/\..*$//'
 format-prefix = "%{F#666}CPU%{F-} "
 format-suffix = "°C"
 

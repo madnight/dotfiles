@@ -58,7 +58,7 @@ control + super + r
 
 # lock screen
 F1
-    python ~/scripts/lock.py "/home/x/scripts/lock.png"
+    ~/scripts/lock "/home/x/scripts/lock.png"
 
 # resize window
 #control + y
@@ -134,7 +134,7 @@ F9
 ########################
 
 # kill window
-control + q
+control + shift + q
     bspc node -k || kill -9 $(xdotool getactivewindow getwindowpid)
 
 #############

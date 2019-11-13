@@ -1,68 +1,35 @@
-source_if_exist /usr/lib/zsh-git-prompt/zshrc.sh
+export POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='white'
+export POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=3
+export POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=1
+export POWERLEVEL9K_EXECUTION_TIME_ICON=''
+export POWERLEVEL9K_FAIL_ICON=x
+export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv pyenv vcs)
+export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(dir status root_indicator background_jobs command_execution_time)
+export POWERLEVEL9K_STATUS_CROSS=true
+export POWERLEVEL9K_STATUS_OK=false
+export POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-remotebranch git-tagname)
+export POWERLEVEL9K_VCS_UNSTAGED_ICON='*'
 
-#show shell execution time needed on right prompt
-ZSH_COMMAND_START=0
-typeset -gF SECONDS
+typeset -g POWERLEVEL9K_BACKGROUND='none'
+typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='red'
+typeset -g POWERLEVEL9K_DIRENV_FOREGROUND=8
+typeset -g POWERLEVEL9K_DIR_BACKGROUND='none'
+typeset -g POWERLEVEL9K_DIR_FOREGROUND=8
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+typeset -g POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR="$(echo -n '%k')%F{red}»"
+typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='>'
+typeset -g POWERLEVEL9K_PYENV_FOREGROUND=8
+typeset -g POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''
+typeset -g POWERLEVEL9K_RIGHT_SUBSEGMENT_SEPARATOR='<'
+typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=red
+typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND=green
+typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=010
+typeset -g POWERLEVEL9K_VCS_LOADING_FOREGROUND=244
+typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=011
+typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=011
+typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=8
+typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
 
-function preexec {
-    print -rn -- $terminfo[el];
-    ZSH_COMMAND_START=${ZSH_COMMAND_START:-$SECONDS}
-}
+export ZLE_RPROMPT_INDENT=0
 
-# execution time function
-function precmd {
-    if [[ -n "$ZSH_COMMAND_START" ]]; then
-        ((ZSH_COMMAND_TIME = SECONDS - ZSH_COMMAND_START))
-        unset ZSH_COMMAND_START
-    else
-        ZSH_COMMAND_TIME=0
-    fi
-}
-
-# just enter “cd …./dir”
-rationalise-dot() {
-  if [[ $LBUFFER = *.. ]]; then
-    LBUFFER+=/..
-  else
-    LBUFFER+=.
-  fi
-}
-zle -N rationalise-dot
-bindkey . rationalise-dot
-
-# right prompt settings
-local timing='$(printf "%%{$fg[cyan]%%}%.2f%%f" "$ZSH_COMMAND_TIME")'
-error="%{$fg[red]%}%(?..%? )"
-right=("$git" "$error" "$timing" "$vi_mode_prompt_info"  )
-
-# GIT_PROMPT_EXECUTABLE="haskell"
-# GIT_PROMPT_EXECUTABLE="python"
-
-# Default values for the appearance of the prompt. Configure at will.
-ZSH_THEME_GIT_PROMPT_PREFIX="("
-ZSH_THEME_GIT_PROMPT_SUFFIX=")"
-ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
-ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"
-ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{●%G%}"
-ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖%G%}"
-ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg[blue]%}%{+%G%}"
-ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
-ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{|u%G%}"
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
-
-super_status() {
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        git_super_status
-    fi
-}
-
-PROMPT='$(super_status)%{$fg[red]%} » %{$reset_color%}'
-RPROMPT="%B%{$fg[blue]%}%~ %{$reset_color%}\$(echo \"${(pj::)right}\")"
-
-function zle-line-init zle-keymap-select {
-    zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme

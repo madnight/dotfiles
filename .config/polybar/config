@@ -94,7 +94,7 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps fs-root cpu mem wifi weather novpn vpn apple microsoft qqq
+modules-left = apps time-india fs-root cpu mem wifi weather novpn vpn apple microsoft qqq
 modules-right = google bitcoin wired uptime cputemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
@@ -352,6 +352,11 @@ date = %a %d %b %y
 type = internal/date
 label = %{F#666} %{F-}%time%
 time = %H:%M
+
+[module/time-india]
+type = custom/script
+exec = TZ=Asia/Kolkata date +"IST: %H:%M"
+interval = 30
 
 [module/powermenu]
 type = custom/menu

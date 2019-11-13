@@ -33,6 +33,8 @@ function exist_and_not_running()
 # prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
 [[ $- == *i* ]] && stty -ixon
 
+stty werase ^H 2>/dev/null
+
 function source_if_exist()
 {
     if [[ -r $1 ]]; then
@@ -62,6 +64,9 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 # fish like syntax highlighting
 source_if_exist \
     /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source_if_exist \
+    /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 HISTFILE=~/.histfile
 HISTSIZE=100000
@@ -126,7 +131,7 @@ export ANDROID_HOME=/opt/android-sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export DEFAULT_NETWORK_INTERFACE=$(ip route | grep '^default' | awk '{print $5}' | head -n1)
-
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH
@@ -145,14 +150,6 @@ source_if_exist ~/zsh/prompt.zsh
 
 [ -n "$TMUX" ] && export TERM=screen-256color
 
-# Performance Warning
-END=$(date +%s.%N)
-ZSHRC_PERF=$(printf %.2f $(echo "$END - $START" | bc))
-if (( $ZSHRC_PERF > 0.15)); then
-  echo "\033[0;31mperformance warning!"
-  echo ".zshrc startup time" $ZSHRC_PERF "seconds"
-fi
-
 eval "$(direnv hook zsh)"
 
 source_if_exist $HOME/.nix-profile/etc/profile.d/nix.sh;
@@ -165,6 +162,13 @@ if ! pgrep sxhkd > /dev/null; then
     fi
 fi
 
+# Performance Warning
+END=$(date +%s.%N)
+ZSHRC_PERF=$(printf %.2f $(echo "$END - $START" | bc))
+if (( $ZSHRC_PERF > 0.15)); then
+  echo "\033[0;31mperformance warning!"
+  echo ".zshrc startup time" $ZSHRC_PERF "seconds"
+fi
 
-# xrdb ~/.Xresources
+# xrdb ~/.Xresources∎
 #

@@ -147,42 +147,24 @@ Plug 'danro/rename.vim'
 " Changes Vim working directory to project root
 Plug 'airblade/vim-rooter'
 
+" Highlight the exact differences, based on characters and words
+Plug 'rickhowe/diffchar.vim'
+
 " Intellisense engine for vim8 & neovim, full language server protocol support
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
-" #######################################
-" plugins active on trigger (lazy loaded)
-" #######################################
+" colorized filenames in nerdtree
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': 'NERDTreeToggle' }
 
+" jump between source and header (.cpp -> .h)
+Plug 'vim-scripts/a.vim',                       { 'on': 'A'}
 
-" function! BuildYCM(info)
-"   if a:info.status == 'installed' || a:info.force
-"     !./install.py
-"   endif
-" endfunction
+" nerdtree git support
+Plug 'Xuyuanp/nerdtree-git-plugin',             { 'on':  'NERDTreeToggle' }
 
+" be able to write files with sudo right
+Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
-" vim plugin to interact with tmux
-Plug 'benmills/vimux',                          { 'on': 'VimuxRunCommand' }
-
-" keep an eye in youcompleteme seems that
-" the recompile on update might not work
-" and the plugin after that neither
-
-" a code-completion engine for Vim
-" Plug 'Valloric/YouCompleteMe',                  { 'on': [], 'do': function('BuildYCM') }
-
-" debugger for php, python and other languages
-Plug 'joonty/vdebug',                           { 'on': 'VdebugStart' }
-
-" delete all the buffers except the current buffer :Bonly
-Plug 'schickling/vim-bufonly',                  { 'on': 'Bonly' }
-
-" an ide like file explorer
-Plug 'scrooloose/nerdtree',                     { 'on': 'NERDTreeToggle' }
-
-" vim plugin to visualize your vim undo tree.
-Plug 'sjl/gundo.vim',                           { 'on': 'Gundo' }
 
 " colorized filenames in nerdtree
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight', { 'on': 'NERDTreeToggle' }
@@ -220,3 +202,61 @@ Plug 'sheerun/vim-polyglot'
 " Plug 'majutsushi/tagbar', {'on' : 'LdTagbar'} // disabled performance reasons
 
 call plug#end()
+
+" Plug 'edkolev/tmuxline.vim',                   { 'on': 'Tmuxline' }
+
+" #########################################
+" language specific plugins (lazy loaded)
+" #########################################
+
+" a collection of language packs for Vim.
+Plug 'sheerun/vim-polyglot'
+
+" ################
+" disabled plugins
+" ################
+
+" automated tag file generation and syntax highlighting of tags in vim
+" Plug 'xolox/vim-easytags' // disabled performance reasons
+
+" nerdtree icons
+" Plug 'ryanoasis/vim-devicons', { 'on':  'NERDTreeToggle' } // disabled performance reasons
+
+" ide like tagbar that lists all function of a class / file
+" Plug 'majutsushi/tagbar', {'on' : 'LdTagbar'} // disabled performance reasons
+
+call plug#end()
+
+" #######################################
+" plugins active on trigger (lazy loaded)
+" #######################################
+
+
+" function! BuildYCM(info)
+"   if a:info.status == 'installed' || a:info.force
+"     !./install.py
+"   endif
+" endfunction
+
+
+" vim plugin to interact with tmux
+Plug 'benmills/vimux',                          { 'on': 'VimuxRunCommand' }
+
+" keep an eye in youcompleteme seems that
+" the recompile on update might not work
+" and the plugin after that neither
+
+" a code-completion engine for Vim
+" Plug 'Valloric/YouCompleteMe',                  { 'on': [], 'do': function('BuildYCM') }
+
+" debugger for php, python and other languages
+Plug 'joonty/vdebug',                           { 'on': 'VdebugStart' }
+
+" delete all the buffers except the current buffer :Bonly
+Plug 'schickling/vim-bufonly',                  { 'on': 'Bonly' }
+
+" an ide like file explorer
+Plug 'scrooloose/nerdtree',                     { 'on': 'NERDTreeToggle' }
+
+" vim plugin to visualize your vim undo tree.
+Plug 'sjl/gundo.vim',                           { 'on': 'Gundo' }

@@ -41,6 +41,10 @@ function exist_and_not_running()
 }
 
 exist_and_not_running wmname LG3D
+
+pulseaudio -k || true
+pulseaudio --start
+
 exist_and_not_running chromium --force-dark-mode
 
 # clear download folder
@@ -77,7 +81,6 @@ if [[ $(hostname) == 'thinkpad' ]]; then
     fi
 fi
 
-exist_and_not_running pulseaudio --start
 
 # reduce monitor brigthness at night
 exist_and_not_running redshift

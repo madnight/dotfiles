@@ -274,6 +274,7 @@ zsh
 zsh-git-prompt
 zsh-pure-prompt
 zsh-syntax-highlighting
+zsh-autosuggestions
 hostsblock
 )
 

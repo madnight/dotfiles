@@ -1,3 +1,14 @@
+space(){
+   inside_git_repo="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
+   if [ "$inside_git_repo" ]; then
+    echo "$(echo -n '%k')%F{red}»"
+   else
+    echo "$(echo -n '%k')%F{red} »"
+   fi
+}
+
+POWERLEVEL9K_CUSTOM_SPACE="space"
+
 export POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND='white'
 export POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=3
 export POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=1
@@ -16,7 +27,7 @@ typeset -g POWERLEVEL9K_DIRENV_FOREGROUND=8
 typeset -g POWERLEVEL9K_DIR_BACKGROUND='none'
 typeset -g POWERLEVEL9K_DIR_FOREGROUND=8
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
-typeset -g POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR="$(echo -n '%k')%F{red}»"
+typeset -g POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR="$(space)"
 typeset -g POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR='>'
 typeset -g POWERLEVEL9K_PYENV_FOREGROUND=8
 typeset -g POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR=''

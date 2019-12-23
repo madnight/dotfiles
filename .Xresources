@@ -12,6 +12,7 @@ URxvt.scrollBar: false
 URxvt.intensityStyles: false
 xterm*foreground: #c5c8c6
 xterm*background: #181715
+xterm*internalBorder: 0
 
 ! ##############
 ! xterm settings

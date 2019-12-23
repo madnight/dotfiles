@@ -15,6 +15,9 @@ call plug#begin()
 " always active plugins
 " #####################
 
+" an ide like file explorer
+Plug 'scrooloose/nerdtree'
+
 " editorconfig define consistent coding styles in different editors
 Plug 'editorconfig/editorconfig-vim'
 
@@ -225,7 +228,6 @@ Plug 'sheerun/vim-polyglot'
 " ide like tagbar that lists all function of a class / file
 " Plug 'majutsushi/tagbar', {'on' : 'LdTagbar'} // disabled performance reasons
 
-call plug#end()
 
 " #######################################
 " plugins active on trigger (lazy loaded)
@@ -255,8 +257,8 @@ Plug 'joonty/vdebug',                           { 'on': 'VdebugStart' }
 " delete all the buffers except the current buffer :Bonly
 Plug 'schickling/vim-bufonly',                  { 'on': 'Bonly' }
 
-" an ide like file explorer
-Plug 'scrooloose/nerdtree',                     { 'on': 'NERDTreeToggle' }
 
 " vim plugin to visualize your vim undo tree.
 Plug 'sjl/gundo.vim',                           { 'on': 'Gundo' }
+
+call plug#end()

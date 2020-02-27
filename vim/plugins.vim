@@ -150,6 +150,9 @@ Plug 'danro/rename.vim'
 " Changes Vim working directory to project root
 Plug 'airblade/vim-rooter'
 
+" Autoformat Haskell
+Plug 'alx741/vim-hindent'
+
 " Highlight the exact differences, based on characters and words
 Plug 'rickhowe/diffchar.vim'
 

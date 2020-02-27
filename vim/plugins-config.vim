@@ -95,6 +95,8 @@ let g:choosewin_overlay_enable = 1
 
 let g:vim_tags_auto_generate = 1
 
+let g:hindent_indent_size = 4
+
 let g:formatprg_js = "js-beautify"
 let g:formatprg_args_js = "-i %@"
 

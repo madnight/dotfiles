@@ -301,7 +301,7 @@ function cleantex() {
 }
 
 function texnonstop() {
-    latexmk -pvc -pdf -latex=pdflatex -interaction=nonstopmode $1
+    latexmk -pvc -pdf --latex=lualatex -interaction=nonstopmode $1
 }
 
 alias g=google
@@ -409,6 +409,12 @@ fkill() {
 
 ghc-with() {
   nix-shell -p "haskellPackages.ghcWithPackages (ps: with ps; [ $* ])"
+}
+
+lualatex-nonstopmode() {
+while inotifywait --event modify "$1"; do
+  lualatex "$1"
+done
 }
 
 ghci-with() {

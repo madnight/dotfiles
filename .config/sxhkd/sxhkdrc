@@ -149,6 +149,9 @@ super + f
 super + @space
     bspc node -t floating || bspc node -t tiled
 
+super + t
+    bspc node -t tiled || bspc node -t floating
+
 ############
 # focus/swap
 ############

@@ -13,12 +13,15 @@ URxvt.intensityStyles: false
 xterm*foreground: #c5c8c6
 xterm*background: #181715
 xterm*internalBorder: 0
+XTerm*visualBell: False
 
 ! ##############
 ! xterm settings
 ! ##############
 xterm*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
 xterm*boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
+URxvt*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+URxvt*boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
 xterm*metaSendsEscape: true
 ! xterm*font: -*-terminus-*-*-*-*-20-*-*-*-*-*-*-*
 xterm*saveLines:            1000

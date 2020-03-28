@@ -141,7 +141,7 @@ interval = 1024
 
 [module/wifi]
 type = internal/network
-interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp61s0}
+interface = ${env:DEFAULT_NETWORK_INTERFACE:wlp3s0}
 interval = 3.0
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>

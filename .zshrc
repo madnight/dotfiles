@@ -112,6 +112,7 @@ export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export BROWSER="chromium"
+export ALSA_DEFAULT_PCM=plug:pulse
 export SHELL=/usr/bin/zsh
 export CHROME_BIN=/usr/bin/chromium
 export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -133,10 +134,12 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export DEFAULT_NETWORK_INTERFACE=$(ip route | grep '^default' | awk '{print $5}' | head -n1)
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 
+
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH
 unset GREP_OPTIONS
 unsetopt HUP
+setopt extendedglob
 
 #################################
 # source additional zsh settings

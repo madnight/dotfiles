@@ -18,7 +18,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/base]
-height = 24
+height = 26
 background = #181715
 foreground = #C1C1C1
 linecolor = #fba922
@@ -42,9 +42,9 @@ line-color = #ffffff
 separator = %{F#525252}|%{F-}
 fixed-center = true
 font-0 = lucy tewii:pixelsize=8;1
-font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;3
-font-2 = UbuntuMono Nerd Font:pixelsize=11;3
-font-3 = DroidSansMono Nerd Font:pixelsize=11;3
+font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;2
+font-2 = UbuntuMono Nerd Font:pixelsize=11;2
+font-3 = DroidSansMono Nerd Font:pixelsize=11;2
 modules-left = apps novpn vpn weather fs-root cputemp gputemp cpu memory ripple ethereum
 modules-right = apple microsoft google bitcoin cap wired ping updates volume date time
 
@@ -94,7 +94,7 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps time-india fs-root cpu mem wifi weather novpn vpn apple microsoft qqq
+modules-left = apps time-india fs-root cpu mem wifi weather novpn vpn apple microsoft
 modules-right = google bitcoin wired uptime cputemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
@@ -105,14 +105,17 @@ font-0 = dina:pixelsize=11;1
 [bar/top-bspwm-thinkpad]
 inherit = bar/base
 monitor = ${env:MONITOR:LVDS1}
-modules-left = apps fs-root cpu mem weather novpn vpn bitcoin
-modules-right = google wired wifi uptime thinkpadtemp updates ping volume battery date time
+modules-left = apps fs-root cpu thinkpadtemp mem weather novpn vpn bitcoin
+modules-right = google wired wifi uptime updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
 wm-restack = bspwm
-font-0 = GohuFont Nerd Font:pixelsize=11;1
-; font-0 = dina:pixelsize=11;1
+; font-0 = GohuFont Nerd Font:pixelsize=11:antialias=false;1
+font-0 = xos4 Terminus:pixelsize=18:antialias=true;2
+; font-0 = Tamsyn:pixelsize=16;1
+; font-0 = Terminus:pixelsize=11;1
+; font-0 = dina:pixelsize=28;1
 ; font-0 = Gohu GohuFont:pixelsize=14;1
 width = 100%
 radius = 0.0
@@ -146,7 +149,8 @@ interval = 3.0
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>
 format-packetloss = <animation-packetloss> <label-connected>
-label-connected = %{F#666} %{F-}%downspeed:4%
+; you need downspeed 8 (3 decimal numbers to stablize)
+label-connected = %{F#777} %{F-}%downspeed:8%
 ramp-signal-0 = 1
 ramp-signal-1 = 2
 ramp-signal-2 = 3
@@ -411,6 +415,13 @@ exec = speed-test -j | jq -r '.upload | floor' | grep -v error
 exec-if = ping -c 1 google.com > /dev/null
 interval = 110
 label  = %{F#666}%{F-} %output% M
+
+[module/covid19]
+type = custom/script
+exec = echo "scale = 2; $(curl -s "https://corona.lmao.ninja/all" | jq '.cases') / 1000000" | bc
+exec-if = ping -c 1 google.com > /dev/null
+interval = 300
+label  = %{F#666}C19%{F-} %output%M
 
 [module/vpn]
 type = custom/script

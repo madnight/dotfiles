@@ -61,11 +61,60 @@ if [[ $(hostname) == 't480s' ]]; then
 
         export MONITOR=$INTERNAL && SHELL=/bin/bash polybar -r top-bspwm-thinkpad &
         bspc monitor $INTERNAL -d 1 2 3 4 5 6 7 8 9
-        bspc config -m $INTERNAL top_padding 22
+        bspc config -m $INTERNAL top_padding 26
         bspc config -m $INTERNAL right_padding  0
         bspc config -m $INTERNAL left_padding   0
         bspc config -m $INTERNAL bottom_padding 0
         bspc config -m $INTERNAL window_gap     0
+
+    elif [[ $(xrandr | grep \ connected | wc -l) -eq 2 ]]; then
+
+        # internal monitor
+        bspc monitor $INTERNAL -d 1
+        bspc config -m $INTERNAL top_padding    0
+        bspc config -m $INTERNAL right_padding  0
+        bspc config -m $INTERNAL left_padding   0
+        bspc config -m $INTERNAL bottom_padding 0
+        bspc config -m $INTERNAL window_gap     0
+
+        # left monitor
+        bspc monitor $LEFT -d 2 3 4 5 6 7 8 9
+        bspc config -m $LEFT top_padding    40
+        bspc config -m $LEFT right_padding  10
+        bspc config -m $LEFT left_padding   10
+        bspc config -m $LEFT bottom_padding 10
+        bspc config -m $LEFT window_gap     10
+
+        export MONITOR=$LEFT && SHELL=/bin/bash polybar -r top-bspwm-work &
+
+    elif [[ $(xrandr | grep \ connected | wc -l) -eq 3 ]]; then
+
+        sh $HOME/.screenlayout/t480s-home.sh
+
+        # internal monitor
+        bspc monitor $INTERNAL -d 1
+        bspc config -m $INTERNAL top_padding    0
+        bspc config -m $INTERNAL right_padding  0
+        bspc config -m $INTERNAL left_padding   0
+        bspc config -m $INTERNAL bottom_padding 0
+        bspc config -m $INTERNAL window_gap     0
+
+        # left monitor
+        bspc monitor $LEFT -d 5 6 7 8 9
+        bspc config -m $LEFT top_padding    40
+        bspc config -m $LEFT right_padding  10
+        bspc config -m $LEFT left_padding   10
+        bspc config -m $LEFT bottom_padding 10
+        bspc config -m $LEFT window_gap     10
+
+        bspc monitor $PRIMARY -d 2 3 4
+        bspc config -m $PRIMARY top_padding    0
+        bspc config -m $PRIMARY right_padding  0
+        bspc config -m $PRIMARY left_padding   0
+        bspc config -m $PRIMARY bottom_padding 0
+        bspc config -m $PRIMARY window_gap     0
+
+        export MONITOR=$LEFT && SHELL=/bin/bash polybar -r top-bspwm-work &
 
     else
 
@@ -157,7 +206,6 @@ bspc config focused_border_color  "#87AFAF"
 
 # Rules
 bspc rule -a '*:keepassx2:*' state=tiled split_dir=south split_ratio=0.66 focus=on
-# bspc rule -a SpeedCrunch     state=tiled split_dir=south split_ratio=0.66 focus=on
 bspc rule -a Gvim            state=tiled split_dir=north split_ratio=0.1  focus=on
 bspc rule -a '*:tilda:*'     state=tiled split_dir=north split_ratio=0.3  focus=on
 
@@ -165,15 +213,16 @@ bspc rule -a Conky  sticky=on manage=off lower=on
 bspc rule -a astime sticky=on
 
 bspc rule -a '*:Profile error occurred:*'      state=floating focus=on
+bspc rule -a '*:pavucontrol:*'      state=floating focus=on
 bspc rule -a '*:KeePassHttp: Confirm Access:*' state=floating focus=on
 bspc rule -a '*:zathura:*'                     state=tiled
+bspc rule -a SpeedCrunch     state=floating focus=on rectangle=500x700+0+0
 
-bspc rule -a Firefox	      desktop=1 focus=on
+bspc rule -a Firefox          desktop=1 focus=on
 bspc rule -a Slack            desktop=1
 bspc rule -a Chromium         desktop=4
 bspc rule -a UXterm           desktop=9 focus=on
 bspc rule -a Thunderbird      desktop=6
-bspc rule -a Hexchat	      desktop=5
 bspc rule -a Vlc              desktop=4
 
 # pseudo tiled rules

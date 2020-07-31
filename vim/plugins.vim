@@ -153,6 +153,9 @@ Plug 'airblade/vim-rooter'
 " Autoformat Haskell
 Plug 'alx741/vim-hindent'
 
+" Autoformat JS
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
 " Highlight the exact differences, based on characters and words
 Plug 'rickhowe/diffchar.vim'
 

@@ -20,8 +20,9 @@ XTerm*visualBell: False
 ! ##############
 xterm*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
 xterm*boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
-URxvt*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
-URxvt*boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
+URxvt*font:                 -*-terminus-medium-*-*-*-22-*-*-*-*-*-*-*
+URxvt*boldFont:             -*-terminus-bold-*-*-*-22-*-*-*-*-*-*-*
+URxvt.letterSpace: 3
 xterm*metaSendsEscape: true
 ! xterm*font: -*-terminus-*-*-*-*-20-*-*-*-*-*-*-*
 xterm*saveLines:            1000

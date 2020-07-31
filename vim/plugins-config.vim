@@ -85,6 +85,7 @@ let g:list_of_normal_keys = ["h", "j", "k", "l"]
 let g:hardtime_ignore_quickfix = 1
 
 let g:vim_json_syntax_conceal = 0
+let g:prettier#quickfix_enabled = 0
 
 " custom tmux navigator key maps
 let g:tmux_navigator_no_mappings = 1
@@ -96,6 +97,13 @@ let g:choosewin_overlay_enable = 1
 let g:vim_tags_auto_generate = 1
 
 let g:hindent_indent_size = 4
+
+let g:prettier#autoformat = 0
+" let g:prettier#autoformat_require_pragma = 1
+" let g:prettier#autoformat_config_present = 1
+" let g:prettier#config#print_width = 80
+let g:prettier#config#tab_width = 4
+let g:prettier#config#use_tabs = 'false'
 
 let g:formatprg_js = "js-beautify"
 let g:formatprg_args_js = "-i %@"

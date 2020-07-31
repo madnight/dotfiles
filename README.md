@@ -1,4 +1,5 @@
 ## Arch Linux Setup
+
 <br>
 
 | Software | Choice | Note
@@ -20,3 +21,20 @@
 
 
 <br>![Alt text](https://raw.github.com/madnight/dotfiles/master/screenshot.png "SCREENSHOT")
+
+## Hardware
+
+#### Notebook
+I use Notebooks from the Thinkpad T-Series (T430, T450s, T480s), which you can buy of eBay for cheap. If you are interested, then try to pick one with at least one unsoldered RAM slot (upgradeable RAM), SSD, IPS Display with 300 nits or higher and Core i5/i7 (or even better Ryzen CPU), like the [T450s](https://www.notebookcheck.net/Lenovo-ThinkPad-T450s-Ultrabook-Review.137248.0.html) which is an excellent choice, when in mint condition (A-ware) and bought from a eBay store with a customer friendly refund policy.
+
+#### Monitor
+I use a multi-monitor setup with either 3 external monitors or 2 external + 1 internal notebook screens. I use second hand 24 inch monitors for the left and right and one 27 inch monitor in the center. The T-Series Thinkpads supports up to 3 screens (the notebook screen also counts as screen). Nevertheless, its possible to have more monitors than that (e.g. day-trader setup) with an eGPU or DisplayLink USB to HDMI adapter. I've tested a four screen setup with 3 external monitors (one per DisplayLink adapter) + the internal Thinkpad screen and it works.
+
+#### Keyboard
+The Thinkpad keyboard is excellent. However, for external keyboards you can get even better ones. If you are a fan of flat keyboards like the Thinkpad keyboard with a short key travel, then I recommend the Apple Magic Keyboard (wired, silver, aluminium), which I've used for many years. If that does not satisfy your need, you can dive into the limitless world of mechanical keyboards. I would opt for one with a decent build quality e.g. a brand like Ducky, Leopold, Durgod or Filco and avoid "gaming" brands. I picked up a [Durgod K320](http://web.archive.org/web/20200731171335/https://www.amazon.com/dp/B078HFTTYK/) with TKL ISO-layout, non-RGB, PBT keycaps, lubed stabilizers and Cherry MX brown switches.
+
+#### Chair
+I use the [IKEA Markus](http://web.archive.org/web/20200303192021/https://www.ikea.com/us/en/p/markus-office-chair-vissle-dark-gray-90289172/). It has an overall good build quality. It is a quiet popular chair and chances are that you can buy a used one nearby. I would say that the chair is likely to last for at least 5 years and might hold up to 10 years. The lumbar support is in the right spot (I'm 184 cm / 6 feet). Nonetheless, I did two hacks to the chair. I increased the height of the backsupport and I did the IKEA arm rest hack, both hacks can be found on reddit. I thought about getting a chair with more adjustments, like 4D adjustable arm rests, adjustable back height, adjustable headrest, ... but those chairs are very pricey (the Hermann Miller starts at over 1000 euro). I think the Markus is fine for most people but your mileage may vary.
+
+#### Table
+I went for the [IKEA Thyge](http://web.archive.org/web/20191120195444/https://www.ikea.com/us/en/p/thyge-desk-white-silver-color-s49110931/). The table top is 160x80cm, which is enough width for a tripple monitor (24-27") setup. The legs are height adjustable between 60-90cm. I would recommend to adjust it to be between 65-75cm, just so that you have an ergonomic typing position, since many desks are too high for comfortable/ergonomic typing. This is also a very popular IKEA product and you might get it second hand, as I did.

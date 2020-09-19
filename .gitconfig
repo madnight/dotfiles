@@ -94,7 +94,7 @@
 	stripLeadingSymbols = false
 	useUnicodeRuler = false
     [diff]
-      tool = icdiff
+      tool = delta
     [difftool]
       prompt = false
     [difftool "icdiff"]

@@ -11,6 +11,7 @@ clear mod4
 clear Lock
 
 keycode 66 = Mode_switch
+keycode 51 = apostrophe numbersign
 
 add mod4 = Super_L
 add control = Control_L

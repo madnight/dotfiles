@@ -31,7 +31,7 @@ if [[ $(hostname) == 't480s' ]]; then
 fi
 
 # x settings
-xset r rate 250 50
+xset r rate 800 50
 xset +fp ~/.fonts
 xset +fp /usr/share/fonts/local
 xset fp rehash

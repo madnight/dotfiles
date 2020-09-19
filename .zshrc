@@ -1,4 +1,3 @@
-
  #                _                        __ _
  #        _______| |__     ___ ___  _ __  / _(_) __ _
  #       |_  / __| '_ \   / __/ _ \| '_ \| |_| |/ _` |
@@ -32,8 +31,6 @@ function exist_and_not_running()
 
 # prevent C-s form freezing the term / unfreeze terminal on abnormal exit state
 [[ $- == *i* ]] && stty -ixon
-
-stty werase ^H 2>/dev/null
 
 function source_if_exist()
 {
@@ -112,7 +109,6 @@ export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export BROWSER="chromium"
-export ALSA_DEFAULT_PCM=plug:pulse
 export SHELL=/usr/bin/zsh
 export CHROME_BIN=/usr/bin/chromium
 export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -134,12 +130,10 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export DEFAULT_NETWORK_INTERFACE=$(ip route | grep '^default' | awk '{print $5}' | head -n1)
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 
-
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH
 unset GREP_OPTIONS
 unsetopt HUP
-setopt extendedglob
 
 #################################
 # source additional zsh settings
@@ -175,3 +169,6 @@ fi
 
 # xrdb ~/.Xresources∎
 #
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

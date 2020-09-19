@@ -57,7 +57,7 @@ control + super + r
     zenity --question --text="Reboot?" && shutdown -r now
 
 # lock screen
-F1
+super + F1
     ~/scripts/lock "/home/x/scripts/lock.png"
 
 # resize window
@@ -90,8 +90,6 @@ XF86Launch7
     gcolor2
 
 # Notes
-F6
-	xset -dpms && xset s off && xset s off -dpms
 
 ################
 # volume related
@@ -140,6 +138,9 @@ control + shift + q
 #############
 # state/flags
 #############
+
+F6
+    xdotool click 1 && xdotool click 1
 
 # toggle fullscreen
 super + f

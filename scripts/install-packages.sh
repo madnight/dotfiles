@@ -116,7 +116,7 @@ hunspell
 hunspell-de
 hunspell-en_US
 hwinfo
-i3lock-fancy
+i3lock
 iana-etc
 icdiff
 iftop
@@ -138,6 +138,7 @@ jansson
 jbig2dec
 jq
 keepassx2
+keepass
 keyutils
 kodi
 less
@@ -199,8 +200,7 @@ pygmentize
 python
 python-virtualenv
 ranger
-redshift-git
-redshift-gtk-git
+redshift
 reflector
 ripgrep
 ristretto
@@ -224,6 +224,7 @@ thunar
 tig
 tk
 tmux
+tmuxp
 tor-browser
 trayer
 ttf-consolas-powerline
@@ -260,6 +261,7 @@ xdo
 xdotool
 xorg-font-utils
 xorg-server
+xorg-xinit
 xorg-xmodmap
 xscreensaver
 xsel
@@ -275,6 +277,7 @@ zsh-git-prompt
 zsh-pure-prompt
 zsh-syntax-highlighting
 zsh-autosuggestions
+zsh-theme-powerlevel10k
 hostsblock
 )
 

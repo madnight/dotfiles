@@ -94,13 +94,14 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps time-india fs-root cpu mem wifi weather novpn vpn apple microsoft
+modules-left = apps fs-root cpu mem wifi weather novpn vpn apple microsoft
 modules-right = google bitcoin wired uptime cputemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
 wm-restack = bspwm
-font-0 = dina:pixelsize=11;1
+font-0 = Tamsyn:pixelsize=12;1
+; font-0 = GohuFont Nerd Font:pixelsize=11:antialias=false;1
 
 [bar/top-bspwm-thinkpad]
 inherit = bar/base

@@ -176,4 +176,4 @@ fi
 # ctrl + delete deletes last word
 bindkey '\C-?' backward-kill-word
 
-
+xset r rate 600 60

@@ -47,10 +47,10 @@ if [[ $(hostname) == 'arch' ]]; then
     feh --bg-scale $WP $WP $WP
 fi
 
-if [[ $(hostname) == 't480s' ]]; then
+if [[ $(hostname) == 't480' ]]; then
 
     # set the screen layout
-    sh $HOME/.screenlayout/t480s-work.sh
+    sh $HOME/.screenlayout/t480.sh
 
     PRIMARY=$(xrandr | grep \ connected | grep DP | grep -v eDP | awk {'print $1'})
     LEFT=$(xrandr | grep \ connected | grep HDMI | awk {'print $1'})
@@ -85,11 +85,11 @@ if [[ $(hostname) == 't480s' ]]; then
         bspc config -m $LEFT bottom_padding 10
         bspc config -m $LEFT window_gap     10
 
-        export MONITOR=$LEFT && SHELL=/bin/bash polybar -r top-bspwm-work &
+        export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm-work &
 
     elif [[ $(xrandr | grep \ connected | wc -l) -eq 3 ]]; then
 
-        sh $HOME/.screenlayout/t480s-home.sh
+        sh $HOME/.screenlayout/t480.sh
 
         # internal monitor
         bspc monitor $INTERNAL -d 1
@@ -101,20 +101,20 @@ if [[ $(hostname) == 't480s' ]]; then
 
         # left monitor
         bspc monitor $LEFT -d 5 6 7 8 9
-        bspc config -m $LEFT top_padding    40
-        bspc config -m $LEFT right_padding  10
-        bspc config -m $LEFT left_padding   10
-        bspc config -m $LEFT bottom_padding 10
-        bspc config -m $LEFT window_gap     10
+        bspc config -m $LEFT top_padding    0
+        bspc config -m $LEFT right_padding  0
+        bspc config -m $LEFT left_padding   0
+        bspc config -m $LEFT bottom_padding 0
+        bspc config -m $LEFT window_gap     0
 
         bspc monitor $PRIMARY -d 2 3 4
-        bspc config -m $PRIMARY top_padding    0
-        bspc config -m $PRIMARY right_padding  0
-        bspc config -m $PRIMARY left_padding   0
-        bspc config -m $PRIMARY bottom_padding 0
-        bspc config -m $PRIMARY window_gap     0
+        bspc config -m $PRIMARY top_padding    40
+        bspc config -m $PRIMARY right_padding  10
+        bspc config -m $PRIMARY left_padding   10
+        bspc config -m $PRIMARY bottom_padding 10
+        bspc config -m $PRIMARY window_gap     10
 
-        export MONITOR=$LEFT && SHELL=/bin/bash polybar -r top-bspwm-work &
+        export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm-work &
 
     else
 

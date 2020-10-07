@@ -84,6 +84,7 @@ ghc
 git-extras
 gitg
 gnome-keyring
+gnome-screenshot
 gnu-netcat
 gnuplot
 go

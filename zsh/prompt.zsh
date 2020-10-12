@@ -15,7 +15,7 @@ export POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=1
 export POWERLEVEL9K_EXECUTION_TIME_ICON=''
 export POWERLEVEL9K_FAIL_ICON=x
 export POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(virtualenv pyenv vcs)
-export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(dir status root_indicator background_jobs command_execution_time)
+export POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(dir status root_indicator background_jobs command_execution_time kubecontext)
 export POWERLEVEL9K_STATUS_CROSS=true
 export POWERLEVEL9K_STATUS_OK=false
 export POWERLEVEL9K_VCS_GIT_HOOKS=(vcs-detect-changes git-remotebranch git-tagname)
@@ -40,6 +40,7 @@ typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=011
 typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=011
 typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=8
 typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
+typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW_ON_COMMAND='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile'
 
 export ZLE_RPROMPT_INDENT=0
 

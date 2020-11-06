@@ -185,6 +185,7 @@ parted
 pavucontrol
 pcmanfm
 pinta
+physlock
 pkg_scripts
 pkgbrowser
 pkgfile
@@ -271,6 +272,7 @@ xz
 yarn
 youtube-dl
 zathura
+zathura-pdf-mupdf
 zenity
 zip
 zsh

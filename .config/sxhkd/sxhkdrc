@@ -58,7 +58,10 @@ control + super + r
 
 # lock screen
 super + F1
-    ~/scripts/lock "/home/x/scripts/lock.png"
+    physlock
+
+# super + F1
+    # ~/scripts/lock "/home/x/scripts/lock.png"
 
 # resize window
 #control + y

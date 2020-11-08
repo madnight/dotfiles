@@ -92,4 +92,4 @@ exist_and_not_running unclutter
 
 
 # autolock screen after n mins
-exist_and_not_running xautolock -time 15 -locker "runghc $HOME/scripts/lock.hs"
+exist_and_not_running xautolock -time 15 -locker "physlock"

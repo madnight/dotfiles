@@ -25,7 +25,7 @@ setxkbmap -option caps:none
 
 xset +fp ~/.fonts/tamzen-font/bdf &
 xset fp rehash &
-xset r rate 150 50
+xset r rate 550 50
 
 # java WM tweaks
 export _JAVA_OPTIONS='-Dsun.java2d.opengl=true'

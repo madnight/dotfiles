@@ -146,8 +146,118 @@ nodestatus()
     kubectl get nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{if ne .type "Ready"}}{{if eq .status "True"}}{{$node.metadata.name}}{{" "}}{{.type}}{{" "}}{{.status}}{{"\n"}}{{end}}{{else}}{{if ne .status "True"}}{{$node.metadata.name}}{{": "}}{{.type}}{{": "}}{{.status}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}' | column -t
 }
 
-man()
-{
+
+kexecmany(){
+    PODS=($(kubectl get pods --no-headers -o custom-columns=":metadata.name" | grep $1))
+    shift
+    for i in $PODS; do
+        echo "${i}"
+        kubectl exec "${i}" -- "$@"
+    done
+}
+
+getnodeIPs() {
+    kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}
+        {.status.addresses[?(@.type=="ExternalIP")].address}{"\n"}{end}'
+}
+
+getpodsperNode(){
+     kubectl get pods --all-namespaces -o json \
+       | jq '.items
+            | map({podName: .metadata.name, nodeName: .spec.nodeName})
+            | group_by(.nodeName)
+            | map({nodeName: .[0].nodeName, pods: map(.podName)})'
+}
+
+getpods() {
+    kubectl get pods --no-headers -o custom-columns=":metadata.name" | fzf
+}
+
+getpodsns() {
+    kubectl get pods -n $1 --no-headers -o custom-columns=":metadata.name" | fzf
+}
+
+getns() {
+    kubectl get ns --no-headers -o custom-columns=":metadata.name" | fzf
+}
+
+getnodes() {
+    kubectl get nodes --no-headers -o wide | awk '{print $1,$6}' | fzf
+}
+
+getshellall(){
+    NS=$(getns); kubectl exec -it -n $NS $(getpodsns $NS) -- /bin/sh -c "bash"
+}
+
+kexec(){
+    kubectl exec $(getpods) -- "$@"
+}
+
+getlogsall(){
+    NS=$(getns); kubectl logs -n $NS $(getpodsns $NS) -f
+}
+
+getportall(){
+    NS=$(getns)
+    kubectl port-forward -n $NS $(kubectl get pods -n $NS | awk '{print $1}' | fzf) $1:$1
+}
+
+getport(){
+    kubectl port-forward $(getpods) $1:$1
+}
+
+getlogs(){
+    kubectl logs $(getpods) -f
+}
+
+getshell(){
+    kubectl exec -it $(getpods) -- /bin/sh -c "bash"
+}
+
+getnodeshell(){
+    ssh -o StrictHostKeyChecking=no root@$(getnodes | awk '{print $2}')
+}
+
+numpodsperNode() {
+    kubectl get pods --all-namespaces -o json \
+      | jq '.items[] | .spec.nodeName' -r \
+      | sort \
+      | uniq -c \
+      | sort -nr
+}
+
+getnodeuptimes() {
+    kubectl get nodes -o wide --no-headers\
+      | awk '{print $1}' \
+      | xargs -I {} kubectl-node_shell {} -- sh -c 'uptime' \
+      | grep 'average\|spawning' \
+      | awk 'NR%2{printf "%s ",$0;next;}1' \
+      | awk '{print $4, $7,$8}' \
+      | tr -d "\"" \
+      | tr -d "," \
+      | column -t
+}
+
+kexecnode(){
+    ssh -o StrictHostKeyChecking=no root@$(getnodes | awk '{print $2}') -C "$@"
+}
+
+kexecnodemany(){
+    NODES=("${(@f)$(kubectl get nodes --no-headers -o wide | awk '{print $1,$6}' | grep $1)}")
+    shift
+    for i in $NODES; do
+        echo "${i}"
+        NAME=$(echo "${i}" | awk '{print $1}')
+        kubectl-node_shell $NAME -- sh -c "$@"
+    done
+}
+
+switchns(){
+    kubectl config set-context --current --namespace=$(getns)
+    kubectl get pods
+}
+
+man() {
     command man -t "$1" | ps2pdf - /tmp/"$1".pdf && zathura /tmp/"$1".pdf
 }
 

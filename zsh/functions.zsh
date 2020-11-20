@@ -146,7 +146,6 @@ nodestatus()
     kubectl get nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{if ne .type "Ready"}}{{if eq .status "True"}}{{$node.metadata.name}}{{" "}}{{.type}}{{" "}}{{.status}}{{"\n"}}{{end}}{{else}}{{if ne .status "True"}}{{$node.metadata.name}}{{": "}}{{.type}}{{": "}}{{.status}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}' | column -t
 }
 
-
 kexecmany(){
     PODS=($(kubectl get pods --no-headers -o custom-columns=":metadata.name" | grep $1))
     shift
@@ -211,11 +210,15 @@ getlogs(){
 }
 
 getshell(){
-    kubectl exec -it $(getpods) -- /bin/sh -c "bash"
+    kubectl exec -it $(getpods) -- /bin/sh
 }
 
 getnodeshell(){
     ssh -o StrictHostKeyChecking=no root@$(getnodes | awk '{print $2}')
+}
+
+getCephStatus(){
+    kubectl get CephCluster -A -o json | jq '.items[].status.ceph.details'
 }
 
 numpodsperNode() {
@@ -513,7 +516,7 @@ fe() {
 # fkill - kill process
 fkill() {
   local pid
-  pid=$(ps a | sed 1d | fzf -m | awk '{print $1}')
+  pid=$(ps ax | sed 1d | fzf -m | awk '{print $1}')
   if [ "x$pid" != "x" ]
   then
     echo $pid | xargs kill -${1:-9}

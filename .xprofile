@@ -81,6 +81,13 @@ if [[ $(hostname) == 'thinkpad' ]]; then
     fi
 fi
 
+killall gcalcli || true
+if [ -x /usr/bin/gcalcli ]; then
+  while true; do
+    /usr/bin/gcalcli remind
+    sleep 300
+  done &
+fi
 
 # reduce monitor brigthness at night
 exist_and_not_running redshift

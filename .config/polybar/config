@@ -46,7 +46,7 @@ font-1 = SourceCodePro+Powerline+Awesome Regular:pixelsize=10;2
 font-2 = UbuntuMono Nerd Font:pixelsize=11;2
 font-3 = DroidSansMono Nerd Font:pixelsize=11;2
 modules-left = apps novpn vpn weather fs-root cputemp gputemp cpu memory ripple ethereum
-modules-right = apple microsoft google bitcoin cap wired ping updates volume date time
+modules-right = microsoft google bitcoin cap wired ping updates volume date time
 
 [module/workspaces]
 type = internal/xworkspaces
@@ -94,7 +94,7 @@ wm-restack = bspwm
 [bar/top-bspwm-work]
 inherit = bar/base
 monitor = ${env:MONITOR:HDMI1}
-modules-left = apps fs-root cpu mem wifi weather novpn vpn apple microsoft
+modules-left = apps fs-root cpu mem wifi weather novpn vpn microsoft gcal
 modules-right = google bitcoin wired uptime cputemp updates ping volume battery date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
@@ -500,6 +500,13 @@ label-close-padding = 1
 label-close = x
 label-separator = |
 
+[module/gcal]
+type = custom/script
+interval = 600
+format = <label>
+format-prefix = "%{F#666} %{F-}"
+exec-if = ping -c 1 google.com > /dev/null
+exec = gcalcli --nocolor agenda | head -2 | tail -1 | awk '{$1="";$2="";$3="";print $0}'
 
 [module/weather]
 type = custom/script
@@ -529,11 +536,6 @@ exec = curl -s "https://cloud.iexapis.com/stable/stock/googl/quote?token=pk_64fd
 inherit = module/crypto
 format-prefix = "%{F#666}Q%{F-} $"
 exec = curl -s "https://cloud.iexapis.com/stable/stock/QQQ/quote?token=pk_64fdeb84e42e4d239b3e87ab58d76e09" | jq -r '.latestPrice | tonumber | floor' 2> /dev/null
-
-[module/apple]
-inherit = module/crypto
-format-prefix = "%{F#666}A%{F-} $"
-exec = curl -s "https://cloud.iexapis.com/stable/stock/AAPL/quote?token=pk_64fdeb84e42e4d239b3e87ab58d76e09" | jq -r '.latestPrice | tonumber | floor' 2> /dev/null
 
 [module/microsoft]
 inherit = module/crypto

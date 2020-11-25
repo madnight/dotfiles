@@ -121,16 +121,35 @@ if exists percol; then
 fi
 
 # backup and list packages
-packages ()
-{
+packages () {
     pacman -Qqe  >| /home/datadisk/Dropbox/ArchBackup/pkglist_$(date +%F).txt
     pacman -Qqe
 }
 
+function fail {
+  echo $1 >&2
+  exit 1
+}
+
+function retry {
+  local n=1
+  local max=50
+  while true; do
+    "$@" && break || {
+      if [[ $n -lt $max ]]; then
+        ((n++))
+        echo "Command failed. Attempt $n/$max:"
+        sleep $n;
+      else
+        fail "The command has failed after $n attempts."
+      fi
+    }
+  done
+}
+
 # tranlate given string with online leo dictonary
 # depends on: lynx, perl
-leo()
-{
+leo() {
     onetwo='.{1,2}'
     re="$1"
     re="${re//[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ]/.}"
@@ -141,12 +160,11 @@ leo()
     lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
 }
 
-nodestatus()
-{
+knodestatus() {
     kubectl get nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{if ne .type "Ready"}}{{if eq .status "True"}}{{$node.metadata.name}}{{" "}}{{.type}}{{" "}}{{.status}}{{"\n"}}{{end}}{{else}}{{if ne .status "True"}}{{$node.metadata.name}}{{": "}}{{.type}}{{": "}}{{.status}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}' | column -t
 }
 
-kexecmany(){
+kexecmany() {
     PODS=($(kubectl get pods --no-headers -o custom-columns=":metadata.name" | grep $1))
     shift
     for i in $PODS; do
@@ -155,73 +173,124 @@ kexecmany(){
     done
 }
 
-getnodeIPs() {
+knodeips() {
     kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}
         {.status.addresses[?(@.type=="ExternalIP")].address}{"\n"}{end}'
 }
 
-getpodsperNode(){
+knodepodsall() {
      kubectl get pods --all-namespaces -o json \
        | jq '.items
             | map({podName: .metadata.name, nodeName: .spec.nodeName})
             | group_by(.nodeName)
-            | map({nodeName: .[0].nodeName, pods: map(.podName)})'
+            | map({node: .[0].nodeName, pods: map(.podName)})'
+}
+
+knodepods() {
+     N="${1:-$(kgetnode)}"
+     knodepodsall \
+       | jq --arg NODE "$N" '.[] | select(.node == $NODE)'
 }
 
 getpods() {
     kubectl get pods --no-headers -o custom-columns=":metadata.name" | fzf
 }
 
-getpodsns() {
+kgetpodsns() {
     kubectl get pods -n $1 --no-headers -o custom-columns=":metadata.name" | fzf
 }
 
-getns() {
+kgetns() {
     kubectl get ns --no-headers -o custom-columns=":metadata.name" | fzf
 }
 
-getnodes() {
-    kubectl get nodes --no-headers -o wide | awk '{print $1,$6}' | fzf
+kgetnode() {
+    kubectl get nodes --no-headers -o wide | awk '{print $1}' | fzf
 }
 
-getshellall(){
-    NS=$(getns); kubectl exec -it -n $NS $(getpodsns $NS) -- /bin/sh -c "bash"
+kgetshellall(){
+    local NS=$(kgetns)
+    kubectl exec -it -n $NS $(kgetpodsns $NS) -- /bin/sh -c "bash"
 }
 
 kexec(){
-    kubectl exec $(getpods) -- "$@"
+    kubectl exec $(kgetpods) -- "$@"
 }
 
-getlogsall(){
-    NS=$(getns); kubectl logs -n $NS $(getpodsns $NS) -f
+kdrain() {
+    kubectl drain $1 --delete-local-data --ignore-daemonsets --force
 }
 
-getportall(){
-    NS=$(getns)
-    kubectl port-forward -n $NS $(kubectl get pods -n $NS | awk '{print $1}' | fzf) $1:$1
+kdescribe() {
+    kubectl describe pod/$(getpods)
 }
 
-getport(){
+kdesc() {
+    kdescribe
+}
+
+kcephpw() {
+    kubectl get secret rook-ceph-dashboard-password \
+      -o jsonpath="{['data']['password']}" \
+      | base64 --decode \
+      | xclip
+}
+
+klogsall(){
+    NS=$(kgetns); kubectl logs -n $NS $(kgetpodsns $NS) -f
+}
+
+kgetportall(){
+    NS=$(kgetns)
+    kubectl port-forward \
+      -n $NS $(kubectl get pods -n $NS | awk '{print $1}' | fzf) $1:$1
+}
+
+kgetport(){
     kubectl port-forward $(getpods) $1:$1
 }
 
-getlogs(){
+kgetlogs(){
     kubectl logs $(getpods) -f
 }
 
-getshell(){
+kgetshell(){
     kubectl exec -it $(getpods) -- /bin/sh
 }
 
-getnodeshell(){
-    ssh -o StrictHostKeyChecking=no root@$(getnodes | awk '{print $2}')
+kgetevents() {
+    kubectl get events -A --field-selector type=Warning -o json \
+      | jq '[.items | .[] | {
+          message,
+          reason,
+          name: .metadata.name,
+          host: .source.host
+      }]'
 }
 
-getCephStatus(){
-    kubectl get CephCluster -A -o json | jq '.items[].status.ceph.details'
+knodeshell() {
+    ssh -o StrictHostKeyChecking=no root@$(kgetnode | awk '{print $2}')
 }
 
-numpodsperNode() {
+kcephstatus() {
+    local cephstatus=$(kubectl get CephCluster -A -o json \
+      | jq -r '[.items[] | {
+              name: .metadata.name,
+              version: .spec.cephVersion.image,
+              mon_count: .spec.mon.count,
+              status: { details: .status.ceph.details },
+              health: .status.ceph.health
+            }]')
+    if [[ $* == *--details* ]] then
+      echo $cephstatus | jq
+    else
+      echo $cephstatus \
+          | jq -r '.[] | "\(.name)\t\(.version)\t\(.mon_count)\t\(.health)"' \
+          | column -t
+    fi
+}
+
+knumpodsperNode() {
     kubectl get pods --all-namespaces -o json \
       | jq '.items[] | .spec.nodeName' -r \
       | sort \
@@ -229,7 +298,7 @@ numpodsperNode() {
       | sort -nr
 }
 
-getnodeuptimes() {
+kgetnodeuptimes() {
     kubectl get nodes -o wide --no-headers\
       | awk '{print $1}' \
       | xargs -I {} kubectl-node_shell {} -- sh -c 'uptime' \
@@ -241,23 +310,38 @@ getnodeuptimes() {
       | column -t
 }
 
-kexecnode(){
-    ssh -o StrictHostKeyChecking=no root@$(getnodes | awk '{print $2}') -C "$@"
+kexecnode() {
+    ssh -o StrictHostKeyChecking=no root@$(kgetnode | awk '{print $2}') -C "$@"
 }
 
 kexecnodemany(){
-    NODES=("${(@f)$(kubectl get nodes --no-headers -o wide | awk '{print $1,$6}' | grep $1)}")
-    shift
-    for i in $NODES; do
-        echo "${i}"
-        NAME=$(echo "${i}" | awk '{print $1}')
-        kubectl-node_shell $NAME -- sh -c "$@"
-    done
+    kgn --no-headers \
+      | awk '{print $1}' \
+      | xargs -I {} kubectl-node_shell {} -- sh -c "$@"
 }
 
-switchns(){
-    kubectl config set-context --current --namespace=$(getns)
+kswitchns() {
+    kubectl config set-context --current --namespace=$(kgetns)
     kubectl get pods
+}
+
+kswitchcontext() {
+    kubectl config get-contexts --no-headers \
+      | awk '{print $2}' \
+      | fzf \
+      | xargs -I {} kubectl config use-context {}
+}
+
+kswitchctx() {
+    switchcontext
+}
+
+calc () {
+  echo "$*" | bc -l;
+}
+
+randomstring() {
+    strings /dev/urandom | grep -o '[[:alnum:]]' | head -n "${1:-30}" | tr -d '\n'; echo
 }
 
 man() {
@@ -422,7 +506,8 @@ function texnonstop() {
 
 alias g=google
 function google() {
-    lynx -dump "http://www.google.com/search?hl=en&q=$1" | grep -E "Did\ you\ mean\ to\ search|instead"
+    lynx -dump "http://www.google.com/search?hl=en&q=$1" \
+      | grep -E "Did\ you\ mean\ to\ search|instead"
 }
 
 function showdesk() {
@@ -443,7 +528,7 @@ printcolors() {
     done
 }
 
-function countdown(){
+function countdown() {
    date1=$((`date +%s` + $1));
    while [ "$date1" -ge `date +%s` ]; do
      echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
@@ -451,7 +536,7 @@ function countdown(){
    done
 }
 
-function timer(){
+function timer() {
   date1=`date +%s`;
    while true; do
     echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r";

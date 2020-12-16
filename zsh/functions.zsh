@@ -160,11 +160,19 @@ leo() {
     lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
 }
 
+convertsecs() {
+   eval "echo $(date -ud "@${1}" +'$((%s/3600/24/356)) years $((%s/3600/24 % 356)) days %H hours %M minutes %S seconds')"
+}
+
+c() {
+  awk "{print \$$1}"
+}
+
 knodestatus() {
     kubectl get nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{if ne .type "Ready"}}{{if eq .status "True"}}{{$node.metadata.name}}{{" "}}{{.type}}{{" "}}{{.status}}{{"\n"}}{{end}}{{else}}{{if ne .status "True"}}{{$node.metadata.name}}{{": "}}{{.type}}{{": "}}{{.status}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}' | column -t
 }
 
-kexecmany() {
+kexecpodmany() {
     PODS=($(kubectl get pods --no-headers -o custom-columns=":metadata.name" | grep $1))
     shift
     for i in $PODS; do
@@ -187,42 +195,64 @@ knodepodsall() {
 }
 
 knodepods() {
-     N="${1:-$(kgetnode)}"
+     N="${1:-$(knode)}"
      knodepodsall \
        | jq --arg NODE "$N" '.[] | select(.node == $NODE)'
 }
 
-getpods() {
+kpods() {
     kubectl get pods --no-headers -o custom-columns=":metadata.name" | fzf
 }
 
-kgetpodsns() {
+kdeployment() {
+    kubectl get deployment --no-headers -o custom-columns=":metadata.name" | fzf
+}
+
+
+kddescribedeployment() {
+    kubectl describe deployment/$(kdeployment)
+}
+
+alias kdd=kddescribedeployment
+
+kgetpvc() {
+    kubectl get pvc --no-headers --no-headers -o custom-columns=":metadata.name" | fzf
+}
+
+kgetpvcyaml() {
+    kubectl get pvc/$(kgetpvc) -o yaml
+}
+
+alias kgpvcy=kgetpvcyaml
+
+kpodsns() {
     kubectl get pods -n $1 --no-headers -o custom-columns=":metadata.name" | fzf
 }
 
-kgetns() {
+kns() {
     kubectl get ns --no-headers -o custom-columns=":metadata.name" | fzf
 }
 
-kgetnode() {
+knode() {
     kubectl get nodes --no-headers -o wide | awk '{print $1}' | fzf
 }
 
-kgetshellall(){
-    local NS=$(kgetns)
-    kubectl exec -it -n $NS $(kgetpodsns $NS) -- /bin/sh -c "bash"
+kshellall(){
+    local NS=$(kns)
+    kubectl exec -it -n $NS $(kpodsns $NS) -- /bin/sh -c "bash"
 }
 
-kexec(){
-    kubectl exec $(kgetpods) -- "$@"
+kexec() {
+    kubectl exec $(kpods) -- "$@"
 }
 
 kdrain() {
+    kubectl drain $1 --disable-eviction --delete-local-data --ignore-daemonsets --force > /dev/null &
     kubectl drain $1 --delete-local-data --ignore-daemonsets --force
 }
 
 kdescribe() {
-    kubectl describe pod/$(getpods)
+    kubectl describe pod/$(kpods)
 }
 
 kdesc() {
@@ -236,29 +266,60 @@ kcephpw() {
       | xclip
 }
 
-klogsall(){
-    NS=$(kgetns); kubectl logs -n $NS $(kgetpodsns $NS) -f
+klogsall() {
+    NS=$(kns); kubectl logs -n $NS $(kpodsns $NS) -f
 }
 
-kgetportall(){
-    NS=$(kgetns)
+kportall() {
+    NS=$(kns)
     kubectl port-forward \
       -n $NS $(kubectl get pods -n $NS | awk '{print $1}' | fzf) $1:$1
 }
 
-kgetport(){
-    kubectl port-forward $(getpods) $1:$1
+kport() {
+    kubectl port-forward $(kpods) $1:$1
 }
 
-kgetlogs(){
-    kubectl logs $(getpods) -f
+klogs() {
+    kubectl logs $(kpods) -f
 }
 
-kgetshell(){
-    kubectl exec -it $(getpods) -- /bin/sh
+kshell() {
+    kubectl exec -it $(kpods) "--" sh -c "
+      clear;
+      cat /etc/os-release;
+      (bash || ash || sh);
+      "
 }
 
-kgetevents() {
+kdebugshell() {
+    kubectl exec -it $(kpods) "--" sh -c "
+      yum install -y vim bind-utils curl bash;
+      apt-get update && apt-get install -y vim curl dnsutils bash;
+      apk add vim bind-tools net-tools curl bash rclone;
+      clear;
+      cat /etc/os-release;
+      (bash || ash || sh);
+      "
+}
+
+
+kstartdebugpod() {
+    cat <<'EOF' | kubectl create -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-debug-pod
+spec:
+  containers:
+    - image: alpine
+      name: alpine-debug-pod
+      command: ["/bin/sh"]
+      args: ["-c", "sleep infinity"]
+EOF
+}
+
+kevents() {
     kubectl get events -A --field-selector type=Warning -o json \
       | jq '[.items | .[] | {
           message,
@@ -267,9 +328,10 @@ kgetevents() {
           host: .source.host
       }]'
 }
+alias ke=kevents
 
 knodeshell() {
-    ssh -o StrictHostKeyChecking=no root@$(kgetnode | awk '{print $2}')
+    ssh -o StrictHostKeyChecking=no root@$(knode | awk '{print $2}')
 }
 
 kcephstatus() {
@@ -289,8 +351,9 @@ kcephstatus() {
           | column -t
     fi
 }
+alias kcs=kcephstatus
 
-knumpodsperNode() {
+knumpodspernode() {
     kubectl get pods --all-namespaces -o json \
       | jq '.items[] | .spec.nodeName' -r \
       | sort \
@@ -298,32 +361,33 @@ knumpodsperNode() {
       | sort -nr
 }
 
-kgetnodeuptimes() {
+knodeuptimes() {
     kubectl get nodes -o wide --no-headers\
       | awk '{print $1}' \
-      | xargs -I {} kubectl-node_shell {} -- sh -c 'uptime' \
-      | grep 'average\|spawning' \
-      | awk 'NR%2{printf "%s ",$0;next;}1' \
-      | awk '{print $4, $7,$8}' \
-      | tr -d "\"" \
+      | xargs -n 1 -P 20 -I {} kubectl-node_shell {} -- sh -c 'echo $(hostname) $(uptime)' \
+      | grep -v nsenter \
+      | awk '{print $1, $4, $5}' \
       | tr -d "," \
       | column -t
 }
 
 kexecnode() {
-    ssh -o StrictHostKeyChecking=no root@$(kgetnode | awk '{print $2}') -C "$@"
+    ssh -o StrictHostKeyChecking=no root@$(knode | awk '{print $2}') -C "$@"
 }
 
-kexecnodemany(){
+kexecnodes(){
     kgn --no-headers \
       | awk '{print $1}' \
       | xargs -I {} kubectl-node_shell {} -- sh -c "$@"
 }
 
-kswitchns() {
-    kubectl config set-context --current --namespace=$(kgetns)
+kswitchnamespace() {
+    kubectl config set-context --current --namespace=$(kns)
     kubectl get pods
 }
+
+alias kswitchns=kswitchnamespace
+alias ksn=kswitchnamespace
 
 kswitchcontext() {
     kubectl config get-contexts --no-headers \
@@ -332,9 +396,9 @@ kswitchcontext() {
       | xargs -I {} kubectl config use-context {}
 }
 
-kswitchctx() {
-    switchcontext
-}
+alias kswitchctx=kswitchcontext
+alias ksctx=kswitchcontext
+alias ksc=kswitchcontext
 
 calc () {
   echo "$*" | bc -l;
@@ -343,6 +407,7 @@ calc () {
 randomstring() {
     strings /dev/urandom | grep -o '[[:alnum:]]' | head -n "${1:-30}" | tr -d '\n'; echo
 }
+alias randstr=randomstring
 
 man() {
     command man -t "$1" | ps2pdf - /tmp/"$1".pdf && zathura /tmp/"$1".pdf

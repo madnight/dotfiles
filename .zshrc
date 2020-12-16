@@ -177,3 +177,5 @@ fi
 bindkey '\C-?' backward-kill-word
 
 xset r rate 600 60
+
+zstyle ':completion:*' completer _expand_alias _complete _ignored

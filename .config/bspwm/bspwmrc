@@ -136,11 +136,12 @@ fi
 
 if [[ $(hostname) == 'thinkpad' ]]; then
 
-    bspc config top_padding    0
+    bspc config top_padding 22
     bspc config right_padding  0
     bspc config left_padding   0
     bspc config bottom_padding 0
     bspc config window_gap     0
+    bspc monitor -d 1 2 3 4 5 5 7 8 9 0
 
     MON_COUNT=$(bspc query -M | wc -l) == 1
 

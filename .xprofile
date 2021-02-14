@@ -41,28 +41,24 @@ function exist_and_not_running()
 }
 
 exist_and_not_running wmname LG3D
-
-pulseaudio -k || true
-pulseaudio --start
-
 exist_and_not_running chromium --force-dark-mode
 
 # clear download folder
 mv ~/Downloads/* mv ~/Downloads/old &> /dev/null
 
 # automute while afk
-if ! ps aux | egrep [a]utomute &> /dev/null; then
-    [ -f ~/scripts/automute.bash ] && ~/scripts/automute.bash &
-fi
+# if ! ps aux | egrep [a]utomute &> /dev/null; then
+#     [ -f ~/scripts/automute.bash ] && ~/scripts/automute.bash &
+# fi
 
 # sync github mirror repositories
-if ! ps aux | egrep [m]irror ; then
-    [ -f ~/scripts/mirror ] && ~/scripts/mirror &
-fi
+# if ! ps aux | egrep [m]irror ; then
+#     [ -f ~/scripts/mirror ] && ~/scripts/mirror &
+# fi
 
 # low memory warning (freeze swap prevention)
 if ! ps aux | egrep [l]owmem ; then
-    [ -f ~/scripts/lowmem.hs ] && runghc ~/scripts/lowmem &
+    [ -f ~/scripts/lowmem.bash ] && ~/scripts/lowmem.bash &
 fi
 
 # low space warning
@@ -75,14 +71,8 @@ if ! pgrep kernelupdate > /dev/null ; then
     [ -f ~/scripts/kernelupdate.sh ] && ~/scripts/kernelupdate.sh &
 fi
 
-if [[ $(hostname) == 'thinkpad' ]]; then
-    if [ -e $HOME/scripts/thinkdock.sh ]; then
-        bash $HOME/scripts/thinkdock.sh &
-    fi
-fi
-
-killall gcalcli || true
 if [ -x /usr/bin/gcalcli ]; then
+  killall gcalcli || true
   while true; do
     /usr/bin/gcalcli remind
     sleep 300
@@ -95,8 +85,8 @@ exist_and_not_running redshift
 # hide mouse when not needed
 exist_and_not_running unclutter
 
-# exist_and_not_running thunderbird
-
-
 # autolock screen after n mins
 exist_and_not_running xautolock -time 15 -locker "physlock"
+
+# automount google drive
+# exist_and_not_running rclone mount --daemon --vfs-cache-mode writes gdrive googledrive

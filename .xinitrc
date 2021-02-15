@@ -58,4 +58,5 @@ export SSH_AUTH_SOCK
 xmodmap $HOME/.Xmodmap
 
 exec bspwm
+# exec startxfce4
 xterm &

@@ -97,3 +97,5 @@ rationalise-dot() {
 }
 zle -N rationalise-dot
 bindkey . rationalise-dot
+
+bindkey -s "^E" 'ls^M'

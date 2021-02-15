@@ -105,9 +105,9 @@ font-0 = Tamsyn:pixelsize=12;1
 
 [bar/top-bspwm-thinkpad]
 inherit = bar/base
-monitor = ${env:MONITOR:LVDS1}
+monitor = ${env:MONITOR:eDP-1}
 modules-left = apps fs-root cpu thinkpadtemp mem weather novpn vpn bitcoin
-modules-right = google wired wifi uptime updates ping volume battery date time
+modules-right = google wired wifi uptime updates ping volume battery battery1 date time
 scroll-up = bspwm-desknext
 scroll-down = bspwm-deskprev
 modules-center = bspwm
@@ -342,6 +342,31 @@ animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-framerate = 1000
+
+[module/battery1]
+type = internal/battery
+adapter = ACAD
+battery = BAT1
+poll-interval = 2
+format-charging = %{F#666}<animation-charging>%{F-} <label-charging>
+format-discharging = %{F#666}<ramp-capacity>%{F-} <label-discharging>
+format-full = %{F#666}<ramp-capacity>%{F-} <label-full>
+label-charging = %percentage%%
+label-discharging = %percentage%%
+label-full = %percentage%%
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 1000
+
+
 
 [module/xwindow]
 type = internal/xwindow

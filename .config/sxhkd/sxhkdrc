@@ -114,10 +114,10 @@ F12
 
 # Volume mute
 F10
-    amixer set Master toggle && espeak -v+f4 'sound activated'
+    pulseaudio-ctl mute && espeak -v+f4 'sound activated' --stdout | paplay
 
 XF86AudioMute
-    amixer set Master toggle && espeak -v+f4 'sound activated' */
+    pulseaudio-ctl mute && espeak -v+f4 'sound activated' --stdout | paplay
 
 # Player pause
 F8

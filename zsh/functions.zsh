@@ -160,6 +160,10 @@ leo() {
     lynx -dump -nolist 'http://dict.leo.org/ende?lp=ende&lang=de&searchLoc=0&cmpType=relaxed&sectHdr=on&spellToler=on&search='"$1"'&relink=on' | perl -n -e "print if /$re/i;" | head -20
 }
 
+bytesToHumanReadable() {
+  numfmt --to=iec-i --suffix=B --padding=7 $1
+}
+
 convertsecs() {
    eval "echo $(date -ud "@${1}" +'$((%s/3600/24/356)) years $((%s/3600/24 % 356)) days %H hours %M minutes %S seconds')"
 }
@@ -184,6 +188,10 @@ kexecpodmany() {
 knodeips() {
     kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}
         {.status.addresses[?(@.type=="ExternalIP")].address}{"\n"}{end}'
+}
+
+kgetall() {
+    kubectl api-resources --verbs=list -o name | xargs -P50 -n1 kubectl get -o name
 }
 
 knodepodsall() {
@@ -218,6 +226,12 @@ alias kdd=kddescribedeployment
 kgetpvc() {
     kubectl get pvc --no-headers --no-headers -o custom-columns=":metadata.name" | fzf
 }
+
+kdescribepod() {
+    kubectl describe pod/$(kpods)
+}
+
+alias kdp=kdescribepod
 
 kgetpvcyaml() {
     kubectl get pvc/$(kgetpvc) -o yaml
@@ -334,6 +348,10 @@ knodeshell() {
     ssh -o StrictHostKeyChecking=no root@$(knode | awk '{print $2}')
 }
 
+kneat() {
+    ((!$#)) && { kubectl-neat | bat -l yaml } || { kubectl-neat -f $1 | bat -l yaml }
+}
+
 kcephstatus() {
     local cephstatus=$(kubectl get CephCluster -A -o json \
       | jq -r '[.items[] | {
@@ -351,7 +369,12 @@ kcephstatus() {
           | column -t
     fi
 }
-alias kcs=kcephstatus
+
+kcephshell() {
+   kubectl exec -n $1 -it $(kubectl get pods -n $1 \
+     | grep "rook-ceph-tools" \
+     | cut -d' ' -f1) -- /bin/bash -c "ceph status; bash"
+}
 
 knumpodspernode() {
     kubectl get pods --all-namespaces -o json \
@@ -370,6 +393,12 @@ knodeuptimes() {
       | tr -d "," \
       | column -t
 }
+
+knodepod() {
+    kubectl get pod -o=custom-columns=NODE:.spec.nodeName,NAME:.metadata.name
+}
+alias knodepods=knodepod
+alias knp=knodepod
 
 kexecnode() {
     ssh -o StrictHostKeyChecking=no root@$(knode | awk '{print $2}') -C "$@"

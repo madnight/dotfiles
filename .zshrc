@@ -81,8 +81,6 @@ setopt append_history
 setopt share_history
 setopt hist_verify
 setopt hist_ignore_all_dups
-
-#############################
 # terminal specific settings
 #############################
 # fix <C-h> combo in xterm (it sends erase otherwise)
@@ -129,6 +127,8 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 export DEFAULT_NETWORK_INTERFACE=$(ip route | grep '^default' | awk '{print $5}' | head -n1)
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
+[ -z "${XDG_RUNTIME_DIR}" ] && export XDG_RUNTIME_DIR=/run/user/$(id -ru)
+export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH
@@ -179,3 +179,4 @@ bindkey '\C-?' backward-kill-word
 xset r rate 600 60
 
 zstyle ':completion:*' completer _expand_alias _complete _ignored
+

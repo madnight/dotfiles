@@ -177,6 +177,7 @@ ntp
 numix-gtk-theme
 openssh
 openvpn
+pacman-static
 profile-sync-daemon
 pacutils
 parallel

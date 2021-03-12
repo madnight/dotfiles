@@ -193,7 +193,8 @@ cnoremap <silent> x<cr> call QuitPrompt()<cr>
 
 inoremap jk <ESC>
 " Ctrl+Delete to delete a word
-inoremap <C-?> <C-W>
+"
+" inoremap <C-?> <C-W>
 
 silent inoremap <silent> <Tab> <C-n>
 silent inoremap <silent> <S-Tab> <C-p>

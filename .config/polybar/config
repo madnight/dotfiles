@@ -451,23 +451,23 @@ label  = %{F#666}C19%{F-} %output%M
 
 [module/vpn]
 type = custom/script
-exec = geo -g | sed -n 1p | cut -c 1-3
+exec = geo -g | sed -n 3p | cut -c 1-3
 exec-if = [ "$(geo -g | sed -n 1p)" != "Germany" ]
-interval = 60
+interval = 15
 label = %{F#666}%{F-} %output%
 
 [module/novpn]
 type = custom/script
-exec = geo -g | sed -n 1p
+exec = geo -g | sed -n 3p
 exec-if = [ "$(geo -g | sed -n 1p)" == "Germany" ]
-interval = 60
+interval = 15
 label = %{F#666}%{F-} %output%
 
 [module/fanspeed]
 type = custom/script
 exec = cat /proc/acpi/ibm/fan | grep speed: | awk '{print $2}'
 exec-if = [[ -f /proc/acpi/ibm/fan ]]
-interval = 1
+interval = 15
 label = %{F#666}FAN%{F-} %output%
 
 [module/uptime]

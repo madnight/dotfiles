@@ -18,8 +18,8 @@ XTerm*visualBell: False
 ! ##############
 ! xterm settings
 ! ##############
-xterm*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
-xterm*boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*
+xterm*font:                 -*-terminus-medium-*-*-*-24-*-*-*-*-*-*-*
+xterm*boldFont:             -*-terminus-bold-*-*-*-24-*-*-*-*-*-*-*
 URxvt*font:                 -*-terminus-medium-*-*-*-22-*-*-*-*-*-*-*
 URxvt*boldFont:             -*-terminus-bold-*-*-*-22-*-*-*-*-*-*-*
 URxvt.letterSpace: 3

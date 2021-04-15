@@ -11,7 +11,7 @@
     browser = /usr/bin/firefox -new-tab
     dmenu = /usr/bin/dmenu -p dunst:
     follow = none
-    font = Terminus (TTF) 12
+    font = Terminus (TTF) 15
     format = "<b>%s</b>\n%b"
     # geometry [{width}]x{height}][+/-{x}+/-{y}]
     geometry = "0-10+10"

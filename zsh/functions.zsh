@@ -1,4 +1,6 @@
-rangerShow() { BUFFER="ranger"; zle accept-line; }
+rangerShow() {
+    BUFFER="ranger"; zle accept-line;
+}
 zle -N rangerShow
 
 zle -N fzd{,}
@@ -11,8 +13,6 @@ cdUndoKey() {
   ls
   echo
 }
-
-unfreeze() { tmux send-keys C-q }
 
 cdParentKey() {
   pushd .. > /dev/null
@@ -27,39 +27,43 @@ zle -N             cdUndoKey
 bindkey '^[.'      cdParentKey
 bindkey '^[,'      cdUndoKey
 
-# one-liners
-256color() { for code in {0..255}; do echo -e "\e[38;05;${code}m $code: Test"; done }
-aurless() { yaourt --noconfirm --color $1 | less -r }
-cd() { builtin cd $1 && ls; }
-cl() { cd $1 && pwd && ls; }
-clip() { echo "$@" | xclip; }
-cpstat () { tar cf - "$1" | pv | (cd "$2";tar xf -) }
-disabled() { sudo systemctl disable $1.service;  }
-dls () { echo `ls -l | grep "^d" | awk '{ print $9 }' | tr -d "/"`; }
-duplicates() { sort $1 | uniq -cd }
-enabled() { cd /usr/lib/systemd/system; sudo systemctl enable $1.service;  }
-f() { find $(pwd) | grep $1; }
-facd() { cd $(locate -i $1 | head -n 1); }
-fan() { nano $(locate -i $1 | head -n 1); }
-github() { chromium "https://github.com/search?q=$1"; }
-grepp() { [ $# -eq 1 ] && perl -00ne "print if /$1/i" || perl -00ne "print if /$1/i" < "$2"; }
-h() { if [ -z "$*" ]; then history; else history | egrep "$@"; fi }
-killall() { ps -ef | grep $1 | grep -v grep | awk '{print $2}' | xargs kill -9; }
-killport() { lsof -i tcp:8080 | grep LISTEN | awk '{print $2}' | xargs kill; }
-maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
-makezip() { zip -r "${1%%/}.zip" "$1" ; }
-mkcdir() { /bin/mkdir -p "$@" && cd "$_"; }
-pagrep() { rg "$1" }
-parentProcess () { ps -p "$1" -o ppid= }
-pkgfiler() { pacman -Ql $1 | grep bin; }
-restart() { sudo systemctl restart $1.service; sudo systemctl status $1.service; }
-sfan() { sudo vim $(fa $1 | head -n 1); }
-start() { sudo systemctl start $1.service; sudo systemctl status $1.service; }
-status() { sudo systemctl status $1.service; }
-statusdd () { watch -n5 'sudo kill -USR1 $(pgrep ^dd)'; }
-stop() { sudo systemctl stop $1.service; sudo systemctl status $1.service; }
-yoda() { git add -u && git commit && git push; }
-yodacommit() { git commit -m "$(fortune)" }
+256color() {
+  for code in {0..255};
+      do echo -e "\e[38;05;${code}m $code: Test";
+  done
+}
+
+cd() {
+    builtin cd $1 && ls;
+}
+
+disabled() {
+    sudo systemctl disable $1.service;
+}
+
+facd() {
+    cd $(locate -i $1 | head -n 1);
+}
+
+killall() {
+    ps -ef | grep $1 | grep -v grep | awk '{print $2}' | xargs kill -9;
+}
+
+killport() {
+    lsof -i tcp:8080 | grep LISTEN | awk '{print $2}' | xargs kill;
+}
+
+parentProcess () {
+    ps -p "$1" -o ppid=
+}
+
+pkgfiler() {
+    pacman -Ql $1 | grep bin;
+}
+
+yodacommit() {
+    commit -m "$(fortune)"
+}
 
 dockerprune() {
     docker stop $(docker ps -a -q)
@@ -67,7 +71,6 @@ dockerprune() {
     docker rm -vf $(docker ps -aq);
     docker rmi -f $(docker images -aq);
     docker volume prune -f;
-    # sudo rm -rf /var/lib/docker/overlay2;
 }
 
 nixprune() {
@@ -88,24 +91,6 @@ edit)
 for c in $user_commands; do alias sc-$c="systemctl $c"; done
 for c in $sudo_commands; do alias sc-$c="sudo systemctl $c"; done
 
-asm ()
-{
-    filename=$1
-    nasm -f elf $1
-    ld -o "${filename%.*}" "${filename%.*}.o" -melf_i386
-    command rm "${filename%.*}.o"
-    echo "Done building, the file '${filename%.*}' is your executable"
-}
-
-asm32()
-{
-    filename=$1
-    nasm -f elf $1
-    gcc -m32 "${filename%.*}.o" -o "${filename%.*}"
-    command rm "${filename%.*}.o"
-    echo "Done building, the file '${filename%.*}' is your executable"
-}
-
 # fancy history search via C-r
 function exists { which $1 &> /dev/null; }
 if exists percol; then
@@ -119,12 +104,6 @@ if exists percol; then
     zle -N percol_select_history
     bindkey '^R' percol_select_history
 fi
-
-# backup and list packages
-packages () {
-    pacman -Qqe  >| /home/datadisk/Dropbox/ArchBackup/pkglist_$(date +%F).txt
-    pacman -Qqe
-}
 
 function fail {
   echo $1 >&2
@@ -217,27 +196,21 @@ kdeployment() {
 }
 
 
-kddescribedeployment() {
+kdd() {
     kubectl describe deployment/$(kdeployment)
 }
-
-alias kdd=kddescribedeployment
 
 kgetpvc() {
     kubectl get pvc --no-headers --no-headers -o custom-columns=":metadata.name" | fzf
 }
 
-kdescribepod() {
+kdp() {
     kubectl describe pod/$(kpods)
 }
 
-alias kdp=kdescribepod
-
-kgetpvcyaml() {
+kgpy() {
     kubectl get pvc/$(kgetpvc) -o yaml
 }
-
-alias kgpvcy=kgetpvcyaml
 
 kpodsns() {
     kubectl get pods -n $1 --no-headers -o custom-columns=":metadata.name" | fzf
@@ -333,7 +306,7 @@ spec:
 EOF
 }
 
-kevents() {
+ke() {
     kubectl get events -A --field-selector type=Warning -o json \
       | jq '[.items | .[] | {
           message,
@@ -342,7 +315,6 @@ kevents() {
           host: .source.host
       }]'
 }
-alias ke=kevents
 
 knodeshell() {
     ssh -o StrictHostKeyChecking=no root@$(knode | awk '{print $2}')
@@ -430,12 +402,13 @@ alias ksctx=kswitchcontext
 alias ksc=kswitchcontext
 
 calc () {
-  echo "$*" | bc -l;
+    echo "$*" | bc -l;
 }
 
 randomstring() {
     strings /dev/urandom | grep -o '[[:alnum:]]' | head -n "${1:-30}" | tr -d '\n'; echo
 }
+
 alias randstr=randomstring
 
 man() {
@@ -465,27 +438,11 @@ lastdir() {
     fi
 }
 
-csource() {
-    [[ $1 ]]    || { echo "Missing operand" >&2; return 1; }
-    [[ -r $1 ]] || { printf "File %s does not exist or is not readable\n" "$1" >&2; return 1; }
-    local output_path=${TMPDIR:-/tmp}/${1##*/};
-    gcc "$1" -o "$output_path" && "$output_path";
-    rm "$output_path";
-    return 0;
-}
-
 cycle() {
     last_dir="$(ls -Frt | grep '/$' | tail -n1)"
     if [ -d "$last_dir" ]; then
         cd "$last_dir"
     fi
-}
-
-# copy with md check
-md5copy() {
-    echo "example usage: md5copy Star_Trek.mkv /run/media/x/stick/"
-    rsync -c -h --stats --info=progress2 $1 $2
-    parallel md5sum ::: $1 $2$1
 }
 
 extract () {
@@ -506,27 +463,6 @@ extract () {
             *.7z)        7z x $1        ;;
             *)           echo "don't know how to extract '$1'..." ;;
         esac
-    else
-        echo "'$1' is not a valid file!"
-    fi
-}
-
-restartsound () {
-    pulseaudio --kill;
-    pulseaudio --start;
-    pacmd list-sinks;
-    pacmd set-default-sink alsa_output.pci-0000_00_14.2.analog-stereoi;
-}
-
-format () {
-    if [ -f $1 ] ; then
-        case $1 in
-            *.js)     js-beautify $1 > beauty$1   ;;
-            *.html)   tidy $1 > beauty$1   ;;
-            *)           echo "don't know how to extract '$1'..." ;;
-        esac
-        rm $1;
-        mv beauty$1 $1;
     else
         echo "'$1' is not a valid file!"
     fi

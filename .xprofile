@@ -46,16 +46,6 @@ exist_and_not_running chromium --force-dark-mode
 # clear download folder
 mv ~/Downloads/* mv ~/Downloads/old &> /dev/null
 
-# automute while afk
-# if ! ps aux | egrep [a]utomute &> /dev/null; then
-#     [ -f ~/scripts/automute.bash ] && ~/scripts/automute.bash &
-# fi
-
-# sync github mirror repositories
-# if ! ps aux | egrep [m]irror ; then
-#     [ -f ~/scripts/mirror ] && ~/scripts/mirror &
-# fi
-
 # low memory warning (freeze swap prevention)
 if ! ps aux | egrep [l]owmem ; then
     [ -f ~/scripts/lowmem.bash ] && ~/scripts/lowmem.bash &

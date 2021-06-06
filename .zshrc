@@ -3,7 +3,7 @@
  #       |_  / __| '_ \   / __/ _ \| '_ \| |_| |/ _` |
  #        / /\__ \ | | | | (_| (_) | | | |  _| | (_| |
  #       /___|___/_| |_|  \___\___/|_| |_|_| |_|\__, |
- #                                              |___/
+ #                                               |___/
 
 START=$(date +%s.%N)
 
@@ -166,9 +166,6 @@ if (( $ZSHRC_PERF > 0.15)); then
   echo "\033[0;31mperformance warning!"
   echo ".zshrc startup time" $ZSHRC_PERF "seconds"
 fi
-
-# xrdb ~/.Xresources∎
-#
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

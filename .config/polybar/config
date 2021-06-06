@@ -150,7 +150,6 @@ interval = 3.0
 format-connected = <label-connected>
 format-disconnected = <label-disconnected>
 format-packetloss = <animation-packetloss> <label-connected>
-; you need downspeed 8 (3 decimal numbers to stablize)
 label-connected = %{F#777} %{F-}%downspeed:8%
 ramp-signal-0 = 1
 ramp-signal-1 = 2
@@ -366,8 +365,6 @@ animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-framerate = 1000
 
-
-
 [module/xwindow]
 type = internal/xwindow
 label-maxlen = 30
@@ -532,7 +529,6 @@ format = <label>
 format-prefix = "%{F#666} %{F-}"
 exec-if = ping -c 1 google.com > /dev/null
 exec = python $HOME/scripts/weather.py | grep -v Traceback
-; exec = $HOME/scripts/weather.bash
 
 [module/crypto]
 type = custom/script

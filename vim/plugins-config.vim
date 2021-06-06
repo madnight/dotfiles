@@ -44,7 +44,7 @@ let g:tmuxline_theme = 'zenburn'
 "###################
 " NerdTree settings
 "###################
-let g:NERDTreeMinimalUI = 0
+let g:NERDTreeMinimalUI = 1
 let g:NERDTreeShowHidden=1
 let g:NERDTreeWinPos = "left"
 let g:NERDTreeMouseMode = 3
@@ -58,6 +58,9 @@ let g:NERDSpaceDelims = 1
 
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
+
+let g:NERDTreeDirArrowExpandable = '>'
+let g:NERDTreeDirArrowCollapsible = 'V'
 
 " Add your own custom formats or override the defaults
 let g:NERDTrimTrailingWhitespace = 1

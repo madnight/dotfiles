@@ -6,6 +6,8 @@
 !        /_/\_\_|  \___||___/\___/ \__,_|_|  \___\___||___/
 
 
+Xft.dpi: 120
+
 *TkTheme: clearlooks
 Xcursor.theme: DMZ-White
 URxvt.scrollBar: false

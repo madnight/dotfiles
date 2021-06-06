@@ -133,7 +133,7 @@ hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 hi LineNr guibg=#1D1F21
 
-function! g:FuckThatMatchParen ()
+function! g:NoMatchParens ()
     if exists(":NoMatchParen")
         :NoMatchParen
     endif
@@ -141,5 +141,5 @@ endfunction
 
 augroup plugin_initialize
     autocmd!
-    autocmd VimEnter * call FuckThatMatchParen()
+    autocmd VimEnter * call NoMatchParens()
 augroup END

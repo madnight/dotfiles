@@ -51,6 +51,7 @@ alias grm='git rebase master'
 alias gs='git status'
 alias halt="sudo systemctl halt"
 alias i='sudo pacman -S'
+alias iwou='sudo pacman -Sy && sudo pacman -Su'
 alias inet='ping 8.8.8.8'
 alias infile='pagrep'
 alias iomonitor='watch -n 0.1 iostat'

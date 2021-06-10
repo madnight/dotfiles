@@ -6,6 +6,11 @@ zle -N rangerShow
 zle -N fzd{,}
 bindkey '^F' fzd
 
+
+upgrade() {
+    echo "Server = https://archive.archlinux.org/repos/$(date -d "yesterday 13:00" +'%Y/%m/%d')/\$repo/os/\$arch" | sudo tee -a  /etc/pacman.d/mirrorlist
+}
+
 cdUndoKey() {
   popd      > /dev/null
   zle       reset-prompt
@@ -195,6 +200,9 @@ kdeployment() {
     kubectl get deployment --no-headers -o custom-columns=":metadata.name" | fzf
 }
 
+kconfigmap() {
+    kubectl get configmap --no-headers -o custom-columns=":metadata.name" | fzf
+}
 
 kdd() {
     kubectl describe deployment/$(kdeployment)
@@ -208,8 +216,23 @@ kdp() {
     kubectl describe pod/$(kpods)
 }
 
-kgpy() {
+kgpvcy() {
     kubectl get pvc/$(kgetpvc) -o yaml
+}
+
+kgpy() {
+    POD=$(kpods)
+    vim -c 'set syntax=yaml' <(kubectl get pods $POD -o yaml)
+}
+
+kgdy() {
+    DEPLOYMENT=$(kdeployment)
+    vim -c 'set syntax=yaml' <(kubectl get deployment $DEPLOYMENT -o yaml)
+}
+
+kgcy() {
+    CONFIGMAP=$(kconfigmap)
+    vim -c 'set syntax=yaml' <(kubectl get configmap $CONFIGMAP -o yaml)
 }
 
 kpodsns() {
@@ -242,6 +265,11 @@ kdescribe() {
     kubectl describe pod/$(kpods)
 }
 
+kshowsecret() {
+    local SECRET=$(kubectl get secret --no-headers -o wide | awk '{print $1}' | fzf)
+    kubectl get secret $SECRET -o json | jq '.data | map_values(@base64d)'
+}
+
 kdesc() {
     kdescribe
 }
@@ -268,16 +296,33 @@ kport() {
 }
 
 klogs() {
-    kubectl logs $(kpods) -f
+    POD=$(kpods)
+    CONS=$(kubectl get pods $POD -o json | jq -r '.spec.containers[].name')
+    if [ "$(echo $CONS | wc -l)" -lt "2" ]; then
+        kubectl logs $POD -f
+    else
+        kubectl logs $POD -c $(echo $CONS | fzf) -f
+    fi
 }
 
 kshell() {
-    kubectl exec -it $(kpods) "--" sh -c "
-      clear;
-      cat /etc/os-release;
-      (bash || ash || sh);
-      "
+    POD=$(kpods)
+    CONS=$(kubectl get pods $POD -o json | jq -r '.spec.containers[].name')
+    CMD="(while :; do sleep 1h && echo ping; done) & clear; cat /etc/os-release; (bash || ash || sh);"
+    if [ "$(echo $CONS | wc -l)" -lt "2" ]; then
+        kubectl exec -it $POD "--" sh -c $CMD
+    else
+        kubectl exec -it $POD -c $(echo $CONS | fzf) "--" sh -c $CMD
+    fi
 }
+
+krootshell() {
+    POD="$(kpods)"
+    CON_ID=$(kubectl describe pod $POD | grep "Container ID" | cut -f3- -d/)
+    NODE=$(kubectl describe pod $POD | grep "Node:" | cut -f2 -d/)
+    ssh -t -o StrictHostKeyChecking=no root@$NODE docker exec -ti -u root $CON_ID /bin/bash
+}
+
 
 kdebugshell() {
     kubectl exec -it $(kpods) "--" sh -c "
@@ -291,7 +336,7 @@ kdebugshell() {
 }
 
 
-kstartdebugpod() {
+kdebugpod() {
     cat <<'EOF' | kubectl create -f -
 apiVersion: v1
 kind: Pod
@@ -354,6 +399,10 @@ knumpodspernode() {
       | sort \
       | uniq -c \
       | sort -nr
+}
+
+kcrash() {
+    kubectl get pods -A | grep CrashLoopBackOff
 }
 
 knodeuptimes() {

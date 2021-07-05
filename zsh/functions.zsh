@@ -8,7 +8,8 @@ bindkey '^F' fzd
 
 
 upgrade() {
-    echo "Server = https://archive.archlinux.org/repos/$(date -d "yesterday 13:00" +'%Y/%m/%d')/\$repo/os/\$arch" | sudo tee -a  /etc/pacman.d/mirrorlist
+    echo "Server = https://archive.archlinux.org/repos/$(date -d "yesterday 13:00" +'%Y/%m/%d')/\$repo/os/\$arch" | sudo tee /etc/pacman.d/mirrorlist
+    sudo pacman -Syu
 }
 
 cdUndoKey() {
@@ -221,17 +222,17 @@ kgpvcy() {
 }
 
 kgpy() {
-    POD=$(kpods)
+    local POD=$(kpods)
     vim -c 'set syntax=yaml' <(kubectl get pods $POD -o yaml)
 }
 
 kgdy() {
-    DEPLOYMENT=$(kdeployment)
+    local DEPLOYMENT=$(kdeployment)
     vim -c 'set syntax=yaml' <(kubectl get deployment $DEPLOYMENT -o yaml)
 }
 
 kgcy() {
-    CONFIGMAP=$(kconfigmap)
+    local CONFIGMAP=$(kconfigmap)
     vim -c 'set syntax=yaml' <(kubectl get configmap $CONFIGMAP -o yaml)
 }
 
@@ -281,12 +282,21 @@ kcephpw() {
       | xclip
 }
 
+knodepvc() {
+  local PVC=$(kubectl get pvc --no-headers -o custom-columns=":metadata.name" | fzf)
+  local POD=$(kubectl get pod --no-headers -o custom-columns=":metadata.name" | fzf)
+  local VOLUME=$(kubectl get pvc $PVC -o custom-columns=":spec.volumeName" --no-headers)
+  local NODE=$(kubectl get pod $POD -o custom-columns=":spec.nodeName" --no-headers)
+  ssh -t -o StrictHostKeyChecking=no root@$NODE "cd /var/lib/kubelet/plugins/kubernetes.io/csi/pv/$VOLUME/globalmount; bash"
+}
+
 klogsall() {
-    NS=$(kns); kubectl logs -n $NS $(kpodsns $NS) -f
+    local NS=$(kns)
+    kubectl logs -n $NS $(kpodsns $NS) -f
 }
 
 kportall() {
-    NS=$(kns)
+    local NS=$(kns)
     kubectl port-forward \
       -n $NS $(kubectl get pods -n $NS | awk '{print $1}' | fzf) $1:$1
 }
@@ -296,8 +306,8 @@ kport() {
 }
 
 klogs() {
-    POD=$(kpods)
-    CONS=$(kubectl get pods $POD -o json | jq -r '.spec.containers[].name')
+    local POD=$(kpods)
+    local CONS=$(kubectl get pods $POD -o json | jq -r '.spec.containers[].name')
     if [ "$(echo $CONS | wc -l)" -lt "2" ]; then
         kubectl logs $POD -f
     else
@@ -306,9 +316,9 @@ klogs() {
 }
 
 kshell() {
-    POD=$(kpods)
-    CONS=$(kubectl get pods $POD -o json | jq -r '.spec.containers[].name')
-    CMD="(while :; do sleep 1h && echo ping; done) & clear; cat /etc/os-release; (bash || ash || sh);"
+    local POD=$(kpods)
+    local CONS=$(kubectl get pods $POD -o json | jq -r '.spec.containers[].name')
+    local CMD="(while :; do sleep 1h && echo ping; done) & clear; cat /etc/os-release; (bash || ash || sh);"
     if [ "$(echo $CONS | wc -l)" -lt "2" ]; then
         kubectl exec -it $POD "--" sh -c $CMD
     else
@@ -317,10 +327,17 @@ kshell() {
 }
 
 krootshell() {
-    POD="$(kpods)"
-    CON_ID=$(kubectl describe pod $POD | grep "Container ID" | cut -f3- -d/)
-    NODE=$(kubectl describe pod $POD | grep "Node:" | cut -f2 -d/)
-    ssh -t -o StrictHostKeyChecking=no root@$NODE docker exec -ti -u root $CON_ID /bin/bash
+    local POD="$(kpods)"
+    local CONS=$(kubectl get pods $POD -o json | jq -r '.spec.containers[].name')
+    if [ "$(echo $CONS | wc -l)" -lt "2" ]; then
+        local CON_ID=$(kubectl describe pod $POD | grep "Container ID" | cut -f3- -d/)
+        local NODE=$(kubectl describe pod $POD | grep "Node:" | cut -f2 -d/)
+        ssh -t -o StrictHostKeyChecking=no root@$NODE docker exec -ti -u root $CON_ID /bin/bash
+    else
+        local CON_ID=$(kubectl describe pod $POD | grep -C 3 "$(echo $CONS | fzf)" | grep "Container ID" | cut -f3- -d/)
+        local NODE=$(kubectl describe pod $POD | grep "Node:" | cut -f2 -d/)
+        ssh -t -o StrictHostKeyChecking=no root@$NODE docker exec -ti -u root $CON_ID /bin/bash
+    fi
 }
 
 
@@ -350,6 +367,31 @@ spec:
       args: ["-c", "sleep infinity"]
 EOF
 }
+
+kpvcclone() {
+    if [ $# -eq 0 ]
+      then return
+    fi
+    local PVC=$(kubectl get pvc --no-headers --no-headers -o custom-columns=":metadata.name" | fzf)
+    local SIZE=$(kubectl get pvc $PVC --no-headers --no-headers -o custom-columns=":spec.resources.requests.storage")
+    # cat <<'EOF' | kubectl create -f -
+    cat <<EOF
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: $1
+spec:
+  dataSource:
+    name: $PVC
+    kind: PersistentVolumeClaim
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: $SIZE
+EOF
+}
+
 
 ke() {
     kubectl get events -A --field-selector type=Warning -o json \

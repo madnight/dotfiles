@@ -11,10 +11,10 @@ START=$(date +%s.%N)
 [[ $- != *i* ]] && return
 
 # auto startx if display is not set
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    exec startx
-    logout
-fi
+# if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+    # exec startx
+    # logout
+# fi
 
 for sd_cmd in systemctl systemd-analyze systemd-run; do
      alias $sd_cmd='DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus" '$sd_cmd
@@ -172,6 +172,9 @@ fi
 
 # ctrl + delete deletes last word
 bindkey '\C-?' backward-kill-word
+
+# alacritty
+# bindkey '^H' backward-kill-word
 
 xset r rate 600 60
 

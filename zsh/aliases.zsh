@@ -53,7 +53,7 @@ alias halt="sudo systemctl halt"
 alias i='sudo pacman -S'
 alias iwou='sudo pacman -Sy && sudo pacman -Su'
 alias inet='ping 8.8.8.8'
-alias infile='pagrep'
+alias infile='rg'
 alias iomonitor='watch -n 0.1 iostat'
 alias iowatch='iomonitor'
 alias isearch='pagrep'
@@ -63,7 +63,8 @@ alias k='kubectl'
 alias kgn='kubectl get nodes -o wide'
 alias kgp='kubectl get pods'
 alias kgd='kubectl get deployment'
-alias kge='kubectl get events'
+alias kgc='kubectl get cronjob'
+alias kge="kubectl get events --sort-by='.metadata.creationTimestamp'"
 alias kgpvc='kubectl get pvc'
 alias lastinstalled="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 50"
 alias logs='journalctl'

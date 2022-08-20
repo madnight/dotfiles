@@ -67,8 +67,8 @@ if [[ $(hostname) == 't480' ]]; then
 
     MON_COUNT=$(bspc query -M | wc -l)
 
-    PRIMARY=$(xrandr | grep \ connected | grep "598mm x 336mm" | awk {'print $1'})
-    LEFT=$(xrandr | grep \ connected | grep "474mm x 296mm" | awk {'print $1'})
+    PRIMARY=$(xrandr | grep \ connected | grep "1920x1080+1920+0" | awk {'print $1'})
+    LEFT=$(xrandr | grep \ connected | grep "1920x1080+0+0" | awk {'print $1'})
     RIGHT=$(xgetmons | grep DVI)
     INTERNAL=$(xgetmons | grep eDP)
 

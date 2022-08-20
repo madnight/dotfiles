@@ -59,4 +59,10 @@ xmodmap $HOME/.Xmodmap
 
 exec bspwm
 # exec startxfce4
+# wm=${1:-bspwm}
+
+# case $wm in
+#     xfce|xfce4        ) exec startxfce4;;
+#     *                 ) exec startxfce4;;
+# esac
 xterm &

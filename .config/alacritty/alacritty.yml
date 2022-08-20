@@ -1,12 +1,10 @@
 live_config_reload: true
 
 font:
+  size: 12
   normal:
     family: Tamzen for Powerline
     style: Regular
-
-  size: 20.0
-
 
 colors:
   # Default colors
@@ -35,3 +33,6 @@ colors:
     magenta: '0x656565'
     cyan:    '0x556d70'
     white:   '0x9a875f'
+
+env:
+  TERM: xterm-256color

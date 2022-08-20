@@ -317,8 +317,8 @@ klogs() {
 
 kshell() {
     local POD=$(kpods)
-    local CONS=$(kubectl get pods $POD -o json | jq -r '.spec.containers[].name')
     local CMD="(while :; do sleep 1h && echo ping; done) & clear; cat /etc/os-release; (bash || ash || sh);"
+    local CONS=$(kubectl get pods $POD -o json | jq -r '.spec.containers[].name')
     if [ "$(echo $CONS | wc -l)" -lt "2" ]; then
         kubectl exec -it $POD "--" sh -c $CMD
     else
@@ -364,9 +364,41 @@ spec:
     - image: alpine
       name: alpine-debug-pod
       command: ["/bin/sh"]
-      args: ["-c", "sleep infinity"]
+      args:
+        - -c
+        - apk add bind-tools && sleep infinity
 EOF
 }
+
+kdebugpodmount() {
+    local PVC=$(kubectl get pvc --no-headers --no-headers -o custom-columns=":metadata.name" | fzf)
+    local NODE=$(kubectl get nodes --no-headers --no-headers -o custom-columns=":metadata.name" | fzf)
+    local POD_NAME=$(openssl rand -hex 5)
+    cat <<EOF | kubectl create -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: alpine-debug-pod-$POD_NAME
+spec:
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: $PVC
+  nodeSelector:
+    kubernetes.io/hostname: $NODE
+  containers:
+    - image: alpine
+      name: alpine-debug-pod
+      command: ["/bin/sh"]
+      volumeMounts:
+      - mountPath: /data
+        name: data
+      args:
+        - -c
+        - apk add bind-tools && sleep infinity
+EOF
+}
+
 
 kpvcclone() {
     if [ $# -eq 0 ]
@@ -374,8 +406,8 @@ kpvcclone() {
     fi
     local PVC=$(kubectl get pvc --no-headers --no-headers -o custom-columns=":metadata.name" | fzf)
     local SIZE=$(kubectl get pvc $PVC --no-headers --no-headers -o custom-columns=":spec.resources.requests.storage")
-    # cat <<'EOF' | kubectl create -f -
-    cat <<EOF
+    local CLASS=$(kubectl get pvc $PVC --no-headers --no-headers -o custom-columns=":spec.storageClassName")
+    cat <<EOF | kubectl create -f -
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -389,6 +421,7 @@ spec:
   resources:
     requests:
       storage: $SIZE
+  storageClassName: $CLASS
 EOF
 }
 
@@ -473,12 +506,11 @@ kexecnodes(){
       | xargs -I {} kubectl-node_shell {} -- sh -c "$@"
 }
 
-kswitchnamespace() {
+kswitchns() {
     kubectl config set-context --current --namespace=$(kns)
     kubectl get pods
 }
 
-alias kswitchns=kswitchnamespace
 alias ksn=kswitchnamespace
 
 kswitchcontext() {

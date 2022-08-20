@@ -57,9 +57,9 @@ if ! ps aux | egrep [l]owspace ; then
 fi
 
 # kernel update warning
-if ! pgrep kernelupdate > /dev/null ; then
-    [ -f ~/scripts/kernelupdate.sh ] && ~/scripts/kernelupdate.sh &
-fi
+# if ! pgrep kernelupdate > /dev/null ; then
+    # [ -f ~/scripts/kernelupdate.sh ] && ~/scripts/kernelupdate.sh &
+# fi
 
 if [ -x /usr/bin/gcalcli ]; then
   killall gcalcli || true

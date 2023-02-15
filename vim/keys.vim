@@ -63,7 +63,7 @@ nnoremap <Leader>te :call DarkTheme()<cr>
 nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
-nnoremap <C-p> :FilesMru --tiebreak=end<cr>
+nnoremap <C-p> :Files<cr>
 nnoremap <Leader>lb :e#<cr>
 
 nnoremap <Leader>rg :Rg<cr>

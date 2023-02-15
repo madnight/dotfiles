@@ -40,7 +40,7 @@ typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=011
 typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=011
 typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=8
 typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
-typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW='kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile'
+typeset -g POWERLEVEL9K_KUBECONTEXT_SHOW='gcloud|kubectl|helm|kubens|kubectx|oc|istioctl|kogito|k9s|helmfile'
 
 export ZLE_RPROMPT_INDENT=0
 

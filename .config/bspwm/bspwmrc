@@ -63,16 +63,23 @@ fi
 if [[ $(hostname) == 't480' ]]; then
 
     # set the screen layout
-    sh $HOME/.screenlayout/t480.sh
-
     MON_COUNT=$(bspc query -M | wc -l)
+
+    if [[ $MON_COUNT -eq 3 ]]; then
+        sh $HOME/.screenlayout/t480.sh
+    fi
+
+    if [[ $MON_COUNT -eq 2 ]]; then
+        sh $HOME/.screenlayout/t480-two.sh
+
+    fi
 
     PRIMARY=$(xrandr | grep \ connected | grep "1920x1080+1920+0" | awk {'print $1'})
     LEFT=$(xrandr | grep \ connected | grep "1920x1080+0+0" | awk {'print $1'})
     RIGHT=$(xgetmons | grep DVI)
     INTERNAL=$(xgetmons | grep eDP)
 
-    if [[ $MON_COUNT -lt 2 ]]; then
+    if [[ $MON_COUNT -eq 1 ]]; then
 
         bspc monitor $INTERNAL -d 1 2 3 4 5 6 7 8 9
         bspc config -m $INTERNAL top_padding    26
@@ -88,12 +95,27 @@ if [[ $(hostname) == 't480' ]]; then
         bzeropadding $INTERNAL
 
         # left monitor
+
+       if [[ -z $LEFT ]]; then
         bspc monitor $LEFT -d 2 3 4 5 6 7 8 9
         bspc config -m $LEFT top_padding    40
         bspc config -m $LEFT right_padding  10
         bspc config -m $LEFT left_padding   10
         bspc config -m $LEFT bottom_padding 10
         bspc config -m $LEFT window_gap     10
+       else
+        bspc monitor $PRIMARY -d 2 3 4 5 6 7 8 9
+        bspc config -m $PRIMARY top_padding    40
+        bspc config -m $PRIMARY right_padding  10
+        bspc config -m $PRIMARY left_padding   10
+        bspc config -m $PRIMARY bottom_padding 10
+        bspc config -m $PRIMARY window_gap     10
+      fi
+
+        bspc config top_padding 40
+        bspc monitor HDMI-2 -d 2 3 4 5 6 7 8 9
+        bspc monitor eDP-1 -d 9
+
 
 
     elif [[ $MON_COUNT -eq 3 ]]; then

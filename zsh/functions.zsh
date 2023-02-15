@@ -193,6 +193,30 @@ knodepods() {
        | jq --arg NODE "$N" '.[] | select(.node == $NODE)'
 }
 
+kremoveallterminatingns() {
+    # https://stackoverflow.com/questions/52369247/namespace-stuck-as-terminating-how-i-removed-it
+    kubectl get namespaces | \
+        grep Terminating   | \
+        awk '{print $1}' | \
+        xargs -I{} bash -c "kubectl get namespace {} -o json | tr -d '\n' |
+        sed 's/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/' |
+        kubectl replace --raw /api/v1/namespaces/{}/finalize -f -"
+}
+
+kremoveterminatingns() {
+    kubectl get namespaces | \
+        grep Terminating   | \
+        awk '{print $1}' | fzf | \
+        xargs -I{} bash -c "kubectl get namespace {} -o json | tr -d '\n' |
+        sed 's/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/' |
+        kubectl replace --raw /api/v1/namespaces/{}/finalize -f -"
+}
+
+gproject() {
+    gcloud config set project $(gcloud projects list --format="value(name)" | fzf)
+    gcloud compute instances list
+}
+
 kpods() {
     kubectl get pods --no-headers -o custom-columns=":metadata.name" | fzf
 }
@@ -366,7 +390,7 @@ spec:
       command: ["/bin/sh"]
       args:
         - -c
-        - apk add bind-tools && sleep infinity
+        - sleep infinity
 EOF
 }
 
@@ -584,6 +608,7 @@ extract () {
             *.zip)       unzip $1       ;;
             *.Z)         uncompress $1  ;;
             *.7z)        7z x $1        ;;
+            *.tar.zst)   tar --use-compress-program=unzstd -xvf;;
             *)           echo "don't know how to extract '$1'..." ;;
         esac
     else
@@ -766,8 +791,8 @@ ghc-with() {
 }
 
 lualatex-nonstopmode() {
-while inotifywait --event modify "$1"; do
-  lualatex "$1"
+while inotifywait --event modify "$1" || true; do
+  lualatex --halt-on-error "$1"
 done
 }
 

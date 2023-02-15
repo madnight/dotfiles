@@ -61,10 +61,10 @@ alias journalctl='journalctl --no-pager -n 2000'
 alias kernellog='dmesg'
 alias k='kubectl'
 alias kgn='kubectl get nodes -o wide'
-alias kgp='kubectl get pods'
+alias kgp='kubectl get pods --watch'
 alias kgd='kubectl get deployment'
 alias kgc='kubectl get cronjob'
-alias kge="kubectl get events --sort-by='.metadata.creationTimestamp'"
+alias kge="kubectl get events --sort-by='.metadata.creationTimestamp' --watch"
 alias kgpvc='kubectl get pvc'
 alias lastinstalled="expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n 50"
 alias logs='journalctl'
@@ -95,8 +95,8 @@ alias speedtestaria='aria2c -d /dev -o null --allow-overwrite=true  -x 16 -s 16 
 alias stresstest='parallel -N0 pi $(echo 10^9 | bc) ::: {1..8}'
 alias sysinfo='inxi -F'
 alias syslog='cat /var/log/everything.log'
+alias tmux='tmux new -A -s default'
 alias tex='texnonstop'
-alias tmux="tmuxp load -d ~/default.yml; tmux attach"
 alias u='sudo pacman -Syu'
 alias web='python2 -m SimpleHTTPServer 22222'
 alias webserver='web'

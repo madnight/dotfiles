@@ -74,7 +74,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'w0ng/vim-hybrid'
 
 " syntastic replacement that uses background threads for syntax check
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 
 " comment out stuff via shortcut
 Plug 'scrooloose/nerdcommenter'
@@ -84,9 +84,6 @@ Plug 'junegunn/fzf.vim'
 
 " fuzzy file, buffer, mru, tag, etc finder with rg backend
 Plug 'junegunn/fzf'
-
-" fzf with mru
-Plug 'tweekmonster/fzf-filemru'
 
 " shows a git diff in the 'gutter' (sign column)
 Plug 'airblade/vim-gitgutter'

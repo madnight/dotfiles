@@ -5,6 +5,8 @@
  #       /___|___/_| |_|  \___\___/|_| |_|_| |_|\__, |
  #                                               |___/
 
+
+zmodload zsh/zprof
 START=$(date +%s.%N)
 
 # If not running interactively, don't do anything
@@ -15,6 +17,8 @@ START=$(date +%s.%N)
     # exec startx
     # logout
 # fi
+#
+#
 
 for sd_cmd in systemctl systemd-analyze systemd-run; do
      alias $sd_cmd='DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus" '$sd_cmd
@@ -129,6 +133,7 @@ export DEFAULT_NETWORK_INTERFACE=$(ip route | grep '^default' | awk '{print $5}'
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
 [ -z "${XDG_RUNTIME_DIR}" ] && export XDG_RUNTIME_DIR=/run/user/$(id -ru)
 export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR}/bus"
+export KUBECONFIG=$(find ~/.kube/clusters -type f | sed ':a;N;s/\n/:/;ba')
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH
@@ -149,26 +154,28 @@ source_if_exist ~/zsh/prompt.zsh
 
 eval "$(direnv hook zsh)"
 
-source_if_exist $HOME/.nix-profile/etc/profile.d/nix.sh;
+########################
+# source_if_exist $HOME/.nix-profile/etc/profile.d/nix.sh;
 
 # hotkey deamon
-if ! pgrep sxhkd > /dev/null; then
-    if which sxhkd > /dev/null; then
-        sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
-        sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
-    fi
-fi
+# if ! pgrep sxhkd > /dev/null; then
+#     if which sxhkd > /dev/null; then
+#         sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
+#         sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
+#     fi
+# fi
 
 # Performance Warning
 END=$(date +%s.%N)
 ZSHRC_PERF=$(printf %.2f $(echo "$END - $START" | bc))
-if (( $ZSHRC_PERF > 0.15)); then
+if (( $ZSHRC_PERF > 0.2)); then
+  zprof | head
   echo "\033[0;31mperformance warning!"
   echo ".zshrc startup time" $ZSHRC_PERF "seconds"
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ctrl + delete deletes last word
 bindkey '\C-?' backward-kill-word

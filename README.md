@@ -25,7 +25,7 @@
 ## Hardware
 
 #### Notebook
-I use Notebooks from the Thinkpad T-Series (T430, T450s, T480s), which you can buy of eBay for cheap. If you are interested, then try to pick one with at least one unsoldered RAM slot (upgradeable), SSD, IPS Display with 300 nits or higher and Core i5/i7 (or even better Ryzen CPU), like the [T450s](https://www.notebookcheck.net/Lenovo-ThinkPad-T450s-Ultrabook-Review.137248.0.html) which is an excellent choice, when in mint condition (A-ware) and bought from a eBay store with a customer friendly refund policy.
+I use Notebooks from the Thinkpad T-Series (T430, T450s, T480s, T480), which you can buy of eBay for cheap. If you are interested, then try to pick one with at least one unsoldered RAM slot (upgradeable), SSD, IPS Display with 300 nits or higher and Core i5/i7 (or even better Ryzen CPU), like the [T480](https://www.notebookcheck.net/Lenovo-ThinkPad-T480-Core-i7-8650U-FHD-Laptop-Review.315574.0.html) which is an excellent choice, when in mint condition (A-ware) and bought from a eBay store with a customer friendly refund policy.
 
 #### Monitor
 I use a multi-monitor setup with either 3 external monitors or 2 external + 1 internal notebook screens. I use second hand 24 inch monitors for the left and right and one 27 inch monitor in the center. The T-Series Thinkpads supports up to 3 screens (the internal notebook screen also counts as screen). Nevertheless, it's possible to have more monitors than that (e.g. day-trader setup) with an eGPU or DisplayLink USB to HDMI adapter. I've tested a four screen setup with 3 external monitors (one per DisplayLink adapter) + the internal Thinkpad screen and it works.

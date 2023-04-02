@@ -4,9 +4,9 @@
 	# Automatically correct and execute mistyped commands
     autocorrect = 1
 [diff]
-    tool = meld
+    tool = delta
 [merge]
-    tool = meld
+    tool = delta
 [apply]
     # Detect whitespace errors when applying a patch
     whitespace = fix
@@ -70,7 +70,7 @@
     # List contributors with number of commits
     contributors = shortlog --summary --numbered
 [core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
 	compression = 0
 [http]
 	postBuffer = 524288000
@@ -104,3 +104,9 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    side-by-side = true

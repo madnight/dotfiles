@@ -16,6 +16,7 @@
 | E-Mail | [thunderbird](https://wiki.archlinux.org/index.php/thunderbird) | [mutt](https://wiki.archlinux.org/index.php/Mutt) as ncurses alternative
 | Compositor | [compton](https://wiki.archlinux.org/index.php/compton) | avoid screen tearing [issues](https://www.reddit.com/r/archlinux/comments/7yhuy3/screen_tearing_issue_in_arch_linux/)
 | Video/Music | [vlc](https://wiki.archlinux.org/index.php/VLC_media_player) | [mplayer](https://wiki.archlinux.org/index.php/MPlayer) as alternative
+| File Manager | [ranger](https://github.com/ranger/ranger) | console file manager with vi key [bindings](https://ranger.github.io/ranger.1.html#KEY-BINDINGS)
 | File Finder | [fzf + ripgrep](https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2) | [ripgrep](https://github.com/BurntSushi/ripgrep) is the fastest grep
 | Screen Locker | [i3lock](https://github.com/i3/i3lock) | [with](https://github.com/madnight/dotfiles/blob/c112cc973ddcb0c754c00ca266eb0bdbc13dcd62/scripts/lock.go) screenshot, pixelation and lock icon
 

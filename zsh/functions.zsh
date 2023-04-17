@@ -7,6 +7,10 @@ zle -N fzd{,}
 bindkey '^F' fzd
 
 
+al() {
+    argo list | tail -n+2 | fzf | awk '{print $1}' | xargs argo logs
+}
+
 upgrade() {
     echo "Server = https://archive.archlinux.org/repos/$(date -d "yesterday 13:00" +'%Y/%m/%d')/\$repo/os/\$arch" | sudo tee /etc/pacman.d/mirrorlist
     sudo pacman -Syu
@@ -558,8 +562,8 @@ randomstring() {
 
 alias randstr=randomstring
 
-man() {
-    command man -t "$1" | ps2pdf - /tmp/"$1".pdf && zathura /tmp/"$1".pdf
+manpdf() {
+    man -t "$1" | ps2pdf - /tmp/"$1".pdf && zathura /tmp/"$1".pdf
 }
 
 installfont() {
@@ -608,7 +612,7 @@ extract () {
             *.zip)       unzip $1       ;;
             *.Z)         uncompress $1  ;;
             *.7z)        7z x $1        ;;
-            *.tar.zst)   tar --use-compress-program=unzstd -xvf;;
+            *.tar.zst)   tar --use-compress-program=unzstd -xvf $1 ;;
             *)           echo "don't know how to extract '$1'..." ;;
         esac
     else

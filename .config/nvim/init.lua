@@ -28,6 +28,13 @@ hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 hi LineNr guibg=#1D1F21
 
+set list
+set listchars=tab:»-
+set tabstop=4
+
+imap jj <Esc>
+map <C-s> <ESC>:w<CR>
+
 lua require('nvim-tmux-navigation')
 
 nnoremap <silent> <ESC>h <Cmd>NvimTmuxNavigateLeft<CR>

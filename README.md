@@ -14,6 +14,7 @@
 | Browser | [chromium](https://wiki.archlinux.org/index.php/chromium) | [firefox](https://wiki.archlinux.org/index.php/Firefox) as alternative; with vim [plugin](https://github.com/1995eaton/chromium-vim)
 | Chat | [weechat](https://wiki.archlinux.org/index.php/Weechat) | plus [weeslack](https://github.com/wee-slack/wee-slack) plugin
 | E-Mail | [thunderbird](https://wiki.archlinux.org/index.php/thunderbird) | [mutt](https://wiki.archlinux.org/index.php/Mutt) as ncurses alternative
+| PDF | [zathura](https://wiki.archlinux.org/title/zathura) | with [vi-styled](https://hleb.dev/post/zathura/) keybindings
 | Compositor | [compton](https://wiki.archlinux.org/index.php/compton) | avoid screen tearing [issues](https://www.reddit.com/r/archlinux/comments/7yhuy3/screen_tearing_issue_in_arch_linux/)
 | Video/Music | [vlc](https://wiki.archlinux.org/index.php/VLC_media_player) | [mplayer](https://wiki.archlinux.org/index.php/MPlayer) as alternative
 | File Manager | [ranger](https://github.com/ranger/ranger) | console file manager with vi key [bindings](https://ranger.github.io/ranger.1.html#KEY-BINDINGS)

@@ -12,6 +12,7 @@
 | Status Bar | [polybar](https://github.com/jaagr/polybar) | used [dzen2](https://wiki.archlinux.org/index.php/Dzen) before
 | Notifications | [dunst](https://wiki.archlinux.org/title/Dunst) | lightweight notification-daemon plus [cli](https://wiki.archlinux.org/title/Dunst#Shortcuts)
 | Launcher | [rofi](https://wiki.archlinux.org/index.php/rofi) | [dmenu](https://wiki.archlinux.org/index.php/dmenu) replacement
+| Hotkeys | [sxhkd](https://wiki.archlinux.org/title/Sxhkd) | X hotkey daemon from the [author of bspwm](https://github.com/baskerville)
 | Browser | [chromium](https://wiki.archlinux.org/index.php/chromium) | [firefox](https://wiki.archlinux.org/index.php/Firefox) as alternative; with vim [plugin](https://github.com/1995eaton/chromium-vim)
 | Chat | [weechat](https://wiki.archlinux.org/index.php/Weechat) | plus [weeslack](https://github.com/wee-slack/wee-slack) plugin
 | E-Mail | [thunderbird](https://wiki.archlinux.org/index.php/thunderbird) | [mutt](https://wiki.archlinux.org/index.php/Mutt) as ncurses alternative

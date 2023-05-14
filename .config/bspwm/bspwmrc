@@ -60,6 +60,31 @@ if [[ $(hostname) == 'arch' ]]; then
     feh --bg-scale $WP $WP $WP
 fi
 
+
+if [[ $(hostname) == 't14' ]]; then
+
+    sh $HOME/.screenlayout/t14.sh
+    PRIMAY=$(xrandr | grep \ connected | grep "1920x1080+0+0" | awk {'print $1'})
+    INTERNAL=$(xgetmons | grep eDP)
+
+    # internal monitor
+    bspc monitor $INTERNAL -d 1
+    bzeropadding $INTERNAL
+
+    bspc monitor $PRIMARY -d 2 3 4 5 6 7 8 9
+    bspc config -m $PRIMARY top_padding    40
+    bspc config -m $PRIMARY right_padding  10
+    bspc config -m $PRIMARY left_padding   10
+    bspc config -m $PRIMARY bottom_padding 10
+    bspc config -m $PRIMARY window_gap     10
+
+    bspc config top_padding 40
+    bspc monitor HDMI-2 -d 2 3 4 5 6 7 8 9
+    bspc monitor eDP-1 -d 9
+
+    export MONITOR=$PRIMARY && SHELL=/bin/bash polybar -r top-bspwm-work &
+fi
+
 if [[ $(hostname) == 't480' ]]; then
 
     # set the screen layout
@@ -220,9 +245,9 @@ bspc rule -a '*:KeePassHttp: Confirm Access:*' state=floating focus=on
 bspc rule -a '*:zathura:*'                     state=tiled
 bspc rule -a SpeedCrunch     state=floating focus=on rectangle=500x700+0+0
 
-bspc rule -a Firefox          desktop=1 focus=on
+bspc rule -a Firefox          desktop=5 focus=on
 bspc rule -a Slack            desktop=1
-bspc rule -a Chromium         desktop=4
+bspc rule -a Chromium         desktop=1
 bspc rule -a UXterm           desktop=9 focus=on
 bspc rule -a Thunderbird      desktop=6
 bspc rule -a Vlc              desktop=4

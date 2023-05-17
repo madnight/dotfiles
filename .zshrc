@@ -149,6 +149,7 @@ source_if_exist ~/zsh/keybindings.zsh
 source_if_exist ~/zsh/functions.zsh
 source_if_exist ~/zsh/aliases.zsh
 source_if_exist ~/zsh/prompt.zsh
+source_if_exist ~/exports.zsh
 
 [ -n "$TMUX" ] && export TERM=screen-256color
 
@@ -177,11 +178,13 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# ctrl + delete deletes last word
-bindkey '\C-?' backward-kill-word
-
-# alacritty
-# bindkey '^H' backward-kill-word
+if [[ "$(basename "$(cat "/proc/$PPID/comm")")" == "wezterm-gui" ]]; then
+    bindkey '^H' backward-kill-word
+else
+    # interpret incoming ^H as backspace/erase
+    stty erase \^H
+    bindkey '\C-?' backward-kill-word
+fi
 
 xset r rate 600 60
 

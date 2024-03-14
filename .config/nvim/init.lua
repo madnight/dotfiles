@@ -2,11 +2,22 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
+-- A color scheme for Vim that combines features from other themes.
 Plug 'w0ng/vim-hybrid'
+
+-- An implementation of the Popup API for Neovim in Lua.
 Plug 'nvim-lua/popup.nvim'
+
+-- A highly extendable fuzzy finder over lists for Neovim.
 Plug 'nvim-telescope/telescope.nvim'
+
+-- A Lua module that provides utility functions for Neovim plugins.
 Plug 'nvim-lua/plenary.nvim'
+
+-- A UI component library for Neovim to create user interfaces.
 Plug 'MunifTanjim/nui.nvim'
+
+-- A plugin for seamless navigation between Neovim splits and tmux panes.
 Plug 'alexghergh/nvim-tmux-navigation'
 
 -- an ide like file explorer
@@ -18,102 +29,246 @@ Plug 'editorconfig/editorconfig-vim'
 -- incsearch.vim incrementally highlights ALL pattern matches
 Plug 'haya14busa/incsearch.vim'
 
--- " camel case jumps with w
+-- camel case jumps with w
 Plug 'bkad/CamelCaseMotion'
 
--- " show trailing whitespaces
+-- show trailing whitespaces
 Plug 'bronson/vim-trailing-whitespace'
 
--- " provide easy code formatting in Vim by integrating existing code formatters
+-- provide easy code formatting in Vim by integrating existing code formatters
 Plug 'Chiel92/vim-autoformat'
 
--- " enhanced vim diff
+-- enhanced vim diff
 Plug 'chrisbra/vim-diff-enhanced'
 
--- " vim script for text filtering and alignment
+-- vim script for text filtering and alignment
 Plug 'godlygeek/tabular'
 
--- " allow atom like line swapping with arrow keys
+-- allow atom like line swapping with arrow keys
 Plug 'madnight/vim-swap-lines'
 
--- " vim sugar for the UNIX shell commands that need it the most
+-- vim sugar for the UNIX shell commands that need it the most
 Plug 'tpope/vim-eunuch'
 
--- " git wrapper that should be illegal
+-- git wrapper that should be illegal
 Plug 'tpope/vim-fugitive'
 
--- " minimal common sense vim tweaks
+-- minimal common sense vim tweaks
 Plug 'tpope/vim-sensible'
 
--- " automatically adjusts 'shiftwidth' and 'expandtab' heuristically based
+-- automatically adjusts 'shiftwidth' and 'expandtab' heuristically based
 Plug 'tpope/vim-sleuth'
 
--- " add parentheses arround current word or sentence
+-- add parentheses arround current word or sentence
 Plug 'tpope/vim-surround'
 
--- " add useful extra commands
+-- add useful extra commands
 Plug 'tpope/vim-unimpaired'
 
--- " vim status line
+-- vim status line
 Plug 'vim-airline/vim-airline'
 
--- " vim status line themes
+-- vim status line themes
 Plug 'vim-airline/vim-airline-themes'
 
--- " hybrid theme https://i.imgur.com/M3Qthm4.png
+-- hybrid theme https://i.imgur.com/M3Qthm4.png
 Plug 'w0ng/vim-hybrid'
 
--- " comment out stuff via shortcut
+-- comment out stuff via shortcut
 Plug 'scrooloose/nerdcommenter'
 
--- " wrapper for fuzzy findec
+-- wrapper for fuzzy findec
 Plug 'junegunn/fzf.vim'
 
--- " fuzzy file, buffer, mru, tag, etc finder with rg backend
+-- fuzzy file, buffer, mru, tag, etc finder with rg backend
 Plug 'junegunn/fzf'
 
--- " shows a git diff in the 'gutter' (sign column)
+-- shows a git diff in the 'gutter' (sign column)
 Plug 'airblade/vim-gitgutter'
 
--- " fix gui only colorschemes to work in terminal
+-- fix gui only colorschemes to work in terminal
 Plug 'godlygeek/csapprox'
 
--- " FocusGained and FocusLost autocommand events for tmxux
+-- ocusGained and FocusLost autocommand events for tmxux
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
--- " A Vim plugin for more pleasant editing on commit messages
+-- A Vim plugin for more pleasant editing on commit messages
 Plug 'rhysd/committia.vim'
 
--- " Interactive command execution in Vim.
+-- Interactive command execution in Vim.
 Plug 'shougo/vimproc.vim'
 
--- " Changes Vim working directory to project root
+-- Changes Vim working directory to project root
 Plug 'airblade/vim-rooter'
 
--- " Autoformat JS
+-- Autoformat JS
 Plug 'prettier/vim-prettier'
 
--- " Highlight the exact differences, based on characters and words
+-- Highlight the exact differences, based on characters and words
 Plug 'rickhowe/diffchar.vim'
 
--- " a collection of language packs for Vim.
+-- A collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 
+-- Allows you to open files with sudo from within Vim, useful for editing privileged files.
 Plug 'chrisbra/SudoEdit.vim'
 
+-- A Vim plugin for the Coq proof assistant, providing IDE-like features.
 Plug 'whonore/Coqtail'
 
 vim.call('plug#end')
 
+
+-- ###################
+--  Basic vim settings
+-- "###################
+vim.o.background = 'dark'
+vim.o.backspace = 'indent,eol,start'
+vim.o.colorcolumn = '80'
+vim.o.clipboard = 'unnamedplus'
+vim.o.cmdheight = 1
+vim.o.complete = '.,w,b,u,t'
+vim.o.confirm = true
+vim.o.cursorline = true
+vim.cmd('set diffopt+=context:99999') -- Appending to a Vim option
+vim.o.encoding = 'utf-8'
+vim.o.expandtab = true
+vim.o.grepprg = 'rg --color never --line-number --no-heading'
+vim.o.hidden = true
+vim.o.history = 50
+vim.o.ignorecase = true
+vim.o.invnumber = true
+vim.o.laststatus = 2
+vim.o.linebreak = true
+vim.o.magic = true
+vim.o.matchtime = 2
+vim.o.mouse = 'a'
+vim.o.mousemodel = 'popup'
+vim.o.nobackup = true
+vim.o.mouse = 'v'
+vim.o.nocompatible = true
+vim.o.nocursorcolumn = true
+vim.o.nocursorline = true
+vim.o.nofoldenable = true
+vim.o.nolazyredraw = true
+vim.o.noruler = true
+vim.o.noshowcmd = true
+vim.o.nostartofline = true
+vim.o.noswapfile = true
+vim.o.notimeout = true
+vim.o.timeoutlen = 1000
+vim.o.ttimeoutlen = 0
+vim.o.nowrap = true
+vim.o.number = true
+vim.o.ruler = true
+vim.o.updatetime = 1000
+vim.o.viminfo = '\'20,\"500'
+vim.o.wildignore = '*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn,*/.git/*,*/tmp/*,*.swp,*.so,*.zip,*/node_modules'
+vim.o.wildmenu = true
+vim.o.wildmode = 'longest:list,full'
+vim.o.wrap = true
+vim.wo.number = true
+vim.wo.relativenumber = true
+vim.wo.list = true
+vim.wo.listchars = 'tab:»-,trail:·,extends:»,precedes:«'
+vim.wo.cursorline = false
+vim.wo.wrap = true
+vim.bo.fileformat = 'unix'
+vim.bo.formatoptions = 'l'
+vim.bo.shiftwidth = 4
+vim.bo.tabstop = 4
+vim.bo.smartindent = true
+vim.bo.softtabstop = 4
+vim.bo.matchpairs = vim.bo.matchpairs .. ',<:>'
+vim.api.nvim_set_keymap('n', '<F11>', '<PasteToggle>', { noremap = true })
+vim.o.visualbell = false
+vim.o.errorbells = false
+vim.wo.scrolloff = 2
+vim.o.shell = '/bin/bash'
+vim.wo.numberwidth = 1
+vim.api.nvim_set_keymap('n', '<F11>', '<paste>', { noremap = true })
+vim.o.showmatch = true
+vim.o.showmode = true
+vim.o.smartcase = true
+vim.o.title = true
+
+vim.cmd("filetype plugin on")
+
+-- Enable syntax highlighting
+vim.cmd("syntax on")
+
+-- Set mapleader to comma
+vim.g.mapleader = ","
+
+-- Disable compatibility mode
+if vim.o.compatible then
+    vim.o.nocompatible = true
+end
+
+-- set cmdheight=0
+vim.o.cmdheight = 0
+
+-- hi OverLength ctermbg=black ctermfg=red
+-- match OverLength /\%81v.\+/
+vim.cmd('highlight OverLength ctermbg=black ctermfg=red')
+vim.cmd('match OverLength /\\%81v.\\+/')
+
+-- fix some typos
+vim.api.nvim_create_user_command('WQ', 'wq', {})
+vim.api.nvim_create_user_command('Wq', 'wq', {})
+vim.api.nvim_create_user_command('Wqa', 'wqa', {})
+vim.api.nvim_create_user_command('W', 'w', {})
+vim.api.nvim_create_user_command('Q', 'q', {})
+
+vim.cmd('colorscheme hybrid')
+
+-- syntax sync minlines=200
+vim.cmd('syntax sync minlines=200')
+
+-- syntax on
+-- filetype plugin indent on
+vim.cmd('syntax on')
+vim.cmd('filetype plugin indent on')
+
+vim.cmd('hi clear CursorLine')
+vim.cmd('hi clear SpellBad')
+-- set relativenumber
+vim.wo.relativenumber = true
+
+-- set list
+-- set listchars=tab:»-
+vim.o.list = true
+vim.o.listchars = 'tab:»-'
+
+-- set tabstop=4
+vim.o.tabstop = 4
+
+-- imap jj <Esc>
+-- map <C-s> <ESC>:w<CR>
+vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-s>', '<ESC>:w<CR>', {noremap = true})
+
+-- Lua equivalent for Vim's autocmd
+vim.api.nvim_create_augroup('plugin_initialize', {})
+vim.api.nvim_create_autocmd('VimEnter', {
+    pattern = '*',
+    callback = function()
+        if vim.fn.exists(':NoMatchParen') == 2 then  -- Verify that the command exists
+            vim.cmd('NoMatchParen')
+        end
+    end,
+    group = 'plugin_initialize',
+})
+
+-- Example for key mapping using Lua
+vim.api.nvim_set_keymap('n', '<silent> <ESC>h', '<Cmd>NvimTmuxNavigateLeft<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<silent> <ESC>j', '<Cmd>NvimTmuxNavigateDown<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<silent> <ESC>k', '<Cmd>NvimTmuxNavigateUp<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<silent> <ESC>l', '<Cmd>NvimTmuxNavigateRight<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<silent> <ESC>Space', '<Cmd>NvimTmuxNavigateNext<CR>', {noremap = true, silent = true})
+
+
 vim.cmd [[
-
-filetype plugin indent on
-syntax on
-let mapleader="\,"
-
-if &compatible
-  set nocompatible
-endif
 
 function! s:Highlight_Matching_Pair()
 endfunction
@@ -124,144 +279,11 @@ endfunction
 function! s:Find_Matching_Pair()
 endfunction
 
-"###################
-" Basic vim settings
-"###################
-set background=dark
-set backspace=indent,eol,start
-set bs=indent,eol,start
-set cc=80
-set clipboard=unnamedplus
-set cmdheight=1
-set complete=.,w,b,u,t
-set confirm
-set cursorline
-set diffopt+=context:99999
-set encoding=utf-8
-set expandtab
-set fileformat=unix
-set formatoptions=l
-set grepprg=rg\ --color\ never\ --line-number\ --no-heading
-set hidden
-set history=50
-set ignorecase
-set invnumber
-set laststatus=2
-set lbr
-set list listchars=tab:»-,trail:·,extends:»,precedes:«
-set magic
-set matchpairs+=<:>
-set matchtime=2
-set mouse=a
-set mouse=v
-set nobackup
-set nocompatible
-set nocursorcolumn
-set nocursorline
-set nofoldenable
-set nolazyredraw
-set noruler
-set noshowcmd
-set nostartofline
-set noswapfile
-set notimeout ttimeout ttimeoutlen=200
-set nowrap
-set number
-set nuw=1
-set pastetoggle=<F11>
-set relativenumber
-set ruler
-set scrolloff=2
-set shell=/bin/bash
-set shiftwidth=4
-set showcmd
-set showmatch
-set showmode
-set smartcase
-set smartindent
-set softtabstop=4
-set t_Co=256
-set t_vb=
-set tabstop=4
-set timeoutlen=1000 ttimeoutlen=0
-set title
-set updatetime=1000
-set viminfo='20,\"500
-set wildignore+=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
-set wildignore+=*/.git/*,*/tmp/*,*.swp,*.so,*.zip,*/node_modules
-set wildmenu
-set wildmode=longest,list,full
-set wrap
-
-set cmdheight=0
-
-hi OverLength ctermbg=black ctermfg=red
-match OverLength /\%81v.\+/
-
-"############
-" Typo Fixes
-"############
-command! WQ wq
-command! Wqa wqa
-command! W w
-command! Q q
-
-"############
-" Colortheme
-"############
-colorscheme hybrid
-
-syntax sync minlines=200
-
-" move syntax enable to the bottom of vimrc to avoid syntax detection issues
-syntax on
-filetype plugin indent on
-
-" should be the last lines
 highlight LineNr ctermfg=DarkGrey
 hi clear CursorLine
 hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 hi LineNr guibg=#1D1F21
-
-function! g:NoMatchParens ()
-    if exists(":NoMatchParen")
-        :NoMatchParen
-    endif
-endfunction
-
-augroup plugin_initialize
-    autocmd!
-    autocmd VimEnter * call NoMatchParens()
-augroup END
-
-set relativenumber
-
-syntax sync minlines=200
-
-syntax on
-filetype plugin indent on
-
-highlight LineNr ctermfg=DarkGrey
-hi clear CursorLine
-hi clear SpellBad
-hi SpellBad cterm=underline ctermfg=red
-hi LineNr guibg=#1D1F21
-
-set list
-set listchars=tab:»-
-set tabstop=4
-
-imap jj <Esc>
-map <C-s> <ESC>:w<CR>
-
-lua require('nvim-tmux-navigation')
-
-nnoremap <silent> <ESC>h <Cmd>NvimTmuxNavigateLeft<CR>
-nnoremap <silent> <ESC>j <Cmd>NvimTmuxNavigateDown<CR>
-nnoremap <silent> <ESC>k <Cmd>NvimTmuxNavigateUp<CR>
-nnoremap <silent> <ESC>l <Cmd>NvimTmuxNavigateRight<CR>
-nnoremap <silent> <ESC>Space <Cmd>NvimTmuxNavigateNext<CR>
 
 
  "              _             _                              __
@@ -306,33 +328,6 @@ let g:airline#extensions#whitespace#enabled = 0
 "####################
 let g:tmuxline_theme = 'zenburn'
 
-"###################
-" NerdTree settings
-"###################
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeShowHidden=1
-let g:NERDTreeWinPos = "left"
-let g:NERDTreeMouseMode = 3
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-let g:NERDTreeWinSize = 40
-
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = 'left'
-
-let g:NERDTreeDirArrowExpandable = '>'
-let g:NERDTreeDirArrowCollapsible = 'V'
-
-" Add your own custom formats or override the defaults
-let g:NERDTrimTrailingWhitespace = 1
-
-" Disable haskell-vim omnifunc
-let g:haskellmode_completion_ghc = 1
-
 "############################
 " Async Lint Engine settings
 "############################
@@ -340,36 +335,15 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '--'
 
-"#############################
-" HardTime to break bad habits
-"#############################
-let g:hardtime_default_on = 1
-let g:hardtime_timeout = 2000
-let g:hardtime_showmsg = 0
-let g:hardtime_allow_different_key = 1
-let g:hardtime_maxcount = 4
-let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
-let g:list_of_normal_keys = ["h", "j", "k", "l"]
-let g:hardtime_ignore_quickfix = 1
-
 let g:vim_json_syntax_conceal = 0
 let g:prettier#quickfix_enabled = 0
 
 " custom tmux navigator key maps
 let g:tmux_navigator_no_mappings = 1
 let g:tmuxcomplete#trigger = 'omnifunc'
-
-" write big choose win letters on screen
-let g:choosewin_overlay_enable = 1
-
 let g:vim_tags_auto_generate = 1
 
-let g:hindent_indent_size = 4
-
 let g:prettier#autoformat = 0
-" let g:prettier#autoformat_require_pragma = 1
-" let g:prettier#autoformat_config_present = 1
-" let g:prettier#config#print_width = 80
 let g:prettier#config#tab_width = 4
 let g:prettier#config#use_tabs = 'false'
 
@@ -381,10 +355,7 @@ let g:colorizer_maxlines = 200
 
 let php_sql_query = 1
 let php_htmlInStrings = 1
-
 let Tlist_Use_Right_Window = 1
-
-" add jsx syntax highlights for .js files
 let g:jsx_ext_required = 0
 
 " overcome limit imposed by max height
@@ -631,13 +602,7 @@ silent! iunmap {
 silent! iunmap }
 
 
-
-"                     _                           _
-"          __ _ _   _| |_ ___   ___ _ __ ___   __| |
-"         / _` | | | | __/ _ \ / __| '_ ` _ \ / _` |
-"        | (_| | |_| | || (_) | (__| | | | | | (_| |
-"         \__,_|\__,_|\__\___/ \___|_| |_| |_|\__,_|
-"
+" AUTOCMD Config
 
 " Jump to the last known cursor position when opening a file.
 augroup vimrc
@@ -756,9 +721,7 @@ fun! QuitPrompt()
       let choice = confirm("Close?", "&yes\n&no", 1)
       if choice == 1 | wq | endif
 endfun
-
 ]]
-
 
 
 -- ################

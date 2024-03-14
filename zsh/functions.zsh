@@ -16,6 +16,54 @@ upgrade() {
     sudo pacman -Syu
 }
 
+iplookup() {
+  curl -s ipinfo.io/"$1" | jq -r 'to_entries|map("\(.key): \(.value|tostring)")[]' | grep -v readme | grep -v "loc:"
+}
+
+COL () {
+  # Check if any arguments are given
+  if [ $# -eq 0 ]; then
+    echo "Usage: COL field1 [field2 ...]"
+    return 1
+  fi
+
+  # Pass the arguments to AWK as a comma-separated list
+  awk -v args="$*" '
+    # Split the args into an array f
+    BEGIN { n = split(args, f) }
+    # For each input line
+    {
+      # For each element of f
+      for (i = 1; i <= n; i++) {
+        # Check if f[i] is a valid number
+        if (f[i] ~ /^[0-9]+$/) {
+          # Check if f[i] is within the range of fields
+          if (f[i] >= 1 && f[i] <= NF) {
+            # Print the f[i]-th field, followed by OFS or ORS
+            printf "%s%s", $(f[i]), (i < n ? OFS : ORS)
+          }
+          else {
+            # Print an error message and exit
+            print "Error: field number " f[i] " out of range" > "/dev/stderr"
+            exit 1
+          }
+        }
+        else {
+          # Print an error message and exit
+          print "Error: invalid field number " f[i] > "/dev/stderr"
+          exit 1
+        }
+      }
+    }
+  '
+}
+
+reboot() {
+    if read -q "choice?Do you want to reboot? y/n"; then
+        command reboot
+    fi
+}
+
 cdUndoKey() {
   popd      > /dev/null
   zle       reset-prompt
@@ -556,6 +604,14 @@ calc () {
     echo "$*" | bc -l;
 }
 
+improve () {
+    command aichat -r improve --no-highlight "$@"
+}
+
+translate () {
+    command aichat -r translator:german --no-highlight "$@" | tee /dev/stderr | xclip
+}
+
 randomstring() {
     strings /dev/urandom | grep -o '[[:alnum:]]' | head -n "${1:-30}" | tr -d '\n'; echo
 }
@@ -684,6 +740,13 @@ function cleantex() {
 
 function texnonstop() {
     latexmk -pvc -pdf --latex=lualatex -interaction=nonstopmode $1
+}
+
+function rescale() {
+    gcloud compute instances stop $1
+    gcloud compute instances set-machine-type $1 --machine-type $2
+    gcloud compute instances start $1
+    retry gcloud compute ssh $1
 }
 
 alias g=google
@@ -918,3 +981,5 @@ zle     -N   fzf-history-widget
 bindkey '^R' fzf-history-widget
 
 fi
+
+

@@ -12,14 +12,6 @@ START=$(date +%s.%N)
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# auto startx if display is not set
-# if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    # exec startx
-    # logout
-# fi
-#
-#
-
 for sd_cmd in systemctl systemd-analyze systemd-run; do
      alias $sd_cmd='DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus" '$sd_cmd
 done
@@ -63,11 +55,10 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # fish like syntax highlighting
-source_if_exist \
-    /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source_if_exist /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source_if_exist \
-    /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source_if_exist /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 
 HISTFILE=~/.histfile
 HISTSIZE=100000
@@ -109,7 +100,7 @@ export LC_MONETARY="en_US.UTF-8"
 export LC_NUMERIC="en_US.UTF-8"
 export LC_TIME="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-export EDITOR="vim"
+export EDITOR="nvim"
 export BROWSER="chromium"
 export SHELL=/usr/bin/zsh
 export CHROME_BIN=/usr/bin/chromium
@@ -155,17 +146,6 @@ source_if_exist ~/exports.zsh
 
 eval "$(direnv hook zsh)"
 
-########################
-# source_if_exist $HOME/.nix-profile/etc/profile.d/nix.sh;
-
-# hotkey deamon
-# if ! pgrep sxhkd > /dev/null; then
-#     if which sxhkd > /dev/null; then
-#         sxhkd -c $HOME/.config/sxhkd/sxhkdrc-bspwm &
-#         sxhkd -c $HOME/.config/sxhkd/sxhkdrc &
-#     fi
-# fi
-
 # Performance Warning
 END=$(date +%s.%N)
 ZSHRC_PERF=$(printf %.2f $(echo "$END - $START" | bc))
@@ -175,18 +155,13 @@ if (( $ZSHRC_PERF > 0.2)); then
   echo ".zshrc startup time" $ZSHRC_PERF "seconds"
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-if [[ "$(basename "$(cat "/proc/$PPID/comm")")" == "wezterm-gui" ]]; then
-    bindkey '^H' backward-kill-word
-else
-    # interpret incoming ^H as backspace/erase
-    stty erase \^H
-    bindkey '\C-?' backward-kill-word
-fi
+# interpret incoming ^H as backspace/erase
+stty erase \^H
+stty erase ""
+bindkey '\C-?' backward-kill-word
 
 xset r rate 600 60
 
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 
+[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh

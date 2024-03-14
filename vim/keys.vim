@@ -138,7 +138,7 @@ noremap <Leader>ga :Gwrite<cr>
 noremap <Leader>gl :Glog<cr>
 noremap <Leader>gh :Glog<cr>
 noremap <Leader>gd :Gdiff<cr>
-noremap <Leader>gb :Gblame<cr>
+noremap <Leader>gb :Git blame<cr>
 
 nmap <Leader>cw <ESC>
 nmap <Leader>s <Plug>(easymotion-overwin-f)

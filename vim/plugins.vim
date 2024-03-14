@@ -116,7 +116,7 @@ Plug 'rickhowe/diffchar.vim'
 Plug 'sheerun/vim-polyglot'
 
 " Intellisense engine for vim8 & neovim, full language server protocol support
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+" Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 " ################################
 " # on command lazy loaded plugins
@@ -133,6 +133,8 @@ Plug 'chrisbra/SudoEdit.vim',                   { 'on': 'SudoWrite' }
 
 " jump between source and header (.cpp -> .h)
 Plug 'vim-scripts/a.vim',                       { 'on': 'A'}
+
+Plug 'whonore/Coqtail'
 
 call plug#end()
 

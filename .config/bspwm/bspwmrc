@@ -64,7 +64,7 @@ fi
 if [[ $(hostname) == 't14' ]]; then
 
     sh $HOME/.screenlayout/t14.sh
-    PRIMAY=$(xrandr | grep \ connected | grep "1920x1080+0+0" | awk {'print $1'})
+    PRIMARY=$(xrandr | grep \ connected | grep "1920x1080+0+0" | awk {'print $1'})
     INTERNAL=$(xgetmons | grep eDP)
 
     # internal monitor

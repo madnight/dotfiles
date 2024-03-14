@@ -17,11 +17,16 @@ xterm*background: #181715
 xterm*internalBorder: 0
 XTerm*visualBell: False
 
+URxvt.keysym.BackSpace: \033[127~
+URxvt.keysym.C-BackSpace: \033[?127;5u
+
 ! ##############
 ! xterm settings
 ! ##############
-xterm*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
-xterm*boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-
+! xterm*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+xterm*font:                  -misc-tamzenforpowerline-medium-r-normal--20-145-100-100-c-100-iso8859-1
+! xterm*boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-
+xterm*boldFont:             -misc-tamzenforpowerline-bold-r-normal--20-145-100-100-c-100-iso8859-1
 URxvt*font:                 -*-terminus-medium-*-*-*-22-*-*-*-*-*-*-*
 URxvt*boldFont:             -*-terminus-bold-*-*-*-22-*-*-*-*-*-*-*
 URxvt.letterSpace: 3
@@ -34,6 +39,8 @@ xterm*utf8:                 true
 xterm*termName:             xterm-256color
 xterm*VT100*translations:   #override\nShift Ctrl <KeyPress> v:insert-selection(CLIPBOARD)\nShift Ctrl <KeyPress> c:copy-selection(CLIPBOARD)
 xterm.scaleHeight: 0.9
+! *XTerm*allowSendEvents: True
+XTerm*allowSendEvents: True
 
 urxvt.font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
 urxvt.boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-*

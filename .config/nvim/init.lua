@@ -260,12 +260,17 @@ vim.api.nvim_create_autocmd('VimEnter', {
     group = 'plugin_initialize',
 })
 
--- Example for key mapping using Lua
-vim.api.nvim_set_keymap('n', '<silent> <ESC>h', '<Cmd>NvimTmuxNavigateLeft<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<silent> <ESC>j', '<Cmd>NvimTmuxNavigateDown<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<silent> <ESC>k', '<Cmd>NvimTmuxNavigateUp<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<silent> <ESC>l', '<Cmd>NvimTmuxNavigateRight<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<silent> <ESC>Space', '<Cmd>NvimTmuxNavigateNext<CR>', {noremap = true, silent = true})
+require'nvim-tmux-navigation'.setup {
+    disable_when_zoomed = true,
+    keybindings = {
+            left = "<ESC>l",
+            down = "<ESC>j",
+            up = "<ESC>k",
+            right = "<ESC>h",
+            last_active = "<C-\\>",
+            next = "<ESC><Space>",
+        }
+}
 
 
 vim.cmd [[

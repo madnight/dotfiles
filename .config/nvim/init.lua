@@ -110,9 +110,6 @@ Plug 'rickhowe/diffchar.vim'
 -- A collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 
--- Allows you to open files with sudo from within Vim, useful for editing privileged files.
-Plug 'chrisbra/SudoEdit.vim'
-
 -- A Vim plugin for the Coq proof assistant, providing IDE-like features.
 Plug 'whonore/Coqtail'
 

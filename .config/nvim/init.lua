@@ -3,11 +3,9 @@ vim.cmd([[
 call plug#begin()
 Plug 'w0ng/vim-hybrid'
 Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'MunifTanjim/nui.nvim'
-
 Plug 'alexghergh/nvim-tmux-navigation'
 
 
@@ -16,7 +14,7 @@ Plug 'alexghergh/nvim-tmux-navigation'
 " #####################
 
 " an ide like file explorer
-Plug 'scrooloose/nerdtree'
+Plug 'nvim-tree/nvim-tree.lua'
 
 " editorconfig define consistent coding styles in different editors
 Plug 'editorconfig/editorconfig-vim'
@@ -137,10 +135,6 @@ Plug 'vim-scripts/a.vim',                       { 'on': 'A'}
 Plug 'whonore/Coqtail'
 
 call plug#end()
-
-
-
-
 
 
 filetype plugin indent on
@@ -271,19 +265,6 @@ augroup plugin_initialize
     autocmd VimEnter * call NoMatchParens()
 augroup END
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 set relativenumber
 
 syntax sync minlines=200
@@ -311,7 +292,6 @@ nnoremap <silent> <ESC>j <Cmd>NvimTmuxNavigateDown<CR>
 nnoremap <silent> <ESC>k <Cmd>NvimTmuxNavigateUp<CR>
 nnoremap <silent> <ESC>l <Cmd>NvimTmuxNavigateRight<CR>
 nnoremap <silent> <ESC>Space <Cmd>NvimTmuxNavigateNext<CR>
-  
 
 
  "              _             _                              __
@@ -483,7 +463,6 @@ let g:ale_linters = {
 \}
 
 
-  
 "         _
 "        | | _____ _   _ ___
 "        | |/ / _ \ | | / __|
@@ -498,7 +477,6 @@ nmap <leader>ch20 :set ch=20<CR>
 nmap <leader>hit :GhcModTypeInsert<CR>
 nmap <leader>htc :GhcModTypeClear<cr>
 nmap <leader>ht :GhcModType<cr>
-nmap <leader>nf :NERDTreeFind<cr>
 nmap <leader>r :NERDTreeFind<cr>
 nmap <silent> I "=nr2char(getchar())<cr>P
 "This allows for change paste motion cp{motion}
@@ -584,7 +562,8 @@ nnoremap K :Ack! '<C-r><C-w>'<cr>
 " nnoremap <C-m> :History<CR>
 nnoremap <leader>cd :cd<CR>
 " nnoremap <SPACE> :<C-f>
-nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>n :NvimTreeToggle<CR>
+
 nnoremap <C-L> :nohl<CR><C-L>
 " remove trailing white spaces
 nnoremap <Leader>rw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
@@ -810,26 +789,49 @@ endfun
 
 ]])
 
--- require "core"
--- 
--- local custom_init_path = vim.api.nvim_get_runtime_file("lua/custom/init.lua", false)[1]
--- 
--- if custom_init_path then
---   dofile(custom_init_path)
--- end
--- 
--- require("core.utils").load_mappings()
--- 
--- local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
--- 
--- -- bootstrap lazy.nvim!
--- if not vim.loop.fs_stat(lazypath) then
---   require("core.bootstrap").gen_chadrc_template()
---   require("core.bootstrap").lazy(lazypath)
--- end
--- 
--- dofile(vim.g.base46_cache .. "defaults")
--- vim.opt.rtp:prepend(lazypath)
--- require "plugins"
---
---
+
+
+-- ################
+-- NvimTree Settings
+-- ################
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 35,
+  },
+  renderer = {
+    icons = {
+      glyphs = {
+        default = "",
+        folder = {
+          arrow_open = "V",
+          arrow_closed = ">",
+          default = "",
+          open = "",
+          symlink = "S",
+          empty = "E",
+          empty_open = "EO",
+          symlink_open = "SO",
+        },
+
+      }
+
+    }
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })

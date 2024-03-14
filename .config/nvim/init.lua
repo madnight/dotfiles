@@ -32,9 +32,6 @@ Plug 'haya14busa/incsearch.vim'
 -- camel case jumps with w
 Plug 'bkad/CamelCaseMotion'
 
--- show trailing whitespaces
-Plug 'bronson/vim-trailing-whitespace'
-
 -- provide easy code formatting in Vim by integrating existing code formatters
 Plug 'Chiel92/vim-autoformat'
 
@@ -71,9 +68,6 @@ Plug 'vim-airline/vim-airline'
 -- vim status line themes
 Plug 'vim-airline/vim-airline-themes'
 
--- hybrid theme https://i.imgur.com/M3Qthm4.png
-Plug 'w0ng/vim-hybrid'
-
 -- comment out stuff via shortcut
 Plug 'scrooloose/nerdcommenter'
 
@@ -96,7 +90,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'rhysd/committia.vim'
 
 -- Interactive command execution in Vim.
-Plug 'shougo/vimproc.vim'
+-- Plug 'shougo/vimproc.vim'
 
 -- Changes Vim working directory to project root
 Plug 'airblade/vim-rooter'
@@ -105,13 +99,13 @@ Plug 'airblade/vim-rooter'
 Plug 'prettier/vim-prettier'
 
 -- Highlight the exact differences, based on characters and words
-Plug 'rickhowe/diffchar.vim'
+--Plug 'rickhowe/diffchar.vim'
 
 -- A collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 
 -- A Vim plugin for the Coq proof assistant, providing IDE-like features.
-Plug 'whonore/Coqtail'
+--Plug 'whonore/Coqtail'
 
 vim.call('plug#end')
 
@@ -269,9 +263,7 @@ require'nvim-tmux-navigation'.setup {
         }
 }
 
-
 vim.cmd [[
-
 function! s:Highlight_Matching_Pair()
 endfunction
 
@@ -287,6 +279,12 @@ hi clear SpellBad
 hi SpellBad cterm=underline ctermfg=red
 hi LineNr guibg=#1D1F21
 
+" show trailing whitespace
+highlight ExtraWhitespace ctermbg=darkred guibg=darkred
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
  "              _             _                              __
  "        _ __ | |_   _  __ _(_)_ __  ___    ___ ___  _ __  / _|

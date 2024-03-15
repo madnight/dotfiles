@@ -169,9 +169,9 @@ vim.api.nvim_create_autocmd("FileType", {
 -- "###################
 vim.o.background = 'dark'
 vim.o.backspace = 'indent,eol,start'
-vim.o.colorcolumn = '80'
 vim.o.clipboard = 'unnamedplus'
 vim.o.cmdheight = 1
+vim.o.colorcolumn = '80'
 vim.o.complete = '.,w,b,u,t'
 vim.o.confirm = true
 vim.o.cursorline = true
@@ -251,8 +251,6 @@ if vim.o.compatible then
     vim.o.nocompatible = true
 end
 
--- hi OverLength ctermbg=black ctermfg=red
--- match OverLength /\%81v.\+/
 vim.cmd('highlight OverLength ctermbg=black ctermfg=red')
 vim.cmd('match OverLength /\\%81v.\\+/')
 
@@ -326,6 +324,27 @@ vim.cmd('autocmd VimEnter * nnoremap <Leader>cn :cnext<CR>')
 vim.api.nvim_set_keymap('n', '<Leader>cp', ':cprev<CR>', {})
 vim.api.nvim_set_keymap('n', '<ESC>n', ':cnext<CR>', {})
 vim.api.nvim_set_keymap('n', '<ESC>p', ':cprev<CR>', {})
+vim.api.nvim_set_keymap('n', '<leader><Up>', 'ddkP', {})
+vim.api.nvim_set_keymap('n', '<leader><Down>', 'ddp', {})
+vim.api.nvim_set_keymap('n', '<C-p>', ':Files<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>lb', ':e#<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>rg', ':Rg<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>vs', ':vsplit<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>hs', ':split<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>l', ':b#<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>q', ':q<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>wq', ':wq<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>bd', ':bd<cr>', {})
+vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {})
+vim.api.nvim_set_keymap('n', '<silent> <Leader>n', ':NvimTreeToggle<CR>', {silent = true})
+vim.api.nvim_set_keymap('n', '<C-L>', ':nohl<CR><C-L>', {})
+vim.api.nvim_set_keymap('n', ',i', 'i_<Esc>r', {})
+vim.api.nvim_set_keymap('n', '<C-X>', ':bd<CR>', {})
+vim.api.nvim_set_keymap('n', '<silent> <c-up>', ':call SwapUp()<CR>', {silent = true})
+vim.api.nvim_set_keymap('n', '<silent> <c-down>', ':call SwapDown()<CR>', {silent = true})
+vim.api.nvim_set_keymap('n', '<C-l>', ':bnext<CR>', {})
+vim.api.nvim_set_keymap('n', '<C-h>', ':bprevious<CR>', {})
+vim.api.nvim_set_keymap('n', '<Leader>gb', ':Git blame<cr>', {})
 
 vim.cmd('highlight LineNr ctermfg=DarkGrey')
 vim.cmd('hi clear CursorLine')
@@ -342,6 +361,7 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
 
 vim.cmd([[
 vnoremap <Leader>e :ChatGPTEditWithInstructions<cr>
@@ -441,28 +461,6 @@ let g:vim_markdown_preview_github=1
 " -------
 " Keymaps
 " -------
-nnoremap <leader><Up> ddkP
-nnoremap <leader><Down> ddp
-nnoremap <C-p> :Files<cr>
-nnoremap <Leader>lb :e#<cr>
-nnoremap <Leader>rg :Rg<cr>
-nnoremap <Leader>vs :vsplit<cr>
-nnoremap <Leader>hs :split<cr>
-nnoremap <Leader>l :b#<cr>
-nnoremap <Leader>q :q<cr>
-nnoremap <Leader>wq :wq<cr>
-nnoremap <Leader>bd :bd<cr>
-nnoremap <C-j> <C-w>j
-nnoremap <silent> <Leader>n :NvimTreeToggle<CR>
-nnoremap <C-L> :nohl<CR><C-L>
-nnoremap ,i i_<Esc>r
-noremap <C-X> :bd<CR>
-noremap <silent> <c-up> :call SwapUp()<CR>
-noremap <silent> <c-down> :call SwapDown()<CR>
-noremap <C-l> :bnext<CR>
-noremap <C-h> :bprevious<CR>
-noremap <Leader>gb :Git blame<cr>
-" Fulltext search with ripgrep
 nmap <C-f> :Rg<cr>
 nmap <Leader>rv <ESC>:so ~/.vimrc<CR>
 nmap <Leader>pi <ESC>:PlugInstall<CR>

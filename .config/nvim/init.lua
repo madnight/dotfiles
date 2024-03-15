@@ -24,7 +24,9 @@ Plug 'madnight/vim-swap-lines'
 Plug 'tpope/vim-fugitive'
 
 -- vim status line
-Plug 'vim-airline/vim-airline'
+--Plug 'vim-airline/vim-airline'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'akinsho/bufferline.nvim'
 
 -- vim status line themes
 Plug 'vim-airline/vim-airline-themes'
@@ -133,6 +135,39 @@ Plug 'nvim-treesitter/nvim-treesitter'
 
 vim.call('plug#end')
 
+require('lualine').setup {
+  options = { theme  = 'modus-vivendi',  icons_enabled = false, },
+}
+vim.opt.termguicolors = true
+--require("bufferline").setup{}
+local bufferline = require('bufferline')
+    bufferline.setup {
+        options = {
+            indicator = {
+                icon = '', -- this should be omitted if indicator style is not 'icon'
+                style = 'none',
+            },
+            buffer_close_icon = 'x',
+            modified_icon = 'm',
+            close_icon = 'x',
+            left_trunc_marker = '<',
+            right_trunc_marker = '>',
+            offsets = {
+                {
+                    filetype = "NvimTree",
+                    text = "File Tree",
+                    text_align = "center",
+                    separator = true
+                }
+            },
+            show_buffer_icons = false,
+            show_buffer_close_icons =  false,
+            show_close_icon =  false,
+            show_tab_indicators =  false,
+            always_show_bufferline =  false,
+            show_duplicate_prefix =  false, -- whether to show duplicate buffer prefix
+        }
+  }
 
 --require("mason").setup()
 --require("mason-lspconfig").setup {
@@ -525,6 +560,18 @@ augroup vimrc_autocmd
     au VimEnter * nested :call LoadSession()
     au VimLeave * :call MakeSession()
   endif
+
+
+function! Profile()
+  :profile start profile.log
+  :profile func *
+  :profile file *
+endfunction
+
+function! StopProfile()
+  :profile pause
+  :noautocmd qall!
+endfunction
 
 augroup END
 

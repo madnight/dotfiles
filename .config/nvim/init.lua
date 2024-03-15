@@ -53,6 +53,8 @@ Plug 'sheerun/vim-polyglot'
 -- Indentation guides for Vim (Python)
 Plug 'lukas-reineke/indent-blankline.nvim'
 
+-- A Vim plugin for the Coq proof assistant, providing IDE-like features.
+Plug 'dense-analysis/ale'
 
 -- ChatGPT Integration
 Plug 'MunifTanjim/nui.nvim'
@@ -335,6 +337,7 @@ vim.cmd('hi clear SpellBad')
 vim.cmd('hi SpellBad cterm=underline ctermfg=red')
 vim.cmd('hi LineNr guibg=#1D1F21')
 
+
 vim.cmd [[
 vnoremap <Leader>e :ChatGPTEditWithInstructions<cr>
 
@@ -354,57 +357,48 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
- "              _             _                              __
- "        _ __ | |_   _  __ _(_)_ __  ___    ___ ___  _ __  / _|
- "       | '_ \| | | | |/ _` | | '_ \/ __|  / __/ _ \| '_ \| |_
- "       | |_) | | |_| | (_| | | | | \__ \ | (_| (_) | | | |  _|
- "       | .__/|_|\__,_|\__, |_|_| |_|___/  \___\___/|_| |_|_|
- "       |_|            |___/
- "
- "
+
+" --------------------
+" Plugin Configuration
+" --------------------
+
 let g:tmux_resizer_no_mappings = 1
 
-"################
-" Latex settings
-"################
-let g:livepreview_previewer = 'evince'
-let g:Tex_CompileRule_pdf = 'latexmk -pdf'
-let g:LatexBox_latexmk_options = "-pvc -pdfps"
-let g:LatexBox_latexmk_preview_continuously = 1
-let g:LatexBox_latexmk_async = 1
-
-" performance optimization
-let g:vimtex_motion_matchparen = 0
-
-"##################
 " Airline settings
-"##################
 let g:airline_powerline_fonts = 1
 let g:airline_theme='molokai'
 let g:airline_skip_empty_sections = 1
 let g:airline#extensions#tabline#buffer_min_count =2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-
-" performance optimization
+" Performance optimization
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#branch#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 
-"####################
 " Tmux Line settings
-"####################
 let g:tmuxline_theme = 'zenburn'
 
-"############################
 " Async Lint Engine settings
-"############################
 let g:ale_lint_on_text_changed = 0
-let g:ale_sign_error = '✖'
+let g:ale_sign_error = '>>'
+let g:ale_sign_column_always = 0
 let g:ale_sign_warning = '--'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+" You can disable this option too
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
 
 let g:vim_json_syntax_conceal = 0
 let g:prettier#quickfix_enabled = 0
+
+" Silent Rooter otherwise it will echo the directory change
+let g:rooter_silent_chdir = 1
 
 " custom tmux navigator key maps
 let g:tmux_navigator_no_mappings = 1
@@ -471,14 +465,9 @@ let g:ale_linters = {
 \   'haskell': ['hlint', 'ghc-mod', 'hdevtools', 'stack_build', 'stack_ghc'],
 \}
 
-
-"         _
-"        | | _____ _   _ ___
-"        | |/ / _ \ | | / __|
-"        |   <  __/ |_| \__ \
-"        |_|\_\___|\__, |___/
-"                  |___/
-
+" -------
+" Keymaps
+" -------
 
 imap <TAB> <SPACE><SPACE><SPACE><SPACE>
 nmap <leader>ch1 :set ch=1<CR>
@@ -511,22 +500,9 @@ endfunction
 map s <Plug>(easymotion-overwin-f)
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 
-" write as sudo
-" command W w !sudo tee % > /dev/null
-" swap words
 nmap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>:noh<CR>
-" push current line up or down
 nnoremap <leader><Up> ddkP
 nnoremap <leader><Down> ddp
- " push word under cursor to the left
-nnoremap <C-Left> "_yiw?\w\+\_W\+\%#<CR>:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o><C-l>
-" push word under cursor to the right
-nnoremap <C-Right> "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>/\w\+\_W\+<CR><C-l>
-
-" tpope mapping (ü = [ us keyboard)
-noremap <Leader>lt :set background=light<cr>:colorscheme Tomorrow<cr>
-nnoremap <Leader>dt :set background=dark<cr>:colorscheme hybrid<cr>
-nnoremap <Leader>te :call DarkTheme()<cr>
 
 " find other mappings J is in use
 " map K <Plug>(expand_region_expand)
@@ -555,51 +531,22 @@ nnoremap <Leader>l :b#<cr>
 nnoremap <Leader>q :q<cr>
 nnoremap <Leader>wq :wq<cr>
 nnoremap <Leader>bd :bd<cr>
-nnoremap <Leader>vl :VimuxInterruptRunner<cr>:VimuxRunLastCommand<cr>
-nnoremap ´ :VimuxRunLastCommand<cr>
-nnoremap <Leader>vk :VimuxInterruptRunner<cr>
-nnoremap K :Ack! '<C-r><C-w>'<cr>
 nnoremap <C-j> <C-w>j
-nnoremap K :Ack! '<C-r><C-w>'<cr>
-" serach Most recently used (MRU) files (native vim function [oldfiles])
-" nnoremap <C-m> :History<CR>
 nnoremap <leader>cd :cd<CR>
-" nnoremap <SPACE> :<C-f>
 nnoremap <silent> <Leader>n :NvimTreeToggle<CR>
 
 nnoremap <C-L> :nohl<CR><C-L>
-" remove trailing white spaces
-nnoremap <Leader>rw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-nnoremap <Leader>dw :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-nnoremap <silent> <C-e> :WinResizerStartResize<CR>
-" nnoremap <silent> <C-p> :Files<CR>
-nnoremap ZZ :call QuitPrompt()<cr>
-" Alt / Mod Key (A-,M-) := <ESC>
 
-
-noremap <Leader>a :Ack <cword><cr>
 " the space after ACK here is intentional
-noremap <Leader>ack :Ack 
 noremap <C-X> :bd<CR>
 noremap <silent> <c-up> :call SwapUp()<CR>
 noremap <silent> <c-down> :call SwapDown()<CR>
 noremap <C-l> :bnext<CR>
 noremap <C-h> :bprevious<CR>
-noremap <Leader>rn :call NumberToggle()<CR>
 " fugitive shortcuts
-noremap <Leader>gs :Gstatus<cr>
-noremap <Leader>gc :Gcommit<cr>
-noremap <Leader>ga :Gwrite<cr>
-noremap <Leader>gl :Glog<cr>
-noremap <Leader>gh :Glog<cr>
-noremap <Leader>gd :Gdiff<cr>
 noremap <Leader>gb :Git blame<cr>
 
-nmap <Leader>cw <ESC>
-nmap <Leader>s <Plug>(easymotion-overwin-f)
-
+" Fulltext search with ripgrep
 nmap <C-f> :Rg<cr>
 
 nmap <Leader>rv <ESC>:so ~/.vimrc<CR>
@@ -635,19 +582,13 @@ map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
 nnoremap ,i i_<Esc>r
 imap jj <Esc><Esc>
 map <C-s> <ESC>:w<CR>
-map <C-@> <ESC>:w<CR>:VimuxInterruptRunner<cr>:VimuxRunLastCommand<cr>
-imap <C-g> <Plug>IMAP_JumpForward
-
-vnoremap K :<C-u>call <sid>VisualAck()<cr>
-vnoremap K :<C-u>call <sid>VisualAck()<cr>
 
 cnoremap <silent> q<cr>  call QuitPrompt()<cr>
 cnoremap <silent> wq<cr> call QuitPrompt()<cr>
-cnoremap <silent> x<cr> call QuitPrompt()<cr>
 
 inoremap jk <ESC>
+
 " Ctrl+Delete to delete a word
-"
 inoremap <C-?> <C-W>
 
 silent inoremap <silent> <Tab> <C-n>
@@ -661,22 +602,19 @@ silent! iunmap {
 silent! iunmap }
 
 
-" AUTOCMD Config
+
+" ---------------
+" Autocmd Config
+" ---------------
 
 " Jump to the last known cursor position when opening a file.
-augroup vimrc
-  au!
-  au BufReadPost *
-        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
-augroup END
-
-augroup numbertoggle
-  au!
-  au BufEnter,FocusGained,InsertLeave * set relativenumber
-  au BufLeave,FocusLost,InsertEnter   * set norelativenumber
-augroup END
+"augroup vimrc
+"  au!
+"  au BufReadPost *
+"        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+"        \   exe "normal! g`\"" |
+"        \ endif
+"augroup END
 
 augroup vimrc_autocmd
   autocmd!
@@ -782,6 +720,12 @@ fun! QuitPrompt()
 endfun
 ]]
 
+
+vim.api.nvim_create_autocmd({'BufWinEnter'}, {
+  desc = 'return cursor to where it was last time closing the file',
+  pattern = '*',
+  command = 'silent! normal! g`"zv',
+})
 
 -- ################
 -- NvimTree Settings

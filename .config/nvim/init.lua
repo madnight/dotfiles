@@ -6,19 +6,19 @@ vim.call('plug#begin')
 Plug 'w0ng/vim-hybrid'
 
 -- An implementation of the Popup API for Neovim in Lua.
-Plug 'nvim-lua/popup.nvim'
+-- Plug 'nvim-lua/popup.nvim'
 
 -- A highly extendable fuzzy finder over lists for Neovim.
-Plug 'nvim-telescope/telescope.nvim'
+-- Plug 'nvim-telescope/telescope.nvim'
 
 --- Can support all sort of whitespace characters e.g. zero-width spaces, non-breaking spaces, etc.
 --Plug 'ntpeters/vim-better-whitespace'
 
 -- A Lua module that provides utility functions for Neovim plugins.
-Plug 'nvim-lua/plenary.nvim'
+-- Plug 'nvim-lua/plenary.nvim'
 
 -- A UI component library for Neovim to create user interfaces.
-Plug 'MunifTanjim/nui.nvim'
+--Plug 'MunifTanjim/nui.nvim'
 
 -- A plugin for seamless navigation between Neovim splits and tmux panes.
 Plug 'alexghergh/nvim-tmux-navigation'
@@ -28,9 +28,6 @@ Plug 'nvim-tree/nvim-tree.lua'
 
 -- editorconfig define consistent coding styles in different editors
 Plug 'editorconfig/editorconfig-vim'
-
--- incsearch.vim incrementally highlights ALL pattern matches
-Plug 'haya14busa/incsearch.vim'
 
 -- camel case jumps with w
 Plug 'bkad/CamelCaseMotion'
@@ -190,6 +187,8 @@ vim.cmd("filetype plugin on")
 
 -- Enable syntax highlighting
 vim.cmd("syntax on")
+
+vim.cmd("set incsearch")
 
 -- Set mapleader to comma
 vim.g.mapleader = ","
@@ -448,7 +447,6 @@ let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 
 " write as sudo
 " command W w !sudo tee % > /dev/null
-map / <Plug>(incsearch-forward)
 " swap words
 nmap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<CR><C-o>:noh<CR>
 " push current line up or down

@@ -56,9 +56,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # fish like syntax highlighting
 source_if_exist /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 source_if_exist /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 
 HISTFILE=~/.histfile
 HISTSIZE=100000
@@ -76,6 +74,8 @@ setopt append_history
 setopt share_history
 setopt hist_verify
 setopt hist_ignore_all_dups
+
+#############################
 # terminal specific settings
 #############################
 # fix <C-h> combo in xterm (it sends erase otherwise)

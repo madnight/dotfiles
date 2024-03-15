@@ -6,11 +6,6 @@ zle -N rangerShow
 zle -N fzd{,}
 bindkey '^F' fzd
 
-
-al() {
-    argo list | tail -n+2 | fzf | awk '{print $1}' | xargs argo logs
-}
-
 upgrade() {
     echo "Server = https://archive.archlinux.org/repos/$(date -d "yesterday 13:00" +'%Y/%m/%d')/\$repo/os/\$arch" | sudo tee /etc/pacman.d/mirrorlist
     sudo pacman -Syu
@@ -108,19 +103,11 @@ killall() {
 }
 
 killport() {
-    lsof -i tcp:8080 | grep LISTEN | awk '{print $2}' | xargs kill;
+    lsof -i tcp:$1 | grep LISTEN | awk '{print $2}' | xargs kill -9;
 }
 
 parentProcess () {
     ps -p "$1" -o ppid=
-}
-
-pkgfiler() {
-    pacman -Ql $1 | grep bin;
-}
-
-yodacommit() {
-    commit -m "$(fortune)"
 }
 
 dockerprune() {
@@ -129,12 +116,6 @@ dockerprune() {
     docker rm -vf $(docker ps -aq);
     docker rmi -f $(docker images -aq);
     docker volume prune -f;
-}
-
-nixprune() {
-   nix-env --delete-generations 14d
-   nix-store --gc
-   nix-collect-garbage -d
 }
 
 user_commands=(
@@ -201,14 +182,6 @@ bytesToHumanReadable() {
   numfmt --to=iec-i --suffix=B --padding=7 $1
 }
 
-convertsecs() {
-   eval "echo $(date -ud "@${1}" +'$((%s/3600/24/356)) years $((%s/3600/24 % 356)) days %H hours %M minutes %S seconds')"
-}
-
-c() {
-  awk "{print \$$1}"
-}
-
 knodestatus() {
     kubectl get nodes -o go-template='{{range .items}}{{$node := .}}{{range .status.conditions}}{{if ne .type "Ready"}}{{if eq .status "True"}}{{$node.metadata.name}}{{" "}}{{.type}}{{" "}}{{.status}}{{"\n"}}{{end}}{{else}}{{if ne .status "True"}}{{$node.metadata.name}}{{": "}}{{.type}}{{": "}}{{.status}}{{"\n"}}{{end}}{{end}}{{end}}{{end}}' | column -t
 }
@@ -262,11 +235,6 @@ kremoveterminatingns() {
         xargs -I{} bash -c "kubectl get namespace {} -o json | tr -d '\n' |
         sed 's/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/' |
         kubectl replace --raw /api/v1/namespaces/{}/finalize -f -"
-}
-
-gproject() {
-    gcloud config set project $(gcloud projects list --format="value(name)" | fzf)
-    gcloud compute instances list
 }
 
 kpods() {
@@ -416,7 +384,6 @@ krootshell() {
     fi
 }
 
-
 kdebugshell() {
     kubectl exec -it $(kpods) "--" sh -c "
       yum install -y vim bind-utils curl bash;
@@ -427,7 +394,6 @@ kdebugshell() {
       (bash || ash || sh);
       "
 }
-
 
 kdebugpod() {
     cat <<'EOF' | kubectl create -f -
@@ -475,7 +441,6 @@ spec:
 EOF
 }
 
-
 kpvcclone() {
     if [ $# -eq 0 ]
       then return
@@ -500,7 +465,6 @@ spec:
   storageClassName: $CLASS
 EOF
 }
-
 
 ke() {
     kubectl get events -A --field-selector type=Warning -o json \
@@ -622,12 +586,6 @@ manpdf() {
     man -t "$1" | ps2pdf - /tmp/"$1".pdf && zathura /tmp/"$1".pdf
 }
 
-installfont() {
-    sudo cp $1 /usr/share/fonts/misc/
-    sudo mkfontdir /usr/share/fonts/misc
-    xset +fp /usr/share/fonts/misc
-    xlsfonts | grep $1
-}
 
 fontcache() {
     sudo echo -n "Updating font cache... "
@@ -834,76 +792,17 @@ function monitor() {
     watch -n1 -t "lsof -i -n|awk '{print \$1, \$2, \$9}'|column -t";
 }
 
-########################
-# fzf enhanced functions
-########################
-fe() {
-  local files
-  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-}
-
-# fkill - kill process
-fkill() {
-  local pid
-  pid=$(ps ax | sed 1d | fzf -m | awk '{print $1}')
-  if [ "x$pid" != "x" ]
-  then
-    echo $pid | xargs kill -${1:-9}
-  fi
-}
-
-ghc-with() {
-  nix-shell -p "haskellPackages.ghcWithPackages (ps: with ps; [ $* ])"
-}
-
 lualatex-nonstopmode() {
 while inotifywait --event modify "$1" || true; do
   lualatex --halt-on-error "$1"
 done
 }
 
-ghci-with() {
-  nix-shell \
-    -p "haskellPackages.ghcWithPackages (ps: with ps; [ $* ])" \
-    --run ghci
-}
-
-# cd into the directory of the selected file
 fcd() {
    local file
    local dir
    cd $HOME && file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
-
-fzd() {
-   local file
-   local dir
-   cd $HOME && file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
-}
-
-
-# fshow - git commit browser
-fshow() {
-  git log --graph --color=always \
-      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-      --bind "ctrl-m:execute:
-                (grep -o '[a-f0-9]\{7\}' | head -1 |
-                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-                {}
-FZF-EOF"
-}
-
-# fcoc - checkout git commit
-fcoc() {
-  local commits commit
-  commits=$(git log --pretty=oneline --abbrev-commit --reverse) &&
-  commit=$(echo "$commits" | fzf --tac +s +m -e) &&
-  git checkout $(echo "$commit" | sed "s/ .*//")
-}
-# source /usr/share/fzf/key-bindings.zsh
-
 
 # Key bindings
 # ------------

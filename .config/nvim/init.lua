@@ -63,6 +63,8 @@ Plug 'folke/trouble.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'jackmort/chatgpt.nvim'
 
+-- TreeSitter Allows Highlighting + Commenting for multiple languages in one File
+Plug 'nvim-treesitter/nvim-treesitter'
 
 -- ###################################################
 -- Curresntly disabled, might be removed in the future
@@ -338,7 +340,16 @@ vim.cmd('hi SpellBad cterm=underline ctermfg=red')
 vim.cmd('hi LineNr guibg=#1D1F21')
 
 
-vim.cmd [[
+-- TreeSitter Allows Highlighting + Commenting for multiple languages in one File
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "lua", "vim" },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+vim.cmd([[
 vnoremap <Leader>e :ChatGPTEditWithInstructions<cr>
 
 function! s:Highlight_Matching_Pair()
@@ -606,16 +617,6 @@ silent! iunmap }
 " ---------------
 " Autocmd Config
 " ---------------
-
-" Jump to the last known cursor position when opening a file.
-"augroup vimrc
-"  au!
-"  au BufReadPost *
-"        \ if line("'\"") > 1 && line("'\"") <= line("$") |
-"        \   exe "normal! g`\"" |
-"        \ endif
-"augroup END
-
 augroup vimrc_autocmd
   autocmd!
   au BufNewFile,BufRead,BufEnter *.{tex,txt} setlocal spell spelllang=de_de,en_gb
@@ -629,24 +630,14 @@ augroup vimrc_autocmd
   au Filetype *.js setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
   au Filetype *.jsx setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
-  filetype plugin indent on
-
-  " show existing tab with 4 spaces width
-  set tabstop=4
-
-  " when indenting with '>', use 4 spaces width
   set shiftwidth=4
-
-  " On pressing tab, insert 4 spaces
   set expandtab
-
-  au BufEnter *.hs set formatprg=xargs\ -0\ pointfree
 
   " auto change path to current file (most compatible behaviour)
   au BufEnter * silent! lcd %:p:h
   au FileType mardown set spell spelllang=en_us
 
-  au VimResized * wincmd =
+  " au VimResized * wincmd =
 
   " Adding automatons for when entering or leaving Vim
   if len(argv()) < 1
@@ -718,7 +709,7 @@ fun! QuitPrompt()
       let choice = confirm("Close?", "&yes\n&no", 1)
       if choice == 1 | wq | endif
 endfun
-]]
+]])
 
 
 vim.api.nvim_create_autocmd({'BufWinEnter'}, {

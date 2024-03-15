@@ -29,17 +29,17 @@ Plug 'nvim-tree/nvim-tree.lua'
 -- editorconfig define consistent coding styles in different editors
 Plug 'editorconfig/editorconfig-vim'
 
--- camel case jumps with w
-Plug 'bkad/CamelCaseMotion'
+-- camel case jumps + subword + skip insignifcant with w
+Plug 'chrisgrieser/nvim-spider'
 
 -- provide easy code formatting in Vim by integrating existing code formatters
-Plug 'Chiel92/vim-autoformat'
+-- Plug 'Chiel92/vim-autoformat'
 
 -- enhanced vim diff
-Plug 'chrisbra/vim-diff-enhanced'
+-- Plug 'chrisbra/vim-diff-enhanced'
 
 -- vim script for text filtering and alignment
-Plug 'godlygeek/tabular'
+-- Plug 'godlygeek/tabular'
 
 -- allow atom like line swapping with arrow keys
 Plug 'madnight/vim-swap-lines'
@@ -51,10 +51,10 @@ Plug 'madnight/vim-swap-lines'
 Plug 'tpope/vim-fugitive'
 
 -- minimal common sense vim tweaks
-Plug 'tpope/vim-sensible'
+-- Plug 'tpope/vim-sensible'
 
 -- automatically adjusts 'shiftwidth' and 'expandtab' heuristically based
-Plug 'tpope/vim-sleuth'
+-- Plug 'tpope/vim-sleuth'
 
 -- add parentheses arround current word or sentence
 --Plug 'tpope/vim-surround'
@@ -69,7 +69,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 -- comment out stuff via shortcut
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 
 -- wrapper for fuzzy findec
 Plug 'junegunn/fzf.vim'
@@ -78,13 +78,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf'
 
 -- shows a git diff in the 'gutter' (sign column)
-Plug 'airblade/vim-gitgutter'
+-- Plug 'airblade/vim-gitgutter'
 
 -- fix gui only colorschemes to work in terminal
-Plug 'godlygeek/csapprox'
+-- Plug 'godlygeek/csapprox'
 
 -- ocusGained and FocusLost autocommand events for tmxux
-Plug 'tmux-plugins/vim-tmux-focus-events'
+-- Plug 'tmux-plugins/vim-tmux-focus-events'
 
 -- A Vim plugin for more pleasant editing on commit messages
 Plug 'rhysd/committia.vim'
@@ -104,11 +104,22 @@ Plug 'prettier/vim-prettier'
 -- A collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 
+Plug 'lukas-reineke/indent-blankline.nvim'
+
 -- A Vim plugin for the Coq proof assistant, providing IDE-like features.
 --Plug 'whonore/Coqtail'
 
 vim.call('plug#end')
 
+
+-- Enable indent-blankline only for Python files
+require("ibl").setup { enabled = false }
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "python",
+    callback = function()
+        require("ibl").setup_buffer(0, { indent = { highlight = highlight, char = "|" }, enabled = true  })
+    end,
+})
 
 -- ###################
 --  Basic vim settings
@@ -264,6 +275,26 @@ require'nvim-tmux-navigation'.setup {
             next = "<ESC><Space>",
         }
 }
+
+
+vim.keymap.set(
+	{ "n", "o", "x" },
+	"w",
+	"<cmd>lua require('spider').motion('w')<CR>",
+	{ desc = "Spider-w" }
+)
+vim.keymap.set(
+	{ "n", "o", "x" },
+	"e",
+	"<cmd>lua require('spider').motion('e')<CR>",
+	{ desc = "Spider-e" }
+)
+vim.keymap.set(
+	{ "n", "o", "x" },
+	"b",
+	"<cmd>lua require('spider').motion('b')<CR>",
+	{ desc = "Spider-b" }
+)
 
 vim.cmd [[
 function! s:Highlight_Matching_Pair()
@@ -563,9 +594,6 @@ nmap <C-g> <Plug>IMAP_JumpForward
 
 map <C-PageUp> <C-w>wh<CR>
 map <C-PageDown> <C-w>wl<CR>
-map w <Plug>CamelCaseMotion_w
-map b <Plug>CamelCaseMotion_b
-map e <Plug>CamelCaseMotion_e
 map <D-/> <C-_><C-_>
 map Y y$
 map <S-w> <ESC>:q!<CR>

@@ -53,6 +53,15 @@ Plug 'sheerun/vim-polyglot'
 -- Indentation guides for Vim (Python)
 Plug 'lukas-reineke/indent-blankline.nvim'
 
+
+-- ChatGPT Integration
+Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'jackmort/chatgpt.nvim'
+
+
 -- ###################################################
 -- Curresntly disabled, might be removed in the future
 -- ###################################################
@@ -116,6 +125,18 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 
 vim.call('plug#end')
 
+
+require("chatgpt").setup({
+        actions_paths = { "~/.config/nvim/helpers/actions.json" },
+        open_ai_params = {
+          model = "gpt-4-0125-preview",
+          temperature = 0,
+        },
+        openai_edit_params = {
+          model = "gpt-4-0125-preview",
+          temperature = 0,
+        },
+})
 
 -- Enable indent-blankline only for Python files
 require("ibl").setup { enabled = false }
@@ -302,7 +323,21 @@ vim.keymap.set(
 	{ desc = "Spider-b" }
 )
 
+
+vim.cmd('autocmd VimEnter * nnoremap <Leader>cn :cnext<CR>')
+vim.api.nvim_set_keymap('n', '<Leader>cp', ':cprev<CR>', {})
+vim.api.nvim_set_keymap('n', '<ESC>n', ':cnext<CR>', {})
+vim.api.nvim_set_keymap('n', '<ESC>p', ':cprev<CR>', {})
+
+vim.cmd('highlight LineNr ctermfg=DarkGrey')
+vim.cmd('hi clear CursorLine')
+vim.cmd('hi clear SpellBad')
+vim.cmd('hi SpellBad cterm=underline ctermfg=red')
+vim.cmd('hi LineNr guibg=#1D1F21')
+
 vim.cmd [[
+vnoremap <Leader>e :ChatGPTEditWithInstructions<cr>
+
 function! s:Highlight_Matching_Pair()
 endfunction
 
@@ -311,12 +346,6 @@ endfunction
 
 function! s:Find_Matching_Pair()
 endfunction
-
-highlight LineNr ctermfg=DarkGrey
-hi clear CursorLine
-hi clear SpellBad
-hi SpellBad cterm=underline ctermfg=red
-hi LineNr guibg=#1D1F21
 
 " show trailing whitespace
 highlight ExtraWhitespace ctermbg=darkred guibg=darkred
@@ -516,13 +545,8 @@ nnoremap <Leader>rg :Rg<cr>
 " noremap + [
 "
 " nnoremap <Leader>cn :cnext<cr>
-autocmd VimEnter * noremap <Leader>cn :cnext<cr>
-nnoremap <Leader>cp :cprev<cr>
-nnoremap <ESC>n :cnext<cr>
-nnoremap <ESC>p :cprev<cr>
-nnoremap + <C-a>
-nnoremap - <C-x>
-nnoremap ä <C-a>
+
+
 nnoremap <Leader>fh :History<cr>
 nnoremap <Leader>fb :Buffer<cr>
 nnoremap <Leader>vs :vsplit<cr>

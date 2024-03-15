@@ -11,6 +11,9 @@ Plug 'nvim-lua/popup.nvim'
 -- A highly extendable fuzzy finder over lists for Neovim.
 Plug 'nvim-telescope/telescope.nvim'
 
+--- Can support all sort of whitespace characters e.g. zero-width spaces, non-breaking spaces, etc.
+--Plug 'ntpeters/vim-better-whitespace'
+
 -- A Lua module that provides utility functions for Neovim plugins.
 Plug 'nvim-lua/plenary.nvim'
 
@@ -45,7 +48,7 @@ Plug 'godlygeek/tabular'
 Plug 'madnight/vim-swap-lines'
 
 -- vim sugar for the UNIX shell commands that need it the most
-Plug 'tpope/vim-eunuch'
+-- Plug 'tpope/vim-eunuch'
 
 -- git wrapper that should be illegal
 Plug 'tpope/vim-fugitive'
@@ -57,10 +60,10 @@ Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 
 -- add parentheses arround current word or sentence
-Plug 'tpope/vim-surround'
+--Plug 'tpope/vim-surround'
 
 -- add useful extra commands
-Plug 'tpope/vim-unimpaired'
+-- Plug 'tpope/vim-unimpaired'
 
 -- vim status line
 Plug 'vim-airline/vim-airline'

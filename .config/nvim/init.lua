@@ -5,21 +5,6 @@ vim.call('plug#begin')
 -- A color scheme for Vim that combines features from other themes.
 Plug 'w0ng/vim-hybrid'
 
--- An implementation of the Popup API for Neovim in Lua.
--- Plug 'nvim-lua/popup.nvim'
-
--- A highly extendable fuzzy finder over lists for Neovim.
--- Plug 'nvim-telescope/telescope.nvim'
-
---- Can support all sort of whitespace characters e.g. zero-width spaces, non-breaking spaces, etc.
---Plug 'ntpeters/vim-better-whitespace'
-
--- A Lua module that provides utility functions for Neovim plugins.
--- Plug 'nvim-lua/plenary.nvim'
-
--- A UI component library for Neovim to create user interfaces.
---Plug 'MunifTanjim/nui.nvim'
-
 -- A plugin for seamless navigation between Neovim splits and tmux panes.
 Plug 'alexghergh/nvim-tmux-navigation'
 
@@ -32,35 +17,11 @@ Plug 'editorconfig/editorconfig-vim'
 -- camel case jumps + subword + skip insignifcant with w
 Plug 'chrisgrieser/nvim-spider'
 
--- provide easy code formatting in Vim by integrating existing code formatters
--- Plug 'Chiel92/vim-autoformat'
-
--- enhanced vim diff
--- Plug 'chrisbra/vim-diff-enhanced'
-
--- vim script for text filtering and alignment
--- Plug 'godlygeek/tabular'
-
 -- allow atom like line swapping with arrow keys
 Plug 'madnight/vim-swap-lines'
 
--- vim sugar for the UNIX shell commands that need it the most
--- Plug 'tpope/vim-eunuch'
-
 -- git wrapper that should be illegal
 Plug 'tpope/vim-fugitive'
-
--- minimal common sense vim tweaks
--- Plug 'tpope/vim-sensible'
-
--- automatically adjusts 'shiftwidth' and 'expandtab' heuristically based
--- Plug 'tpope/vim-sleuth'
-
--- add parentheses arround current word or sentence
---Plug 'tpope/vim-surround'
-
--- add useful extra commands
--- Plug 'tpope/vim-unimpaired'
 
 -- vim status line
 Plug 'vim-airline/vim-airline'
@@ -77,20 +38,8 @@ Plug 'junegunn/fzf.vim'
 -- fuzzy file, buffer, mru, tag, etc finder with rg backend
 Plug 'junegunn/fzf'
 
--- shows a git diff in the 'gutter' (sign column)
--- Plug 'airblade/vim-gitgutter'
-
--- fix gui only colorschemes to work in terminal
--- Plug 'godlygeek/csapprox'
-
--- ocusGained and FocusLost autocommand events for tmxux
--- Plug 'tmux-plugins/vim-tmux-focus-events'
-
 -- A Vim plugin for more pleasant editing on commit messages
 Plug 'rhysd/committia.vim'
-
--- Interactive command execution in Vim.
--- Plug 'shougo/vimproc.vim'
 
 -- Changes Vim working directory to project root
 Plug 'airblade/vim-rooter'
@@ -98,13 +47,69 @@ Plug 'airblade/vim-rooter'
 -- Autoformat JS
 Plug 'prettier/vim-prettier'
 
--- Highlight the exact differences, based on characters and words
---Plug 'rickhowe/diffchar.vim'
-
 -- A collection of language packs for Vim.
 Plug 'sheerun/vim-polyglot'
 
+-- Indentation guides for Vim (Python)
 Plug 'lukas-reineke/indent-blankline.nvim'
+
+-- ###################################################
+-- Curresntly disabled, might be removed in the future
+-- ###################################################
+
+-- An implementation of the Popup API for Neovim in Lua.
+-- Plug 'nvim-lua/popup.nvim'
+
+-- A highly extendable fuzzy finder over lists for Neovim.
+-- Plug 'nvim-telescope/telescope.nvim'
+
+--- Can support all sort of whitespace characters e.g. zero-width spaces, non-breaking spaces, etc.
+-- Plug 'ntpeters/vim-better-whitespace'
+
+-- A Lua module that provides utility functions for Neovim plugins.
+-- Plug 'nvim-lua/plenary.nvim'
+
+-- A UI component library for Neovim to create user interfaces.
+-- Plug 'MunifTanjim/nui.nvim'
+
+-- provide easy code formatting in Vim by integrating existing code formatters
+-- Plug 'Chiel92/vim-autoformat'
+
+-- enhanced vim diff
+-- Plug 'chrisbra/vim-diff-enhanced'
+
+-- vim script for text filtering and alignment
+-- Plug 'godlygeek/tabular'
+
+-- minimal common sense vim tweaks
+-- Plug 'tpope/vim-sensible'
+
+-- vim sugar for the UNIX shell commands that need it the most
+-- Plug 'tpope/vim-eunuch'
+
+-- automatically adjusts 'shiftwidth' and 'expandtab' heuristically based
+-- Plug 'tpope/vim-sleuth'
+
+-- add parentheses arround current word or sentence
+--Plug 'tpope/vim-surround'
+
+-- add useful extra commands
+-- Plug 'tpope/vim-unimpaired'
+
+-- Interactive command execution in Vim.
+-- Plug 'shougo/vimproc.vim'
+
+-- shows a git diff in the 'gutter' (sign column)
+-- Plug 'airblade/vim-gitgutter'
+
+-- fix gui only colorschemes to work in terminal
+-- Plug 'godlygeek/csapprox'
+
+-- FocusGained and FocusLost autocommand events for tmxux
+-- Plug 'tmux-plugins/vim-tmux-focus-events'
+
+-- Highlight the exact differences, based on characters and words
+--Plug 'rickhowe/diffchar.vim'
 
 -- A Vim plugin for the Coq proof assistant, providing IDE-like features.
 --Plug 'whonore/Coqtail'
@@ -120,6 +125,7 @@ vim.api.nvim_create_autocmd("FileType", {
         require("ibl").setup_buffer(0, { indent = { highlight = highlight, char = "|" }, enabled = true  })
     end,
 })
+
 
 -- ###################
 --  Basic vim settings

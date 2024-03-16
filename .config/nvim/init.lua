@@ -153,6 +153,15 @@ require("chatgpt").setup({
         },
 })
 
+-- TreeSitter Allows Highlighting + Commenting for multiple languages in one File
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "lua", "vim" , "sql", "python", "svelte", "terraform", "javascript", "html", "css" },
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}
+
 -- Enable indent-blankline only for Python files
 require("ibl").setup { enabled = false }
 vim.api.nvim_create_autocmd("FileType", {
@@ -273,7 +282,6 @@ require'nvim-tmux-navigation'.setup {
         }
 }
 
-
 vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
 vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-e" })
 vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-b" })
@@ -305,22 +313,11 @@ vim.api.nvim_set_keymap('n', '<Leader>gb', ':Git blame<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
 
-
 vim.api.nvim_create_user_command('WQ', 'wq', {})
 vim.api.nvim_create_user_command('Wq', 'wq', {})
 vim.api.nvim_create_user_command('Wqa', 'wqa', {})
 vim.api.nvim_create_user_command('W', 'w', {})
 vim.api.nvim_create_user_command('Q', 'q', {})
-
-
--- TreeSitter Allows Highlighting + Commenting for multiple languages in one File
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "lua", "vim" , "sql", "python", "svelte", "terraform", "javascript", "html", "css" },
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-}
 
 vim.cmd([[
 vnoremap <Leader>e :ChatGPTEditWithInstructions<cr>
@@ -401,37 +398,6 @@ silent inoremap <silent> <Tab> <C-n>
 silent inoremap <silent> <S-Tab> <C-p>
 vmap ^ $
 
-silent! iunmap (
-silent! iunmap )
-silent! iunmap {
-silent! iunmap }
-
-" ---------------
-" Autocmd Config
-" ---------------
-augroup vimrc_autocmd
-  autocmd!
-  au BufNewFile,BufRead,BufEnter *.{tex,txt} setlocal spell spelllang=de_de,en_gb
-  au BufNewFile,BufRead,BufEnter *.yml set syntax=yaml
-  au BufNewFile,BufRead *.conf set ft=apache
-
-  au FileType javascript setlocal expandtab shiftwidth=4 tabstop=4
-  au Filetype *.js setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-  au Filetype *.jsx setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-
-  set shiftwidth=4
-  set expandtab
-
-  " auto change path to current file (most compatible behaviour)
-  au BufEnter * silent! lcd %:p:h
-  au FileType mardown set spell spelllang=en_us
-
-  " Adding automatons for when entering or leaving Vim
-  if len(argv()) < 1
-    au VimEnter * nested :call LoadSession()
-    au VimLeave * :call MakeSession()
-  endif
-
 function! Profile()
   :profile start profile.log
   :profile func *
@@ -442,8 +408,6 @@ function! StopProfile()
   :profile pause
   :noautocmd qall!
 endfunction
-
-augroup END
 
 fun! QuitPrompt()
       let choice = confirm("Close?", "&yes\n&no", 1)

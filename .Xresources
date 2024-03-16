@@ -17,14 +17,21 @@ xterm*background: #181715
 xterm*internalBorder: 0
 XTerm*visualBell: False
 
-URxvt.keysym.BackSpace: \033[127~
-URxvt.keysym.C-BackSpace: \033[?127;5u
+
+! force UFT-8
+XTerm.vt100.locale: false
+XTerm.vt100.utf8: true
+
+! fix backspace
+XTerm.vt100.backarrowKey: false
+XTerm.ttyModes: erase ^?
 
 ! ##############
 ! xterm settings
 ! ##############
-! xterm*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
-xterm*font:                  -misc-tamzenforpowerline-medium-r-normal--20-145-100-100-c-100-iso8859-1
+xterm*font:                 -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
+XTerm.vt100.faceNameDoublesize: -gnu-unifont-*-*-*-*-*-*-*-*-*-*-*
+XTerm.vt100.faceSize: 8
 ! xterm*boldFont:             -*-tamzenforpowerline-bold-*-*-*-20-*-*-*-*-*-*-
 xterm*boldFont:             -misc-tamzenforpowerline-bold-r-normal--20-145-100-100-c-100-iso8859-1
 URxvt*font:                 -*-terminus-medium-*-*-*-22-*-*-*-*-*-*-*

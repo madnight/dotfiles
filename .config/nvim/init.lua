@@ -17,16 +17,14 @@ Plug 'editorconfig/editorconfig-vim'
 -- camel case jumps + subword + skip insignifcant with w
 Plug 'chrisgrieser/nvim-spider'
 
--- allow atom like line swapping with arrow keys
-Plug 'madnight/vim-swap-lines'
-
 -- git wrapper that should be illegal
 Plug 'tpope/vim-fugitive'
 
--- vim status line
---Plug 'vim-airline/vim-airline'
-Plug 'nvim-lualine/lualine.nvim'
+-- vim tabline (top)
 Plug 'akinsho/bufferline.nvim'
+
+-- vim status line (bottom)
+Plug 'nvim-lualine/lualine.nvim'
 
 -- vim status line themes
 Plug 'vim-airline/vim-airline-themes'
@@ -68,83 +66,17 @@ Plug 'jackmort/chatgpt.nvim'
 -- TreeSitter Allows Highlighting + Commenting for multiple languages in one File
 Plug 'nvim-treesitter/nvim-treesitter'
 
---Plug 'williamboman/mason.nvim'
---Plug 'williamboman/mason-lspconfig.nvim'
---Plug 'neovim/nvim-lspconfig'
-
--- ###################################################
--- Curresntly disabled, might be removed in the future
--- ###################################################
-
--- An implementation of the Popup API for Neovim in Lua.
--- Plug 'nvim-lua/popup.nvim'
-
--- A highly extendable fuzzy finder over lists for Neovim.
--- Plug 'nvim-telescope/telescope.nvim'
-
---- Can support all sort of whitespace characters e.g. zero-width spaces, non-breaking spaces, etc.
--- Plug 'ntpeters/vim-better-whitespace'
-
--- A Lua module that provides utility functions for Neovim plugins.
--- Plug 'nvim-lua/plenary.nvim'
-
--- A UI component library for Neovim to create user interfaces.
--- Plug 'MunifTanjim/nui.nvim'
-
--- provide easy code formatting in Vim by integrating existing code formatters
--- Plug 'Chiel92/vim-autoformat'
-
--- enhanced vim diff
--- Plug 'chrisbra/vim-diff-enhanced'
-
--- vim script for text filtering and alignment
--- Plug 'godlygeek/tabular'
-
--- minimal common sense vim tweaks
--- Plug 'tpope/vim-sensible'
-
--- vim sugar for the UNIX shell commands that need it the most
--- Plug 'tpope/vim-eunuch'
-
--- automatically adjusts 'shiftwidth' and 'expandtab' heuristically based
--- Plug 'tpope/vim-sleuth'
-
--- add parentheses arround current word or sentence
---Plug 'tpope/vim-surround'
-
--- add useful extra commands
--- Plug 'tpope/vim-unimpaired'
-
--- Interactive command execution in Vim.
--- Plug 'shougo/vimproc.vim'
-
--- shows a git diff in the 'gutter' (sign column)
--- Plug 'airblade/vim-gitgutter'
-
--- fix gui only colorschemes to work in terminal
--- Plug 'godlygeek/csapprox'
-
--- FocusGained and FocusLost autocommand events for tmxux
--- Plug 'tmux-plugins/vim-tmux-focus-events'
-
--- Highlight the exact differences, based on characters and words
---Plug 'rickhowe/diffchar.vim'
-
--- A Vim plugin for the Coq proof assistant, providing IDE-like features.
---Plug 'whonore/Coqtail'
-
 vim.call('plug#end')
 
 require('lualine').setup {
   options = { theme  = 'modus-vivendi',  icons_enabled = false, },
 }
+
 vim.opt.termguicolors = true
---require("bufferline").setup{}
 local bufferline = require('bufferline')
     bufferline.setup {
         options = {
             indicator = {
-                icon = '', -- this should be omitted if indicator style is not 'icon'
                 style = 'none',
             },
             buffer_close_icon = 'x',
@@ -165,17 +97,49 @@ local bufferline = require('bufferline')
             show_close_icon =  false,
             show_tab_indicators =  false,
             always_show_bufferline =  false,
-            show_duplicate_prefix =  false, -- whether to show duplicate buffer prefix
+            show_duplicate_prefix =  false,
         }
   }
 
---require("mason").setup()
---require("mason-lspconfig").setup {
---    ensure_installed = { "lua_ls", "rust_analyzer" },
---}
---local lspconfig = require('lspconfig')
---lspconfig.pyright.setup {}
-
+vim.g.loaded_netrw = 0
+vim.g.loaded_netrwPlugin = 0
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 35,
+  },
+  renderer = {
+    icons = {
+      glyphs = {
+        default = "",
+        folder = {
+          arrow_open = "V",
+          arrow_closed = ">",
+          default = "",
+          open = "",
+          symlink = "S",
+          empty = "E",
+          empty_open = "EO",
+          symlink_open = "SO",
+        },
+      }
+    }
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+-- Auto close nvim-tree when it's the last window
+vim.api.nvim_create_autocmd("BufEnter", {
+  nested = true,
+  callback = function()
+    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
+      vim.cmd "quit"
+    end
+  end
+})
 
 require("chatgpt").setup({
         actions_paths = { "~/.config/nvim/helpers/actions.json" },
@@ -197,7 +161,6 @@ vim.api.nvim_create_autocmd("FileType", {
         require("ibl").setup_buffer(0, { indent = { highlight = highlight, char = "|" }, enabled = true  })
     end,
 })
-
 
 --  ##################
 --  Basic vim settings
@@ -333,26 +296,9 @@ require'nvim-tmux-navigation'.setup {
         }
 }
 
-
-vim.keymap.set(
-	{ "n", "o", "x" },
-	"w",
-	"<cmd>lua require('spider').motion('w')<CR>",
-	{ desc = "Spider-w" }
-)
-vim.keymap.set(
-	{ "n", "o", "x" },
-	"e",
-	"<cmd>lua require('spider').motion('e')<CR>",
-	{ desc = "Spider-e" }
-)
-vim.keymap.set(
-	{ "n", "o", "x" },
-	"b",
-	"<cmd>lua require('spider').motion('b')<CR>",
-	{ desc = "Spider-b" }
-)
-
+vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
+vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-e" })
+vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-b" })
 
 vim.cmd('autocmd VimEnter * nnoremap <Leader>cn :cnext<CR>')
 vim.api.nvim_set_keymap('n', '<Leader>cp', ':cprev<CR>', {})
@@ -371,11 +317,7 @@ vim.api.nvim_set_keymap('n', '<Leader>wq', ':wq<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>bd', ':bd<cr>', {})
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {})
 
-
 vim.keymap.set('n', '<Leader>n', function() vim.cmd(':NvimTreeToggle') end, { noremap = true })
-vim.keymap.set('n', '<c-up>', function() vim.cmd(':call SwapUp()') end, { noremap = true })
-vim.keymap.set('n', '<c-down>', function() vim.cmd(':call SwapDown()') end, { noremap = true })
-
 
 vim.api.nvim_set_keymap('n', '<C-L>', ':nohl<CR><C-L>', {})
 vim.api.nvim_set_keymap('n', ',i', 'i_<Esc>r', {})
@@ -425,19 +367,6 @@ autocmd BufWinLeave * call clearmatches()
 " Plugin Configuration
 " --------------------
 let g:tmux_resizer_no_mappings = 1
-" Airline settings
-let g:airline_powerline_fonts = 1
-let g:airline_theme='molokai'
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#tabline#buffer_min_count =2
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-" Performance optimization
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#branch#enabled = 0
-let g:airline#extensions#whitespace#enabled = 0
-" Tmux Line settings
-let g:tmuxline_theme = 'zenburn'
 " Async Lint Engine settings
 let g:ale_lint_on_text_changed = 0
 let g:ale_sign_error = '>>'
@@ -459,35 +388,18 @@ let g:prettier#quickfix_enabled = 0
 let g:rooter_silent_chdir = 1
 " custom tmux navigator key maps
 let g:tmux_navigator_no_mappings = 1
-let g:tmuxcomplete#trigger = 'omnifunc'
 let g:vim_tags_auto_generate = 1
 let g:prettier#autoformat = 0
 let g:prettier#config#tab_width = 4
 let g:prettier#config#use_tabs = 'false'
-let g:formatprg_js = "js-beautify"
-let g:formatprg_args_js = "-i %@"
 " lilydjwg/colorizer is inefficient for large files
 let g:colorizer_maxlines = 200
-let php_sql_query = 1
-let php_htmlInStrings = 1
-let Tlist_Use_Right_Window = 1
-let g:jsx_ext_required = 0
-" overcome limit imposed by max height
-let g:ackprg = 'rg --vimgrep'
-set grepprg=rg\ --vimgrep
 let g:tmux_navigator_no_mappings = 1
-let g:winresizer_horiz_resize = 1
-let g:vim_markdown_preview_github=1
 
 " -------
 " Keymaps
 " -------
 nmap <C-f> :Rg<cr>
-nmap <Leader>rv <ESC>:so ~/.vimrc<CR>
-nmap <Leader>pi <ESC>:PlugInstall<CR>
-nmap <Leader>v <ESC>:so ~/.vimrc<CR>
-nmap <Leader>cw <ESC>:ChooseWin<CR>
-nmap ya y$
 nmap <S-k> <C-w>wl<CR>
 nmap <S-w> :bd<CR>
 " Jump faster
@@ -497,9 +409,11 @@ nmap <M-l> <C-w>l
 nmap o o<ESC>
 nmap ^ $
 nmap zz ZZ
+nnoremap <C-Down> :m .+1<CR>==
+nnoremap <C-Up> :m .-2<CR>==
+map <C-PageDown> <C-w>wl<CR>
 imap jj <Esc><Esc>
 map <C-PageUp> <C-w>wh<CR>
-map <C-PageDown> <C-w>wl<CR>
 map <D-/> <C-_><C-_>
 map Y y$
 map <S-w> <ESC>:q!<CR>
@@ -561,12 +475,12 @@ endfunction
 
 augroup END
 
-
 fun! QuitPrompt()
       let choice = confirm("Close?", "&yes\n&no", 1)
       if choice == 1 | wq | endif
 endfun
 ]])
+-- End of old vimrc
 
 
 -- Return cursor to where it was last time closing the file
@@ -575,53 +489,3 @@ vim.api.nvim_create_autocmd({'BufWinEnter'}, {
   command = 'silent! normal! g`"zv',
 })
 
--- ################
--- NvimTree Settings
--- ################
-
--- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
--- optionally enable 24-bit colour
-vim.opt.termguicolors = true
-require("nvim-tree").setup({
-  sort = {
-    sorter = "case_sensitive",
-  },
-  view = {
-    width = 35,
-  },
-  renderer = {
-    icons = {
-      glyphs = {
-        default = "",
-        folder = {
-          arrow_open = "V",
-          arrow_closed = ">",
-          default = "",
-          open = "",
-          symlink = "S",
-          empty = "E",
-          empty_open = "EO",
-          symlink_open = "SO",
-        },
-      }
-    }
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
-
-vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
-
--- close nvim-tree when it's the last window
-vim.api.nvim_create_autocmd("BufEnter", {
-  nested = true,
-  callback = function()
-    if #vim.api.nvim_list_wins() == 1 and require("nvim-tree.utils").is_nvim_tree_buf() then
-      vim.cmd "quit"
-    end
-  end
-})

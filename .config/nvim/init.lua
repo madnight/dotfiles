@@ -220,6 +220,7 @@ vim.o.cmdheight = 0
 vim.o.list = true
 vim.o.listchars = 'tab:»-'
 vim.o.tabstop = 4
+vim.o.nocompatible = true
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.list = true
@@ -235,28 +236,15 @@ vim.bo.tabstop = 4
 vim.bo.smartindent = true
 vim.bo.softtabstop = 4
 vim.bo.matchpairs = vim.bo.matchpairs .. ',<:>'
-vim.g.loaded_matchparen = false
-vim.api.nvim_set_keymap('n', '<F11>', '<PasteToggle>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<F11>', '<paste>', { noremap = true })
--- Set mapleader to comma
 vim.g.mapleader = ","
-vim.cmd('set diffopt+=context:99999') -- Appending to a Vim option
+vim.g.loaded_matchparen = false
+
+vim.cmd('set diffopt+=context:99999')
 vim.cmd("filetype plugin on")
--- Enable syntax highlighting
 vim.cmd("syntax on")
 vim.cmd("set incsearch")
--- Disable compatibility mode
-if vim.o.compatible then
-    vim.o.nocompatible = true
-end
-
 vim.cmd('highlight OverLength ctermbg=black ctermfg=red')
 vim.cmd('match OverLength /\\%81v.\\+/')
-
-vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
-
--- fix some typos
 vim.cmd('colorscheme hybrid')
 vim.cmd('syntax sync minlines=200')
 vim.cmd('syntax on')
@@ -314,6 +302,9 @@ vim.api.nvim_set_keymap('n', '<C-X>', ':bd<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-l>', ':bnext<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-h>', ':bprevious<CR>', {})
 vim.api.nvim_set_keymap('n', '<Leader>gb', ':Git blame<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
+
 
 vim.api.nvim_create_user_command('WQ', 'wq', {})
 vim.api.nvim_create_user_command('Wq', 'wq', {})
@@ -330,7 +321,6 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
-
 
 vim.cmd([[
 vnoremap <Leader>e :ChatGPTEditWithInstructions<cr>

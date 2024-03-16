@@ -12,7 +12,7 @@
 
 # terminal emulator
 super + Return
-    zsh -c "uxterm"
+    zsh -c "alacritty"
 
 # make sxhkd reload its configuration files:
 super + Escape

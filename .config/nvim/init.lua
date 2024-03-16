@@ -199,9 +199,9 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
--- ###################
+--  ##################
 --  Basic vim settings
--- "###################
+-- "##################
 vim.o.background = 'dark'
 vim.o.backspace = 'indent,eol,start'
 vim.o.clipboard = 'unnamedplus'
@@ -289,6 +289,9 @@ end
 vim.cmd('highlight OverLength ctermbg=black ctermfg=red')
 vim.cmd('match OverLength /\\%81v.\\+/')
 
+vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
+
 -- fix some typos
 vim.api.nvim_create_user_command('WQ', 'wq', {})
 vim.api.nvim_create_user_command('Wq', 'wq', {})
@@ -297,16 +300,12 @@ vim.api.nvim_create_user_command('W', 'w', {})
 vim.api.nvim_create_user_command('Q', 'q', {})
 
 vim.cmd('colorscheme hybrid')
--- syntax sync minlines=200
 vim.cmd('syntax sync minlines=200')
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 vim.cmd('hi clear CursorLine')
 vim.cmd('hi clear SpellBad')
 
-
--- imap jj <Esc>
--- map <C-s> <ESC>:w<CR>
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<C-s>', '<ESC>:w<CR>', {noremap = true})
 
@@ -371,12 +370,16 @@ vim.api.nvim_set_keymap('n', '<Leader>q', ':q<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>wq', ':wq<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>bd', ':bd<cr>', {})
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {})
-vim.api.nvim_set_keymap('n', '<silent> <Leader>n', ':NvimTreeToggle<CR>', {silent = true})
+
+
+vim.keymap.set('n', '<Leader>n', function() vim.cmd(':NvimTreeToggle') end, { noremap = true })
+vim.keymap.set('n', '<c-up>', function() vim.cmd(':call SwapUp()') end, { noremap = true })
+vim.keymap.set('n', '<c-down>', function() vim.cmd(':call SwapDown()') end, { noremap = true })
+
+
 vim.api.nvim_set_keymap('n', '<C-L>', ':nohl<CR><C-L>', {})
 vim.api.nvim_set_keymap('n', ',i', 'i_<Esc>r', {})
 vim.api.nvim_set_keymap('n', '<C-X>', ':bd<CR>', {})
-vim.api.nvim_set_keymap('n', '<silent> <c-up>', ':call SwapUp()<CR>', {silent = true})
-vim.api.nvim_set_keymap('n', '<silent> <c-down>', ':call SwapDown()<CR>', {silent = true})
 vim.api.nvim_set_keymap('n', '<C-l>', ':bnext<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-h>', ':bprevious<CR>', {})
 vim.api.nvim_set_keymap('n', '<Leader>gb', ':Git blame<cr>', {})
@@ -475,24 +478,7 @@ set grepprg=rg\ --vimgrep
 let g:tmux_navigator_no_mappings = 1
 let g:winresizer_horiz_resize = 1
 let g:vim_markdown_preview_github=1
-"let g:rg_command = '
-"  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-"  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-"j \ -g "!{.git,node_modules,vendor}/*" '
-"command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
-"command! -bang -nargs=* Rg
-"  \ call fzf#vim#grep(
-"  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-"  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-"  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-"   \   <bang>0)
-"" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-"command! -bang -nargs=* Rg
-"  \ call fzf#vim#grep(
-"  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-"  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-"  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-"  \   <bang>0)
+
 " -------
 " Keymaps
 " -------

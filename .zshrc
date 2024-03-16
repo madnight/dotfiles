@@ -156,9 +156,14 @@ if (( $ZSHRC_PERF > 0.2)); then
 fi
 
 # interpret incoming ^H as backspace/erase
-stty erase \^H
-stty erase ""
-bindkey '\C-?' backward-kill-word
+#stty erase \^H
+#stty erase ""
+#bindkey '\C-?' backward-kill-word
+
+# this works in alacritty
+if [[ $TERM == "screen-256color" ]]; then
+    bindkey '^H' backward-kill-word
+fi
 
 xset r rate 600 60
 

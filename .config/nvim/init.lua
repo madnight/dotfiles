@@ -235,6 +235,7 @@ vim.bo.tabstop = 4
 vim.bo.smartindent = true
 vim.bo.softtabstop = 4
 vim.bo.matchpairs = vim.bo.matchpairs .. ',<:>'
+vim.g.loaded_matchparen = false
 vim.api.nvim_set_keymap('n', '<F11>', '<PasteToggle>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<F11>', '<paste>', { noremap = true })
 -- Set mapleader to comma
@@ -256,33 +257,21 @@ vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = tru
 vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
 
 -- fix some typos
-vim.api.nvim_create_user_command('WQ', 'wq', {})
-vim.api.nvim_create_user_command('Wq', 'wq', {})
-vim.api.nvim_create_user_command('Wqa', 'wqa', {})
-vim.api.nvim_create_user_command('W', 'w', {})
-vim.api.nvim_create_user_command('Q', 'q', {})
-
 vim.cmd('colorscheme hybrid')
 vim.cmd('syntax sync minlines=200')
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 vim.cmd('hi clear CursorLine')
 vim.cmd('hi clear SpellBad')
-
-vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-s>', '<ESC>:w<CR>', {noremap = true})
+vim.cmd('autocmd VimEnter * nnoremap <Leader>cn :cnext<CR>')
+vim.cmd('highlight LineNr ctermfg=DarkGrey')
+vim.cmd('hi clear CursorLine')
+vim.cmd('hi clear SpellBad')
+vim.cmd('hi SpellBad cterm=underline ctermfg=red')
+vim.cmd('hi LineNr guibg=#1D1F21')
 
 -- Lua equivalent for Vim's autocmd
 vim.api.nvim_create_augroup('plugin_initialize', {})
-vim.api.nvim_create_autocmd('VimEnter', {
-    pattern = '*',
-    callback = function()
-        if vim.fn.exists(':NoMatchParen') == 2 then  -- Verify that the command exists
-            vim.cmd('NoMatchParen')
-        end
-    end,
-    group = 'plugin_initialize',
-})
 
 require'nvim-tmux-navigation'.setup {
     disable_when_zoomed = true,
@@ -296,11 +285,14 @@ require'nvim-tmux-navigation'.setup {
         }
 }
 
+
 vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
 vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-e" })
 vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-b" })
+vim.keymap.set('n', '<Leader>n', function() vim.cmd(':NvimTreeToggle') end, { noremap = true })
 
-vim.cmd('autocmd VimEnter * nnoremap <Leader>cn :cnext<CR>')
+vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-s>', '<ESC>:w<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<Leader>cp', ':cprev<CR>', {})
 vim.api.nvim_set_keymap('n', '<ESC>n', ':cnext<CR>', {})
 vim.api.nvim_set_keymap('n', '<ESC>p', ':cprev<CR>', {})
@@ -316,9 +308,6 @@ vim.api.nvim_set_keymap('n', '<Leader>q', ':q<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>wq', ':wq<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>bd', ':bd<cr>', {})
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {})
-
-vim.keymap.set('n', '<Leader>n', function() vim.cmd(':NvimTreeToggle') end, { noremap = true })
-
 vim.api.nvim_set_keymap('n', '<C-L>', ':nohl<CR><C-L>', {})
 vim.api.nvim_set_keymap('n', ',i', 'i_<Esc>r', {})
 vim.api.nvim_set_keymap('n', '<C-X>', ':bd<CR>', {})
@@ -326,11 +315,11 @@ vim.api.nvim_set_keymap('n', '<C-l>', ':bnext<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-h>', ':bprevious<CR>', {})
 vim.api.nvim_set_keymap('n', '<Leader>gb', ':Git blame<cr>', {})
 
-vim.cmd('highlight LineNr ctermfg=DarkGrey')
-vim.cmd('hi clear CursorLine')
-vim.cmd('hi clear SpellBad')
-vim.cmd('hi SpellBad cterm=underline ctermfg=red')
-vim.cmd('hi LineNr guibg=#1D1F21')
+vim.api.nvim_create_user_command('WQ', 'wq', {})
+vim.api.nvim_create_user_command('Wq', 'wq', {})
+vim.api.nvim_create_user_command('Wqa', 'wqa', {})
+vim.api.nvim_create_user_command('W', 'w', {})
+vim.api.nvim_create_user_command('Q', 'q', {})
 
 
 -- TreeSitter Allows Highlighting + Commenting for multiple languages in one File
@@ -345,15 +334,6 @@ require'nvim-treesitter.configs'.setup {
 
 vim.cmd([[
 vnoremap <Leader>e :ChatGPTEditWithInstructions<cr>
-
-function! s:Highlight_Matching_Pair()
-endfunction
-
-function! s:FindMatchingPair()
-endfunction
-
-function! s:Find_Matching_Pair()
-endfunction
 
 " show trailing whitespace
 highlight ExtraWhitespace ctermbg=darkred guibg=darkred
@@ -426,6 +406,7 @@ cnoremap <silent> wq<cr> call QuitPrompt()<cr>
 inoremap jk <ESC>
 " Ctrl+Delete to delete a word
 inoremap <C-?> <C-W>
+imap <C-H> <C-W>
 silent inoremap <silent> <Tab> <C-n>
 silent inoremap <silent> <S-Tab> <C-p>
 vmap ^ $
@@ -461,7 +442,6 @@ augroup vimrc_autocmd
     au VimLeave * :call MakeSession()
   endif
 
-
 function! Profile()
   :profile start profile.log
   :profile func *
@@ -482,10 +462,8 @@ endfun
 ]])
 -- End of old vimrc
 
-
 -- Return cursor to where it was last time closing the file
 vim.api.nvim_create_autocmd({'BufWinEnter'}, {
   pattern = '*',
   command = 'silent! normal! g`"zv',
 })
-

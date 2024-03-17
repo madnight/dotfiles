@@ -237,6 +237,7 @@ vim.bo.matchpairs = vim.bo.matchpairs .. ',<:>'
 vim.g.mapleader = ","
 vim.g.loaded_matchparen = false
 
+-- Set the colorscheme and syntax highlighting
 vim.cmd('set diffopt+=context:99999')
 vim.cmd("filetype plugin on")
 vim.cmd("syntax on")
@@ -255,10 +256,10 @@ vim.cmd('hi clear CursorLine')
 vim.cmd('hi clear SpellBad')
 vim.cmd('hi SpellBad cterm=underline ctermfg=red')
 vim.cmd('hi LineNr guibg=#1D1F21')
+vim.cmd('highlight ExtraWhitespace ctermbg=darkred guibg=darkred')
 
 -- Lua equivalent for Vim's autocmd
 vim.api.nvim_create_augroup('plugin_initialize', {})
-
 require'nvim-tmux-navigation'.setup {
     disable_when_zoomed = true,
     keybindings = {
@@ -271,31 +272,51 @@ require'nvim-tmux-navigation'.setup {
         }
 }
 
+
+-- -------
+-- Keymaps
+-- -------
 for _, key in ipairs{"w", "e", "b"} do
   vim.keymap.set({"n", "o", "x"}, key, string.format("<cmd>lua require('spider').motion('%s')<CR>", key))
 end
 
 vim.keymap.set('n', '<Leader>n', function() vim.cmd(':NvimTreeToggle') end, { noremap = true })
-
-vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<C-s>', '<ESC>:w<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>cp', ':cprev<CR>', {})
-vim.api.nvim_set_keymap('n', '<ESC>n', ':cnext<CR>', {})
-vim.api.nvim_set_keymap('n', '<ESC>p', ':cprev<CR>', {})
-vim.api.nvim_set_keymap('n', '<C-p>', ':Files<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>rg', ':Rg<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>vs', ':vsplit<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>hs', ':split<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>bd', ':bd<cr>', {})
-vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {})
-vim.api.nvim_set_keymap('n', '<C-L>', ':nohl<CR><C-L>', {})
-vim.api.nvim_set_keymap('n', '<C-l>', ':bnext<CR>', {})
-vim.api.nvim_set_keymap('n', '<C-h>', ':bprevious<CR>', {})
-vim.api.nvim_set_keymap('n', '<Leader>gb', ':Git blame<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<Leader>q', ':q<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>wq', ':wq<cr>', {})
+vim.keymap.set('i', 'jj', '<Esc>', {noremap = true})
+vim.keymap.set('n', '<C-s>', '<ESC>:w<CR>', {noremap = true})
+vim.keymap.set('n', '<Leader>cp', ':cprev<CR>', {})
+vim.keymap.set('n', '<ESC>n', ':cnext<CR>', {})
+vim.keymap.set('n', '<ESC>p', ':cprev<CR>', {})
+vim.keymap.set('n', '<C-p>', ':Files<cr>', {})
+vim.keymap.set('n', '<Leader>rg', ':Rg<cr>', {})
+vim.keymap.set('n', '<Leader>vs', ':vsplit<cr>', {})
+vim.keymap.set('n', '<Leader>hs', ':split<cr>', {})
+vim.keymap.set('n', '<Leader>bd', ':bd<cr>', {})
+vim.keymap.set('n', '<C-j>', '<C-w>j', {})
+vim.keymap.set('n', '<C-L>', ':nohl<CR><C-L>', {})
+vim.keymap.set('n', '<C-l>', ':bnext<CR>', {})
+vim.keymap.set('n', '<C-h>', ':bprevious<CR>', {})
+vim.keymap.set('n', '<Leader>gb', ':Git blame<cr>', {})
+vim.keymap.set('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Leader>q', ':q<cr>', {})
+vim.keymap.set('n', '<Leader>wq', ':wq<cr>', {})
+vim.keymap.set('n', '<Leader>e', ':ChatGPTEditWithInstructions<cr>', { noremap = true })
+vim.keymap.set('n', '<C-f>', ':Rg<cr>', {})
+vim.keymap.set('n', '<S-w>', ':bd<CR>', {})
+vim.keymap.set('n', '<C-j>', '4j', {})
+vim.keymap.set('n', '<C-k>', '4k', {})
+vim.keymap.set('n', 'o', 'o<ESC>', {})
+vim.keymap.set('n', '<C-Down>', ':m .+1<CR>==', { noremap = true })
+vim.keymap.set('n', '<C-Up>', ':m .-2<CR>==', { noremap = true })
+vim.keymap.set('i', 'jj', '<Esc><Esc>', {})
+vim.keymap.set('', '<S-w>', '<ESC>:q!<CR>', {})
+vim.keymap.set('', '<F5>', ':setlocal spell! spelllang=de_de,en_us<CR>', {})
+vim.keymap.set('', '<C-s>', '<ESC>:w<CR>', {})
+vim.keymap.set('c', '<Leader>q<cr>', 'call QuitPrompt()<cr>', { silent = true, noremap = true })
+vim.keymap.set('c', '<Leader>wq<cr>', 'call QuitPrompt()<cr>', { silent = true, noremap = true })
+vim.keymap.set('i', 'jk', '<ESC>', {})
+vim.keymap.set('i', '<C-?>', '<C-W>', {})
+vim.keymap.set('i', '<C-H>', '<C-W>', {})
 
 vim.api.nvim_create_user_command('WQ', 'wq', {})
 vim.api.nvim_create_user_command('Wq', 'wq', {})
@@ -303,86 +324,80 @@ vim.api.nvim_create_user_command('Wqa', 'wqa', {})
 vim.api.nvim_create_user_command('W', 'w', {})
 vim.api.nvim_create_user_command('Q', 'q', {})
 
-vim.cmd([[
-vnoremap <Leader>e :ChatGPTEditWithInstructions<cr>
+-- --------------------
+-- Plugin Configuration
+-- --------------------
+vim.g.tmux_resizer_no_mappings = 1
+-- Async Lint Engine settings
+vim.g.ale_lint_on_text_changed = 0
+vim.g.ale_sign_error = '>>'
+vim.g.ale_sign_column_always = 0
+vim.g.ale_sign_warning = '--'
+vim.g.ale_echo_msg_error_str = 'E'
+vim.g.ale_echo_msg_warning_str = 'W'
+vim.g.ale_echo_msg_format = '[%linter%] %s [%severity%]'
+-- Write this in your vimrc file
+vim.g.ale_lint_on_text_changed = 'never'
+vim.g.ale_lint_on_insert_leave = 0
+vim.g.ale_python_flake8_options = '--max-line-length=120'
+-- if you don't want linters to run on opening a file
+vim.g.ale_lint_on_enter = 0
+vim.g.vim_json_syntax_conceal = 0
+vim.g.prettier_quickfix_enabled = 0
+-- Silent Rooter otherwise it will echo the directory change
+vim.g.rooter_silent_chdir = 1
+-- custom tmux navigator key maps
+vim.g.tmux_navigator_no_mappings = 1
+vim.g.vim_tags_auto_generate = 1
+vim.g.prettier_autoformat = 0
+vim.g.prettier_config_tab_width = 4
+vim.g.prettier_config_use_tabs = 'false'
+-- lilydjwg/colorizer is inefficient for large files
+vim.g.colorizer_maxlines = 200
+vim.g.tmux_navigator_no_mappings = 1
 
-" show trailing whitespace
-highlight ExtraWhitespace ctermbg=darkred guibg=darkred
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
+-- ----------------
+-- Helper Functions
+-- ----------------
+function Profile()
+  vim.cmd('profile start profile.log')
+  vim.cmd('profile func *')
+  vim.cmd('profile file *')
+end
 
-" --------------------
-" Plugin Configuration
-" --------------------
-let g:tmux_resizer_no_mappings = 1
-" Async Lint Engine settings
-let g:ale_lint_on_text_changed = 0
-let g:ale_sign_error = '>>'
-let g:ale_sign_column_always = 0
-let g:ale_sign_warning = '--'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" Write this in your vimrc file
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_python_flake8_options = '--max-line-length=120'
-" if you don't want linters to run on opening a file
-let g:ale_lint_on_enter = 0
-let g:vim_json_syntax_conceal = 0
-let g:prettier#quickfix_enabled = 0
-" Silent Rooter otherwise it will echo the directory change
-let g:rooter_silent_chdir = 1
-" custom tmux navigator key maps
-let g:tmux_navigator_no_mappings = 1
-let g:vim_tags_auto_generate = 1
-let g:prettier#autoformat = 0
-let g:prettier#config#tab_width = 4
-let g:prettier#config#use_tabs = 'false'
-" lilydjwg/colorizer is inefficient for large files
-let g:colorizer_maxlines = 200
-let g:tmux_navigator_no_mappings = 1
+function StopProfile()
+  vim.cmd('profile pause')
+  vim.cmd('noautocmd qall!')
+end
 
-" -------
-" Keymaps
-" -------
-nmap <C-f> :Rg<cr>
-nmap <S-w> :bd<CR>
-" Jump faster
-nmap <C-j> 4j
-nmap <C-k> 4k
-nmap o o<ESC>
-nnoremap <C-Down> :m .+1<CR>==
-nnoremap <C-Up> :m .-2<CR>==
-imap jj <Esc><Esc>
-map <S-w> <ESC>:q!<CR>
-map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
-map <C-s> <ESC>:w<CR>
-cnoremap <silent> <Leader>q<cr>  call QuitPrompt()<cr>
-cnoremap <silent> <Leader>wq<cr> call QuitPrompt()<cr>
-inoremap jk <ESC>
-" Ctrl+Delete to delete a word
-inoremap <C-?> <C-W>
-imap <C-H> <C-W>
+local function QuitPrompt()
+  if vim.fn.confirm("Close?", "&yes\n&no", 1) == 1 then
+    vim.cmd('wq')
+  end
+end
 
-function! Profile()
-  :profile start profile.log
-  :profile func *
-  :profile file *
-endfunction
+-- ---------
+-- Autocmds
+-- ---------
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*",
+  command = "match ExtraWhitespace /\\s\\+$/"
+})
 
-function! StopProfile()
-  :profile pause
-  :noautocmd qall!
-endfunction
+vim.api.nvim_create_autocmd("InsertEnter", {
+  pattern = "*",
+  command = "match ExtraWhitespace /\\s\\+\\%#\\@<!$/"
+})
 
-fun! QuitPrompt()
-    if confirm("Close?", "&yes\n&no", 1) == 1 | wq | endif
-endfun
-]])
--- End of old vimrc
+vim.api.nvim_create_autocmd("InsertLeave", {
+  pattern = "*",
+  command = "match ExtraWhitespace /\\s\\+$/"
+})
+
+vim.api.nvim_create_autocmd("BufWinLeave", {
+  pattern = "*",
+  command = "call clearmatches()"
+})
 
 -- Return cursor to where it was last time closing the file
 vim.api.nvim_create_autocmd({'BufWinEnter'}, {

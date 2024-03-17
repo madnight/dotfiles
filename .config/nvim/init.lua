@@ -177,11 +177,9 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.o.background = 'dark'
 vim.o.backspace = 'indent,eol,start'
 vim.o.clipboard = 'unnamedplus'
-vim.o.cmdheight = 1
 vim.o.colorcolumn = '80'
 vim.o.complete = '.,w,b,u,t'
 vim.o.confirm = true
-vim.o.cursorline = true
 vim.o.encoding = 'utf-8'
 vim.o.expandtab = true
 vim.o.grepprg = 'rg --color never --line-number --no-heading'
@@ -193,13 +191,10 @@ vim.o.laststatus = 2
 vim.o.linebreak = true
 vim.o.magic = true
 vim.o.matchtime = 2
-vim.o.mouse = 'a'
 vim.o.mousemodel = 'popup'
 vim.o.nobackup = true
 vim.o.mouse = 'v'
-vim.o.nocompatible = true
 vim.o.nocursorcolumn = true
-vim.o.nocursorline = true
 vim.o.nofoldenable = true
 vim.o.nolazyredraw = true
 vim.o.noruler = true
@@ -227,15 +222,9 @@ vim.o.smartcase = true
 vim.o.title = true
 vim.o.cmdheight = 0
 vim.o.list = true
-vim.o.listchars = 'tab:»-'
 vim.o.tabstop = 4
-vim.o.nocompatible = true
-vim.wo.number = true
 vim.wo.relativenumber = true
-vim.wo.list = true
 vim.wo.listchars = 'tab:»-,trail:·,extends:»,precedes:«'
-vim.wo.cursorline = false
-vim.wo.wrap = true
 vim.wo.scrolloff = 2
 vim.wo.numberwidth = 1
 vim.bo.fileformat = 'unix'
@@ -282,9 +271,10 @@ require'nvim-tmux-navigation'.setup {
         }
 }
 
-vim.keymap.set({ "n", "o", "x" }, "w", "<cmd>lua require('spider').motion('w')<CR>", { desc = "Spider-w" })
-vim.keymap.set({ "n", "o", "x" }, "e", "<cmd>lua require('spider').motion('e')<CR>", { desc = "Spider-e" })
-vim.keymap.set({ "n", "o", "x" }, "b", "<cmd>lua require('spider').motion('b')<CR>", { desc = "Spider-b" })
+for _, key in ipairs{"w", "e", "b"} do
+  vim.keymap.set({"n", "o", "x"}, key, string.format("<cmd>lua require('spider').motion('%s')<CR>", key))
+end
+
 vim.keymap.set('n', '<Leader>n', function() vim.cmd(':NvimTreeToggle') end, { noremap = true })
 
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true})
@@ -292,26 +282,20 @@ vim.api.nvim_set_keymap('n', '<C-s>', '<ESC>:w<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<Leader>cp', ':cprev<CR>', {})
 vim.api.nvim_set_keymap('n', '<ESC>n', ':cnext<CR>', {})
 vim.api.nvim_set_keymap('n', '<ESC>p', ':cprev<CR>', {})
-vim.api.nvim_set_keymap('n', '<leader><Up>', 'ddkP', {})
-vim.api.nvim_set_keymap('n', '<leader><Down>', 'ddp', {})
 vim.api.nvim_set_keymap('n', '<C-p>', ':Files<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>lb', ':e#<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>rg', ':Rg<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>vs', ':vsplit<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>hs', ':split<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>l', ':b#<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>q', ':q<cr>', {})
-vim.api.nvim_set_keymap('n', '<Leader>wq', ':wq<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>bd', ':bd<cr>', {})
 vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', {})
 vim.api.nvim_set_keymap('n', '<C-L>', ':nohl<CR><C-L>', {})
-vim.api.nvim_set_keymap('n', ',i', 'i_<Esc>r', {})
-vim.api.nvim_set_keymap('n', '<C-X>', ':bd<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-l>', ':bnext<CR>', {})
 vim.api.nvim_set_keymap('n', '<C-h>', ':bprevious<CR>', {})
 vim.api.nvim_set_keymap('n', '<Leader>gb', ':Git blame<cr>', {})
 vim.api.nvim_set_keymap('n', '<Leader>n', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<Leader>nf', ':NvimTreeFindFile<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>q', ':q<cr>', {})
+vim.api.nvim_set_keymap('n', '<Leader>wq', ':wq<cr>', {})
 
 vim.api.nvim_create_user_command('WQ', 'wq', {})
 vim.api.nvim_create_user_command('Wq', 'wq', {})
@@ -329,7 +313,6 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-
 " --------------------
 " Plugin Configuration
 " --------------------
@@ -346,7 +329,6 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_python_flake8_options = '--max-line-length=120'
-" You can disable this option too
 " if you don't want linters to run on opening a file
 let g:ale_lint_on_enter = 0
 let g:vim_json_syntax_conceal = 0
@@ -367,36 +349,23 @@ let g:tmux_navigator_no_mappings = 1
 " Keymaps
 " -------
 nmap <C-f> :Rg<cr>
-nmap <S-k> <C-w>wl<CR>
 nmap <S-w> :bd<CR>
 " Jump faster
 nmap <C-j> 4j
 nmap <C-k> 4k
-nmap <M-l> <C-w>l
 nmap o o<ESC>
-nmap ^ $
-nmap zz ZZ
 nnoremap <C-Down> :m .+1<CR>==
 nnoremap <C-Up> :m .-2<CR>==
-map <C-PageDown> <C-w>wl<CR>
 imap jj <Esc><Esc>
-map <C-PageUp> <C-w>wh<CR>
-map <D-/> <C-_><C-_>
-map Y y$
 map <S-w> <ESC>:q!<CR>
-map <F2> ]s
-map <F4> z=
 map <F5> :setlocal spell! spelllang=de_de,en_us<CR>
 map <C-s> <ESC>:w<CR>
-cnoremap <silent> q<cr>  call QuitPrompt()<cr>
-cnoremap <silent> wq<cr> call QuitPrompt()<cr>
+cnoremap <silent> <Leader>q<cr>  call QuitPrompt()<cr>
+cnoremap <silent> <Leader>wq<cr> call QuitPrompt()<cr>
 inoremap jk <ESC>
 " Ctrl+Delete to delete a word
 inoremap <C-?> <C-W>
 imap <C-H> <C-W>
-silent inoremap <silent> <Tab> <C-n>
-silent inoremap <silent> <S-Tab> <C-p>
-vmap ^ $
 
 function! Profile()
   :profile start profile.log
@@ -410,8 +379,7 @@ function! StopProfile()
 endfunction
 
 fun! QuitPrompt()
-      let choice = confirm("Close?", "&yes\n&no", 1)
-      if choice == 1 | wq | endif
+    if confirm("Close?", "&yes\n&no", 1) == 1 | wq | endif
 endfun
 ]])
 -- End of old vimrc

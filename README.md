@@ -6,7 +6,7 @@
 | ------------- |:-------------:|-------------|
 | Shell | [zsh](https://wiki.archlinux.org/index.php/zsh) | with [powerlevel10k](https://github.com/romkatv/powerlevel10k)
 | Window Manager | [bspwm](https://wiki.archlinux.org/index.php/bspwm) | [i3-gaps](https://github.com/Airblader/i3) also configured
-| Terminal      | [alacritty](https://wiki.archlinux.org/title/Alacritty) | it's the second [fastest](https://beuke.org/terminal-latency/) just behind xxterm;
+| Terminal      | [alacritty](https://wiki.archlinux.org/title/Alacritty) | it's the second [fastest](https://beuke.org/terminal-latency/) just behind xterm;
 | Multiplexer | [tmux](https://wiki.archlinux.org/index.php/tmux) | [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) for persistent sessions
 | Editor      | [neovim](https://wiki.archlinux.org/index.php/neovim) | plus many [plugins](https://github.com/madnight/dotfiles/blob/48ead655c2c915027543b0e709b162b0eb0ab072/.config/nvim/init.lua#L3)
 | Status Bar | [polybar](https://github.com/jaagr/polybar) | used [dzen2](https://wiki.archlinux.org/index.php/Dzen) before

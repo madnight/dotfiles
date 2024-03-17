@@ -4,20 +4,18 @@
 
 | Software | Choice | Note
 | ------------- |:-------------:|-------------|
-| Shell | [zsh](https://wiki.archlinux.org/index.php/zsh) | with extensive git [prompt](https://github.com/starcraftman/zsh-git-prompt)
-| Window Manager | [bspwm](https://wiki.archlinux.org/index.php/bspwm) | [xmonad](https://github.com/xmonad/xmonad) and [i3-gaps](https://github.com/Airblader/i3) also configured
-| Terminal      | [(u)xterm](https://wiki.archlinux.org/index.php/Xterm) | it's the [fastest](https://lwn.net/Articles/751763/); [urxvt](https://wiki.archlinux.org/index.php/Rxvt-unicode) also configured
+| Shell | [zsh](https://wiki.archlinux.org/index.php/zsh) | with [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+| Window Manager | [bspwm](https://wiki.archlinux.org/index.php/bspwm) | [i3-gaps](https://github.com/Airblader/i3) also configured
+| Terminal      | [alacritty](https://wiki.archlinux.org/title/Alacritty) | it's the second [fastest](https://beuke.org/terminal-latency/) just behind xxterm;
 | Multiplexer | [tmux](https://wiki.archlinux.org/index.php/tmux) | [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) for persistent sessions
-| Editor      | [vim](https://wiki.archlinux.org/index.php/vim) | plus many [lazy](https://github.com/junegunn/vim-plug#on-demand-loading-of-plugins) loaded [plugins](https://github.com/madnight/dotfiles/blob/master/vim/plugins.vim)
+| Editor      | [neovim](https://wiki.archlinux.org/index.php/neovim) | plus many [plugins](https://github.com/madnight/dotfiles/blob/48ead655c2c915027543b0e709b162b0eb0ab072/.config/nvim/init.lua#L3)
 | Status Bar | [polybar](https://github.com/jaagr/polybar) | used [dzen2](https://wiki.archlinux.org/index.php/Dzen) before
 | Notifications | [dunst](https://wiki.archlinux.org/title/Dunst) | lightweight notification-daemon plus [cli](https://wiki.archlinux.org/title/Dunst#Shortcuts)
 | Launcher | [rofi](https://wiki.archlinux.org/index.php/rofi) | [dmenu](https://wiki.archlinux.org/index.php/dmenu) replacement
 | Hotkeys | [sxhkd](https://wiki.archlinux.org/title/Sxhkd) | X hotkey daemon from the [author of bspwm](https://github.com/baskerville)
 | Browser | [chromium](https://wiki.archlinux.org/index.php/chromium) | [firefox](https://wiki.archlinux.org/index.php/Firefox) as alternative; with vim [plugin](https://github.com/1995eaton/chromium-vim)
 | Chat | [weechat](https://wiki.archlinux.org/index.php/Weechat) | plus [weeslack](https://github.com/wee-slack/wee-slack) plugin
-| E-Mail | [thunderbird](https://wiki.archlinux.org/index.php/thunderbird) | [mutt](https://wiki.archlinux.org/index.php/Mutt) as ncurses alternative
 | PDF | [zathura](https://wiki.archlinux.org/title/zathura) | with [vi-styled](https://hleb.dev/post/zathura/) keybindings
-| Compositor | [compton](https://wiki.archlinux.org/index.php/compton) | avoid screen tearing [issues](https://www.reddit.com/r/archlinux/comments/7yhuy3/screen_tearing_issue_in_arch_linux/)
 | Video/Music | [vlc](https://wiki.archlinux.org/index.php/VLC_media_player) | [mplayer](https://wiki.archlinux.org/index.php/MPlayer) as alternative
 | File Manager | [ranger](https://github.com/ranger/ranger) | console file manager with vi key [bindings](https://ranger.github.io/ranger.1.html#KEY-BINDINGS)
 | File Finder | [fzf + ripgrep](https://medium.com/@crashybang/supercharge-vim-with-fzf-and-ripgrep-d4661fc853d2) | [ripgrep](https://github.com/BurntSushi/ripgrep) is the fastest grep

@@ -1,2 +1,0 @@
-START_HD_IDLE=true
-HD_IDLE_OPTS="-i 1 -a sda -i 300 -l /var/log/hd-idle.log"

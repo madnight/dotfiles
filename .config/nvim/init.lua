@@ -56,6 +56,9 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 -- A Vim plugin for the Coq proof assistant, providing IDE-like features.
 Plug 'dense-analysis/ale'
 
+-- Colorize hex/rgb/hsl/css colors in vim, super fast
+Plug 'NvChad/nvim-colorizer.lua'
+
 -- ChatGPT Integration
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -67,6 +70,8 @@ Plug 'jackmort/chatgpt.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 
 vim.call('plug#end')
+
+require 'colorizer'.setup()
 
 require('lualine').setup {
   options = { theme  = 'modus-vivendi',  icons_enabled = false, },
@@ -167,7 +172,7 @@ require("ibl").setup { enabled = false }
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "python",
     callback = function()
-        require("ibl").setup_buffer(0, { indent = { highlight = highlight, char = "|" }, enabled = true  })
+        require("ibl").setup_buffer(0, { indent = { highlight = highlight, char = "|" }, enabled = true,  scope = { enabled = false },  })
     end,
 })
 
